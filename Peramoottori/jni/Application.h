@@ -53,6 +53,13 @@ public:
 	*/
 	static bool Update(android_poll_source* eventSource);
 
+	/// Handles swapping buffers if the display is initialized.
+	/**
+	\param event input event received on java side
+	\return Returns 1 if input is received, 0 if not.
+	*/
+	static void DrawFrame();
+
 private:
 	/// Processes command events.
 	/**
@@ -76,16 +83,9 @@ private:
 	*/
 	static int HandleInput(android_app* application, AInputEvent* event);
 
-	/// Handles swapping buffers if the display is initialized.
-	/**
-		\param event input event received on java side
-		\return Returns 1 if input is received, 0 if not.
-	*/
-	static void DrawFrame();
-
 	static Engine* engine;
 };
 
-Engine* Application::engine; // Static data members need to be defined, in addition to being declared in the class.
+ // Static data members need to be defined, in addition to being declared in the class.
 
 #endif

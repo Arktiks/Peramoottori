@@ -1,4 +1,6 @@
 #include "Application.h"
+Engine* Application::engine;
+
 #include <jni.h>
 #include <errno.h>
 
@@ -40,6 +42,18 @@ bool Application::Update(android_poll_source* eventSource)
 	return true;
 }
 
+void Application::DrawFrame()
+{
+	if(engine->display == EGL_NO_DISPLAY)
+	{
+		return;
+		// No display.
+	}
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	eglSwapBuffers(engine->display, engine->surface);
+}
+
 void Application::ProcessCommand(android_app* application, int command)
 {
 	switch (command)
@@ -53,7 +67,7 @@ void Application::ProcessCommand(android_app* application, int command)
 		break;
 
 	case APP_CMD_INIT_WINDOW:
-		if (engine->app->window != NULL) // The window is being shown, get it ready.
+		if (engine->app->window != nullptr) // The window is being shown, get it ready.
 			InitializeDisplay();
 		break;
 
@@ -64,17 +78,6 @@ void Application::ProcessCommand(android_app* application, int command)
 	default:
 		break;
 	}
-}
-
-void Application::DrawFrame()
-{
-	if (engine->display == EGL_NO_DISPLAY)
-	{
-		// No display.
-	}
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	eglSwapBuffers(engine->display, engine->surface);
 }
 
 void Application::TerminateDisplay()
@@ -125,8 +128,8 @@ int Application::InitializeDisplay()
 	eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format);
 	ANativeWindow_setBuffersGeometry(engine->app->window, 0, 0, format);
 
-	EGLSurface surface = eglCreateWindowSurface(display, config, engine->app->window, NULL);
-	EGLContext context = eglCreateContext(display, config, NULL, attribList);
+	EGLSurface surface = eglCreateWindowSurface(display, config, engine->app->window, nullptr);
+	EGLContext context = eglCreateContext(display, config, nullptr, attribList);
 
 	if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE)
 	{
