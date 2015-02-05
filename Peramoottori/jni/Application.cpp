@@ -47,7 +47,6 @@ bool Application::Update()
 		}
 	}
 
-	DrawFrame();
 	return true;
 }
 
@@ -135,7 +134,7 @@ int Application::InitializeDisplay()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
-	glClearColor(1.0f, 1.0f, 1.0f, 1);
+	glClearColor(1.0f, 0.4f, 1.0f, 1);
 
 	LOGI("Succesfully initialized display.");
 	return 0;
