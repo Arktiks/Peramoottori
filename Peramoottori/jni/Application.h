@@ -10,82 +10,92 @@
 #include <android/asset_manager.h>
 #include <EGL/egl.h>
 
-
-/// Struct that holds application information and can be stored on java side.
-struct Engine
+namespace AApp
 {
-	struct android_app* app;
-	AAssetManager* assetManager;
 
-	EGLDisplay display;
-	EGLSurface surface;
-	EGLContext context;
-
-	float x;
-	float y;
-	int width;
-	int height;
-
-	Engine() : app(nullptr), assetManager(nullptr), display(EGL_NO_DISPLAY),
-	surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), x(0.0f), y(0.0f), width(0), height(0) {};
-};
+	/// Struct that holds application information and can be stored on java side.
 
 
-/// The core application system.
-/**
-	Handles most of the communication with java side.
-*/
-class Application
-{
-public:
-	/// Default Constructor.
-	Application();
 
-	/// Initializing the Application.
+	/// The core application system.
 	/**
-		\param application takes in the android_app
-	*/
-	static void Initialize(android_app* application);
+		Handles most of the communication with java side.
+		*/
+	class Application
+	{
+	public:
+		/// Default Constructor.
+		Application();
 
-	/// The core update loop.
-	/**
-		TODO
-	*/
-	static bool Update(android_poll_source* eventSource);
+		/// Initializing the Application.
+		/**
+			\param application takes in the android_app
+			*/
+		void Initialize(android_app* application);
 
-	/// Handles swapping buffers if the display is initialized.
-	/**
-	\param event input event received on java side
-	\return Returns 1 if input is received, 0 if not.
-	*/
-	static void DrawFrame();
+		/// The core update loop.
+		/**
+			TODO
+			*/
+		bool Update();
 
-private:
-	/// Processes command events.
-	/**
+		/// Handles swapping buffers if the display is initialized.
+		/**
+		\param event input event received on java side
+		\return Returns 1 if input is received, 0 if not.
+		*/
+		void DrawFrame();
+
+		/// Returns Android AssetManager for use outside of this class.
+		/**
+		\return Returns the AAssetManager*
+		*/
+		AAssetManager* GetAssetManager();
+
+		/// Processes command events.
+		/**
 		\param command the command event number
-	*/
-	static void ProcessCommand(android_app* application, int command);
+		*/
+		// void ProcessCommand(android_app* application, int32_t command);
+		struct Engine
+		{
+			struct android_app* app;
+			AAssetManager* assetManager;
+			Application* applicationPointer;
 
-	/// Called when APP_CMD_TERM_WINDOW is received by processCommand.
-	/**
-	*/
-	static void TerminateDisplay();
+			EGLDisplay display;
+			EGLSurface surface;
+			EGLContext context;
 
-	/// Called when APP_CMD_INIT_WINDOW is received by processCommand.
-	/**
-	*/
-	static int InitializeDisplay();
+			float x;
+			float y;
+			int width;
+			int height;
 
-	/// Given to android_app for handling input.
-	/**
-		\return Returns 0 on success, -1 if failed.
-	*/
-	static int HandleInput(android_app* application, AInputEvent* event);
+			Engine() : app(nullptr), assetManager(nullptr), display(EGL_NO_DISPLAY),
+				surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), x(0.0f), y(0.0f), width(0), height(0) {};
+		};
 
-	static Engine* engine;
-};
+		/// Called when APP_CMD_TERM_WINDOW is received by processCommand.
+		/**
+		*/
+		void TerminateDisplay();
 
- // Static data members need to be defined, in addition to being declared in the class.
+		/// Called when APP_CMD_INIT_WINDOW is received by processCommand.
+		/**
+		*/
+		int InitializeDisplay();
+
+		/// Given to android_app for handling input.
+		/**
+			\return Returns 0 on success, -1 if failed.
+			*/
+		//int HandleInput(android_app* application, AInputEvent* event);
+
+		Engine engine;
+	};
+
+	// Static data members need to be defined, in addition to being declared in the class.
+}
 
 #endif
