@@ -33,6 +33,7 @@
     </ClInclude>
     <ClInclude Include="jni\resources\Resources.h" />
     <ClInclude Include="jni\structs\Engine.h" />
+    <ClInclude Include="jni\structs\LoadedImage.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

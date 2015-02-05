@@ -6,6 +6,7 @@
 
 struct Engine
 {
+public:
 	android_app* app;
 	AAssetManager* assetManager;
 
@@ -17,6 +18,10 @@ struct Engine
 	float y;
 	int width;
 	int height;
+
+	Engine() : app(nullptr), assetManager(nullptr),
+		display(EGL_NO_DISPLAY), surface(EGL_NO_SURFACE), context(EGL_NO_DISPLAY),
+		x(0.0f), y(0.0f), width(0), height(0) {};
 };
 
 #endif

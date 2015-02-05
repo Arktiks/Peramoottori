@@ -1,19 +1,14 @@
 #include "Resources.h"
-#include <structs\Engine.h>
-#include <string>
+#include <lodepng.h>
 
-Resources::Resources()
-{
-}
-
-char* FileReader(std::string fileName, Engine* engine)
+char* Resources::TextReader(std::string fileName, Engine* engine)
 {
 	AAssetManager* assetManager = engine->app->activity->assetManager;
 	AAsset* asset = AAssetManager_open(assetManager, fileName.c_str(), AASSET_MODE_UNKNOWN);
 	if (asset)
 	{
 		size_t size = AAsset_getLength(asset);
-		char* buffer = (char*)malloc(sizeof(char)*size + 1);
+		char* buffer = (char*)malloc(sizeof(char) * size + 1);
 		AAsset_read(asset, buffer, size);
 		buffer[size] = '\0';
 		//LOGI("Luettu tiedosto %s (%d).", fileName.c_str(), size);
@@ -24,10 +19,14 @@ char* FileReader(std::string fileName, Engine* engine)
 	else
 	{
 		//LOGW("Tiedoston %s lukeminen ei onnistunut.", fileName.c_str());
-		return NULL;
+		return nullptr;
 	}
 }
 
-Resources::~Resources()
+LoadedImage* Resources::PNGReader(std::string fileName, Engine* engine)
 {
+	//AAssetManager* assetManager = engine->app->activity->assetManager;
+	//AAsset* asset = AAssetManager_open(assetManager, fileName.c_str(), AASSET_MODE_UNKNOWN);
+	//http://www.learnopengles.com/loading-a-png-into-memory-and-displaying-it-as-a-texture-with-opengl-es-2-using-almost-the-same-code-on-ios-android-and-emscripten/
+	// Kokeilla ensin LodePNG saada toimimaan, muuten pit‰‰ ehk‰ lukea bin‰‰rist‰ tai jotain.
 }

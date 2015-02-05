@@ -55,5 +55,8 @@
     <ClInclude Include="jni\resources\Resources.h">
       <Filter>jni\resources</Filter>
     </ClInclude>
+    <ClInclude Include="jni\structs\LoadedImage.h">
+      <Filter>structs</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
