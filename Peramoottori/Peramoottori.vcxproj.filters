@@ -2,13 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="jni">
-      <UniqueIdentifier>cc10e637-13b1-4201-b133-5ebcb03c6365</UniqueIdentifier>
+      <UniqueIdentifier>40a1a67c-fc51-424e-985f-20be6465083f</UniqueIdentifier>
     </Filter>
     <Filter Include="res">
-      <UniqueIdentifier>4df9a78b-6c67-405c-8625-8ec230f7868d</UniqueIdentifier>
+      <UniqueIdentifier>86c36c4e-8156-4c58-9f48-dff7f896a433</UniqueIdentifier>
     </Filter>
     <Filter Include="res\values">
-      <UniqueIdentifier>80fd6975-952d-4014-a69b-0a68ec2e2681</UniqueIdentifier>
+      <UniqueIdentifier>e1fbc059-1aa2-4810-9778-bab805a445eb</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

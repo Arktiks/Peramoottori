@@ -18,24 +18,34 @@
     <AndroidBuild Include="res\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="jni\Application.cpp" />
-    <ClCompile Include="jni\Main.cpp">
+    <ClCompile Include="jni\Application.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\Main.cpp" />
+    <ClCompile Include="libs\android_native_app_glue.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="jni\Application.h" />
+    <ClInclude Include="jni\Application.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="libs\android_native_app_glue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4F455196-5A5D-4681-A06C-0D1360724846}</ProjectGuid>
+    <ProjectGuid>{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}</ProjectGuid>
     <RootNamespace>Peramoottori</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <AndroidTargetAPI>android-16</AndroidTargetAPI>
+    <AndroidMinAPI>android-16</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidTargetAPI>android-16</AndroidTargetAPI>
+    <AndroidMinAPI>android-16</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -46,20 +56,20 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv1_CM</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv2</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv1_CM</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv2</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

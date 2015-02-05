@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Peramoottori", "Peramoottori.vcxproj", "{4F455196-5A5D-4681-A06C-0D1360724846}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Peramoottori", "Peramoottori.vcxproj", "{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Tegra-Android = Release|Tegra-Android
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4F455196-5A5D-4681-A06C-0D1360724846}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
-		{4F455196-5A5D-4681-A06C-0D1360724846}.Debug|Tegra-Android.Build.0 = Debug|Tegra-Android
-		{4F455196-5A5D-4681-A06C-0D1360724846}.Release|Tegra-Android.ActiveCfg = Release|Tegra-Android
-		{4F455196-5A5D-4681-A06C-0D1360724846}.Release|Tegra-Android.Build.0 = Release|Tegra-Android
+		{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
+		{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}.Debug|Tegra-Android.Build.0 = Debug|Tegra-Android
+		{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}.Release|Tegra-Android.ActiveCfg = Release|Tegra-Android
+		{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}.Release|Tegra-Android.Build.0 = Release|Tegra-Android
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
