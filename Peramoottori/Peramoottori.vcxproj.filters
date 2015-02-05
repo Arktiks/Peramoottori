@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="jni">
@@ -10,16 +10,50 @@
     <Filter Include="res\values">
       <UniqueIdentifier>e1fbc059-1aa2-4810-9778-bab805a445eb</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\resources">
+      <UniqueIdentifier>{82754520-4b79-40fb-a6e2-db946186bdae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{a0cc2f50-36ab-4563-a4fc-756a37147115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structs">
+      <UniqueIdentifier>{9e164851-e047-4bb0-9ceb-2d6902927072}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <AndroidBuild Include="AndroidManifest.xml" />
     <AndroidBuild Include="res\values\strings.xml">
       <Filter>res\values</Filter>
+    </AndroidBuild>
+    <AndroidBuild Include="AndroidManifest.xml">
+      <Filter>res</Filter>
     </AndroidBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jni\main.cpp">
       <Filter>jni</Filter>
     </ClCompile>
+    <ClCompile Include="jni\Application.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\android_native_app_glue.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\Resources.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="jni\Application.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\android_native_app_glue.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\structs\Engine.h">
+      <Filter>structs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\Resources.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

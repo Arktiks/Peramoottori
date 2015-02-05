@@ -23,6 +23,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\Main.cpp" />
+    <ClCompile Include="jni\resources\Resources.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +31,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\resources\Resources.h" />
+    <ClInclude Include="jni\structs\Engine.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
