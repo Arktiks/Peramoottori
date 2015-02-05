@@ -59,7 +59,7 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs;$(SolutionDir)\jni;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2</AdditionalDependencies>
@@ -69,7 +69,7 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs;$(SolutionDir)\jni;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2</AdditionalDependencies>
