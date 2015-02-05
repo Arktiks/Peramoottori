@@ -11,6 +11,9 @@
 class DebugMSG
 {
 public:
+	/**
+	*Kirjoita viestisi jonka haluat nähdä Logcatissa
+	*/
 	static void MSG(char* s)
 	{
 		LOGI(s);
