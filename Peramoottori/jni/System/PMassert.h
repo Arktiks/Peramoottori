@@ -3,8 +3,9 @@
 #define PMASSERT_H
 
 #endif // !PMASSERT_H
+
 #include <assert.h>
-#include <string>
+#include <android/log.h>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", __VA_ARGS__))
 

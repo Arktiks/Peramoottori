@@ -33,6 +33,8 @@
     </ClInclude>
     <ClInclude Include="jni\resources\Resources.h" />
     <ClInclude Include="jni\structs\Engine.h" />
+    <ClInclude Include="jni\System\DebugMSG.h" />
+    <ClInclude Include="jni\System\PMassert.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

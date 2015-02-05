@@ -19,6 +19,9 @@
     <Filter Include="structs">
       <UniqueIdentifier>{9e164851-e047-4bb0-9ceb-2d6902927072}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\System">
+      <UniqueIdentifier>{b550e7aa-0ac4-4c04-a74c-28de62f3f519}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -54,6 +57,12 @@
     </ClInclude>
     <ClInclude Include="jni\resources\Resources.h">
       <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\System\PMassert.h">
+      <Filter>jni\System</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\System\DebugMSG.h">
+      <Filter>jni\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
