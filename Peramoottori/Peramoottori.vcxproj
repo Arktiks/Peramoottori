@@ -22,6 +22,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\audio\Audio.cpp" />
     <ClCompile Include="jni\graphics\Sprite.cpp" />
     <ClCompile Include="jni\graphics\SpriteBatch.cpp" />
     <ClCompile Include="jni\graphics\Texture.cpp" />
@@ -34,6 +35,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\audio\Audio.h" />
     <ClInclude Include="jni\graphics\Sprite.h" />
     <ClInclude Include="jni\graphics\SpriteBatch.h" />
     <ClInclude Include="jni\graphics\Texture.h" />
