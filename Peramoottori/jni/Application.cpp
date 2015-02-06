@@ -144,17 +144,25 @@ AAssetManager* Application::GetAssetManager()
 	return engine.assetManager;
 }
 
+Application::Engine* Application::GetEngine()
+{
+	return &engine;
+}
 
 int HandleInput(android_app* application, AInputEvent* event)
 {
 	struct Application::Engine* engine = (struct Application::Engine*)application->userData;
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
 	{
+		engine->lx = engine->x;
+		engine->ly = engine->y;
+
 		engine->x = AMotionEvent_getX(event, 0);
 		engine->y = AMotionEvent_getY(event, 0);
-		LOGI("TOUCH @ (%f, %f)", engine->x, engine->y);
+		engine->touch = true;
 		return 1;
 	}
+	engine->touch = false;
 	return 0;
 }
 
