@@ -44,9 +44,6 @@
     <ClCompile Include="libs\android_native_app_glue.c">
       <Filter>libs</Filter>
     </ClCompile>
-    <ClCompile Include="jni\resources\Resources.cpp">
-      <Filter>jni\resources</Filter>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Sprite.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
@@ -55,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="jni\graphics\Texture.cpp">
       <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\ResourceReader.cpp">
+      <Filter>jni\resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,9 +66,6 @@
     </ClInclude>
     <ClInclude Include="jni\structs\Engine.h">
       <Filter>structs</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\resources\Resources.h">
-      <Filter>jni\resources</Filter>
     </ClInclude>
     <ClInclude Include="jni\structs\LoadedImage.h">
       <Filter>structs</Filter>
@@ -87,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="jni\graphics\Texture.h">
       <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\ResourceReader.h">
+      <Filter>jni\resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

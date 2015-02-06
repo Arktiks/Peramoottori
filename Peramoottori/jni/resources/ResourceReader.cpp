@@ -1,7 +1,7 @@
-#include "Resources.h"
+#include "ResourceReader.h"
 #include <lodepng.h>
 
-char* Resources::TextReader(std::string fileName, Engine* engine)
+char* ResourceReader::TextReader(std::string fileName, Engine* engine)
 {
 	AAssetManager* assetManager = engine->app->activity->assetManager;
 	AAsset* asset = AAssetManager_open(assetManager, fileName.c_str(), AASSET_MODE_UNKNOWN);
@@ -23,7 +23,7 @@ char* Resources::TextReader(std::string fileName, Engine* engine)
 	}
 }
 
-LoadedImage* Resources::PNGReader(std::string fileName, Engine* engine)
+LoadedImage* ResourceReader::PNGReader(std::string fileName, Engine* engine)
 {
 	//AAssetManager* assetManager = engine->app->activity->assetManager;
 	//AAsset* asset = AAssetManager_open(assetManager, fileName.c_str(), AASSET_MODE_UNKNOWN);
