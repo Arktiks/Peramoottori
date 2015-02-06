@@ -8,7 +8,7 @@
 
 
 
-using namespace AApp;
+using namespace PM;
 
 
 void ProcessCommand(android_app* application, int32_t command);
@@ -34,7 +34,6 @@ void Application::Initialize(android_app* application)
 
 bool Application::Update()
 {
-	android_poll_source* eventSource;
 	while (ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
 	{
 		if (eventSource != nullptr)
@@ -60,7 +59,6 @@ void Application::DrawFrame()
 	}
 	
 	eglSwapBuffers(engine.display, engine.surface);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 
