@@ -221,3 +221,6 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+*.v12.suo
+*.sdf
