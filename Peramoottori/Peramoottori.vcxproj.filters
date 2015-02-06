@@ -19,6 +19,12 @@
     <Filter Include="structs">
       <UniqueIdentifier>{9e164851-e047-4bb0-9ceb-2d6902927072}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\graphics">
+      <UniqueIdentifier>{e09a90b2-d069-4521-8b01-3215cf702caf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\system">
+      <UniqueIdentifier>{ff934716-1873-4437-9e0b-aa6b93b98e4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -41,6 +47,15 @@
     <ClCompile Include="jni\resources\Resources.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
+    <ClCompile Include="jni\graphics\Sprite.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\SpriteBatch.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Texture.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\Application.h">
@@ -57,6 +72,21 @@
     </ClInclude>
     <ClInclude Include="jni\structs\LoadedImage.h">
       <Filter>structs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\system\DebugMSG.h">
+      <Filter>jni\system</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\system\PMassert.h">
+      <Filter>jni\system</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Sprite.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\SpriteBatch.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Texture.h">
+      <Filter>jni\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
