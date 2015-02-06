@@ -10,17 +10,15 @@
 #include <android/asset_manager.h>
 #include <EGL/egl.h>
 
-namespace AApp
+namespace PM
 {
-
-	/// Struct that holds application information and can be stored on java side.
-
-
-
 	/// The core application system.
 	/**
-		Handles most of the communication with java side.
-		*/
+	Handles most of the communication with java side. 
+		-Create an Application instance.
+		-use the Initialize.
+		-Create your mainloop with while(app.Update)
+	*/
 	class Application
 	{
 	public:
@@ -30,33 +28,29 @@ namespace AApp
 		/// Initializing the Application.
 		/**
 			\param application takes in the android_app
-			*/
+		*/
 		void Initialize(android_app* application);
 
 		/// The core update loop.
 		/**
-			TODO
-			*/
+			You can construct the main loop of your game using the update, place it in while(app.Update).
+			\return Returns true as default, when TerminateDisplay is called, returns false.
+		*/
 		bool Update();
 
 		/// Handles swapping buffers if the display is initialized.
 		/**
-		\param event input event received on java side
-		\return Returns 1 if input is received, 0 if not.
+			TODO
 		*/
 		void DrawFrame();
 
 		/// Returns Android AssetManager for use outside of this class.
 		/**
-		\return Returns the AAssetManager*
+			\return Returns the AAssetManager*
 		*/
 		AAssetManager* GetAssetManager();
 
-		/// Processes command events.
-		/**
-		\param command the command event number
-		*/
-		// void ProcessCommand(android_app* application, int32_t command);
+		/// Struct that holds application information and can be stored on java side.
 		struct Engine
 		{
 			struct android_app* app;
@@ -78,24 +72,23 @@ namespace AApp
 
 		/// Called when APP_CMD_TERM_WINDOW is received by processCommand.
 		/**
+			Destroys the egl Context, Surface and terminates the Display when done.
 		*/
 		void TerminateDisplay();
 
 		/// Called when APP_CMD_INIT_WINDOW is received by processCommand.
 		/**
+			Initializes the EGL surface, display and context, Stores them in Engine.
+			\return Returns -1 if failed to make the display, surface and context current. Returns 0 if succesful.
 		*/
 		int InitializeDisplay();
 
-		/// Given to android_app for handling input.
-		/**
-			\return Returns 0 on success, -1 if failed.
-			*/
-		//int HandleInput(android_app* application, AInputEvent* event);
-
+	private:
+		/// The engine struct used to store data between native and android side.
 		Engine engine;
+		/// Used by Update() 
+		android_poll_source* eventSource;
 	};
-
-	// Static data members need to be defined, in addition to being declared in the class.
 }
 
 #endif
