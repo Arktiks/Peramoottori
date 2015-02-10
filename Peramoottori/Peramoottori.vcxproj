@@ -22,11 +22,15 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\audio\Audio.cpp" />
     <ClCompile Include="jni\graphics\Sprite.cpp" />
     <ClCompile Include="jni\graphics\SpriteBatch.cpp" />
     <ClCompile Include="jni\graphics\Texture.cpp" />
     <ClCompile Include="jni\Main.cpp" />
-    <ClCompile Include="jni\resources\ResourceReader.cpp" />
+    <ClCompile Include="jni\resources\ResourceReader.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="libs\android_native_app_glue.c" />
   </ItemGroup>
   <ItemGroup>
@@ -34,10 +38,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\audio\Audio.h" />
     <ClInclude Include="jni\graphics\Sprite.h" />
     <ClInclude Include="jni\graphics\SpriteBatch.h" />
     <ClInclude Include="jni\graphics\Texture.h" />
-    <ClInclude Include="jni\resources\ResourceReader.h" />
+    <ClInclude Include="jni\resources\ResourceReader.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="jni\structs\Engine.h" />
     <ClInclude Include="jni\structs\LoadedImage.h" />
     <ClInclude Include="jni\system\DebugMSG.h" />

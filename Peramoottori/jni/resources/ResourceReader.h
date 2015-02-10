@@ -5,27 +5,29 @@
 #include <structs\LoadedImage.h>
 #include <string>
 
+/* En saa shared_ptr toimimaan.
 #include <tr1\shared_ptr.h>
 #include <tr1\memory>
 #include <memory>
-#include <memory.h>
-
-// T‰ll‰ hetkell‰ filut luetaan assets -kansiosta AAssetManagerin kautta.
-// Tehd‰‰n pian parempi ratkaisu.
+#include <memory.h> */
 
 class ResourceReader
 {
 public:
-	static ResourceReader& GetInstance();
-	virtual ~ResourceReader();
+	static ResourceReader* GetInstance(AAssetManager* manager = nullptr);
+	static void DestroyInstance();
+	virtual ~ResourceReader() {};
 	
-
-	char* TextReader(std::string fileName, Engine* engine);
-	LoadedImage* PNGReader(std::string fileName, Engine* engine);
+	char* Text(std::string fileName);
+	LoadedImage* Picture(std::string fileName);
 
 private:
-	
+	AAsset* OpenAsset(std::string fileName);
+	bool ManagerCheck();
 
+	ResourceReader() {};
+	static ResourceReader* instance;
+	static AAssetManager* manager;
 };
 
 #endif

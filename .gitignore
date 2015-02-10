@@ -224,3 +224,7 @@ FakesAssemblies/
 
 *.v12.suo
 *.sdf
+
+Peramoottori/*.suo
+Peramoottori/*.v12.suo
+Peramoottori/*.sdf

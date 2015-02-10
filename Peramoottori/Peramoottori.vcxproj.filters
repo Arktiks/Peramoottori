@@ -25,6 +25,9 @@
     <Filter Include="jni\system">
       <UniqueIdentifier>{ff934716-1873-4437-9e0b-aa6b93b98e4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\audio">
+      <UniqueIdentifier>{a35a28c0-d7ba-4b45-bee4-ff24747a34ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -55,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="jni\resources\ResourceReader.cpp">
       <Filter>jni\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\audio\Audio.cpp">
+      <Filter>jni\audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +93,9 @@
     </ClInclude>
     <ClInclude Include="jni\resources\ResourceReader.h">
       <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\audio\Audio.h">
+      <Filter>jni\audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

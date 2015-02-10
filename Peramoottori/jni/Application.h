@@ -61,13 +61,18 @@ namespace PM
 			EGLSurface surface;
 			EGLContext context;
 
+			/// Touch, x and y are for input system.
+			bool touch;
 			float x;
 			float y;
+			float lx;
+			float ly;
+
 			int width;
 			int height;
 
 			Engine() : app(nullptr), assetManager(nullptr), display(EGL_NO_DISPLAY),
-				surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), x(0.0f), y(0.0f), width(0), height(0) {};
+				surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), touch(false), x(0.0f), y(0.0f), width(0), height(0) {};
 		};
 
 		/// Called when APP_CMD_TERM_WINDOW is received by processCommand.
@@ -82,6 +87,13 @@ namespace PM
 			\return Returns -1 if failed to make the display, surface and context current. Returns 0 if succesful.
 		*/
 		int InitializeDisplay();
+
+
+		/// Returns engine for use outside of this class.
+		/**
+
+		*/
+		Engine* GetEngine();
 
 	private:
 		/// The engine struct used to store data between native and android side.
