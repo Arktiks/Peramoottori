@@ -5,6 +5,7 @@
 #include <android/log.h>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "DEBUG_MSG", __VA_ARGS__))
+#define LOGE(...) ((void)__android_log_print(ANDROID_LOG_INFO, "WARNING_MSG", __VA_ARGS__))
 
 class PMDebugMSG
 {
@@ -24,20 +25,22 @@ public:
 
 		va_end(args);
 
-		LOGE(temp_string);
+		LOGI(temp_string);
 	};
+
 	static void MsgWarning(const char* s...)
 	{
-		char* temp_string[64];
 
 		va_list args;
+		va_start(args, s);
 
-		vasprintf(temp_string, s, args);
+		char* temp_string;
+
+		vasprintf(&temp_string, s, args);
 
 		va_end(args);
 
-		LOGE(*temp_string);
-
+		LOGE(temp_string);
 	};
 };
 #endif // !DEBUGMSG_H
