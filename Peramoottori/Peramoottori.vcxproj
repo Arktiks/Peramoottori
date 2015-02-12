@@ -22,7 +22,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\audio\Audio.cpp" />
+    <ClCompile Include="jni\audio\AudioPlayer.cpp" />
     <ClCompile Include="jni\graphics\Circle.cpp" />
     <ClCompile Include="jni\graphics\Rectangle.cpp" />
     <ClCompile Include="jni\graphics\Sprite.cpp" />
@@ -43,7 +43,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\audio\Audio.h" />
+    <ClInclude Include="jni\audio\AudioPlayer.h" />
     <ClInclude Include="jni\graphics\Circle.h" />
     <ClInclude Include="jni\graphics\Rectangle.h" />
     <ClInclude Include="jni\graphics\Shape.h" />
