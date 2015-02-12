@@ -24,23 +24,44 @@ void ResourceReader::DestroyInstance()
 	instance = nullptr;
 }
 
-char* ResourceReader::Text(std::string fileName)
+char* ResourceReader::Character(std::string fileName)
 {
 	AAsset* tempAsset = OpenAsset(fileName);
 
 	if (tempAsset)
 	{
-		size_t size = AAsset_getLength(tempAsset);
-		char* buffer = (char*)malloc(sizeof(char) * size + 1);
-		AAsset_read(asset, buffer, size);
-		buffer[size] = '\0';
+		size_t tempSize = AAsset_getLength(tempAsset);
+		char* tempBuffer = (char*)malloc(sizeof(char) * tempSize + 1);
+		AAsset_read(tempAsset, tempBuffer, tempSize);
+		tempBuffer[tempSize] = '\0';
 		
-		AAsset_close(asset);
-		return buffer;
+		AAsset_close(tempAsset); // Tuhoaa tempAssetin sisällön, ei tarvitse deleteä.
+		return tempBuffer;
 	}
 	else
 	{
-		
+		// Virhelogia.
+		return nullptr;
+	}
+}
+
+std::string ResourceReader::String(std::string fileName)
+{
+	AAsset* tempAsset = OpenAsset(fileName);
+
+	if (tempAsset)
+	{
+		size_t tempSize = AAsset_getLength(tempAsset);
+		char* tempBuffer = (char*)malloc(sizeof(char) * tempSize + 1);
+		AAsset_read(tempAsset, tempBuffer, tempSize);
+		tempBuffer[tempSize] = '\0';
+
+		AAsset_close(tempAsset); // Tuhoaa tempAssetin sisällön, ei tarvitse deleteä.
+		return tempBuffer;
+	}
+	else
+	{
+		// Virhelogia.
 		return nullptr;
 	}
 }

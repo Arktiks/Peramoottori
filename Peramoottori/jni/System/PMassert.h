@@ -1,8 +1,5 @@
 #ifndef PMASSERT_H
-
 #define PMASSERT_H
-
-#endif // !PMASSERT_H
 
 #include <assert.h>
 #include <android/log.h>
@@ -26,9 +23,7 @@ public:
 			LOGI("%s", s);
 			
 			assert(a == b);
-
 	};
-	
 
 
 	template<typename T>
@@ -46,7 +41,6 @@ public:
 
 			assert(a != b);
 	}; 
-	
 
 
 	template<typename T>
@@ -64,9 +58,6 @@ public:
 
 			assert(min < x && x < max);
 	};
-	
-
-
-private:
-
 };
+
+#endif

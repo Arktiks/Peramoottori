@@ -85,9 +85,6 @@
     <ClInclude Include="jni\structs\LoadedImage.h">
       <Filter>structs</Filter>
     </ClInclude>
-    <ClInclude Include="jni\system\DebugMSG.h">
-      <Filter>jni\system</Filter>
-    </ClInclude>
     <ClInclude Include="jni\system\PMassert.h">
       <Filter>jni\system</Filter>
     </ClInclude>
@@ -111,6 +108,9 @@
     </ClInclude>
     <ClInclude Include="Rectangle.h">
       <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\system\PMdebug.h">
+      <Filter>jni\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

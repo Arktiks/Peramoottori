@@ -18,7 +18,8 @@ public:
 	static void DestroyInstance();
 	virtual ~ResourceReader() {};
 	
-	char* Text(std::string fileName);
+	char* Character(std::string fileName);
+	std::string String(std::string fileName);
 	LoadedImage* Picture(std::string fileName);
 
 private:
