@@ -12,6 +12,7 @@ class PMdebug
 public:
 	/**
 	*Kirjoita viestisi jonka haluat nähdä Logcatissa DEBUG_MSG.
+	*Toimii samanlailla kuin printf eli MsgInfo("%i %s %f", int, string, float); jne
 	*/
 	static void MsgInfo(const char* s...)
 	{
@@ -30,6 +31,7 @@ public:
 
 	/**
 	*Kirjoita viestisi jonka haluat nähdä Logcatissa WARNING_MSG.
+	*Toimii samanlailla kuin printf eli MsgInfo("%i %s %f", int, string, float); jne
 	*/
 	static void MsgWarning(const char* s...)
 	{
