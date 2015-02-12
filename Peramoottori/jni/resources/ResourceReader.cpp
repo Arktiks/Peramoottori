@@ -1,5 +1,6 @@
 #include "ResourceReader.h"
 #include <lodepng.h>
+#include <vector>
 
 ResourceReader* ResourceReader::instance = nullptr;
 AAssetManager* ResourceReader::manager = nullptr;
@@ -18,31 +19,18 @@ ResourceReader* ResourceReader::GetInstance(AAssetManager* manager)
 	return instance;
 }
 
+void ResourceReader::Initialize(AAssetManager* manager)
+{
+	if (instance->manager == nullptr)
+		// Warning that manager has already been assigned.
+		;
+	instance->manager = manager;
+}
+
 void ResourceReader::DestroyInstance()
 {
 	delete instance;
 	instance = nullptr;
-}
-
-char* ResourceReader::Character(std::string fileName)
-{
-	AAsset* tempAsset = OpenAsset(fileName);
-
-	if (tempAsset)
-	{
-		size_t tempSize = AAsset_getLength(tempAsset);
-		char* tempBuffer = (char*)malloc(sizeof(char) * tempSize + 1);
-		AAsset_read(tempAsset, tempBuffer, tempSize);
-		tempBuffer[tempSize] = '\0';
-		
-		AAsset_close(tempAsset); // Tuhoaa tempAssetin sisällön, ei tarvitse deleteä.
-		return tempBuffer;
-	}
-	else
-	{
-		// Virhelogia.
-		return nullptr;
-	}
 }
 
 std::string ResourceReader::String(std::string fileName)
@@ -51,34 +39,55 @@ std::string ResourceReader::String(std::string fileName)
 
 	if (tempAsset)
 	{
-		size_t tempSize = AAsset_getLength(tempAsset);
-		char* tempBuffer = (char*)malloc(sizeof(char) * tempSize + 1);
-		AAsset_read(tempAsset, tempBuffer, tempSize);
-		tempBuffer[tempSize] = '\0';
+		size_t tempSize = AAsset_getLength(tempAsset); // Count length of file.
+		std::vector<char> tempBuffer; // Use vector<char> from the start instead of char*.
+		tempBuffer.resize(tempSize); // Reserver space for content.
 
-		AAsset_close(tempAsset); // Tuhoaa tempAssetin sisällön, ei tarvitse deleteä.
-		return tempBuffer;
+		AAsset_read(tempAsset, &tempBuffer[0], tempSize); // Assign content into buffer.
+		AAsset_close(tempAsset); // Destroy asset, no delete neccessary.
+
+		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
+		return tempString;
 	}
 	else
 	{
-		// Virhelogia.
-		return nullptr;
+		// Error log.
+		return std::string();
 	}
 }
 
-LoadedImage* ResourceReader::Picture(std::string fileName)
+LoadedImage ResourceReader::PNG(std::string fileName)
 {
-	AAsset* asset = AAssetManager_open(manager, fileName.c_str(), AASSET_MODE_UNKNOWN);
+	AAsset* tempAsset = OpenAsset(fileName);
 
-	//http://www.learnopengles.com/loading-a-png-into-memory-and-displaying-it-as-a-texture-with-opengl-es-2-using-almost-the-same-code-on-ios-android-and-emscripten/
-	// Kokeilla ensin LodePNG saada toimimaan, muuten pitää ehkä lukea binääristä tai jotain.
+	if (tempAsset)
+	{
+		std::vector<unsigned char> tempBuffer;
+		std::vector<unsigned char> decodedImage; // Will contain the decoded PNG.
+
+		size_t tempSize = AAsset_getLength(tempAsset);
+		tempBuffer.resize(tempSize);
+
+		AAsset_read(tempAsset, &tempBuffer[0], tempSize);
+		AAsset_close(tempAsset);
+
+		unsigned int width, height; // Make note of image dimensions.
+		unsigned error = lodepng::decode(tempBuffer, width, height, decodedImage);
+
+
+	}
+	else
+	{
+		// Error log.
+		//return;
+	}
 }
 
 bool ResourceReader::ManagerCheck()
 {
 	return true;
-	// Tarkistaa että manager on asetettu ennen latauskutsuja.
-	// Tulee käyttämään Debuggia kunhan se on valmis.
+	// Check if manager has been assigned before usage.
+	// Add debug.
 }
 
 AAsset* ResourceReader::OpenAsset(std::string fileName)
@@ -99,3 +108,10 @@ AAsset* ResourceReader::OpenAsset(std::string fileName)
 		}
 	}
 }
+
+/* Marked to be removed.
+char* tempBuffer = (char*)malloc(sizeof(char) * tempSize + 1); // Allocate memory for temporary buffer.
+AAsset_read(tempAsset, tempBuffer, tempSize); // Assign content into buffer.
+tempBuffer[tempSize] = '\0'; // Prevent errors.
+delete tempBuffer;
+tempString.assign(tempBuffer, tempSize); // Assign content into string. */

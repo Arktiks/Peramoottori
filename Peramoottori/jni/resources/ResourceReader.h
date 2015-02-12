@@ -15,18 +15,20 @@ class ResourceReader
 {
 public:
 	static ResourceReader* GetInstance(AAssetManager* manager = nullptr);
+	static void Initialize(AAssetManager* manager);
 	static void DestroyInstance();
-	virtual ~ResourceReader() {};
 	
-	char* Character(std::string fileName);
 	std::string String(std::string fileName);
-	LoadedImage* Picture(std::string fileName);
+	LoadedImage PNG(std::string fileName);
+
+	virtual ~ResourceReader() {};
 
 private:
 	AAsset* OpenAsset(std::string fileName);
 	bool ManagerCheck();
 
 	ResourceReader() {};
+
 	static ResourceReader* instance;
 	static AAssetManager* manager;
 };

@@ -1,7 +1,6 @@
 #ifndef LOADEDIMAGE_H
 #define LOADEDIMAGE_H
 
-#include <jni.h>
 #include <vector>
 
 struct LoadedImage
