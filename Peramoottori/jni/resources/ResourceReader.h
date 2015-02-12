@@ -4,19 +4,14 @@
 #include <android\asset_manager.h>
 #include <structs\LoadedImage.h>
 #include <string>
-
-/* En saa shared_ptr toimimaan.
-#include <tr1\shared_ptr.h>
-#include <tr1\memory>
-#include <memory>
-#include <memory.h> */
+#include <vector>
 
 class ResourceReader
 {
 public:
 	static ResourceReader* GetInstance(AAssetManager* manager = nullptr);
-	static void Initialize(AAssetManager* manager);
-	static void DestroyInstance();
+	void Initialize(AAssetManager* manager);
+	void DestroyInstance();
 	
 	std::string String(std::string fileName);
 	LoadedImage PNG(std::string fileName);
@@ -24,13 +19,14 @@ public:
 	virtual ~ResourceReader() {};
 
 private:
-	AAsset* OpenAsset(std::string fileName);
 	bool ManagerCheck();
-
-	ResourceReader() {};
+	AAsset* OpenAsset(std::string fileName);
+	std::vector<char> ReadAsset(AAsset* asset);
+	
+	ResourceReader() : manager(nullptr) {};
 
 	static ResourceReader* instance;
-	static AAssetManager* manager;
+	AAssetManager* manager;
 };
 
 #endif
