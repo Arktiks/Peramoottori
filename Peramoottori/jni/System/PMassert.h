@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <android/log.h>
 
-#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", __VA_ARGS__))
+#define LOGA(...) ((void)__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", __VA_ARGS__))
 
 class PMassert
 {
@@ -20,7 +20,7 @@ public:
 		if (a == b)
 			;
 		else
-			LOGI("%s", s);
+			LOGA("%s", s);
 			
 			assert(a == b);
 	};
@@ -37,7 +37,7 @@ public:
 		if (a == b)
 			;
 		else
-			LOGI("%s", s);
+			LOGA("%s", s);
 
 			assert(a != b);
 	}; 
@@ -54,7 +54,7 @@ public:
 		if (min < x && x < max)
 			;
 		else
-			LOGI("%s", s);
+			LOGA("%s", s);
 
 			assert(min < x && x < max);
 	};

@@ -1,7 +1,7 @@
 #ifndef RESOURCEREADER_H
 #define RESOURCEREADER_H
 
-#include <structs\Engine.h>
+#include <android\asset_manager.h>
 #include <structs\LoadedImage.h>
 #include <string>
 

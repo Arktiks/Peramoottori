@@ -35,6 +35,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="libs\android_native_app_glue.c" />
+    <ClCompile Include="libs\lodepng.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\Application.h">
@@ -58,6 +59,7 @@
     <ClInclude Include="jni\system\PMassert.h" />
     <ClInclude Include="jni\system\PMdebug.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
+    <ClInclude Include="libs\lodepng.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}</ProjectGuid>

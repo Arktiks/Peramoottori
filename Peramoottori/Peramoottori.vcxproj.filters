@@ -74,6 +74,9 @@
     <ClCompile Include="jni\graphics\Circle.cpp">
       <Filter>jni\graphics\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="libs\lodepng.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\Application.h">
@@ -120,6 +123,9 @@
     </ClInclude>
     <ClInclude Include="jni\graphics\Circle.h">
       <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\lodepng.h">
+      <Filter>libs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
