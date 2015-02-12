@@ -4,7 +4,7 @@ class Texture
 {
 public:
 	Texture(int atlas, glm::vec2 texturePosition, glm::vec2 textureSize);
-	Texture::Texture();
+	Texture();
 	~Texture();
 
 	void setSourceRectSize(glm::vec2);
