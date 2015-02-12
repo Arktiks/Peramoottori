@@ -8,14 +8,17 @@
 class Sprite
 {
 public:
+
 	Sprite();
 	~Sprite();
+
 private:
+
 	Texture texture;
 
 	// false construktorissa, muutetaan trueksi tekstuurin asettamisen jälkeen
 	// Jos keksitään joku tapa katsoa onko tekstuuria olemassa (tai piiretäänkö se) voidaan poistaa tämä.
-	// Tämä siis sen takia että spritebathchissa voidaan piirtää teksuurottomia spritejä.
+	// Tämä siis sen takia että spritebathchissa voidaan piirtää tekstuurittomia spritejä.
 	bool hasTexture;
 	
 };

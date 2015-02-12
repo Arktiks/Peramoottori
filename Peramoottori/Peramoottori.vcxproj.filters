@@ -28,6 +28,9 @@
     <Filter Include="jni\audio">
       <UniqueIdentifier>{a35a28c0-d7ba-4b45-bee4-ff24747a34ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\graphics\Shapes">
+      <UniqueIdentifier>{165bcdb1-6867-4137-bfdd-47483eb79bf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -61,6 +64,12 @@
     </ClCompile>
     <ClCompile Include="jni\audio\Audio.cpp">
       <Filter>jni\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>jni\graphics\Shapes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +105,12 @@
     </ClInclude>
     <ClInclude Include="jni\audio\Audio.h">
       <Filter>jni\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>jni\graphics\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

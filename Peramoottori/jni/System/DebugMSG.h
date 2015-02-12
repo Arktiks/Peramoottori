@@ -11,7 +11,7 @@ class PMDebugMSG
 {
 public:
 	/**
-	*Kirjoita viestisi jonka haluat nähdä Logcatissa
+	*Kirjoita viestisi jonka haluat nähdä Logcatissa DEBUG_MSG:na
 	*/
 	static void MsgInfo(const char* s...)
 	{
@@ -27,7 +27,9 @@ public:
 
 		LOGI(temp_string);
 	};
-
+	/**
+	*Kirjoita viestisi jonka haluat nähdä Logcatissa WARNING_MSG:na
+	*/
 	static void MsgWarning(const char* s...)
 	{
 
