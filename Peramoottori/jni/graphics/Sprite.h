@@ -10,16 +10,26 @@ class Sprite
 public:
 
 	Sprite();
+	Sprite(Texture texture);
 	~Sprite();
 
+	glm::vec2 getSourceRectSize();
+	glm::vec2 getSourceRectPosition();
+
+	void setSourceRectSize(glm::vec2 sourceRectSize);
+	void setSourceRectPosition(glm::vec2 sourceRectPosition);
+
+	void updateVertexData();
 private:
 
 	Texture texture;
+	bool hasTexture;
 
+	glm::vec2 sourceRectSize;
+	glm::vec2 sourceRectPosition;
 	// false construktorissa, muutetaan trueksi tekstuurin asettamisen j‰lkeen
 	// Jos keksit‰‰n joku tapa katsoa onko tekstuuria olemassa (tai piiret‰‰nkˆ se) voidaan poistaa t‰m‰.
 	// T‰m‰ siis sen takia ett‰ spritebathchissa voidaan piirt‰‰ tekstuurittomia spritej‰.
-	bool hasTexture;
-	
+
 };
 
