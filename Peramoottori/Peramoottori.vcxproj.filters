@@ -65,10 +65,13 @@
     <ClCompile Include="jni\audio\Audio.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
-    <ClCompile Include="Shape.cpp">
+    <ClCompile Include="jni\graphics\Rectangle.cpp">
       <Filter>jni\graphics\Shapes</Filter>
     </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
+    <ClCompile Include="jni\graphics\Triangle.cpp">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Circle.cpp">
       <Filter>jni\graphics\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="libs\lodepng.cpp">
@@ -106,14 +109,20 @@
     <ClInclude Include="jni\audio\Audio.h">
       <Filter>jni\audio</Filter>
     </ClInclude>
-    <ClInclude Include="Shape.h">
-      <Filter>jni\graphics\Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>jni\graphics\Shapes</Filter>
-    </ClInclude>
     <ClInclude Include="jni\system\PMdebug.h">
       <Filter>jni\system</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Rectangle.h">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Shape.h">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Triangle.h">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Circle.h">
+      <Filter>jni\graphics\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="libs\lodepng.h">
       <Filter>libs</Filter>

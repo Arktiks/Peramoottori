@@ -23,9 +23,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\audio\Audio.cpp" />
+    <ClCompile Include="jni\graphics\Circle.cpp" />
+    <ClCompile Include="jni\graphics\Rectangle.cpp" />
     <ClCompile Include="jni\graphics\Sprite.cpp" />
     <ClCompile Include="jni\graphics\SpriteBatch.cpp" />
     <ClCompile Include="jni\graphics\Texture.cpp" />
+    <ClCompile Include="jni\graphics\Triangle.cpp" />
     <ClCompile Include="jni\Main.cpp" />
     <ClCompile Include="jni\resources\ResourceReader.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -33,8 +36,6 @@
     </ClCompile>
     <ClCompile Include="libs\android_native_app_glue.c" />
     <ClCompile Include="libs\lodepng.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
-    <ClCompile Include="Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\Application.h">
@@ -42,9 +43,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\audio\Audio.h" />
+    <ClInclude Include="jni\graphics\Circle.h" />
+    <ClInclude Include="jni\graphics\Rectangle.h" />
+    <ClInclude Include="jni\graphics\Shape.h" />
     <ClInclude Include="jni\graphics\Sprite.h" />
     <ClInclude Include="jni\graphics\SpriteBatch.h" />
     <ClInclude Include="jni\graphics\Texture.h" />
+    <ClInclude Include="jni\graphics\Triangle.h" />
     <ClInclude Include="jni\resources\ResourceReader.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
@@ -55,8 +60,6 @@
     <ClInclude Include="jni\system\PMdebug.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
     <ClInclude Include="libs\lodepng.h" />
-    <ClInclude Include="Rectangle.h" />
-    <ClInclude Include="Shape.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}</ProjectGuid>
