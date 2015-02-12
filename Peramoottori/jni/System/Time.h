@@ -15,9 +15,13 @@ namespace PM
 		time_t frameStart;
 		time_t frameEnd;
 		double timeInFrame;
+		struct timespec now;
+
 
 		~Time();
 
+	private:
+		bool inFrame;
 
 	};
 }

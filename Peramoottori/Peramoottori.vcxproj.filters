@@ -74,6 +74,9 @@
     <ClCompile Include="libs\lodepng.cpp">
       <Filter>libs</Filter>
     </ClCompile>
+    <ClCompile Include="jni\System\Time.cpp">
+      <Filter>jni\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\Application.h">
@@ -117,6 +120,9 @@
     </ClInclude>
     <ClInclude Include="libs\lodepng.h">
       <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\System\Time.h">
+      <Filter>jni\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
