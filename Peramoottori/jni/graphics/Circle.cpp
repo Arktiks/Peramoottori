@@ -17,6 +17,7 @@ Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int t
 		vertices.push_back(cos(PI / 2 + i * (PI * 2 / tempSmoothness))); //6 txpos
 		vertices.push_back(sin(PI / 2 + i * (PI * 2 / tempSmoothness))); //7 typos
 	}
+
 }
 Circle::~Circle()
 {

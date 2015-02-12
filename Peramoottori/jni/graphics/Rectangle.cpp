@@ -6,6 +6,9 @@ Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, 
 	
 	position = glm::vec2(tempPositionX, tempPositionY);
 	size = glm::vec2(1, 1);
+	widht = tempWidht;
+	height = tempHeight;
+
 	for (int i = 0; i < 2; i++)
 	{
 		for (int k = 0; k < 2; k++)
@@ -19,12 +22,13 @@ Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, 
 			vertices.push_back(k); //7 typos
 		}
 	}
+
 	indices.push_back(0);
 	indices.push_back(1);
 	indices.push_back(2);
-	indices.push_back(1);
-	indices.push_back(3);
+	indices.push_back(2);
 	indices.push_back(4);
+	indices.push_back(3);
 }
 
 
