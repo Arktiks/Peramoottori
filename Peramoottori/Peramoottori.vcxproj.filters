@@ -80,6 +80,9 @@
     <ClCompile Include="jni\audio\AudioPlayer.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
+    <ClCompile Include="jni\resources\Image.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\Application.h">
@@ -132,6 +135,9 @@
     </ClInclude>
     <ClInclude Include="jni\audio\AudioPlayer.h">
       <Filter>jni\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\Image.h">
+      <Filter>jni\resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
