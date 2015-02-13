@@ -22,7 +22,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\audio\Audio.cpp" />
+    <ClCompile Include="jni\audio\AudioPlayer.cpp" />
     <ClCompile Include="jni\graphics\Circle.cpp" />
     <ClCompile Include="jni\graphics\Rectangle.cpp" />
     <ClCompile Include="jni\graphics\Sprite.cpp" />
@@ -34,6 +34,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\System\Time.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
     <ClCompile Include="libs\lodepng.cpp" />
   </ItemGroup>
@@ -42,7 +43,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\audio\Audio.h" />
+    <ClInclude Include="jni\audio\AudioPlayer.h" />
     <ClInclude Include="jni\graphics\Circle.h" />
     <ClInclude Include="jni\graphics\Rectangle.h" />
     <ClInclude Include="jni\graphics\Shape.h" />
@@ -58,6 +59,7 @@
     <ClInclude Include="jni\structs\LoadedImage.h" />
     <ClInclude Include="jni\system\PMassert.h" />
     <ClInclude Include="jni\system\PMdebug.h" />
+    <ClInclude Include="jni\System\Time.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
     <ClInclude Include="libs\lodepng.h" />
   </ItemGroup>

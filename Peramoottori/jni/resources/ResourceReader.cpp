@@ -1,34 +1,32 @@
 #include "ResourceReader.h"
 #include <system\PMdebug.h>
 #include <system\PMassert.h>
-
 #include <lodepng.h>
-#include <vector>
 
 ResourceReader* ResourceReader::instance = nullptr;
-AAssetManager* ResourceReader::manager = nullptr;
 
 ResourceReader* ResourceReader::GetInstance(AAssetManager* manager)
 {
-	if (instance == nullptr)
+	if (instance == nullptr) // Initialize instance.
 	{
 		instance = new ResourceReader;
-		instance->manager = manager;
-		PMdebug::MsgInfo("ResourceReader initialized and manager assigned.");
+		instance->Initialize(manager);
 	}
-	else if (instance != nullptr && instance->manager == nullptr)
+	else if (instance != nullptr && instance->manager == nullptr) // If instance has been initialize and manager not.
 	{
-		instance->manager = manager;
-		PMdebug::MsgInfo("ResourceReader manager assigned.");
+		instance->Initialize(manager);
 	}
 	return instance;
 }
 
 void ResourceReader::Initialize(AAssetManager* manager)
 {
-	if (instance->manager != nullptr)
-		PMdebug::MsgWarning("ResourceReader manager has already been initialized.");
-	instance->manager = manager;
+	if (manager != nullptr)
+		PMdebug::MsgWarning("ResourceReader manager has already been initialized!");
+	else
+		PMdebug::MsgInfo("ResourceReader manager assigned.");
+
+	(this->manager) = manager;
 }
 
 void ResourceReader::DestroyInstance()
@@ -43,19 +41,14 @@ std::string ResourceReader::String(std::string fileName)
 
 	if (tempAsset)
 	{
-		size_t tempSize = AAsset_getLength(tempAsset); // Count length of file.
-		std::vector<char> tempBuffer; // Use vector<char> from the start instead of char*.
-		tempBuffer.resize(tempSize); // Reserver space for content.
-
-		AAsset_read(tempAsset, &tempBuffer[0], tempSize); // Assign content into buffer.
-		AAsset_close(tempAsset); // Destroy asset, no delete neccessary.
+		std::vector<char> tempBuffer = ReadAsset(tempAsset);
 
 		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
 		PMdebug::MsgInfo(tempString.c_str()); // Prints processed text.
 		return tempString;
 	}
 	else
-		return std::string(); // OpenAsset() handles warning messages.
+		return std::string(); // Returns empty string if there is an error.
 }
 
 LoadedImage ResourceReader::PNG(std::string fileName)
@@ -64,14 +57,11 @@ LoadedImage ResourceReader::PNG(std::string fileName)
 
 	if (tempAsset)
 	{
-		std::vector<unsigned char> tempBuffer;
 		std::vector<unsigned char> decodedImage; // Will contain the decoded PNG.
+		std::vector<char> assetBuffer = ReadAsset(tempAsset); // Received signed char vector.
+		std::vector<unsigned char> tempBuffer; // TEE KONVERSIO
 
-		size_t tempSize = AAsset_getLength(tempAsset);
-		tempBuffer.resize(tempSize);
-
-		AAsset_read(tempAsset, &tempBuffer[0], tempSize);
-		AAsset_close(tempAsset);
+		//TODO: Castaa assetBuffer unsigned.
 
 		unsigned int width, height; // Make note of image dimensions.
 		unsigned int error = lodepng::decode(tempBuffer, width, height, decodedImage); // Decode the raw data.
@@ -116,9 +106,12 @@ AAsset* ResourceReader::OpenAsset(std::string fileName)
 	}
 }
 
-/* Marked to be removed.
-char* tempBuffer = (char*)malloc(sizeof(char) * tempSize + 1); // Allocate memory for temporary buffer.
-AAsset_read(tempAsset, tempBuffer, tempSize); // Assign content into buffer.
-tempBuffer[tempSize] = '\0'; // Prevent errors.
-delete tempBuffer;
-tempString.assign(tempBuffer, tempSize); // Assign content into string. */
+std::vector<char> ResourceReader::ReadAsset(AAsset* asset)
+{
+	size_t tempSize = AAsset_getLength(asset); // Count length of asset.
+	std::vector<char> tempBuffer; // Buffer for asset content.
+	tempBuffer.resize(tempSize); // Reserver space for content.
+
+	AAsset_read(asset, &tempBuffer[0], tempSize); // Assign content into buffer.
+	AAsset_close(asset); // Destroy asset, no delete neccessary.
+}

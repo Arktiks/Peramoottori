@@ -62,9 +62,6 @@
     <ClCompile Include="jni\resources\ResourceReader.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
-    <ClCompile Include="jni\audio\Audio.cpp">
-      <Filter>jni\audio</Filter>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Rectangle.cpp">
       <Filter>jni\graphics\Shapes</Filter>
     </ClCompile>
@@ -76,6 +73,12 @@
     </ClCompile>
     <ClCompile Include="libs\lodepng.cpp">
       <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\System\Time.cpp">
+      <Filter>jni\system</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\audio\AudioPlayer.cpp">
+      <Filter>jni\audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,9 +109,6 @@
     <ClInclude Include="jni\resources\ResourceReader.h">
       <Filter>jni\resources</Filter>
     </ClInclude>
-    <ClInclude Include="jni\audio\Audio.h">
-      <Filter>jni\audio</Filter>
-    </ClInclude>
     <ClInclude Include="jni\system\PMdebug.h">
       <Filter>jni\system</Filter>
     </ClInclude>
@@ -126,6 +126,12 @@
     </ClInclude>
     <ClInclude Include="libs\lodepng.h">
       <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\System\Time.h">
+      <Filter>jni\system</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\audio\AudioPlayer.h">
+      <Filter>jni\audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

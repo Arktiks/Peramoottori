@@ -3,25 +3,38 @@
 
 PM::Time::Time()
 {
+	inFrame = false;
+	timeInFrame = 0;
+	rawTime = 0;
 }
 
 double PM::Time::calculateTimeInFrame()
 {
-	frameStart = clock_gettime(CLOCK_MONOTONIC, NULL);
+	time(&rawTime);
 
+	if (inFrame == false)
+	{	
+		clock_gettime(CLOCK_MONOTONIC, &now);
+		frameStart = rawTime;
 
-	bool tempInFrame = true;
-
-	if (tempInFrame == false)
-	{
-		frameStart = clock_gettime(CLOCK_MONOTONIC, NULL);
-		tempInFrame = true;
+		inFrame = true;
+		
+		return 0;
 	}
 
-	tempInFrame = false;
+	else if (inFrame == true)
+	{
+	//	clock_gettime(CLOCK_MONOTONIC, &now);
+	//	frameEnd = now.tv_nsec;
 
-	return timeInFrame = difftime(frameStart, frameEnd);
+		timeInFrame = difftime(rawTime, frameStart)*1000;
 
+		frameStart = rawTime;
+
+		return timeInFrame;
+	}
+
+	return 0;
 }
 
 PM::Time::~Time()
