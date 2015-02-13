@@ -4,7 +4,7 @@
 
 #include "graphics\Shape.h"
 
-class Triangle : public Shape
+class Triangle : public virtual Shape 
 {
 public:
 
