@@ -6,11 +6,18 @@ Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int t
 	position = glm::vec2(tempPositionX, tempPositionY);
 	size = glm::vec2(1, 1);
 
+	vertices.push_back(tempPositionX); //1 xpos
+	vertices.push_back(tempPositionY); //2 ypos
+	vertices.push_back(0.0f); //3 red
+	vertices.push_back(0.0f); //4 green
+	vertices.push_back(0.0f); //5 blue
+	vertices.push_back(0.0f); //6 txpos
+	vertices.push_back(0.0f); //7 typos
 
 	for (int i = 0; i < tempSmoothness; i++)
 	{
-		vertices.push_back(tempPositionX + tempRadius * cos(PI / 2 + i * (PI * 2 / tempSmoothness)); //1 xpos
-		vertices.push_back(tempPositionY + tempRadius * sin(PI / 2 + i * (PI * 2 / tempSmoothness)); //2 ypos
+		vertices.push_back(tempPositionX + tempRadius * cos(PI / 2 + i * (PI * 2 / tempSmoothness))); //1 xpos
+		vertices.push_back(tempPositionY + tempRadius * sin(PI / 2 + i * (PI * 2 / tempSmoothness))); //2 ypos
 		vertices.push_back(0.0f); //3 red
 		vertices.push_back(0.0f); //4 green
 		vertices.push_back(0.0f); //5 blue

@@ -2,9 +2,12 @@
 
 #define SHAPE_H
 
-#include <vector>
 #include "glm\common.hpp"
+
+#include <vector>
+
 static const double PI = 3.141;
+
 class Shape
 {
 protected:
