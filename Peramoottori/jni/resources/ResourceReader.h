@@ -27,63 +27,49 @@ namespace pm
 		/// Needs to be called once application is ready to close.
 		void DestroyInstance();
 
-		/// Returns content of asset as std::string.
-		///		\param fileName : string name of asset.
-		///		\return content of asset.
+		/// Returns content of AAsset as std::string.
+		///		\param fileName : string name of AAsset.
+		///		\return content of AAsset as string.
 		std::string ReadText(std::string fileName);
 
 		/// Returns image that contains pixel data and dimensions.
-		/// Picture asset is contained as unsigned char.
-		///		\parama fileName : string name of asset.
-		///		\return content of asset.
+		/// Image asset is contained as unsigned char.
+		///		\parama fileName : string name of AAsset.
+		///		\return content of AAsset as Image.
 		Image ReadImage(std::string fileName);
 
 		/// Destructor.
 		virtual ~ResourceReader() {};
 
-		// For later use.
-		//std::vector<signed char> ReadAudio(std::string fileName);
-
 	private:
 		/// Checks if AAssetManager has been set before class use.
-		/**
-			\return bool depending on success.
-		*/
+		///		\return bool depending on success.
 		bool ManagerCheck();
 
-		///
-		/**
-		*
-		*/
+		/// Opens AAsset for further use.
+		///		\param fileName : string name of AAsset.
+		///		\return pointer to AAsset.
 		AAsset* OpenAsset(std::string fileName);
 
-		/////////////////////////////////////////////////
-		/// asd
-		/////////////////////////////////////////////////
-
-
-
-		///
-		/**
-		*
-		*/
+		/// Returns content of AAsset as character.
+		///		\param asset : pointer of AAsset.
+		///		\return content of AAsset as vector<char>.
 		std::vector<char> ReadChar(AAsset* asset);
 
-		///
-		/**
-		*
-		*/
+		/// Returns content of AAsset as unsigned character.
+		///		\param asset : pointer of AAsset.
+		///		\return content of AAsset as vector<unsigned char>.
 		std::vector<unsigned char> ReadUnsignedChar(AAsset* asset);
 
-		///
-		/**
-		*
-		*/
+		/// Constructor as private class.
 		ResourceReader() : manager(nullptr) {};
 
-		static ResourceReader* instance; ///<
-		AAssetManager* manager; ///<
+		static ResourceReader* instance; ///< Pointer to only instance of the class.
+		AAssetManager* manager; ///< Pointer to Androids AAssetManager.
 	};
 }
 
 #endif
+
+// TO-DO
+//std::vector<signed char> ReadAudio(std::string fileName);

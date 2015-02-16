@@ -31,8 +31,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\graphics\Rectangle.cpp" />
-    <ClCompile Include="jni\graphics\Sprite.cpp" />
-    <ClCompile Include="jni\graphics\SpriteBatch.cpp" />
+    <ClCompile Include="jni\graphics\Sprite.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\SpriteBatch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="jni\graphics\Texture.cpp" />
     <ClCompile Include="jni\graphics\Triangle.cpp" />
     <ClCompile Include="jni\Main.cpp" />
@@ -60,8 +64,12 @@
     </ClInclude>
     <ClInclude Include="jni\graphics\Rectangle.h" />
     <ClInclude Include="jni\graphics\Shape.h" />
-    <ClInclude Include="jni\graphics\Sprite.h" />
-    <ClInclude Include="jni\graphics\SpriteBatch.h" />
+    <ClInclude Include="jni\graphics\Sprite.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\SpriteBatch.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="jni\graphics\Texture.h" />
     <ClInclude Include="jni\graphics\Triangle.h" />
     <ClInclude Include="jni\resources\Image.h" />
