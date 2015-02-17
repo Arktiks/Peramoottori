@@ -7,7 +7,7 @@ ResourceReader* ResourceReader::instance = nullptr;
 
 ResourceReader* ResourceReader::GetInstance(AAssetManager* manager)
 {
-	if (instance == nullptr) // Initialize instance.
+	if (instance == nullptr) // If instance has not been initialized yet.
 	{
 		instance = new ResourceReader;
 		instance->Initialize(manager);
@@ -21,7 +21,7 @@ ResourceReader* ResourceReader::GetInstance(AAssetManager* manager)
 
 void ResourceReader::Initialize(AAssetManager* manager)
 {
-	if (manager != nullptr)
+	if (manager != nullptr) // If manager has already been set write a warning.
 		PMdebug::MsgWarning("ResourceReader manager has already been initialized!");
 	else
 		PMdebug::MsgInfo("ResourceReader manager assigned.");
@@ -43,9 +43,7 @@ std::string ResourceReader::ReadText(std::string fileName)
 	{
 		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
 		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-		
-		PMdebug::MsgInfo(tempString.c_str()); // Prints processed text.
-
+		PMdebug::MsgInfo(tempString.c_str()); // Prints processed text as confirmation.
 		return tempString;
 	}
 	else
@@ -56,19 +54,27 @@ Image ResourceReader::ReadImage(std::string fileName)
 {
 	AAsset* tempAsset = OpenAsset(fileName);
 
-	if (tempAsset)
+	if(tempAsset)
 	{
 		std::vector<unsigned char> tempBuffer = ReadUnsignedChar(tempAsset); // Buffer containing image content.
-
-		//return;
+		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
+		// Currently returned Image doesn't have picture dimensions.
+		return Image(tempString);
 	}
 	else
-		;
+		return Image(); // Returns empty Image if there is an error.
+}
+
+AAsset* ResourceReader::GetAsset(std::string fileName)
+{
+	// Temporary function for audio streaming.
+	// The AAsset needs to be closed manually.
+	return OpenAsset(fileName);
 }
 
 bool ResourceReader::ManagerCheck()
 {
-	if (instance->manager != nullptr)
+	if (instance->manager != nullptr) // If manager has been set everything is fine.
 		return true;
 	else
 	{
@@ -81,15 +87,15 @@ AAsset* ResourceReader::OpenAsset(std::string fileName)
 {
 	if (ManagerCheck())
 	{
-		AAsset* tempAsset = AAssetManager_open(manager, fileName.c_str(), AASSET_MODE_UNKNOWN); // Open asset using manager.
-		size_t tempSize = AAsset_getLength(tempAsset); // Check asset length.
+		AAsset* tempAsset = AAssetManager_open(manager, fileName.c_str(), AASSET_MODE_UNKNOWN); // Open AAsset using AAssetManager.
+		size_t tempSize = AAsset_getLength(tempAsset); // Check AAsset length.
 
-		if (tempAsset != nullptr && tempSize > 0) // Asset opened succesfully and size greater than 0.
+		if (tempAsset != nullptr && tempSize > 0) // AAsset opened succesfully and size greater than 0.
 		{
 			PMdebug::MsgInfo("Succesfully read file: %s (%i)", fileName.c_str(), tempSize);
-			return tempAsset; // Return asset pointer for further use.
+			return tempAsset; // Return AAsset pointer for further use.
 		}
-		else
+		else // There was an error opening the AAsset.
 		{
 			PMdebug::MsgWarning("Reading file failed: %s", fileName.c_str());
 			return nullptr;
@@ -99,11 +105,11 @@ AAsset* ResourceReader::OpenAsset(std::string fileName)
 
 std::vector<char> ResourceReader::ReadChar(AAsset* asset)
 {
-	size_t tempSize = AAsset_getLength(asset); // Check asset length.
-	std::vector<char> tempBuffer; // Buffer for asset content.
-	tempBuffer.resize(tempSize); // Reserver space for content.
-	AAsset_read(asset, &tempBuffer[0], tempSize); // Assign content into buffer.
-	AAsset_close(asset); // Destroy asset, no delete neccessary.
+	size_t tempSize = AAsset_getLength(asset);		// Check AAsset length.
+	std::vector<char> tempBuffer;					// Buffer for AAsset content.
+	tempBuffer.resize(tempSize);					// Reserver space for content.
+	AAsset_read(asset, &tempBuffer[0], tempSize);	// Assign content into buffer.
+	AAsset_close(asset);							// Destroy opened AAsset, no delete neccessary.
 	return tempBuffer;
 }
 

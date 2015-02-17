@@ -15,16 +15,18 @@ namespace pm
 	class ResourceReader
 	{
 	public:
-		/// Returns instance of ResourceReader.
+		/// Static function that returns instance pointer of ResourceReader.
 		/// Only one instance of ResourceReader will exist during runtime.
+		///		\param manager : AAssetManager pointer, defaults to nullptr.
+		///		\return pointer to only instance of this class.
 		static ResourceReader* GetInstance(AAssetManager* manager = nullptr);
 
 		/// Initializes AAssetManager location for ResourceReader.
-		///		\param manager : AAssetManager pointer, defaults to nullptr.
+		///		\param manager : AAssetManager pointer.
 		void Initialize(AAssetManager* manager);
 
 		/// Deletes ResourceReader instance.
-		/// Needs to be called once application is ready to close.
+		/// Should be called once application is ready to close.
 		void DestroyInstance();
 
 		/// Returns content of AAsset as std::string.
@@ -37,6 +39,12 @@ namespace pm
 		///		\parama fileName : string name of AAsset.
 		///		\return content of AAsset as Image.
 		Image ReadImage(std::string fileName);
+
+		/// Returns opened AAsset for further use.
+		/// The AAsset needs to be closed manually.
+		///		\parama fileName : string name of AAsset.
+		///		\return pointer to AAsset.
+		AAsset* GetAsset(std::string fileName);
 
 		/// Destructor.
 		virtual ~ResourceReader() {};
