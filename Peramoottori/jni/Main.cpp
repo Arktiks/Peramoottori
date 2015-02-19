@@ -16,7 +16,7 @@
 
 void android_main(android_app* application)
 {
-	PM::Application app;
+	pm::Application app;
 	PM::Time aika;
 	app.Initialize(application);
 
