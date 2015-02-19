@@ -1,24 +1,33 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
+#include "audio\AudioPlayer.h"
 #include "resources\ResourceReader.h"
-#include <string>
+#include "system\PMassert.h"
+#include "System\PMdebug.h"
 
-namespace PM
+#include <string>
+#include <vector>
+
+namespace pm
 {
 	class Audio
 	{
 	public:
+
 		Audio(std::string fileName);
 		~Audio();
 
-		int GetSize();
-		char* GetData();
+		void Play();
+		void Stop();
+
+		bool IsPlaying();
 
 	private:
+		off_t start, length;
+		int fileDescriptor;
 
-		std::vector<char> data;
-		int size;
+		std::string name;
 	};
 }
 #endif //AUDIO_H

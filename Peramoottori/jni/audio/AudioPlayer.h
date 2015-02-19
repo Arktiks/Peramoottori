@@ -1,29 +1,47 @@
+#ifndef AUDIOPLAYER_H
+#define AUDIOPLAYER_H
+
 #include "System/PMassert.h"
+
+#include <sys/types.h>
+#include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
 
-namespace PM
+namespace pm
 { 
 	class AudioPlayer
 	{
-		AudioPlayer();
+	public:
+
+		AudioPlayer(int fileDescriptor, off_t start, off_t length);
 		~AudioPlayer();
+
+		void SetPlayState(bool isPlaying);
+		void SetLooping(bool isEnabled);
+
 
 	private:
 		
-		bool CreateAudioPlayer();
+		void CreateAudioPlayer();
 		void CreateEngine();
 
-		SLEngineItf engine;
-		
-		SLObjectItf audioPlayerObj;
-		SLObjectItf engineObj;
-		SLObjectItf outputMixObj;
+		static SLObjectItf engineObj;
+		static SLEngineItf engine;
 
-		SLAndroidSimpleBufferQueueItf audioPlayerBufferQueue;
+		static int audioPlayerCount;
+		
+		SLObjectItf outputMixObj;
+		SLVolumeItf outputMixVol;
+
+		SLObjectItf audioPlayerObj;
 		SLPlayItf audioPlayerPlay;
 		SLSeekItf audioPlayerSeek;
-		SLVolumeItf audioPlayerVolume;
-		SLVolumeItf outputMixVol;
-		
+		SLVolumeItf audioPlayerVol;
+
+		int fileDescriptor;
+		off_t start, length;
+
 	};
 }
+
+#endif //AUDIOPLAYER_H
