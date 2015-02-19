@@ -7,6 +7,7 @@
 #include <android/input.h>
 
 #include <resources/ResourceReader.h>
+#include "Input.h"
 
 using namespace pm;
 
@@ -26,7 +27,6 @@ void Application::Initialize(android_app* application)
 	engine.app->userData = &engine;
 	engine.app->onInputEvent = HandleInput;
 	engine.assetManager = application->activity->assetManager;
-	
 	pm::ResourceReader::GetInstance(application->activity->assetManager); // Initialize the ResourceReader with AAssetManager.
 
 	LOGI("Application has been initialized.");
@@ -34,6 +34,7 @@ void Application::Initialize(android_app* application)
 
 bool Application::Update()
 {
+	Input::Update();
 	while (ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
 	{
 		if (eventSource != nullptr)
@@ -45,7 +46,6 @@ bool Application::Update()
 			return false;
 		}
 	}
-
 	return true;
 }
 
@@ -154,15 +154,10 @@ int HandleInput(android_app* application, AInputEvent* event)
 	struct Application::Engine* engine = (struct Application::Engine*)application->userData;
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
 	{
-		engine->lx = engine->x;
-		engine->ly = engine->y;
-
-		engine->x = AMotionEvent_getX(event, 0);
-		engine->y = AMotionEvent_getY(event, 0);
-		engine->touch = true;
+	
+		Input::InputEvent(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
 		return 1;
 	}
-	engine->touch = false;
 	return 0;
 }
 
