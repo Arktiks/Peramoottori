@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="jni">
+      <UniqueIdentifier>40a1a67c-fc51-424e-985f-20be6465083f</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>86c36c4e-8156-4c58-9f48-dff7f896a433</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\values">
+      <UniqueIdentifier>e1fbc059-1aa2-4810-9778-bab805a445eb</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\resources">
+      <UniqueIdentifier>{82754520-4b79-40fb-a6e2-db946186bdae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{a0cc2f50-36ab-4563-a4fc-756a37147115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structs">
+      <UniqueIdentifier>{9e164851-e047-4bb0-9ceb-2d6902927072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\graphics">
+      <UniqueIdentifier>{e09a90b2-d069-4521-8b01-3215cf702caf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\system">
+      <UniqueIdentifier>{ff934716-1873-4437-9e0b-aa6b93b98e4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\audio">
+      <UniqueIdentifier>{a35a28c0-d7ba-4b45-bee4-ff24747a34ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\graphics\Shapes">
+      <UniqueIdentifier>{165bcdb1-6867-4137-bfdd-47483eb79bf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\graphics\Text">
+      <UniqueIdentifier>{49bc82f1-7a32-4a82-b304-acee6312b610}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="res\values\strings.xml">
+      <Filter>res\values</Filter>
+    </AndroidBuild>
+    <AndroidBuild Include="AndroidManifest.xml">
+      <Filter>res</Filter>
+    </AndroidBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="jni\main.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\Application.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\android_native_app_glue.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Sprite.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\SpriteBatch.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Texture.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\ResourceReader.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Rectangle.cpp">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Triangle.cpp">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Circle.cpp">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\lodepng.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\System\Time.cpp">
+      <Filter>jni\system</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\audio\AudioPlayer.cpp">
+      <Filter>jni\audio</Filter>
+    </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="jni\graphics\Font.cpp">
+      <Filter>jni\graphics\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Text.cpp">
+      <Filter>jni\graphics\Text</Filter>
+=======
+    <ClCompile Include="jni\audio\Audio.cpp">
+      <Filter>jni\audio</Filter>
+>>>>>>> 990f0f0b8e5071186b5e57ad508940306ca3e2a4
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="jni\Application.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\android_native_app_glue.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\structs\Engine.h">
+      <Filter>structs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\structs\LoadedImage.h">
+      <Filter>structs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\system\PMassert.h">
+      <Filter>jni\system</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Sprite.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\SpriteBatch.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Texture.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\ResourceReader.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\system\PMdebug.h">
+      <Filter>jni\system</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Rectangle.h">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Shape.h">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Triangle.h">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Circle.h">
+      <Filter>jni\graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\lodepng.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\System\Time.h">
+      <Filter>jni\system</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\audio\AudioPlayer.h">
+      <Filter>jni\audio</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="jni\graphics\Font.h">
+      <Filter>jni\graphics\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Text.h">
+      <Filter>jni\graphics\Text</Filter>
+=======
+    <ClInclude Include="jni\resources\Image.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\audio\Audio.h">
+      <Filter>jni\audio</Filter>
+>>>>>>> 990f0f0b8e5071186b5e57ad508940306ca3e2a4
+    </ClInclude>
+  </ItemGroup>
+</Project>
