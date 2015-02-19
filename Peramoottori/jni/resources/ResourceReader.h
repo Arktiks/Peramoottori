@@ -9,6 +9,7 @@
 class ResourceReader
 {
 public:
+
 	static ResourceReader* GetInstance(AAssetManager* manager = nullptr);
 	void Initialize(AAssetManager* manager);
 	void DestroyInstance();
@@ -19,6 +20,7 @@ public:
 	virtual ~ResourceReader() {};
 
 private:
+
 	bool ManagerCheck();
 	AAsset* OpenAsset(std::string fileName);
 	std::vector<char> ReadAsset(AAsset* asset);
