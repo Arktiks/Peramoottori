@@ -4,21 +4,27 @@
 #include <vector>
 #include <string>
 
-class Image
+namespace pm
 {
-public:
-	Image();
-	Image(std::string fileName);
-	Image(std::vector<unsigned char> pixels);
+	/// Contains picture as unsigned char.
+	/// Currently does not support picture dimensions.
 
-	//bool LoadFromFile(std::string fileName);
+	class Image
+	{
+	public:
+		/// Default constructor.
+		Image() /*: width(0), height(0)*/ {};
 
-	~Image() {};
+		/// Constructor that takes in picture data.
+		Image(std::vector<unsigned char> pixels) : /*width(0), height(0),*/ pixels(pixels) {};
 
-private:
-	unsigned int width;
-	unsigned int height;
-	std::vector<unsigned char> pixels;
-};
+		/// Destructor.
+		~Image() {};
+
+		//unsigned int width; ///< Picture width, not supported.
+		//unsigned int height; ///< Picture height, not supported.
+		std::vector<unsigned char> pixels; ///< Picture data.
+	};
+}
 
 #endif

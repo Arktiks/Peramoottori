@@ -10,7 +10,7 @@
 #include <android/asset_manager.h>
 #include <EGL/egl.h>
 
-namespace PM
+namespace pm
 {
 	/// The core application system.
 	/**
