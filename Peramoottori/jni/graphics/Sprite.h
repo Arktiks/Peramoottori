@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SPRITE_H
+
+#define SPRITE_H
 #include "Texture.h"
 #include "graphics\Rectangle.h"
 
@@ -8,6 +10,7 @@
 // Verrattuna grafiikkamoottoriin t‰ytyy luoda erikokoisia taulukkoja -> siirryt‰‰n vektoriin?
 class Sprite : public Rectangle 
 {
+	friend class SpriteBatch;
 public:
 
 	Sprite();
@@ -40,3 +43,4 @@ private:
 
 };
 
+#endif

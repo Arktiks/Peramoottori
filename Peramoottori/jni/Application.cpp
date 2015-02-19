@@ -6,10 +6,9 @@
 #include <GLES2/gl2ext.h>
 #include <android/input.h>
 
+#include <resources/ResourceReader.h>
 
-
-using namespace PM;
-
+using namespace pm;
 
 void ProcessCommand(android_app* application, int32_t command);
 int HandleInput(android_app* application, AInputEvent* event);
@@ -26,8 +25,9 @@ void Application::Initialize(android_app* application)
 	engine.app->onAppCmd = ProcessCommand;
 	engine.app->userData = &engine;
 	engine.app->onInputEvent = HandleInput;
-	
 	engine.assetManager = application->activity->assetManager;
+	
+	pm::ResourceReader::GetInstance(application->activity->assetManager); // Initialize the ResourceReader with AAssetManager.
 
 	LOGI("Application has been initialized.");
 }

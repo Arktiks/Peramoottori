@@ -10,6 +10,9 @@ static const double PI = 3.141;
 
 class Shape
 {
+public:
+	int drawDepht;
+
 protected:
 
 	std::vector<float> vertices;
@@ -23,7 +26,7 @@ protected:
 
 	float colorRed, colorGreen, colorBlue;
 
-	int drawDepht;
+	
 
 	
 };

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef TEXTURE_H
+
+#define TEXTURE_H
 #include "glm\common.hpp"
 class Texture
 {
@@ -24,3 +26,4 @@ private:
 
 };
 
+#endif
