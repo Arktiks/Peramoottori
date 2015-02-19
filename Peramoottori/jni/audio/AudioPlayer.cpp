@@ -2,34 +2,6 @@
 
 using namespace PM;
 
-AudioPlayer* AudioPlayer::instance = nullptr;
-
-AudioPlayer* AudioPlayer::GetInstance()
-{
-	if (instance == nullptr)
-		instance = new AudioPlayer();
-	
-	return instance;
-}
-
-bool AudioPlayer::SelectClip(Audio* audioClip, int count)
-{
-	nextBuffer = audioClip->data;
-	nextSize = audioClip->size;
-
-	nextCount = count;
-	
-	if (nextSize > 0)
-	{
-		SLresult  tempResult;
-
-		 tempResult = (*audioPlayerBufferQueue)->Enqueue(audioPlayerBufferQueue, nextBuffer, nextSize);
-		if ( tempResult != SL_RESULT_SUCCESS)
-			return false;
-	}
-	return true;
-}
-
 AudioPlayer::AudioPlayer()
 {
 	CreateEngine();
@@ -40,30 +12,30 @@ void AudioPlayer::CreateEngine()
 {
 	SLresult  tempResult;
 
-	 tempResult = slCreateEngine(&engineObj, 0, nullptr, 0, nullptr, nullptr);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = slCreateEngine(&engineObj, 0, nullptr, 0, nullptr, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 
-	 tempResult = (*engineObj)->Realize(engineObj, SL_BOOLEAN_FALSE);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*engineObj)->Realize(engineObj, SL_BOOLEAN_FALSE);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 		
-	 tempResult = (*engineObj)->GetInterface(engineObj, SL_IID_ENGINE, &engine);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*engineObj)->GetInterface(engineObj, SL_IID_ENGINE, &engine);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 
 	const SLInterfaceID tempIds[] = { SL_IID_VOLUME };
 	const SLboolean tempReq[] = { SL_BOOLEAN_TRUE };
 
-	 tempResult = (*engine)->CreateOutputMix(engine, &outputMixObj, 4, tempIds, tempReq);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*engine)->CreateOutputMix(engine, &outputMixObj, 4, tempIds, tempReq);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 	
-	 tempResult = (*outputMixObj)->Realize(outputMixObj, SL_BOOLEAN_FALSE);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*outputMixObj)->Realize(outputMixObj, SL_BOOLEAN_FALSE);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 	
-	 tempResult = (*outputMixObj)->GetInterface(outputMixObj, SL_IID_VOLUME, &outputMixVol);
+	tempResult = (*outputMixObj)->GetInterface(outputMixObj, SL_IID_VOLUME, &outputMixVol);
 
 	if ( tempResult != SL_RESULT_SUCCESS)
 		outputMixVol = nullptr;
@@ -91,48 +63,34 @@ bool AudioPlayer::CreateAudioPlayer()
 	const SLboolean tempReq[4] = { SL_BOOLEAN_TRUE };
 
 	tempResult = (*engine)->CreateAudioPlayer(engine, &audioPlayerObj, &audioSrc, &tempAudioSink, 4, tempIds, tempReq);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 
-	 tempResult = (*audioPlayerObj)->Realize(audioPlayerObj, SL_BOOLEAN_FALSE);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*audioPlayerObj)->Realize(audioPlayerObj, SL_BOOLEAN_FALSE);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 
-	 tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_BUFFERQUEUE, &audioPlayerBufferQueue);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_BUFFERQUEUE, &audioPlayerBufferQueue);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 
-	 tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_PLAY, &audioPlayerPlay);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_PLAY, &audioPlayerPlay);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 
-	 tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_SEEK, &audioPlayerSeek);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_SEEK, &audioPlayerSeek);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 
-	 tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_VOLUME, &audioPlayerVolume);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_VOLUME, &audioPlayerVolume);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 
-	 tempResult = (*audioPlayerObj)->RegisterCallback(audioPlayerObj, this->AudioPlayerCallback, nullptr);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*audioPlayerObj)->RegisterCallback(audioPlayerObj, this->AudioPlayerCallback, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
 
-	 tempResult = (*audioPlayerPlay)->SetPlayState(audioPlayerPlay, SL_PLAYSTATE_PLAYING);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
+	tempResult = (*audioPlayerPlay)->SetPlayState(audioPlayerPlay, SL_PLAYSTATE_PLAYING);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
 	(void) tempResult;
-}
-
-void AudioPlayer::AudioPlayerCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context)
-{
-	PMassert::AssertEquals(bufferQueue, audioPlayerBufferQueue, nullptr);
-	PMassert::AssertEquals(context, (void*)nullptr, nullptr);
-
-	if (--nextCount > 0 && nextBuffer != nullptr && nextSize != 0)
-	{
-		SLresult  tempResult;
-		 tempResult = (*audioPlayerBufferQueue)->Enqueue(audioPlayerBufferQueue, nextBuffer, nextSize);
-		PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);;
-		(void) tempResult;
-	}
 }

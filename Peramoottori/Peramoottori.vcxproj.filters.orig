@@ -83,15 +83,16 @@
     <ClCompile Include="jni\audio\AudioPlayer.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="jni\graphics\Font.cpp">
       <Filter>jni\graphics\Text</Filter>
     </ClCompile>
-    <ClCompile Include="jni\audio\Audio.cpp">
-      <Filter>jni\audio</Filter>
-    </ClCompile>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Text.cpp">
       <Filter>jni\graphics\Text</Filter>
+=======
+    <ClCompile Include="jni\audio\Audio.cpp">
+      <Filter>jni\audio</Filter>
+>>>>>>> 990f0f0b8e5071186b5e57ad508940306ca3e2a4
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,17 +147,19 @@
     <ClInclude Include="jni\audio\AudioPlayer.h">
       <Filter>jni\audio</Filter>
     </ClInclude>
-    <ClInclude Include="jni\resources\Image.h">
-      <Filter>jni\resources</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\audio\Audio.h">
-      <Filter>jni\audio</Filter>
-    </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="jni\graphics\Font.h">
       <Filter>jni\graphics\Text</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Text.h">
       <Filter>jni\graphics\Text</Filter>
+=======
+    <ClInclude Include="jni\resources\Image.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\audio\Audio.h">
+      <Filter>jni\audio</Filter>
+>>>>>>> 990f0f0b8e5071186b5e57ad508940306ca3e2a4
     </ClInclude>
   </ItemGroup>
 </Project>

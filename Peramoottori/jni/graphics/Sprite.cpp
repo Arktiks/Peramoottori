@@ -25,8 +25,6 @@ void Sprite::setSourceRectSize(glm::vec2 tempsourceRectSize)
 {
 	this->sourceRect[3] = tempsourceRectSize[1];
 	this->sourceRect[4] = tempsourceRectSize[2];
-
-	
 }
 
 void Sprite::setSourceRectPosition(glm::vec2 tempsourceRectPosition)

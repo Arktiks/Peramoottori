@@ -5,16 +5,13 @@ namespace PM
 { 
 	class AudioPlayer
 	{
-		AudioPlayer* GetInstance();
-		bool SelectClip(Audio* audioClip, int count);
-
-	private:
 		AudioPlayer();
 		~AudioPlayer();
+
+	private:
 		
 		bool CreateAudioPlayer();
 		void CreateEngine();
-		void AudioPlayerCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context);
 
 		SLEngineItf engine;
 		
@@ -28,10 +25,5 @@ namespace PM
 		SLVolumeItf audioPlayerVolume;
 		SLVolumeItf outputMixVol;
 		
-		short* nextBuffer;
-		unsigned nextSize;
-		int nextCount;
-
-		static AudioPlayer* instance;
 	};
 }

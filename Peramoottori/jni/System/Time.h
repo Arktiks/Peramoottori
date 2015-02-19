@@ -16,6 +16,8 @@ namespace PM
 		time_t frameEnd;
 		double timeInFrame;
 		struct timespec now;
+		struct timespec then;
+		
 
 
 		~Time();

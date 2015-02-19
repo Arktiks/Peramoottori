@@ -9,6 +9,32 @@
 
 namespace pm
 {
+<<<<<<< HEAD
+public:
+
+	static ResourceReader* GetInstance(AAssetManager* manager = nullptr);
+	void Initialize(AAssetManager* manager);
+	void DestroyInstance();
+	
+	std::string String(std::string fileName);
+	LoadedImage PNG(std::string fileName);
+
+	virtual ~ResourceReader() {};
+
+private:
+
+	bool ManagerCheck();
+	AAsset* OpenAsset(std::string fileName);
+	std::vector<char> ReadAsset(AAsset* asset);
+	
+	ResourceReader() : manager(nullptr) {};
+
+	static ResourceReader* instance;
+	AAssetManager* manager;
+};
+
+#endif
+=======
 	/// Reads resources using android AAssetManager.
 	/// Singleton class that purely focuses on reading assets and not storing them.
 
@@ -81,3 +107,4 @@ namespace pm
 
 // TO-DO
 //std::vector<signed char> ReadAudio(std::string fileName);
+>>>>>>> 990f0f0b8e5071186b5e57ad508940306ca3e2a4
