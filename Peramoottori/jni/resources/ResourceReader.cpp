@@ -56,10 +56,11 @@ Image ResourceReader::ReadImage(std::string fileName)
 
 	if(tempAsset)
 	{
-		std::vector<unsigned char> tempBuffer = ReadUnsignedChar(tempAsset); // Buffer containing image content.
-		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-		// Currently returned Image doesn't have picture dimensions.
-		return Image(tempString);
+		std::vector<unsigned char> tempBuffer = ReadUnsignedChar(tempAsset); // Buffer containing picture content.
+		//std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
+		// Currently Images picture dimensions are not calculated.
+		// Image dimensions can be decoded in Graphics module.
+		return Image(tempBuffer);
 	}
 	else
 		return Image(); // Returns empty Image if there is an error.

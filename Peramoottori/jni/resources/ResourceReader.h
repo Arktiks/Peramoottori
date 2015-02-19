@@ -34,8 +34,8 @@ namespace pm
 		///		\return content of AAsset as string.
 		std::string ReadText(std::string fileName);
 
-		/// Returns image that contains pixel data and dimensions.
-		/// Image asset is contained as unsigned char.
+		/// Returns image that contains pixel data.
+		/// Image is contained as unsigned char.
 		///		\parama fileName : string name of AAsset.
 		///		\return content of AAsset as Image.
 		Image ReadImage(std::string fileName);

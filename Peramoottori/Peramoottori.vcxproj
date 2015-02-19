@@ -41,7 +41,6 @@
     <ClCompile Include="jni\graphics\Texture.cpp" />
     <ClCompile Include="jni\graphics\Triangle.cpp" />
     <ClCompile Include="jni\Main.cpp" />
-    <ClCompile Include="jni\resources\Image.cpp" />
     <ClCompile Include="jni\resources\ResourceReader.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
