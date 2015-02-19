@@ -10,12 +10,12 @@ PM::Time::Time()
 
 double PM::Time::calculateTimeInFrame()
 {
+	//clock_gettime(CLOCK_MONOTONIC, &now);
 	time(&rawTime);
 
 	if (inFrame == false)
 	{	
-		clock_gettime(CLOCK_MONOTONIC, &now);
-		frameStart = rawTime;
+		frameStart = clock_gettime(CLOCK_MONOTONIC, &now);
 
 		inFrame = true;
 		
@@ -27,9 +27,9 @@ double PM::Time::calculateTimeInFrame()
 	//	clock_gettime(CLOCK_MONOTONIC, &now);
 	//	frameEnd = now.tv_nsec;
 
-		timeInFrame = difftime(rawTime, frameStart)*1000;
+		timeInFrame = difftime(rawTime, now.tv_sec) * 1000000000LL + now.tv_nsec;
 
-		frameStart = rawTime;
+		frameStart = clock_gettime(CLOCK_MONOTONIC, &now);
 
 		return timeInFrame;
 	}
