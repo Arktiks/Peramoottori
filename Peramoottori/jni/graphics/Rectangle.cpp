@@ -8,6 +8,7 @@ Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, 
 	size = glm::vec2(1, 1);
 	widht = tempWidht;
 	height = tempHeight;
+	draw = true;
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -37,6 +38,7 @@ Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
 	size = glm::vec2(1, 1);
 	widht = tempWidthHeight.x;
 	height = tempWidthHeight.y;
+	draw = true;
 
 	for (int i = 0; i < 2; i++)
 	{

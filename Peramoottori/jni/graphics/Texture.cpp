@@ -28,7 +28,7 @@ glm::vec2 Texture::getTextureSize()
 {
 	return textureSize;
 }
-int Texture::getAtlasID()
+GLuint Texture::getAtlasID()
 {
 	return atlasIndex;
 }

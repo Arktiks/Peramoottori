@@ -4,17 +4,20 @@
 Sprite::Sprite() : Rectangle(0, 0, 0, 0)
 {
 	hasTexture = false;
+	draw = true;
 }
 
-Sprite::Sprite(Texture texture) : Rectangle(texture.getTexturePosition(), texture.getSourceRectSize())
+Sprite::Sprite(Texture texture) : Rectangle(texture.getTexturePosition(), texture.getTextureSize())
 {
 	this->texture = texture;
 	hasTexture = true;
+	draw = true;
 }
 Sprite::Sprite(Texture texture, float x, float y, float widht, float heigth) : Rectangle(x, y, widht, heigth)
 {
 	this->texture = texture;
 	hasTexture = true;
+	draw = true;
 }
 Sprite::~Sprite()
 {
@@ -38,7 +41,7 @@ void Sprite::setSourceRectPosition(glm::vec2 tempsourceRectPosition)
 
 void Sprite::setSourceRect(glm::vec4 tempsourceRect)
 {
-	this->getSourceRect = tempsourceRect;
+	this->sourceRect = tempsourceRect;
 
 	vertices[6] = (tempsourceRect[1] / texture.getTextureSize()[1]);
 	vertices[7] = (tempsourceRect[2] / texture.getTextureSize()[2]);

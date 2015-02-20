@@ -17,21 +17,20 @@ public:
 	SpriteBatch();
 	~SpriteBatch();
 	void Draw();
-	
+	void addSprite(Sprite &sprite);
 private:
 	void Update();
 	void CreateBufferData();
+	void BindBuffers();
 	void Sort();
-	
 
 	std::vector<GLfloat> createGLCoord(std::vector<GLfloat> convertVertices, glm::vec2 textureSize);
 
-	glm::vec2 PositionToGlCoord(glm::vec2 position);
+	glm::vec2 PositionToGLCoord(glm::vec2 position);
 	glm::vec3 ColorToGLCoord(glm::vec3 color);
 	glm::vec2 TextureToGLCoord(glm::vec2 position, glm::vec2 spriteSize);
 
 	glm::vec2 screenSize;
-
 
 	std::vector<Sprite*> sprites; // Saadaanko spritet lisättyä automaattisesti tähän listaan?
 	std::vector<GLuint> indexData;
@@ -39,7 +38,7 @@ private:
 
 	// Todennäköisesti muuttuvat:
 	void TempCreateShader();
-	void addSprite(Sprite &sprite);
+
 	GLuint glObject;
 	int spriteAmount;
 	GLuint buffer[2];

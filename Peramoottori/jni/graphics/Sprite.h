@@ -18,8 +18,6 @@ public:
 	Sprite(Texture texture, float x, float y, float widht, float heigth);
 	~Sprite();
 
-	glm::vec2 getSourceRectSize();
-	glm::vec2 getSourceRectPosition();
 
 	void setSourceRectSize(glm::vec2 sourceRectSize);
 	void setSourceRectPosition(glm::vec2 sourceRectPosition);
