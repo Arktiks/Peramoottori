@@ -32,13 +32,17 @@ private:
 
 	glm::vec2 screenSize;
 
+
 	std::vector<Sprite*> sprites; // Saadaanko spritet lisättyä automaattisesti tähän listaan?
 	std::vector<GLuint> indexData;
 	std::vector<GLfloat> vertexData;
 
 	// Todennäköisesti muuttuvat:
-	void TempCreateShader() :
+	void TempCreateShader();
+	void addSprite(Sprite &sprite);
 	GLuint glObject;
+	int spriteAmount;
+	GLuint buffer[2];
 };
 
 #endif

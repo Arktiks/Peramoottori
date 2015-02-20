@@ -9,12 +9,19 @@
 SpriteBatch::SpriteBatch()
 {
 	screenSize = glm::vec2(500, 500); // !!!!! Get real screen resolution!
+	spriteAmount = 0;
+	glGenBuffers(2, &buffer[0]);
 }
 
 
 SpriteBatch::~SpriteBatch()
 {
 
+}
+
+void addSprite(Sprite &sprite)
+{
+	sprites.push_back(sprite);
 }
 
 void SpriteBatch::Draw()
@@ -59,7 +66,19 @@ void SpriteBatch::Draw()
 
 void SpriteBatch::Update()
 {
+	CreateBufferData();
 
+	if (spriteAmount != sprites.size())
+	{
+		spriteAmount = sprites.size();
+		// Buffereille voitaisiin tehdä oma funktio/luokka?
+		glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+		glBufferData(GL_ARRAY_BUFFER, vertexData.size()*sizeof(GLfloat), &vertexData.front(), GL_DYNAMIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size()*sizeof(GLuint), &indexData.front(), GL_DYNAMIC_DRAW);
+	}
+	
+	glBufferSubData(GL_ARRAY_BUFFER, 0u, vertexData.size()*sizeof(GLfloat), &vertexData.front());
 }
 /// Spritebatch vector sort
 /**
