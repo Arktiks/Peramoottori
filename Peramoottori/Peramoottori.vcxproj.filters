@@ -811,9 +811,6 @@
     <ClInclude Include="jni\Application.h">
       <Filter>jni</Filter>
     </ClInclude>
-    <ClInclude Include="jni\structs\LoadedImage.h">
-      <Filter>structs</Filter>
-    </ClInclude>
     <ClInclude Include="jni\resources\ResourceReader.h">
       <Filter>jni\resources</Filter>
     </ClInclude>

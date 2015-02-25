@@ -1,8 +1,8 @@
-#include "graphics\Text.h"
+#include "Text.h"
+using namespace pm;
 
 Text::Text(const char* temptext, float tempx, float tempy, float tempwidht, float tempheight, Font tempfont)
 {
-
 	text = temptext;
 	x = tempx;
 	y = tempy;

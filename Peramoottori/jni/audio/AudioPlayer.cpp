@@ -1,5 +1,5 @@
-#include "audio\AudioPlayer.h"
-
+#include "AudioPlayer.h"
+#include <system\PMassert.h>
 
 pm::AudioPlayer::AudioPlayer(int fileDescriptor, off_t start, off_t length)
 {
@@ -9,7 +9,6 @@ pm::AudioPlayer::AudioPlayer(int fileDescriptor, off_t start, off_t length)
 
 	CreateEngine();
 	CreateAudioPlayer();
-
 }
 
 pm::AudioPlayer::~AudioPlayer()

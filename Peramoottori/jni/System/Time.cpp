@@ -1,6 +1,5 @@
 #include "Time.h"
 
-
 pm::Time::Time()
 {
 	inFrame = false;
@@ -10,7 +9,6 @@ pm::Time::Time()
 
 double pm::Time::calculateTimeInFrame()
 {
-
 	if (inFrame == false)
 	{	
 		rawTime = clock_gettime(CLOCK_MONOTONIC, &now);
@@ -22,7 +20,6 @@ double pm::Time::calculateTimeInFrame()
 
 	else if (inFrame == true)
 	{
-
 		clock_gettime(CLOCK_MONOTONIC, &then);
 
 		timeInFrame = difftime(then.tv_sec, now.tv_sec) * 1000000000LL + difftime(then.tv_nsec, now.tv_nsec);

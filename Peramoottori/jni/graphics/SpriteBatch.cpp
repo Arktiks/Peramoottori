@@ -1,20 +1,20 @@
 #include "SpriteBatch.h"
 #include <algorithm>
+//#include "Shape.h"
+
+using namespace pm;
+
 // TODO: Tuki indeksim‰‰r‰lt‰‰n erikokoisille spriteille tehd‰‰n piirt‰m‰ll‰ kolmioita vain.
 // Spritebatcheja on vain yksi, singleton? 
 // T‰m‰n kautta piirret‰‰n kaikki
-
-
 
 SpriteBatch::SpriteBatch()
 {
 	screenSize = glm::vec2(500, 500); // !!!!! Get real screen resolution!
 }
 
-
 SpriteBatch::~SpriteBatch()
 {
-
 }
 
 void SpriteBatch::Draw()
@@ -59,12 +59,13 @@ void SpriteBatch::Draw()
 
 void SpriteBatch::Update()
 {
-
 }
+
 /// Spritebatch vector sort
 /**
 	Sorts sprites according to their draw depth.
 */
+
 void SpriteBatch::Sort()
 {
 	for (std::vector<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++)
@@ -116,6 +117,7 @@ glm::vec2 SpriteBatch::TextureToGLCoord(glm::vec2 position, glm::vec2 spriteSize
 	return tempTexCoord;
 
 }
+
 glm::vec2 SpriteBatch::PositionToGlCoord(glm::vec2 position)
 {
 	glm::vec2 tempPosCoord;
@@ -123,6 +125,7 @@ glm::vec2 SpriteBatch::PositionToGlCoord(glm::vec2 position)
 	tempPosCoord.y = 2 * (position.y / screenSize.y) - 1;
 	return tempPosCoord;
 }
+
 glm::vec3 SpriteBatch::ColorToGLCoord(glm::vec3 color)
 {
 	glm::vec3 tempColor;
@@ -135,5 +138,4 @@ glm::vec3 SpriteBatch::ColorToGLCoord(glm::vec3 color)
 // Todenn‰kˆisesti muuttuvat:
 void TempCreateShader()
 {
-
 }

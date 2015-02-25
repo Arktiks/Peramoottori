@@ -1,20 +1,23 @@
 #ifndef CIRCLE_H
-
 #define CIRCLE_H
 
-#include "graphics\Shape.h"
+#include "Shape.h"
 
-class Circle : public virtual Shape
+namespace pm
 {
-public:
+	class Circle : public virtual Shape
+	{
+	public:
 
-	Circle(float tempPositionX, float tempPositionY, float tempRadius, int smoothness);
-	~Circle();
+		Circle(float tempPositionX, float tempPositionY, float tempRadius, int smoothness);
+		~Circle();
 
-private:
+	private:
 
-	int smoothness;
-	float radius;
+		int smoothness;
+		float radius;
 
-};
+	};
+}
+
 #endif

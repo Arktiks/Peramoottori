@@ -1,4 +1,5 @@
-#include "graphics/Circle.h"
+#include "Circle.h"
+using namespace pm;
 
 Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int tempSmoothness)
 {
@@ -26,7 +27,7 @@ Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int t
 	}
 
 }
+
 Circle::~Circle()
 {
-
 }

@@ -1,5 +1,7 @@
-#include "graphics\Font.h"
-
+#include "Font.h"
+#include <system\PMassert.h>
+#include <system\PMdebug.h>
+using namespace pm;
 
 Font::Font(const char* filePath)
 {

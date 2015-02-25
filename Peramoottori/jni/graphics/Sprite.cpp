@@ -1,5 +1,5 @@
 #include "Sprite.h"
-
+using namespace pm;
 
 Sprite::Sprite() : Rectangle(0, 0, 0, 0)
 {
@@ -11,11 +11,13 @@ Sprite::Sprite(Texture texture) : Rectangle(texture.getTexturePosition(), textur
 	this->texture = texture;
 	hasTexture = true;
 }
+
 Sprite::Sprite(Texture texture, float x, float y, float widht, float heigth) : Rectangle(x, y, widht, heigth)
 {
 	this->texture = texture;
 	hasTexture = true;
 }
+
 Sprite::~Sprite()
 {
 

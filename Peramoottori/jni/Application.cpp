@@ -1,11 +1,13 @@
 #include "Application.h"
+
 #include <jni.h>
 #include <errno.h>
-
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include <android/input.h>
 
+#include <system\PMassert.h>
+#include <system\PMdebug.h>
 #include <resources/ResourceReader.h>
 //#include <system\Input.h>
 
@@ -29,7 +31,7 @@ void Application::Initialize(android_app* application)
 	engine.assetManager = application->activity->assetManager;
 	pm::ResourceReader::GetInstance(application->activity->assetManager); // Initialize the ResourceReader with AAssetManager.
 
-	LOGI("Application has been initialized.");
+	//LOGI("Application has been initialized.");
 }
 
 bool Application::Update()
@@ -55,7 +57,7 @@ void Application::DrawFrame()
 	{
 		return;
 		// No display.
-		LOGW("No EGL_DISPLAY present while DrawFrame() was called.");
+		//LOGW("No EGL_DISPLAY present while DrawFrame() was called.");
 	}
 	
 	eglSwapBuffers(engine.display, engine.surface);
@@ -64,7 +66,7 @@ void Application::DrawFrame()
 
 void Application::TerminateDisplay()
 {
-	LOGI("Terminating the display.");
+	//LOGI("Terminating the display.");
 	if (engine.display != EGL_NO_DISPLAY)
 	{
 		eglMakeCurrent(engine.display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
@@ -78,12 +80,12 @@ void Application::TerminateDisplay()
 	engine.display = EGL_NO_DISPLAY;
 	engine.context = EGL_NO_CONTEXT;
 	engine.surface = EGL_NO_SURFACE;
-	LOGI("Display has been terminated.");
+	//LOGI("Display has been terminated.");
 }
 
 int Application::InitializeDisplay()
 {
-	LOGI("Initializing display.");
+	//LOGI("Initializing display.");
 	const EGLint attribs[] =
 	{
 		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
@@ -115,7 +117,7 @@ int Application::InitializeDisplay()
 
 	if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE)
 	{
-		LOGW("Function eglMakeCurrent failed.");
+		//LOGW("Function eglMakeCurrent failed.");
 		return -1;
 	}
 
@@ -134,7 +136,7 @@ int Application::InitializeDisplay()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
 	glClearColor(1.0f, 0.4f, 1.0f, 1);
 
-	LOGI("Succesfully initialized display.");
+	//LOGI("Succesfully initialized display.");
 	return 0;
 }
 

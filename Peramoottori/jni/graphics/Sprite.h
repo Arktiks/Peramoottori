@@ -1,46 +1,50 @@
 #ifndef SPRITE_H
-
 #define SPRITE_H
+
 #include "Texture.h"
-#include "graphics\Rectangle.h"
+#include "Rectangle.h"
 
 // TODO: K‰ytt‰j‰lle tapa spriteen muokata erimuotoisia kappaleita, esim ympyr‰‰, kolmiota, viivaa tai omaa.
 // Koordinaatit omille indekseille omassa koordinaatistossaan, sitten sit‰ voi skaalailla, asettaa tekstuurin jotenkin..
 // T‰m‰ kustomoitavissa moottorin kautta? Vai pit‰‰kˆ piirt‰‰ vaan sille sopiva? 
 // Verrattuna grafiikkamoottoriin t‰ytyy luoda erikokoisia taulukkoja -> siirryt‰‰n vektoriin?
-class Sprite : public Rectangle 
+
+namespace pm
 {
-	friend class SpriteBatch;
-public:
+	class Sprite : public Rectangle
+	{
+		friend class SpriteBatch;
 
-	Sprite();
-	Sprite(Texture texture);
-	Sprite(Texture texture, float x, float y, float widht, float heigth);
-	~Sprite();
+	public:
 
-	glm::vec2 getSourceRectSize();
-	glm::vec2 getSourceRectPosition();
+		Sprite();
+		Sprite(Texture texture);
+		Sprite(Texture texture, float x, float y, float widht, float heigth);
+		~Sprite();
 
-	void setSourceRectSize(glm::vec2 sourceRectSize);
-	void setSourceRectPosition(glm::vec2 sourceRectPosition);
-	void setSourceRect(glm::vec4 sourceRect);
+		glm::vec2 getSourceRectSize();
+		glm::vec2 getSourceRectPosition();
 
-	glm::vec2 getSourceRectSize();
-	glm::vec2 getSourceRectPosition();
-	glm::vec4 getSourceRect();
+		void setSourceRectSize(glm::vec2 sourceRectSize);
+		void setSourceRectPosition(glm::vec2 sourceRectPosition);
+		void setSourceRect(glm::vec4 sourceRect);
 
-private:
+		glm::vec2 getSourceRectSize();
+		glm::vec2 getSourceRectPosition();
+		glm::vec4 getSourceRect();
 
-	Texture texture;
-	bool hasTexture;
-	
-	glm::vec4 sourceRect;
+	private:
 
+		Texture texture;
+		bool hasTexture;
 
-	// false construktorissa, muutetaan trueksi tekstuurin asettamisen j‰lkeen
-	// Jos keksit‰‰n joku tapa katsoa onko tekstuuria olemassa (tai piiret‰‰nkˆ se) voidaan poistaa t‰m‰.
-	// T‰m‰ siis sen takia ett‰ spritebathchissa voidaan piirt‰‰ tekstuurittomia spritej‰.
+		glm::vec4 sourceRect;
 
-};
+		// false construktorissa, muutetaan trueksi tekstuurin asettamisen j‰lkeen
+		// Jos keksit‰‰n joku tapa katsoa onko tekstuuria olemassa (tai piiret‰‰nkˆ se) voidaan poistaa t‰m‰.
+		// T‰m‰ siis sen takia ett‰ spritebathchissa voidaan piirt‰‰ tekstuurittomia spritej‰.
+
+	};
+}
 
 #endif

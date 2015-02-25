@@ -1,7 +1,8 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "glm\vec2.hpp"
+#include <glm\vec2.hpp>
+
 namespace pm
 {
 	class Input
@@ -14,7 +15,6 @@ namespace pm
 		void GetTouchCoordinates();
 
 		bool IsTouching();
-
 
 		/// Works only once per loop reliably per input system.
 		bool SingleTouch();
@@ -35,4 +35,5 @@ namespace pm
 		static float x, y, lx, ly;
 	};
 }
+
 #endif

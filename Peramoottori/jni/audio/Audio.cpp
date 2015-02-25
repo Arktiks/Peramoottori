@@ -1,9 +1,10 @@
-#include "audio/Audio.h"
-
+#include "Audio.h"
+#include <resources\ResourceReader.h>
+#include <system\PMassert.h>
+#include <system\PMdebug.h>
 
 pm::Audio::Audio(std::string fileName)
 {
-
 	AAsset* tempAudioAsset = pm::ResourceReader::GetInstance()->GetAsset(fileName);
 	PMassert::AssertNotEquals(tempAudioAsset, (AAsset*)nullptr, "Reading an audio asset failed!");
 

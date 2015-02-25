@@ -1,29 +1,35 @@
 #ifndef TEXTURE_H
-
 #define TEXTURE_H
-#include "glm\common.hpp"
-class Texture
+
+#include <glm\common.hpp>
+
+namespace pm
 {
-public:
-	Texture(int atlas, glm::vec2 texturePosition, glm::vec2 textureSize);
-	Texture();
-	~Texture();
+	class Texture
+	{
+	public:
 
-	void setSourceRectSize(glm::vec2);
-	void setSourceRectPosition(glm::vec2);
+		Texture(int atlas, glm::vec2 texturePosition, glm::vec2 textureSize);
+		Texture();
+		~Texture();
 
-	glm::vec2 getSourceRectSize();
-	glm::vec2 getSourceRectPosition();
+		void setSourceRectSize(glm::vec2);
+		void setSourceRectPosition(glm::vec2);
 
-	glm::vec2 getTexturePosition();
-	glm::vec2 getTextureSize();
-	int getAtlasID();
-private:
+		glm::vec2 getSourceRectSize();
+		glm::vec2 getSourceRectPosition();
 
-	int atlasIndex; // index tekstuuriatlaksen sijainnille.
-	glm::vec2 texturePosition; // Texture position on atlas.
-	glm::vec2 textureSize;
+		glm::vec2 getTexturePosition();
+		glm::vec2 getTextureSize();
+		int getAtlasID();
 
-};
+	private:
+
+		int atlasIndex; // index tekstuuriatlaksen sijainnille.
+		glm::vec2 texturePosition; // Texture position on atlas.
+		glm::vec2 textureSize;
+
+	};
+}
 
 #endif
