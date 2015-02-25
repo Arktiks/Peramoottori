@@ -1,9 +1,5 @@
 #include "audio\AudioPlayer.h"
 
-SLEngineItf pm::AudioPlayer::engine = NULL;
-SLObjectItf pm::AudioPlayer::engineObj = NULL;
-int pm::AudioPlayer::audioPlayerCount = 0;
-
 
 pm::AudioPlayer::AudioPlayer(int fileDescriptor, off_t start, off_t length)
 {
@@ -11,12 +7,9 @@ pm::AudioPlayer::AudioPlayer(int fileDescriptor, off_t start, off_t length)
 	(this)->start = start;
 	(this)->length = length;
 
-	if (engine == NULL)
-		CreateEngine();
-
+	CreateEngine();
 	CreateAudioPlayer();
 
-	audioPlayerCount++;
 }
 
 pm::AudioPlayer::~AudioPlayer()
@@ -29,25 +22,22 @@ pm::AudioPlayer::~AudioPlayer()
 		audioPlayerPlay = NULL;
 		audioPlayerSeek = NULL;
 		audioPlayerVol = NULL;
-
-		audioPlayerCount--;
 	}
 
-	if (audioPlayerCount <= 0)
+	if (outputMixObj != NULL)
 	{
-		if (outputMixObj != NULL)
-		{
-			(*outputMixObj)->Destroy(outputMixObj);
-			outputMixObj = NULL;
-			outputMixVol = NULL;
-		}
+		(*outputMixObj)->Destroy(outputMixObj);
 		
-		if (engineObj != NULL)
-		{
-			(*engineObj)->Destroy(engineObj);
-			engineObj = NULL;
-			engine = NULL;
-		}
+		outputMixObj = NULL;
+		outputMixVol = NULL;
+	}
+	
+	if (engineObj != NULL)
+	{
+		(*engineObj)->Destroy(engineObj);
+		
+		engineObj = NULL;
+		engine = NULL;
 	}
 }
 
@@ -56,32 +46,24 @@ void pm::AudioPlayer::CreateEngine()
 	SLresult  tempResult;
 	
 	tempResult = slCreateEngine(&engineObj, 0, nullptr, 0, nullptr, nullptr);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, "Creating OpenSL engine object failed");
 	(void) tempResult;
 
 	tempResult = (*engineObj)->Realize(engineObj, SL_BOOLEAN_FALSE);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, "Realizing OpenSL engine object failed");
 	(void) tempResult;
 		
 	tempResult = (*engineObj)->GetInterface(engineObj, SL_IID_ENGINE, &engine);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, "Getting OpenSL engine interface failed");
 	(void) tempResult;
 
-	const SLInterfaceID tempIds[] = { SL_IID_VOLUME };
-	const SLboolean tempReq[] = { SL_BOOLEAN_TRUE };
-
-	tempResult = (*engine)->CreateOutputMix(engine, &outputMixObj, 4, tempIds, tempReq);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
+	tempResult = (*engine)->CreateOutputMix(engine, &outputMixObj, 0, NULL, NULL);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, "Creating OpenSL outputMix object failed");
 	(void) tempResult;
 	
 	tempResult = (*outputMixObj)->Realize(outputMixObj, SL_BOOLEAN_FALSE);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, "Realizing OpenSL outpuMix object failed");
 	(void) tempResult;
-	
-	tempResult = (*outputMixObj)->GetInterface(outputMixObj, SL_IID_VOLUME, &outputMixVol);
-
-	if (tempResult != SL_RESULT_SUCCESS)
-		outputMixVol = nullptr;
 }
 
 void pm::AudioPlayer::CreateAudioPlayer()
@@ -96,26 +78,26 @@ void pm::AudioPlayer::CreateAudioPlayer()
 	SLDataSink tempAudioSink = { &tempOutmix, nullptr };
 
 	const SLInterfaceID tempIds[3] = { SL_IID_PLAY, SL_IID_SEEK, SL_IID_VOLUME };
-	const SLboolean tempReq[3] = { SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE };
+	const SLboolean tempReq[3] = { SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE };
 
 	tempResult = (*engine)->CreateAudioPlayer(engine, &audioPlayerObj, &audioSrc, &tempAudioSink, 3, tempIds, tempReq);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, "Creating OpenSL audio player object failed");
 	(void) tempResult;
 
 	tempResult = (*audioPlayerObj)->Realize(audioPlayerObj, SL_BOOLEAN_FALSE);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, "Realizing OpenSL audio player object failed");
 	(void) tempResult;
 
 	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_PLAY, &audioPlayerPlay);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, "Getting OpenSL play interface failed");
 	(void) tempResult;
 
 	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_SEEK, &audioPlayerSeek);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
+	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, "Getting OpenSL seek interface failed");
 	(void) tempResult;
 
 	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_VOLUME, &audioPlayerVol);
-	PMassert::AssertEquals(tempResult, SL_RESULT_SUCCESS, nullptr);
+	PMassert::AssertEquals(tempResult, SL_RESULT_SUCCESS, "Getting OpenSL volume interface failed");
 	(void)tempResult;
 }
 
@@ -123,8 +105,8 @@ void pm::AudioPlayer::SetLooping(bool isEnabled)
 {
 	SLresult tempResult;
 
-	tempResult = (*audioPlayerSeek)->SetLoop(audioPlayerSeek, SL_BOOLEAN_TRUE, 0, SL_TIME_UNKNOWN);
-	PMassert::AssertEquals(tempResult, SL_RESULT_SUCCESS, nullptr);
+	tempResult = (*audioPlayerSeek)->SetLoop(audioPlayerSeek, isEnabled ? SL_BOOLEAN_TRUE : SL_BOOLEAN_FALSE, 0, SL_TIME_UNKNOWN);
+	PMassert::AssertEquals(tempResult, SL_RESULT_SUCCESS, "Setting OpenSL audio loop state failed");
 	(void)tempResult;
 }
 
@@ -135,7 +117,7 @@ void pm::AudioPlayer::SetPlayState(bool isPlaying)
 	if (audioPlayerPlay != NULL)
 	{
 		tempResult = (*audioPlayerPlay)->SetPlayState(audioPlayerPlay, isPlaying ? SL_PLAYSTATE_PLAYING : SL_PLAYSTATE_PAUSED);
-		PMassert::AssertEquals(tempResult, SL_RESULT_SUCCESS, nullptr);
+		PMassert::AssertEquals(tempResult, SL_RESULT_SUCCESS, "Setting OpenSL audio play state failed");
 		(void)tempResult;
 	}
 }

@@ -228,3 +228,8 @@ FakesAssemblies/
 Peramoottori/*.suo
 Peramoottori/*.v12.suo
 Peramoottori/*.sdf
+Peramoottori/*.orig
+Peramoottori/*.filters.orig
+
+*.filters.orig
+*.orig

@@ -3,7 +3,7 @@
 
 #include<time.h>
 
-namespace PM
+namespace pm
 {
 	class Time
 	{
@@ -12,14 +12,11 @@ namespace PM
 
 		double calculateTimeInFrame();
 		time_t rawTime;
-		time_t frameStart;
-		time_t frameEnd;
+
 		double timeInFrame;
 		struct timespec now;
 		struct timespec then;
 		
-
-
 		~Time();
 
 	private:

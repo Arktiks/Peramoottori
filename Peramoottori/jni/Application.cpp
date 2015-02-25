@@ -7,7 +7,7 @@
 #include <android/input.h>
 
 #include <resources/ResourceReader.h>
-#include "Input.h"
+//#include <system\Input.h>
 
 using namespace pm;
 
@@ -34,7 +34,7 @@ void Application::Initialize(android_app* application)
 
 bool Application::Update()
 {
-	Input::Update();
+	//Input::Update();
 	while (ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
 	{
 		if (eventSource != nullptr)
@@ -155,7 +155,7 @@ int HandleInput(android_app* application, AInputEvent* event)
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
 	{
 	
-		Input::InputEvent(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
+		//Input::InputEvent(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
 		return 1;
 	}
 	return 0;

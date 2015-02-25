@@ -1,8 +1,8 @@
 #ifndef SHADER_H
 
 #define SHADER_H
-#include "resources\ResourceReader.h"
-#include "System\PMdebug.h"
+#include <resources\ResourceReader.h>
+#include <system\PMdebug.h>
 #include <string>
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
@@ -18,7 +18,7 @@ public:
 
 	Shader LoadShader(const char* filePath, GLenum ShaderType);
 
-	unsigned int AddShader(Shader shader, GLuint program);
+	//unsigned int AddShader(Shader shader, GLuint program);
 
 private:
 

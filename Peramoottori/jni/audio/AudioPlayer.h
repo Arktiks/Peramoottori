@@ -25,10 +25,8 @@ namespace pm
 		void CreateAudioPlayer();
 		void CreateEngine();
 
-		static SLObjectItf engineObj;
-		static SLEngineItf engine;
-
-		static int audioPlayerCount;
+		SLObjectItf engineObj;
+		SLEngineItf engine;
 		
 		SLObjectItf outputMixObj;
 		SLVolumeItf outputMixVol;

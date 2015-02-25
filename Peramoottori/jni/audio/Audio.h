@@ -20,14 +20,12 @@ namespace pm
 
 		void Play();
 		void Stop();
-
-		bool IsPlaying();
+		
+		void SetLooping(bool isEnabled);
 
 	private:
-		off_t start, length;
-		int fileDescriptor;
-
-		std::string name;
+	
+		AudioPlayer* player;
 	};
 }
 #endif //AUDIO_H

@@ -59,7 +59,7 @@ Shader::~Shader()
 
 }
 
-unsigned int Shader::AddShader(GLuint programObject)
+/*unsigned int Shader::AddShader(GLuint programObject)
 {
 	glAttachShader(shader, programObject);
-}
+}*/
