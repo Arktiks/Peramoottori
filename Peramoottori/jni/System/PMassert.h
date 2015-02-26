@@ -6,8 +6,6 @@
 #include <string>
 #include <cstdlib>
 
-#define LOGA(...) ((void)__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", __VA_ARGS__))
-
 #define ASSERT(expression) \
 	!(expression) ? Assert(__FILE__, __LINE__) : (void)0 // !a
 
@@ -60,13 +58,15 @@ namespace pm
 		*jos ei katkaisee sovelluksen suorittamisen
 		*turmeltunut funktio käytä ASSERT_EQ
 		*/
-		static void AssertEquals(T const& a, T const& b, std::string s)
+		static void AssertEquals(T const& a, T const& b, const std::string s)
 		{
 			if(a == b)
 				;
 			else
-				LOGA("%s", s);
-
+			{
+				const char *cstr = s.c_str();
+				__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", cstr);
+			}
 			__builtin_trap(); // break debugger
 			assert(a == b);
 		};
@@ -78,12 +78,15 @@ namespace pm
 		*jos ei katkaisee sovelluksen suorittamisen
 		*turmeltunut funktio käytä ASSERT_NEQ
 		*/
-		static void AssertNotEquals(T const& a, T const& b, std::string s)
+		static void AssertNotEquals(T const& a, T const& b, const std::string s)
 		{
 			if(a == b)
 				;
 			else
-				LOGA("%s", s);
+			{
+				const char *cstr = s.c_str();
+				__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", cstr);
+			}
 
 			assert(a != b);
 		};
@@ -94,12 +97,15 @@ namespace pm
 		*jos ei katkaisee sovelluksen suorittamisen
 		*turmeltunut funktio käytä mieluummin ASSERT_MINMAX
 		*/
-		static void AssertInBetween(T const& min, T const& max, T const& x, std::string s)
+		static void AssertInBetween(T const& min, T const& max, T const& x, const std::string s)
 		{
 			if(min < x && x < max)
 				;
 			else
-				LOGA("%s", s);
+			{
+				const char *cstr = s.c_str();
+				__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", cstr);
+			}
 
 			assert(min < x && x < max);
 		};
