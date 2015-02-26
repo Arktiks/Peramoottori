@@ -30,5 +30,8 @@
     <ClInclude Include="MemoryManager.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="MemoryTrack.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

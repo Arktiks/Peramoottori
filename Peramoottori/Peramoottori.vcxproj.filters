@@ -40,6 +40,9 @@
     <Filter Include="libs\glm">
       <UniqueIdentifier>{42b68639-bbb2-4f4f-9ed2-1757d2ed2668}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\core">
+      <UniqueIdentifier>{630f5179-d094-4c47-8d06-b3e5be560189}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -63,9 +66,6 @@
       <Filter>libs\glm</Filter>
     </ClCompile>
     <ClCompile Include="jni\Main.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\Application.cpp">
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="jni\resources\ResourceReader.cpp">
@@ -109,6 +109,12 @@
     </ClCompile>
     <ClCompile Include="jni\audio\Audio.cpp">
       <Filter>jni\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\MemoryManager.cpp">
+      <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\Application.cpp">
+      <Filter>jni\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -808,9 +814,6 @@
     <ClInclude Include="libs\glm\vector_relational.hpp">
       <Filter>libs\glm</Filter>
     </ClInclude>
-    <ClInclude Include="jni\Application.h">
-      <Filter>jni</Filter>
-    </ClInclude>
     <ClInclude Include="jni\resources\ResourceReader.h">
       <Filter>jni\resources</Filter>
     </ClInclude>
@@ -864,6 +867,18 @@
     </ClInclude>
     <ClInclude Include="jni\resources\Image.h">
       <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\structs\MemoryTrack.h">
+      <Filter>structs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\GlobalNew.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\MemoryManager.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\Application.h">
+      <Filter>jni\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

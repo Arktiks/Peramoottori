@@ -48,6 +48,7 @@
     </ClCompile>
     <ClCompile Include="jni\graphics\Triangle.cpp" />
     <ClCompile Include="jni\Main.cpp" />
+    <ClCompile Include="jni\MemoryManager.cpp" />
     <ClCompile Include="jni\resources\ResourceReader.cpp" />
     <ClCompile Include="jni\system\Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
@@ -66,6 +67,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\GlobalNew.h" />
     <ClInclude Include="jni\graphics\Circle.h" />
     <ClInclude Include="jni\graphics\Font.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
@@ -90,8 +92,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\graphics\Triangle.h" />
+    <ClInclude Include="jni\MemoryManager.h" />
     <ClInclude Include="jni\resources\Image.h" />
     <ClInclude Include="jni\resources\ResourceReader.h" />
+    <ClInclude Include="jni\structs\MemoryTrack.h" />
     <ClInclude Include="jni\system\Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
