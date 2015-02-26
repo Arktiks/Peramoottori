@@ -2,7 +2,6 @@
 #define RESOURCEREADER_H
 
 #include <android\asset_manager.h>
-#include <structs\LoadedImage.h>
 #include <resources\Image.h>
 #include <string>
 #include <vector>

@@ -1,7 +1,9 @@
 #include "MemoryManager.h"
 #include <iostream>
 #include <fstream>
+
 using namespace std;
+using namespace pm;
 
 MemoryManager* MemoryManager::instance = nullptr;
 

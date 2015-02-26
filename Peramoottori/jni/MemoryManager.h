@@ -2,22 +2,37 @@
 #define MEMORYMANAGER_H
 
 #include <vector>
-#include "MemoryTrack.h"
+#include <structs\MemoryTrack.h>
 
-class MemoryManager
+namespace pm
 {
-public:
-	static MemoryManager* GetInstance();
-	static void DeleteInstance();
-	void AddTrack(MemoryTrack track);
-	void DeleteTrack(void* pointer);
+	/// Keeps track of memory usage during debugging.
+	/// Singleton class that is turned off for release.
 
-private:
-	MemoryManager() {};
-	~MemoryManager();
+	class MemoryManager
+	{
+	public:
+		/// Static function that returns instance pointer of MemoryManager.
+		///		\return pointer to only instance of this class.
+		static MemoryManager* GetInstance();
 
-	static MemoryManager* instance;
-	std::vector<MemoryTrack> memory;
-};
+		/// Deletes MemoryManager instance.
+		/// Should be called once application is ready to close.
+		static void DeleteInstance();
+
+		/// Pushes MemoryTrack structs to memory vector.
+		void AddTrack(MemoryTrack track);
+
+		///
+		void DeleteTrack(void* pointer);
+
+	private:
+		MemoryManager() {};
+		~MemoryManager();
+
+		static MemoryManager* instance;
+		std::vector<MemoryTrack> memory;
+	};
+}
 
 #endif
