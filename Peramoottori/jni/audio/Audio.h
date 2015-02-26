@@ -3,7 +3,10 @@
 
 #include <audio\AudioPlayer.h>
 #include <string>
-//#include <vector>
+#include <resources\ResourceReader.h>
+#include <system\PMassert.h>
+#include <system\PMdebug.h>
+
 
 namespace pm
 {
