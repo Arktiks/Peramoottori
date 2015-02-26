@@ -50,6 +50,7 @@ void Assert_MINMAX(const char* file, const int line)
 
 namespace pm
 {
+	
 	class PMassert
 	{
 	public:
@@ -59,7 +60,7 @@ namespace pm
 		*jos ei katkaisee sovelluksen suorittamisen
 		*turmeltunut funktio käytä ASSERT_EQ
 		*/
-		static void AssertEquals(T const& a, T const& b, char* s)
+		static void AssertEquals(T const& a, T const& b, std::string s)
 		{
 			if(a == b)
 				;
@@ -77,7 +78,7 @@ namespace pm
 		*jos ei katkaisee sovelluksen suorittamisen
 		*turmeltunut funktio käytä ASSERT_NEQ
 		*/
-		static void AssertNotEquals(T const& a, T const& b, char* s)
+		static void AssertNotEquals(T const& a, T const& b, std::string s)
 		{
 			if(a == b)
 				;
@@ -93,7 +94,7 @@ namespace pm
 		*jos ei katkaisee sovelluksen suorittamisen
 		*turmeltunut funktio käytä mieluummin ASSERT_MINMAX
 		*/
-		static void AssertInBetween(T const& min, T const& max, T const& x, char* s)
+		static void AssertInBetween(T const& min, T const& max, T const& x, std::string s)
 		{
 			if(min < x && x < max)
 				;
