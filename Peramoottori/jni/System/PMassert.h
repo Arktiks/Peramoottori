@@ -20,7 +20,7 @@
 #define ASSERT_MINMAX(expression1, expression2, value) \
 	expression1 < value && value < expression2 ? Assert_MINMAX(__FILE__, __LINE__) : (void)0 // min < x < max
 
-void Assert(const char* file, const int line)
+/*void Assert(const char* file, const int line)
 {
 	// Log file and file
 	__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", file, line);
@@ -46,7 +46,7 @@ void Assert_MINMAX(const char* file, const int line)
 	// Log file and file
 	__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", file, line);
 	std::abort();
-}
+}*/
 
 namespace pm
 {

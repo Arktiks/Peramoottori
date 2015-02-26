@@ -21,17 +21,23 @@ namespace pm
 		static void DeleteInstance();
 
 		/// Pushes MemoryTrack structs to memory vector.
+		///		\param track : MemoryTrack information.
 		void AddTrack(MemoryTrack track);
 
-		///
+		/// Removes MemoryTrack structs from memory vector based on provided pointer.
+		///		\param pointer : void* universal pointer.
 		void DeleteTrack(void* pointer);
 
-	private:
-		MemoryManager() {};
-		~MemoryManager();
+		/// Destructor.
+		/// Dumps leaked memory locations to "memoryleaks.txt" upon closure.
+		virtual ~MemoryManager();
 
-		static MemoryManager* instance;
-		std::vector<MemoryTrack> memory;
+	private:
+		/// Constructor as private class.
+		MemoryManager() {};
+
+		static MemoryManager* instance; ///< Pointer to only instance of the class.
+		std::vector<MemoryTrack> memory; ///< Vector keeping track of called new and delete operator.
 	};
 }
 
