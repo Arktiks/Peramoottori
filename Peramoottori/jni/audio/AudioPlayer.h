@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
+#include <system\PMassert.h>
 
 namespace pm
 { 

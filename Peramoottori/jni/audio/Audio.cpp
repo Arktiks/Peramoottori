@@ -1,18 +1,16 @@
 #include "Audio.h"
-#include <resources\ResourceReader.h>
-#include <system\PMassert.h>
-#include <system\PMdebug.h>
 
 pm::Audio::Audio(std::string fileName)
 {
 	AAsset* tempAudioAsset = pm::ResourceReader::GetInstance()->GetAsset(fileName);
-	PMassert::AssertNotEquals(tempAudioAsset, (AAsset*)nullptr, "Reading an audio asset failed!");
+	AAsset* tempNull = nullptr;
+	PMassert::AssertNotEquals(tempAudioAsset, tempNull, "Reading an audio asset failed!");
 
 	off_t start, length;
 
 	int fileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
 
-	if (fileDescriptor >= 0)
+	if (fileDescriptor <= 0)
 		PMassert::AssertEquals(true, false, "Opening audio file descriptor failed!");
 	
 	AAsset_close(tempAudioAsset);
