@@ -5,34 +5,39 @@
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
 #include <system\PMassert.h>
+#include <string>
 
 namespace pm
 { 
-	class AudioPlayer
+	class AudioPlayer 
 	{
-	public:
+		friend class AudioManager;
 
+	public:
 		AudioPlayer(int fileDescriptor, off_t start, off_t length);
+		AudioPlayer(AudioPlayer* pointer);
 		~AudioPlayer();
 
-		void SetPlayState(bool isPlaying);
-		void SetLooping(bool isEnabled);
+		/**
+		* 1 = SL_PLAYSTATE_STOPPED
+		* 2 = SL_PLAYSTATE_PAUSED
+		* 3 = SL_PLAYSTATE_PLAYING
+		*/
+		SLuint32 GetPlayState();
+
+		void SetPlayState(SLuint32 state);
+		void SetLooping(bool isEnabled); 
+		void SetVolume(float volPercentage);
 
 	private:
-		
-		void CreateAudioPlayer();
-		void CreateEngine();
-
-		SLObjectItf engineObj;
-		SLEngineItf engine;
-		
-		SLObjectItf outputMixObj;
-		SLVolumeItf outputMixVol;
+		void CheckError(std::string errorText);
 
 		SLObjectItf audioPlayerObj;
 		SLPlayItf audioPlayerPlay;
 		SLSeekItf audioPlayerSeek;
 		SLVolumeItf audioPlayerVol;
+
+		SLresult result;
 
 		int fileDescriptor;
 		off_t start, length;
