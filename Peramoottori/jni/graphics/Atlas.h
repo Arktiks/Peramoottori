@@ -6,13 +6,15 @@
 #include "glm\common.hpp"
 #include "resources\ResourceReader.h"
 #include <string>
-class Atlas : public Texture
+namespace pm
 {
-public:
-	Atlas(std::string fileName);
-	~Atlas();
-	GLuint atlasIndex;
-	glm::vec2 atlasSize;
-};
-
+	class Atlas : public Texture
+	{
+	public:
+		Atlas(std::string fileName);
+		~Atlas();
+		GLuint atlasIndex;
+		glm::vec2 atlasSize;
+	};
+}
 #endif

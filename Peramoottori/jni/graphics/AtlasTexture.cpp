@@ -1,5 +1,5 @@
 #include "AtlasTexture.h"
-
+using namespace pm;
 
 AtlasTexture::AtlasTexture(GLuint atlasIndex, glm::vec2 texturePosition, glm::vec2 textureSize)
 {

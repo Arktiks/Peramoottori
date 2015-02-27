@@ -2,7 +2,7 @@
 #define APPLICATION_H
 
 #include <cstddef>
-//#include "graphics\SpriteBatch.h"
+#include "graphics\SpriteBatch.h"
 #include "graphics\Sprite.h"
 #include "graphics\Texture.h"
 #include <android_native_app_glue.h>
@@ -32,7 +32,7 @@ namespace pm
 			EGLDisplay display;
 			EGLSurface surface;
 			EGLContext context;
-			//SpriteBatch spritebatch;
+
 
 			/// Touch, x and y are for input system.
 			bool touch;
@@ -45,8 +45,9 @@ namespace pm
 			int height;
 
 			Engine() : app(nullptr), assetManager(nullptr), display(EGL_NO_DISPLAY),
-				surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), touch(false), x(0.0f), y(0.0f), width(0), height(0)
+				surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), touch(false),  x(0.0f), y(0.0f), width(0), height(0)
 			{
+
 			};
 		};
 
@@ -98,6 +99,7 @@ namespace pm
 
 	private:
 		Engine engine; ///< The engine struct used to store data between native and android side.
+
 		android_poll_source* eventSource; ///< Used by Update() 
 	};
 }
