@@ -1,5 +1,5 @@
-#ifndef RESOURCEREADER_H
-#define RESOURCEREADER_H
+#ifndef ResourceManager_H
+#define ResourceManager_H
 
 #include <android\asset_manager.h>
 #include <resources\Image.h>
@@ -11,20 +11,20 @@ namespace pm
 	/// Reads resources using android AAssetManager.
 	/// Singleton class that purely focuses on reading assets and not storing them.
 
-	class ResourceReader
+	class ResourceManager
 	{
 	public:
-		/// Static function that returns instance pointer of ResourceReader.
-		/// Only one instance of ResourceReader will exist during runtime.
+		/// Static function that returns instance pointer of ResourceManager.
+		/// Only one instance of ResourceManager will exist during runtime.
 		///		\param manager : AAssetManager pointer, defaults to nullptr.
 		///		\return pointer to only instance of this class.
-		static ResourceReader* GetInstance(AAssetManager* manager = nullptr);
+		static ResourceManager* GetInstance(AAssetManager* manager = nullptr);
 
-		/// Initializes AAssetManager location for ResourceReader.
+		/// Initializes AAssetManager location for ResourceManager.
 		///		\param manager : AAssetManager pointer.
 		void Initialize(AAssetManager* manager);
 
-		/// Deletes ResourceReader instance.
+		/// Deletes ResourceManager instance.
 		/// Should be called once application is ready to close.
 		void DestroyInstance();
 
@@ -46,7 +46,7 @@ namespace pm
 		AAsset* GetAsset(std::string fileName);
 
 		/// Destructor.
-		virtual ~ResourceReader() {};
+		virtual ~ResourceManager() {};
 
 	private:
 		/// Checks if AAssetManager has been set before class use.
@@ -69,9 +69,9 @@ namespace pm
 		std::vector<unsigned char> ReadUnsignedChar(AAsset* asset);
 
 		/// Constructor as private class.
-		ResourceReader() : manager(nullptr) {};
+		ResourceManager() : manager(nullptr) {};
 
-		static ResourceReader* instance; ///< Pointer to only instance of the class.
+		static ResourceManager* instance; ///< Pointer to only instance of the class.
 		AAssetManager* manager; ///< Pointer to Androids AAssetManager.
 	};
 }

@@ -1,18 +1,23 @@
 #include "ResourceManager.h"
-#include <system\PMdebug.h>
-#include <system\PMassert.h>
+#include <System\PMassert.h>
+#include <System\PMdebug.h>
 
 using namespace pm;
-ResourceManager* ResourceManager::instance = nullptr;
+
+ResourceManager* ResourceManager::instance;
+
+//ResourceManager::ResourceManager()
+//{
+//}
 
 ResourceManager* ResourceManager::GetInstance(AAssetManager* manager)
 {
-	if (instance == nullptr) // If instance has not been initialized yet.
+	if (instance == nullptr)
 	{
 		instance = new ResourceManager;
 		instance->Initialize(manager);
 	}
-	else if (instance != nullptr && instance->manager == nullptr) // If instance has been initialize and manager not.
+	else if (instance != nullptr && instance->manager == nullptr)
 	{
 		instance->Initialize(manager);
 	}
@@ -21,12 +26,46 @@ ResourceManager* ResourceManager::GetInstance(AAssetManager* manager)
 
 void ResourceManager::Initialize(AAssetManager* manager)
 {
-	if (manager != nullptr) // If manager has already been set write a warning.
-		PMdebug::MsgWarning("ResourceManager manager has already been initialized!");
+	if (manager != nullptr)
+		PMdebug::MsgWarning("ResourceManager has already been initialized!");
 	else
-		PMdebug::MsgInfo("ResourceManager manager assigned.");
+		PMdebug::MsgInfo("ResourceManager assigned");
 
 	(this->manager) = manager;
+}
+
+std::string ResourceManager::ReadAsset(std::string filePath)
+{
+	int tempLen = filePath.length();
+
+	filePath.substr(filePath.size() - 4);
+
+	std::string tempTxt = ".txt";
+	std::string tempTtf = ".ttf";
+	std::string tempOgg = ".ogg";
+	std::string tempPng = ".png";
+
+	if (filePath.compare(tempTxt.c_str()))
+	{
+		PMdebug::MsgInfo("TXT compare works");
+	} 
+
+	else if (filePath.compare(tempTtf.c_str()))
+	{
+		PMdebug::MsgInfo("TTF compare works");
+	}
+
+	else if (filePath.compare(tempOgg.c_str()))
+	{
+		PMdebug::MsgInfo("OGG compare works");
+	}
+
+	else if (filePath.compare(tempPng.c_str()))
+	{
+		PMdebug::MsgInfo("PNG compare works");
+	}
+
+	return "kakka";
 }
 
 void ResourceManager::DestroyInstance()
@@ -54,7 +93,7 @@ Image ResourceManager::ReadImage(std::string fileName)
 {
 	AAsset* tempAsset = OpenAsset(fileName);
 
-	if(tempAsset)
+	if (tempAsset)
 	{
 		std::vector<unsigned char> tempBuffer = ReadUnsignedChar(tempAsset); // Buffer containing picture content.
 		//std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.

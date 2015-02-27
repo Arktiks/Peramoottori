@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include <resources\ResourceReader.h>
+#include <resources\ResourceManager.h>
 #include <system\PMdebug.h>
 #include <string>
 using namespace pm;
@@ -16,7 +16,7 @@ Shader::Shader(GLuint tempShader)
 
 Shader Shader::LoadShader(const char* filePath, GLenum ShaderType)
 {
-	ResourceReader* r = ResourceReader::GetInstance();
+	ResourceManager* r = ResourceManager::GetInstance();
 	std::string tempString = r->ReadText(*filePath);
 	tempString.at(tempString.end()) = '\0';
 

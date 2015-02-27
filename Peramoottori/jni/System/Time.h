@@ -14,8 +14,8 @@ namespace pm
 		time_t rawTime;
 
 		double timeInFrame;
-		struct timespec now;
-		struct timespec then;
+		struct timespec start;
+		struct timespec end;
 		
 		~Time();
 

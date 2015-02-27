@@ -11,7 +11,7 @@ double pm::Time::calculateTimeInFrame()
 {
 	if (inFrame == false)
 	{	
-		rawTime = clock_gettime(CLOCK_MONOTONIC, &now);
+		rawTime = clock_gettime(CLOCK_MONOTONIC, &start);
 
 		inFrame = true;
 		
@@ -20,11 +20,11 @@ double pm::Time::calculateTimeInFrame()
 
 	else if (inFrame == true)
 	{
-		clock_gettime(CLOCK_MONOTONIC, &then);
+		clock_gettime(CLOCK_MONOTONIC, &end);
 
-		timeInFrame = difftime(then.tv_sec, now.tv_sec) * 1000000000LL + difftime(then.tv_nsec, now.tv_nsec);
+		timeInFrame = difftime(end.tv_sec, start.tv_sec) * 1000000000LL + difftime(end.tv_nsec, start.tv_nsec);
 
-		now = then;
+		start = end;
 	
 		return timeInFrame;
 	}

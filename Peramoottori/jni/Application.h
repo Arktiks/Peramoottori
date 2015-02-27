@@ -40,6 +40,8 @@ namespace pm
 			int width;
 			int height;
 
+			double frameTime;
+
 			Engine() : app(nullptr), assetManager(nullptr), display(EGL_NO_DISPLAY),
 				surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), touch(false), x(0.0f), y(0.0f), width(0), height(0)
 			{

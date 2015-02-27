@@ -8,7 +8,8 @@
 
 #include <system\PMassert.h>
 #include <system\PMdebug.h>
-#include <resources/ResourceReader.h>
+#include <System\Time.h>
+#include <resources/ResourceManager.h>
 //#include <system\Input.h>
 
 using namespace pm;
@@ -29,7 +30,7 @@ void Application::Initialize(android_app* application)
 	engine.app->userData = &engine;
 	engine.app->onInputEvent = HandleInput;
 	engine.assetManager = application->activity->assetManager;
-	pm::ResourceReader::GetInstance(application->activity->assetManager); // Initialize the ResourceReader with AAssetManager.
+	pm::ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
 
 	//LOGI("Application has been initialized.");
 }
