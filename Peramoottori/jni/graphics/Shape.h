@@ -12,7 +12,7 @@ namespace pm
 	{
 	public:
 		int drawDepht;
-
+	bool draw; // Think about better name. Spritebatch uses this to determinate if sprite will be added to buffer.
 	protected:
 
 		std::vector<float> vertices;

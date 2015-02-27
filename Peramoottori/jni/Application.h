@@ -2,6 +2,9 @@
 #define APPLICATION_H
 
 #include <cstddef>
+#include "graphics\SpriteBatch.h"
+#include "graphics\Sprite.h"
+#include "graphics\Texture.h"
 #include <android_native_app_glue.h>
 #include <android/asset_manager.h>
 #include <EGL/egl.h>
@@ -74,6 +77,7 @@ namespace pm
 		*/
 		AAssetManager* GetAssetManager();
 
+			SpriteBatch spritebatch;
 		/// Called when APP_CMD_TERM_WINDOW is received by processCommand.
 		/**
 			Destroys the egl Context, Surface and terminates the Display when done.

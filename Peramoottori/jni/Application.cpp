@@ -59,6 +59,10 @@ void Application::DrawFrame()
 		// No display.
 		//LOGW("No EGL_DISPLAY present while DrawFrame() was called.");
 	}
+	else
+	{
+		engine.spritebatch.Draw();
+	}
 	
 	eglSwapBuffers(engine.display, engine.surface);
 }
