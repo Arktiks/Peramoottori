@@ -1,0 +1,4 @@
+MEMORY LEAKS
+#################
+c:\users\tti13stuukkak\desktop\peramoottori\muut\newoverride\main2.cpp (6) : size (1)
+c:\users\tti13stuukkak\desktop\peramoottori\muut\newoverride\main2.cpp (7) : size (8)

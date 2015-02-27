@@ -2,10 +2,6 @@
 #define APPLICATION_H
 
 #include <cstddef>
-#include <android/log.h>
-#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Info", __VA_ARGS__))
-#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "Warning", __VA_ARGS__))
-
 #include "graphics\SpriteBatch.h"
 #include "graphics\Sprite.h"
 #include "graphics\Texture.h"
@@ -25,6 +21,34 @@ namespace pm
 	class Application
 	{
 	public:
+
+		/// Struct that holds application information and can be stored on java side.
+		struct Engine
+		{
+			struct android_app* app;
+			AAssetManager* assetManager;
+			Application* applicationPointer;
+
+			EGLDisplay display;
+			EGLSurface surface;
+			EGLContext context;
+
+			/// Touch, x and y are for input system.
+			bool touch;
+			float x;
+			float y;
+			float lx;
+			float ly;
+
+			int width;
+			int height;
+
+			Engine() : app(nullptr), assetManager(nullptr), display(EGL_NO_DISPLAY),
+				surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), touch(false), x(0.0f), y(0.0f), width(0), height(0)
+			{
+			};
+		};
+
 		/// Default Constructor.
 		Application();
 
@@ -53,32 +77,7 @@ namespace pm
 		*/
 		AAssetManager* GetAssetManager();
 
-		/// Struct that holds application information and can be stored on java side.
-		struct Engine
-		{
-			struct android_app* app;
-			AAssetManager* assetManager;
-			Application* applicationPointer;
-
-			EGLDisplay display;
-			EGLSurface surface;
-			EGLContext context;
 			SpriteBatch spritebatch;
-
-			/// Touch, x and y are for input system.
-			bool touch;
-			float x;
-			float y;
-			float lx;
-			float ly;
-
-			int width;
-			int height;
-
-			Engine() : app(nullptr), assetManager(nullptr), display(EGL_NO_DISPLAY),
-				surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), touch(false), x(0.0f), y(0.0f), width(0), height(0) {};
-		};
-
 		/// Called when APP_CMD_TERM_WINDOW is received by processCommand.
 		/**
 			Destroys the egl Context, Surface and terminates the Display when done.
@@ -92,18 +91,14 @@ namespace pm
 		*/
 		int InitializeDisplay();
 
-
 		/// Returns engine for use outside of this class.
 		/**
-
 		*/
 		Engine* GetEngine();
 
 	private:
-		/// The engine struct used to store data between native and android side.
-		Engine engine;
-		/// Used by Update() 
-		android_poll_source* eventSource;
+		Engine engine; ///< The engine struct used to store data between native and android side.
+		android_poll_source* eventSource; ///< Used by Update() 
 	};
 }
 

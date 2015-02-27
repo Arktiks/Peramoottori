@@ -1,4 +1,5 @@
-#include "graphics\Triangle.h"
+#include "Triangle.h"
+using namespace pm;
 
 Triangle::Triangle(float tempPositionX, float tempPositionY, float tempRadius)
 {
@@ -17,6 +18,7 @@ Triangle::Triangle(float tempPositionX, float tempPositionY, float tempRadius)
 		vertices.push_back(cos(PI / 2 + i * (PI * 2 / 3))); //6 txpos
 		vertices.push_back(sin(PI / 2 + i * (PI * 2 / 3))); //7 typos
 	}
+
 	indices.push_back(0);
 	indices.push_back(1);
 	indices.push_back(2);
@@ -25,4 +27,3 @@ Triangle::Triangle(float tempPositionX, float tempPositionY, float tempRadius)
 Triangle::~Triangle()
 {
 }
-

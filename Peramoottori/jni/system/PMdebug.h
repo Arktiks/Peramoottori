@@ -3,49 +3,52 @@
 
 #include <android/log.h>
 #include <cstdarg>
+#include <cstdio>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "DEBUG_MSG", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "WARNING_MSG", __VA_ARGS__))
 
-class PMdebug
+namespace pm
 {
-public:
-	/**
-	*Kirjoita viestisi jonka haluat nähdä Logcatissa DEBUG_MSG.
-	*Toimii samanlailla kuin printf eli MsgInfo("%i %s %f", int, string, float); jne
-	*/
-	static void MsgInfo(const char* s...)
+	class PMdebug
 	{
-		va_list args;
-		va_start(args, s);
+	public:
+		/**
+		*Kirjoita viestisi jonka haluat nähdä Logcatissa DEBUG_MSG.
+		*Toimii samanlailla kuin printf eli MsgInfo("%i %s %f", int, string, float);
+		*/
+		static void MsgInfo(const char* s...)
+		{
+			va_list args;
+			va_start(args, s);
 
-		char* tempString;
+			char* tempString;
 
-		vasprintf(&tempString, s, args);
+			vasprintf(&tempString, s, args);
 
-		va_end(args);
+			va_end(args);
 
-		LOGI(tempString);
+			LOGI(tempString);
+		};
+
+		/**
+		*Kirjoita viestisi jonka haluat nähdä Logcatissa WARNING_MSG.
+		*Toimii samanlailla kuin printf eli MsgInfo("%i %s %f", int, string, float); jne
+		*/
+		static void MsgWarning(const char* s...)
+		{
+			va_list args;
+			va_start(args, s);
+
+			char* tempString;
+
+			vasprintf(&tempString, s, args);
+
+			va_end(args);
+
+			LOGW(tempString);
+		};
 	};
-
-
-	/**
-	*Kirjoita viestisi jonka haluat nähdä Logcatissa WARNING_MSG.
-	*Toimii samanlailla kuin printf eli MsgInfo("%i %s %f", int, string, float); jne
-	*/
-	static void MsgWarning(const char* s...)
-	{
-		va_list args;
-		va_start(args, s);
-
-		char* tempString;
-
-		vasprintf(&tempString, s, args);
-
-		va_end(args);
-
-		LOGW(tempString);
-	};
-};
+}
 
 #endif

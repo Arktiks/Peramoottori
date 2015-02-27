@@ -1,9 +1,8 @@
-#include "graphics/Rectangle.h"
-
+#include "Rectangle.h"
+using namespace pm;
 
 Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, float tempHeight)
 {
-	
 	position = glm::vec2(tempPositionX, tempPositionY);
 	size = glm::vec2(1, 1);
 	widht = tempWidht;
@@ -31,9 +30,9 @@ Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, 
 	indices.push_back(3);
 	indices.push_back(2);
 }
+
 Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
 {
-
 	position = glm::vec2(tempPosition.x, tempPosition.y);
 	size = glm::vec2(1, 1);
 	widht = tempWidthHeight.x;

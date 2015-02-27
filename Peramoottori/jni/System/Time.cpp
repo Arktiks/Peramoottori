@@ -1,21 +1,17 @@
 #include "Time.h"
 
-
-PM::Time::Time()
+pm::Time::Time()
 {
 	inFrame = false;
 	timeInFrame = 0;
 	rawTime = 0;
 }
 
-double PM::Time::calculateTimeInFrame()
+double pm::Time::calculateTimeInFrame()
 {
-	time(&rawTime);
-
 	if (inFrame == false)
 	{	
-		clock_gettime(CLOCK_MONOTONIC, &now);
-		frameStart = rawTime;
+		rawTime = clock_gettime(CLOCK_MONOTONIC, &now);
 
 		inFrame = true;
 		
@@ -24,19 +20,18 @@ double PM::Time::calculateTimeInFrame()
 
 	else if (inFrame == true)
 	{
-	//	clock_gettime(CLOCK_MONOTONIC, &now);
-	//	frameEnd = now.tv_nsec;
+		clock_gettime(CLOCK_MONOTONIC, &then);
 
-		timeInFrame = difftime(rawTime, frameStart)*1000;
+		timeInFrame = difftime(then.tv_sec, now.tv_sec) * 1000000000LL + difftime(then.tv_nsec, now.tv_nsec);
 
-		frameStart = rawTime;
-
+		now = then;
+	
 		return timeInFrame;
 	}
 
 	return 0;
 }
 
-PM::Time::~Time()
+pm::Time::~Time()
 {
 }

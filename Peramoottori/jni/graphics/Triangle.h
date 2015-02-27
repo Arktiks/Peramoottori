@@ -1,18 +1,21 @@
 #ifndef TRIANGLE_H
-
 #define TRIANGLE_H
 
-#include "graphics\Shape.h"
+#include "Shape.h"
 
-class Triangle : public virtual Shape 
+namespace pm
 {
-public:
+	class Triangle : public virtual Shape
+	{
+	public:
 
-	Triangle(float positionX, float positionY, float radius);
-	~Triangle();
+		Triangle(float positionX, float positionY, float radius);
+		~Triangle();
 
-private:
-	float radius;
-	
-};
+	private:
+		float radius;
+
+	};
+}
+
 #endif

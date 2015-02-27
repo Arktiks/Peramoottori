@@ -1,96 +1,69 @@
 #include "AudioPlayer.h"
 
-using namespace PM;
-
-AudioPlayer::AudioPlayer()
+pm::AudioPlayer::AudioPlayer(int fileDescriptor, off_t start, off_t length)
 {
-	CreateEngine();
-	CreateAudioPlayer();
+	(this)->fileDescriptor = fileDescriptor;
+	(this)->start = start;
+	(this)->length = length;
 }
 
-void AudioPlayer::CreateEngine()
+pm::AudioPlayer::AudioPlayer(AudioPlayer* pointer)
 {
-	SLresult  tempResult;
-
-	tempResult = slCreateEngine(&engineObj, 0, nullptr, 0, nullptr, nullptr);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
-
-	tempResult = (*engineObj)->Realize(engineObj, SL_BOOLEAN_FALSE);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
-		
-	tempResult = (*engineObj)->GetInterface(engineObj, SL_IID_ENGINE, &engine);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
-
-	const SLInterfaceID tempIds[] = { SL_IID_VOLUME };
-	const SLboolean tempReq[] = { SL_BOOLEAN_TRUE };
-
-	tempResult = (*engine)->CreateOutputMix(engine, &outputMixObj, 4, tempIds, tempReq);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
-	
-	tempResult = (*outputMixObj)->Realize(outputMixObj, SL_BOOLEAN_FALSE);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
-	
-	tempResult = (*outputMixObj)->GetInterface(outputMixObj, SL_IID_VOLUME, &outputMixVol);
-
-	if ( tempResult != SL_RESULT_SUCCESS)
-		outputMixVol = nullptr;
+	fileDescriptor = pointer->fileDescriptor;
+	start = pointer->start;
+	length = pointer->length;
 }
 
-bool AudioPlayer::CreateAudioPlayer()
+pm::AudioPlayer::~AudioPlayer()
 {
-	SLresult  tempResult;
+	if (audioPlayerObj != NULL)
+	{
+		(*audioPlayerObj)->Destroy(audioPlayerObj);
 
-	SLDataLocator_AndroidBufferQueue tempBufferQueue = { SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, 2 };
-	SLDataFormat_PCM tempFormatPcm = {
-		SL_DATAFORMAT_PCM, 1,
-		SL_SAMPLINGRATE_8,
-		SL_PCMSAMPLEFORMAT_FIXED_16,
-		SL_PCMSAMPLEFORMAT_FIXED_16,
-		SL_SPEAKER_FRONT_CENTER,
-		SL_BYTEORDER_LITTLEENDIAN };
+		audioPlayerObj = NULL;
+		audioPlayerPlay = NULL;
+		audioPlayerSeek = NULL;
+		audioPlayerVol = NULL;
+	}
+}
 
-	SLDataSource audioSrc = { &tempBufferQueue, &tempFormatPcm };
+SLuint32 pm::AudioPlayer::GetPlayState()
+{
+	SLuint32 tempReturnValue;
+	result = (*audioPlayerPlay)->GetPlayState(audioPlayerPlay, &tempReturnValue);
+	CheckError("Getting OpenSL audio play state failed");
 
-	SLDataLocator_OutputMix tempOutmix = { SL_DATALOCATOR_OUTPUTMIX, outputMixObj };
-	SLDataSink tempAudioSink = { &tempOutmix, nullptr };
+	return tempReturnValue;
+}
 
-	const SLInterfaceID tempIds[4] = { SL_IID_BUFFERQUEUE, SL_IID_PLAY, SL_IID_SEEK, SL_IID_VOLUME };
-	const SLboolean tempReq[4] = { SL_BOOLEAN_TRUE };
+void pm::AudioPlayer::SetPlayState(SLuint32 state)
+{
+	if (audioPlayerPlay != NULL)
+	{
+		result = (*audioPlayerPlay)->SetPlayState(audioPlayerPlay, state);
+		CheckError("Setting OpenSL audio play state failed");
+	}
+}
 
-	tempResult = (*engine)->CreateAudioPlayer(engine, &audioPlayerObj, &audioSrc, &tempAudioSink, 4, tempIds, tempReq);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
+void pm::AudioPlayer::SetLooping(bool isEnabled)
+{
+	result = (*audioPlayerSeek)->SetLoop(audioPlayerSeek, isEnabled ? SL_BOOLEAN_TRUE : SL_BOOLEAN_FALSE, 0, SL_TIME_UNKNOWN);
+	CheckError("Setting OpenSL audio loop state failed");
+}
 
-	tempResult = (*audioPlayerObj)->Realize(audioPlayerObj, SL_BOOLEAN_FALSE);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
+void pm::AudioPlayer::SetVolume(float volPercentage)
+{
+	SLmillibel tempVol;
+	result = (*audioPlayerVol)->GetMaxVolumeLevel(audioPlayerVol, &tempVol);
 
-	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_BUFFERQUEUE, &audioPlayerBufferQueue);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
+	tempVol *= 0.01 * volPercentage;
 
-	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_PLAY, &audioPlayerPlay);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
+	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, tempVol);
+	CheckError("Setting audio volume levels failed");
+}
 
-	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_SEEK, &audioPlayerSeek);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
-
-	tempResult = (*audioPlayerObj)->GetInterface(audioPlayerObj, SL_IID_VOLUME, &audioPlayerVolume);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
-
-	tempResult = (*audioPlayerObj)->RegisterCallback(audioPlayerObj, this->AudioPlayerCallback, nullptr);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
-
-	tempResult = (*audioPlayerPlay)->SetPlayState(audioPlayerPlay, SL_PLAYSTATE_PLAYING);
-	PMassert::AssertEquals( tempResult, SL_RESULT_SUCCESS, nullptr);
-	(void) tempResult;
+void pm::AudioPlayer::CheckError(std::string errorText)
+{
+	//PMassert::AssertEquals(result, SL_RESULT_SUCCESS, errorText);
+	(void)result;
 }

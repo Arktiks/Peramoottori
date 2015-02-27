@@ -1,34 +1,32 @@
 #ifndef SHAPE_H
-
 #define SHAPE_H
 
-#include "glm\common.hpp"
-
+#include <glm\common.hpp>
 #include <vector>
 
 static const double PI = 3.141;
 
-class Shape
+namespace pm
 {
-public:
-	int drawDepht;
+	class Shape
+	{
+	public:
+		int drawDepht;
 	bool draw; // Think about better name. Spritebatch uses this to determinate if sprite will be added to buffer.
-protected:
+	protected:
 
-	std::vector<float> vertices;
-	std::vector<unsigned int> indices;
+		std::vector<float> vertices;
+		std::vector<unsigned int> indices;
 
-	glm::vec2 position;
-	glm::vec2 origin;
-	glm::vec2 size;
+		glm::vec2 position;
+		glm::vec2 origin;
+		glm::vec2 size;
 
-	int rotation;
+		int rotation;
 
-	float colorRed, colorGreen, colorBlue;
+		float colorRed, colorGreen, colorBlue;
 
-	
-
-	
-};
+	};
+}
 
 #endif
