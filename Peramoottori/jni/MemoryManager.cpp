@@ -45,7 +45,8 @@ MemoryManager::~MemoryManager()
 {
 	if (!memory.empty()) // If there are undeleted tracks.
 	{
-		ofstream log("memoryleaks.txt");
+		ofstream log("/assets/memoryleaks.txt", ios::out);
+		log.clear();
 
 		if (log.is_open())
 		{

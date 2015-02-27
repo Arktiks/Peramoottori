@@ -18,86 +18,438 @@
     <AndroidBuild Include="res\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="jni\Application.cpp">
+    <ClCompile Include="jni\Application.cpp" />
+    <ClCompile Include="jni\audio\Audio.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="jni\audio\AudioPlayer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\audio\Audio.cpp" />
-    <ClCompile Include="jni\audio\AudioPlayer.cpp">
+    <ClCompile Include="jni\graphics\Circle.cpp" />
+    <ClCompile Include="jni\graphics\Font.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Atlas.cpp" />
-    <ClCompile Include="jni\graphics\AtlasTexture.cpp" />
-    <ClCompile Include="jni\graphics\Circle.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="jni\graphics\Rectangle.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+    <ClCompile Include="jni\graphics\Rectangle.cpp" />
+    <ClCompile Include="jni\graphics\Shader.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\graphics\Sprite.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Text.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Texture.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Texture.cpp" />
-    <ClCompile Include="jni\graphics\Triangle.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="jni\graphics\Triangle.cpp" />
     <ClCompile Include="jni\Main.cpp" />
-    <ClCompile Include="jni\resources\ResourceReader.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
+    <ClCompile Include="jni\MemoryManager.cpp" />
+    <ClCompile Include="jni\resources\ResourceReader.cpp" />
+    <ClCompile Include="jni\system\Input.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\System\Time.cpp" />
+    <ClCompile Include="jni\system\Time.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
+    <ClCompile Include="libs\glm\detail\dummy.cpp" />
+    <ClCompile Include="libs\glm\detail\glm.cpp" />
     <ClCompile Include="libs\lodepng.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AtlasTexture.h" />
-    <ClInclude Include="jni\Application.h">
+    <ClInclude Include="jni\Application.h" />
+    <ClInclude Include="jni\audio\Audio.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="jni\audio\AudioPlayer.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\audio\Audio.h" />
-    <ClInclude Include="jni\audio\AudioPlayer.h">
+    <ClInclude Include="jni\GlobalNew.h" />
+    <ClInclude Include="jni\graphics\Circle.h" />
+    <ClInclude Include="jni\graphics\Font.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Atlas.h" />
-    <ClInclude Include="jni\graphics\Circle.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Rectangle.h" />
-    <ClInclude Include="jni\graphics\Shape.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+    <ClInclude Include="jni\graphics\Shader.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\graphics\Shape.h" />
     <ClInclude Include="jni\graphics\Sprite.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\graphics\SpriteBatch.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Text.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Texture.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Texture.h" />
     <ClInclude Include="jni\graphics\Triangle.h" />
+    <ClInclude Include="jni\MemoryManager.h" />
     <ClInclude Include="jni\resources\Image.h" />
-    <ClInclude Include="jni\resources\ResourceReader.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="jni\structs\Engine.h" />
-    <ClInclude Include="jni\structs\LoadedImage.h">
+    <ClInclude Include="jni\resources\ResourceReader.h" />
+    <ClInclude Include="jni\structs\MemoryTrack.h" />
+    <ClInclude Include="jni\system\Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\system\PMassert.h" />
     <ClInclude Include="jni\system\PMdebug.h" />
-    <ClInclude Include="jni\System\Time.h" />
+    <ClInclude Include="jni\system\Time.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
+    <ClInclude Include="libs\freetype\config\ftconfig.h" />
+    <ClInclude Include="libs\freetype\config\ftheader.h" />
+    <ClInclude Include="libs\freetype\config\ftmodule.h" />
+    <ClInclude Include="libs\freetype\config\ftoption.h" />
+    <ClInclude Include="libs\freetype\config\ftstdlib.h" />
+    <ClInclude Include="libs\freetype\freetype.h" />
+    <ClInclude Include="libs\freetype\ft2build.h" />
+    <ClInclude Include="libs\freetype\ftadvanc.h" />
+    <ClInclude Include="libs\freetype\ftautoh.h" />
+    <ClInclude Include="libs\freetype\ftbbox.h" />
+    <ClInclude Include="libs\freetype\ftbdf.h" />
+    <ClInclude Include="libs\freetype\ftbitmap.h" />
+    <ClInclude Include="libs\freetype\ftbzip2.h" />
+    <ClInclude Include="libs\freetype\ftcache.h" />
+    <ClInclude Include="libs\freetype\ftcffdrv.h" />
+    <ClInclude Include="libs\freetype\ftchapters.h" />
+    <ClInclude Include="libs\freetype\ftcid.h" />
+    <ClInclude Include="libs\freetype\fterrdef.h" />
+    <ClInclude Include="libs\freetype\fterrors.h" />
+    <ClInclude Include="libs\freetype\ftgasp.h" />
+    <ClInclude Include="libs\freetype\ftglyph.h" />
+    <ClInclude Include="libs\freetype\ftgxval.h" />
+    <ClInclude Include="libs\freetype\ftgzip.h" />
+    <ClInclude Include="libs\freetype\ftimage.h" />
+    <ClInclude Include="libs\freetype\ftincrem.h" />
+    <ClInclude Include="libs\freetype\ftlcdfil.h" />
+    <ClInclude Include="libs\freetype\ftlist.h" />
+    <ClInclude Include="libs\freetype\ftlzw.h" />
+    <ClInclude Include="libs\freetype\ftmac.h" />
+    <ClInclude Include="libs\freetype\ftmm.h" />
+    <ClInclude Include="libs\freetype\ftmodapi.h" />
+    <ClInclude Include="libs\freetype\ftmoderr.h" />
+    <ClInclude Include="libs\freetype\ftotval.h" />
+    <ClInclude Include="libs\freetype\ftoutln.h" />
+    <ClInclude Include="libs\freetype\ftpfr.h" />
+    <ClInclude Include="libs\freetype\ftrender.h" />
+    <ClInclude Include="libs\freetype\ftsizes.h" />
+    <ClInclude Include="libs\freetype\ftsnames.h" />
+    <ClInclude Include="libs\freetype\ftstroke.h" />
+    <ClInclude Include="libs\freetype\ftsynth.h" />
+    <ClInclude Include="libs\freetype\ftsystem.h" />
+    <ClInclude Include="libs\freetype\fttrigon.h" />
+    <ClInclude Include="libs\freetype\ftttdrv.h" />
+    <ClInclude Include="libs\freetype\fttypes.h" />
+    <ClInclude Include="libs\freetype\ftwinfnt.h" />
+    <ClInclude Include="libs\freetype\ftxf86.h" />
+    <ClInclude Include="libs\freetype\internal\autohint.h" />
+    <ClInclude Include="libs\freetype\internal\ftcalc.h" />
+    <ClInclude Include="libs\freetype\internal\ftdebug.h" />
+    <ClInclude Include="libs\freetype\internal\ftdriver.h" />
+    <ClInclude Include="libs\freetype\internal\ftgloadr.h" />
+    <ClInclude Include="libs\freetype\internal\ftmemory.h" />
+    <ClInclude Include="libs\freetype\internal\ftobjs.h" />
+    <ClInclude Include="libs\freetype\internal\ftpic.h" />
+    <ClInclude Include="libs\freetype\internal\ftrfork.h" />
+    <ClInclude Include="libs\freetype\internal\ftserv.h" />
+    <ClInclude Include="libs\freetype\internal\ftstream.h" />
+    <ClInclude Include="libs\freetype\internal\fttrace.h" />
+    <ClInclude Include="libs\freetype\internal\ftvalid.h" />
+    <ClInclude Include="libs\freetype\internal\internal.h" />
+    <ClInclude Include="libs\freetype\internal\psaux.h" />
+    <ClInclude Include="libs\freetype\internal\pshints.h" />
+    <ClInclude Include="libs\freetype\internal\services\svbdf.h" />
+    <ClInclude Include="libs\freetype\internal\services\svcid.h" />
+    <ClInclude Include="libs\freetype\internal\services\svgldict.h" />
+    <ClInclude Include="libs\freetype\internal\services\svgxval.h" />
+    <ClInclude Include="libs\freetype\internal\services\svkern.h" />
+    <ClInclude Include="libs\freetype\internal\services\svmm.h" />
+    <ClInclude Include="libs\freetype\internal\services\svotval.h" />
+    <ClInclude Include="libs\freetype\internal\services\svpfr.h" />
+    <ClInclude Include="libs\freetype\internal\services\svpostnm.h" />
+    <ClInclude Include="libs\freetype\internal\services\svprop.h" />
+    <ClInclude Include="libs\freetype\internal\services\svpscmap.h" />
+    <ClInclude Include="libs\freetype\internal\services\svpsinfo.h" />
+    <ClInclude Include="libs\freetype\internal\services\svsfnt.h" />
+    <ClInclude Include="libs\freetype\internal\services\svttcmap.h" />
+    <ClInclude Include="libs\freetype\internal\services\svtteng.h" />
+    <ClInclude Include="libs\freetype\internal\services\svttglyf.h" />
+    <ClInclude Include="libs\freetype\internal\services\svwinfnt.h" />
+    <ClInclude Include="libs\freetype\internal\services\svxf86nm.h" />
+    <ClInclude Include="libs\freetype\internal\sfnt.h" />
+    <ClInclude Include="libs\freetype\internal\t1types.h" />
+    <ClInclude Include="libs\freetype\internal\tttypes.h" />
+    <ClInclude Include="libs\freetype\t1tables.h" />
+    <ClInclude Include="libs\freetype\ttnameid.h" />
+    <ClInclude Include="libs\freetype\tttables.h" />
+    <ClInclude Include="libs\freetype\tttags.h" />
+    <ClInclude Include="libs\freetype\ttunpat.h" />
+    <ClInclude Include="libs\glm\common.hpp" />
+    <ClInclude Include="libs\glm\detail\func_common.hpp" />
+    <ClInclude Include="libs\glm\detail\func_exponential.hpp" />
+    <ClInclude Include="libs\glm\detail\func_geometric.hpp" />
+    <ClInclude Include="libs\glm\detail\func_integer.hpp" />
+    <ClInclude Include="libs\glm\detail\func_matrix.hpp" />
+    <ClInclude Include="libs\glm\detail\func_noise.hpp" />
+    <ClInclude Include="libs\glm\detail\func_packing.hpp" />
+    <ClInclude Include="libs\glm\detail\func_trigonometric.hpp" />
+    <ClInclude Include="libs\glm\detail\func_vector_relational.hpp" />
+    <ClInclude Include="libs\glm\detail\intrinsic_common.hpp" />
+    <ClInclude Include="libs\glm\detail\intrinsic_exponential.hpp" />
+    <ClInclude Include="libs\glm\detail\intrinsic_geometric.hpp" />
+    <ClInclude Include="libs\glm\detail\intrinsic_integer.hpp" />
+    <ClInclude Include="libs\glm\detail\intrinsic_matrix.hpp" />
+    <ClInclude Include="libs\glm\detail\intrinsic_trigonometric.hpp" />
+    <ClInclude Include="libs\glm\detail\intrinsic_vector_relational.hpp" />
+    <ClInclude Include="libs\glm\detail\precision.hpp" />
+    <ClInclude Include="libs\glm\detail\setup.hpp" />
+    <ClInclude Include="libs\glm\detail\type_float.hpp" />
+    <ClInclude Include="libs\glm\detail\type_gentype.hpp" />
+    <ClInclude Include="libs\glm\detail\type_half.hpp" />
+    <ClInclude Include="libs\glm\detail\type_int.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat2x2.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat2x3.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat2x4.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat3x2.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat3x3.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat3x4.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat4x2.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat4x3.hpp" />
+    <ClInclude Include="libs\glm\detail\type_mat4x4.hpp" />
+    <ClInclude Include="libs\glm\detail\type_vec.hpp" />
+    <ClInclude Include="libs\glm\detail\type_vec1.hpp" />
+    <ClInclude Include="libs\glm\detail\type_vec2.hpp" />
+    <ClInclude Include="libs\glm\detail\type_vec3.hpp" />
+    <ClInclude Include="libs\glm\detail\type_vec4.hpp" />
+    <ClInclude Include="libs\glm\detail\_features.hpp" />
+    <ClInclude Include="libs\glm\detail\_fixes.hpp" />
+    <ClInclude Include="libs\glm\detail\_noise.hpp" />
+    <ClInclude Include="libs\glm\detail\_swizzle.hpp" />
+    <ClInclude Include="libs\glm\detail\_swizzle_func.hpp" />
+    <ClInclude Include="libs\glm\detail\_vectorize.hpp" />
+    <ClInclude Include="libs\glm\exponential.hpp" />
+    <ClInclude Include="libs\glm\ext.hpp" />
+    <ClInclude Include="libs\glm\fwd.hpp" />
+    <ClInclude Include="libs\glm\geometric.hpp" />
+    <ClInclude Include="libs\glm\glm.hpp" />
+    <ClInclude Include="libs\glm\gtc\bitfield.hpp" />
+    <ClInclude Include="libs\glm\gtc\constants.hpp" />
+    <ClInclude Include="libs\glm\gtc\epsilon.hpp" />
+    <ClInclude Include="libs\glm\gtc\integer.hpp" />
+    <ClInclude Include="libs\glm\gtc\matrix_access.hpp" />
+    <ClInclude Include="libs\glm\gtc\matrix_integer.hpp" />
+    <ClInclude Include="libs\glm\gtc\matrix_inverse.hpp" />
+    <ClInclude Include="libs\glm\gtc\matrix_transform.hpp" />
+    <ClInclude Include="libs\glm\gtc\noise.hpp" />
+    <ClInclude Include="libs\glm\gtc\packing.hpp" />
+    <ClInclude Include="libs\glm\gtc\quaternion.hpp" />
+    <ClInclude Include="libs\glm\gtc\random.hpp" />
+    <ClInclude Include="libs\glm\gtc\reciprocal.hpp" />
+    <ClInclude Include="libs\glm\gtc\round.hpp" />
+    <ClInclude Include="libs\glm\gtc\type_precision.hpp" />
+    <ClInclude Include="libs\glm\gtc\type_ptr.hpp" />
+    <ClInclude Include="libs\glm\gtc\ulp.hpp" />
+    <ClInclude Include="libs\glm\gtc\vec1.hpp" />
+    <ClInclude Include="libs\glm\gtx\associated_min_max.hpp" />
+    <ClInclude Include="libs\glm\gtx\bit.hpp" />
+    <ClInclude Include="libs\glm\gtx\closest_point.hpp" />
+    <ClInclude Include="libs\glm\gtx\color_space.hpp" />
+    <ClInclude Include="libs\glm\gtx\color_space_YCoCg.hpp" />
+    <ClInclude Include="libs\glm\gtx\common.hpp" />
+    <ClInclude Include="libs\glm\gtx\compatibility.hpp" />
+    <ClInclude Include="libs\glm\gtx\component_wise.hpp" />
+    <ClInclude Include="libs\glm\gtx\dual_quaternion.hpp" />
+    <ClInclude Include="libs\glm\gtx\euler_angles.hpp" />
+    <ClInclude Include="libs\glm\gtx\extend.hpp" />
+    <ClInclude Include="libs\glm\gtx\extented_min_max.hpp" />
+    <ClInclude Include="libs\glm\gtx\fast_exponential.hpp" />
+    <ClInclude Include="libs\glm\gtx\fast_square_root.hpp" />
+    <ClInclude Include="libs\glm\gtx\fast_trigonometry.hpp" />
+    <ClInclude Include="libs\glm\gtx\gradient_paint.hpp" />
+    <ClInclude Include="libs\glm\gtx\handed_coordinate_space.hpp" />
+    <ClInclude Include="libs\glm\gtx\integer.hpp" />
+    <ClInclude Include="libs\glm\gtx\intersect.hpp" />
+    <ClInclude Include="libs\glm\gtx\io.hpp" />
+    <ClInclude Include="libs\glm\gtx\log_base.hpp" />
+    <ClInclude Include="libs\glm\gtx\matrix_cross_product.hpp" />
+    <ClInclude Include="libs\glm\gtx\matrix_decompose.hpp" />
+    <ClInclude Include="libs\glm\gtx\matrix_interpolation.hpp" />
+    <ClInclude Include="libs\glm\gtx\matrix_major_storage.hpp" />
+    <ClInclude Include="libs\glm\gtx\matrix_operation.hpp" />
+    <ClInclude Include="libs\glm\gtx\matrix_query.hpp" />
+    <ClInclude Include="libs\glm\gtx\matrix_transform_2d.hpp" />
+    <ClInclude Include="libs\glm\gtx\mixed_product.hpp" />
+    <ClInclude Include="libs\glm\gtx\multiple.hpp" />
+    <ClInclude Include="libs\glm\gtx\norm.hpp" />
+    <ClInclude Include="libs\glm\gtx\normal.hpp" />
+    <ClInclude Include="libs\glm\gtx\normalize_dot.hpp" />
+    <ClInclude Include="libs\glm\gtx\number_precision.hpp" />
+    <ClInclude Include="libs\glm\gtx\optimum_pow.hpp" />
+    <ClInclude Include="libs\glm\gtx\orthonormalize.hpp" />
+    <ClInclude Include="libs\glm\gtx\perpendicular.hpp" />
+    <ClInclude Include="libs\glm\gtx\polar_coordinates.hpp" />
+    <ClInclude Include="libs\glm\gtx\projection.hpp" />
+    <ClInclude Include="libs\glm\gtx\quaternion.hpp" />
+    <ClInclude Include="libs\glm\gtx\range.hpp" />
+    <ClInclude Include="libs\glm\gtx\raw_data.hpp" />
+    <ClInclude Include="libs\glm\gtx\rotate_normalized_axis.hpp" />
+    <ClInclude Include="libs\glm\gtx\rotate_vector.hpp" />
+    <ClInclude Include="libs\glm\gtx\scalar_multiplication.hpp" />
+    <ClInclude Include="libs\glm\gtx\scalar_relational.hpp" />
+    <ClInclude Include="libs\glm\gtx\simd_mat4.hpp" />
+    <ClInclude Include="libs\glm\gtx\simd_quat.hpp" />
+    <ClInclude Include="libs\glm\gtx\simd_vec4.hpp" />
+    <ClInclude Include="libs\glm\gtx\spline.hpp" />
+    <ClInclude Include="libs\glm\gtx\std_based_type.hpp" />
+    <ClInclude Include="libs\glm\gtx\string_cast.hpp" />
+    <ClInclude Include="libs\glm\gtx\transform.hpp" />
+    <ClInclude Include="libs\glm\gtx\transform2.hpp" />
+    <ClInclude Include="libs\glm\gtx\type_aligned.hpp" />
+    <ClInclude Include="libs\glm\gtx\vector_angle.hpp" />
+    <ClInclude Include="libs\glm\gtx\vector_query.hpp" />
+    <ClInclude Include="libs\glm\gtx\wrap.hpp" />
+    <ClInclude Include="libs\glm\integer.hpp" />
+    <ClInclude Include="libs\glm\mat2x2.hpp" />
+    <ClInclude Include="libs\glm\mat2x3.hpp" />
+    <ClInclude Include="libs\glm\mat2x4.hpp" />
+    <ClInclude Include="libs\glm\mat3x2.hpp" />
+    <ClInclude Include="libs\glm\mat3x3.hpp" />
+    <ClInclude Include="libs\glm\mat3x4.hpp" />
+    <ClInclude Include="libs\glm\mat4x2.hpp" />
+    <ClInclude Include="libs\glm\mat4x3.hpp" />
+    <ClInclude Include="libs\glm\mat4x4.hpp" />
+    <ClInclude Include="libs\glm\matrix.hpp" />
+    <ClInclude Include="libs\glm\packing.hpp" />
+    <ClInclude Include="libs\glm\trigonometric.hpp" />
+    <ClInclude Include="libs\glm\vec2.hpp" />
+    <ClInclude Include="libs\glm\vec3.hpp" />
+    <ClInclude Include="libs\glm\vec4.hpp" />
+    <ClInclude Include="libs\glm\vector_relational.hpp" />
     <ClInclude Include="libs\lodepng.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libs\glm\detail\func_common.inl" />
+    <None Include="libs\glm\detail\func_exponential.inl" />
+    <None Include="libs\glm\detail\func_geometric.inl" />
+    <None Include="libs\glm\detail\func_integer.inl" />
+    <None Include="libs\glm\detail\func_matrix.inl" />
+    <None Include="libs\glm\detail\func_noise.inl" />
+    <None Include="libs\glm\detail\func_packing.inl" />
+    <None Include="libs\glm\detail\func_trigonometric.inl" />
+    <None Include="libs\glm\detail\func_vector_relational.inl" />
+    <None Include="libs\glm\detail\intrinsic_common.inl" />
+    <None Include="libs\glm\detail\intrinsic_exponential.inl" />
+    <None Include="libs\glm\detail\intrinsic_geometric.inl" />
+    <None Include="libs\glm\detail\intrinsic_integer.inl" />
+    <None Include="libs\glm\detail\intrinsic_matrix.inl" />
+    <None Include="libs\glm\detail\intrinsic_trigonometric.inl" />
+    <None Include="libs\glm\detail\intrinsic_vector_relational.inl" />
+    <None Include="libs\glm\detail\type_gentype.inl" />
+    <None Include="libs\glm\detail\type_half.inl" />
+    <None Include="libs\glm\detail\type_mat.inl" />
+    <None Include="libs\glm\detail\type_mat2x2.inl" />
+    <None Include="libs\glm\detail\type_mat2x3.inl" />
+    <None Include="libs\glm\detail\type_mat2x4.inl" />
+    <None Include="libs\glm\detail\type_mat3x2.inl" />
+    <None Include="libs\glm\detail\type_mat3x3.inl" />
+    <None Include="libs\glm\detail\type_mat3x4.inl" />
+    <None Include="libs\glm\detail\type_mat4x2.inl" />
+    <None Include="libs\glm\detail\type_mat4x3.inl" />
+    <None Include="libs\glm\detail\type_mat4x4.inl" />
+    <None Include="libs\glm\detail\type_vec.inl" />
+    <None Include="libs\glm\detail\type_vec1.inl" />
+    <None Include="libs\glm\detail\type_vec2.inl" />
+    <None Include="libs\glm\detail\type_vec3.inl" />
+    <None Include="libs\glm\detail\type_vec4.inl" />
+    <None Include="libs\glm\detail\type_vec4_avx.inl" />
+    <None Include="libs\glm\detail\type_vec4_avx2.inl" />
+    <None Include="libs\glm\detail\type_vec4_sse2.inl" />
+    <None Include="libs\glm\gtc\bitfield.inl" />
+    <None Include="libs\glm\gtc\constants.inl" />
+    <None Include="libs\glm\gtc\epsilon.inl" />
+    <None Include="libs\glm\gtc\integer.inl" />
+    <None Include="libs\glm\gtc\matrix_access.inl" />
+    <None Include="libs\glm\gtc\matrix_inverse.inl" />
+    <None Include="libs\glm\gtc\matrix_transform.inl" />
+    <None Include="libs\glm\gtc\noise.inl" />
+    <None Include="libs\glm\gtc\packing.inl" />
+    <None Include="libs\glm\gtc\quaternion.inl" />
+    <None Include="libs\glm\gtc\random.inl" />
+    <None Include="libs\glm\gtc\reciprocal.inl" />
+    <None Include="libs\glm\gtc\round.inl" />
+    <None Include="libs\glm\gtc\type_precision.inl" />
+    <None Include="libs\glm\gtc\type_ptr.inl" />
+    <None Include="libs\glm\gtc\ulp.inl" />
+    <None Include="libs\glm\gtc\vec1.inl" />
+    <None Include="libs\glm\gtx\associated_min_max.inl" />
+    <None Include="libs\glm\gtx\bit.inl" />
+    <None Include="libs\glm\gtx\closest_point.inl" />
+    <None Include="libs\glm\gtx\color_space.inl" />
+    <None Include="libs\glm\gtx\color_space_YCoCg.inl" />
+    <None Include="libs\glm\gtx\common.inl" />
+    <None Include="libs\glm\gtx\compatibility.inl" />
+    <None Include="libs\glm\gtx\component_wise.inl" />
+    <None Include="libs\glm\gtx\dual_quaternion.inl" />
+    <None Include="libs\glm\gtx\euler_angles.inl" />
+    <None Include="libs\glm\gtx\extend.inl" />
+    <None Include="libs\glm\gtx\extented_min_max.inl" />
+    <None Include="libs\glm\gtx\fast_exponential.inl" />
+    <None Include="libs\glm\gtx\fast_square_root.inl" />
+    <None Include="libs\glm\gtx\fast_trigonometry.inl" />
+    <None Include="libs\glm\gtx\gradient_paint.inl" />
+    <None Include="libs\glm\gtx\handed_coordinate_space.inl" />
+    <None Include="libs\glm\gtx\integer.inl" />
+    <None Include="libs\glm\gtx\intersect.inl" />
+    <None Include="libs\glm\gtx\io.inl" />
+    <None Include="libs\glm\gtx\log_base.inl" />
+    <None Include="libs\glm\gtx\matrix_cross_product.inl" />
+    <None Include="libs\glm\gtx\matrix_decompose.inl" />
+    <None Include="libs\glm\gtx\matrix_interpolation.inl" />
+    <None Include="libs\glm\gtx\matrix_major_storage.inl" />
+    <None Include="libs\glm\gtx\matrix_operation.inl" />
+    <None Include="libs\glm\gtx\matrix_query.inl" />
+    <None Include="libs\glm\gtx\matrix_transform_2d.inl" />
+    <None Include="libs\glm\gtx\mixed_product.inl" />
+    <None Include="libs\glm\gtx\multiple.inl" />
+    <None Include="libs\glm\gtx\norm.inl" />
+    <None Include="libs\glm\gtx\normal.inl" />
+    <None Include="libs\glm\gtx\normalize_dot.inl" />
+    <None Include="libs\glm\gtx\number_precision.inl" />
+    <None Include="libs\glm\gtx\optimum_pow.inl" />
+    <None Include="libs\glm\gtx\orthonormalize.inl" />
+    <None Include="libs\glm\gtx\perpendicular.inl" />
+    <None Include="libs\glm\gtx\polar_coordinates.inl" />
+    <None Include="libs\glm\gtx\projection.inl" />
+    <None Include="libs\glm\gtx\quaternion.inl" />
+    <None Include="libs\glm\gtx\raw_data.inl" />
+    <None Include="libs\glm\gtx\rotate_normalized_axis.inl" />
+    <None Include="libs\glm\gtx\rotate_vector.inl" />
+    <None Include="libs\glm\gtx\scalar_relational.inl" />
+    <None Include="libs\glm\gtx\simd_mat4.inl" />
+    <None Include="libs\glm\gtx\simd_quat.inl" />
+    <None Include="libs\glm\gtx\simd_vec4.inl" />
+    <None Include="libs\glm\gtx\spline.inl" />
+    <None Include="libs\glm\gtx\std_based_type.inl" />
+    <None Include="libs\glm\gtx\string_cast.inl" />
+    <None Include="libs\glm\gtx\transform.inl" />
+    <None Include="libs\glm\gtx\transform2.inl" />
+    <None Include="libs\glm\gtx\type_aligned.inl" />
+    <None Include="libs\glm\gtx\vector_angle.inl" />
+    <None Include="libs\glm\gtx\vector_query.inl" />
+    <None Include="libs\glm\gtx\wrap.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}</ProjectGuid>
@@ -124,21 +476,23 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>
       <CppLanguageStandard>c++11</CppLanguageStandard>
-      <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs;$(SolutionDir)\jni;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;_DEBUG</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\freetype\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv2</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ClCompile>
       <CppLanguageStandard>c++11</CppLanguageStandard>
-      <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs;$(SolutionDir)\jni;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;NDEBUG</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\freetype\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv2</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
