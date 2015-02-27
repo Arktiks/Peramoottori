@@ -19,7 +19,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jni\Application.cpp" />
-    <ClCompile Include="jni\audio\Audio.cpp" />
+    <ClCompile Include="jni\audio\Audio.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="jni\audio\AudioPlayer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -62,7 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\Application.h" />
-    <ClInclude Include="jni\audio\Audio.h" />
+    <ClInclude Include="jni\audio\Audio.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="jni\audio\AudioPlayer.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
