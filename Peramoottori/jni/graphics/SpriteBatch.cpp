@@ -29,7 +29,7 @@ void SpriteBatch::Draw()
 	// Draws textures that are in same layer. TODO: Add texture-sort to sort-function
 	if (sprites.size() != 0)
 	{
-		GLuint currentAtlasIndex = sprites[0]->texture.getAtlasID();
+		GLuint currentAtlasIndex = sprites[0]->texture.getId();
 		
 		unsigned totalIndiceAmount = 0;
 		unsigned indiceAmount = 0;
@@ -50,7 +50,7 @@ void SpriteBatch::Draw()
 				break;
 			}
 
-			else if (sprites[i + 1]->texture.getAtlasID() == currentAtlasIndex)
+			else if (sprites[i + 1]->texture.getId() == currentAtlasIndex)
 			{
 				// Only add indices if sprite will be drawn; This is because we ignore sprites that are not drawn in
 				// CreateBufferData()
@@ -70,7 +70,7 @@ void SpriteBatch::Draw()
 
 				totalIndiceAmount += indiceAmount;
 				indiceAmount = sprites[i+1]->indices.size();
-				currentAtlasIndex = sprites[i + 1]->texture.getAtlasID();
+				currentAtlasIndex = sprites[i + 1]->texture.getId();
 			}
 		}
 	}

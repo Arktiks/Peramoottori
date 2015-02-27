@@ -83,6 +83,12 @@
     <ClCompile Include="jni\audio\Audio.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
+    <ClCompile Include="jni\graphics\Atlas.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\AtlasTexture.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\Application.h">
@@ -141,6 +147,12 @@
     </ClInclude>
     <ClInclude Include="jni\audio\Audio.h">
       <Filter>jni\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AtlasTexture.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Atlas.h">
+      <Filter>jni\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

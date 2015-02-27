@@ -1,27 +1,32 @@
 #ifndef TEXTURE_H
 
 #define TEXTURE_H
+#include "resources\Image.h"
 #include "glm\common.hpp"
-#include <GLES2\gl2.h> // Need GLuint, better include?
+#include <string>
+#include <vector>
+#include <GLES2\gl2.h>
+#include "lodepng.h"
+#include "resources\ResourceReader.h"
+
 class Texture
 {
 public:
-	Texture(int atlas, glm::vec2 texturePosition, glm::vec2 textureSize);
+	Texture(std::string fileName);
 	Texture();
-	~Texture();
-
-	void setSourceRectSize(glm::vec2);
-	void setSourceRectPosition(glm::vec2);
-
-	glm::vec2 getTexturePosition(); // Tarvitaanko tätä?
+	GLuint getId();
 	glm::vec2 getTextureSize();
-	GLuint getAtlasID();
+	glm::vec2 getTexturePosition(){ return glm::vec2(0, 0); };	
+	void createTexture(std::string filename);
+	~Texture();
+	
 private:
+	GLuint textureIndex;
 
-	GLuint atlasIndex; // index tekstuuriatlaksen sijainnille.
-	glm::vec2 texturePosition; // Texture position on atlas.
-	glm::vec2 textureSize;
-
+	pm::Image LoadImage(std::string fileName);
+	std::vector<unsigned char> DecodePNG(pm::Image image);
+	void GenerateTexture(std::vector<unsigned char> decodedImage);
+	glm::uvec2 textureSize;
 };
 
 #endif

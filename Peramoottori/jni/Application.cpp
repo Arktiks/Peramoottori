@@ -29,6 +29,7 @@ void Application::Initialize(android_app* application)
 	
 	pm::ResourceReader::GetInstance(application->activity->assetManager); // Initialize the ResourceReader with AAssetManager.
 
+
 	LOGI("Application has been initialized.");
 }
 
@@ -56,6 +57,10 @@ void Application::DrawFrame()
 		return;
 		// No display.
 		LOGW("No EGL_DISPLAY present while DrawFrame() was called.");
+	}
+	else
+	{
+		engine.spritebatch.Draw();
 	}
 	
 	eglSwapBuffers(engine.display, engine.surface);
