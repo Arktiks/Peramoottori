@@ -20,6 +20,7 @@
 		~Texture();
 	
 
+
 	private:
 	GLuint textureIndex;
 

@@ -18,7 +18,6 @@ SpriteBatch::SpriteBatch()
 SpriteBatch::~SpriteBatch()
 {
 }
-
 void SpriteBatch::addSprite(Sprite &sprite)
 {
 	sprites.push_back(&sprite);
@@ -79,7 +78,6 @@ void SpriteBatch::Draw()
 void SpriteBatch::Update()
 {
 	CreateBufferData();
-
 	if (spriteAmount != sprites.size())
 	{
 		spriteAmount = sprites.size();

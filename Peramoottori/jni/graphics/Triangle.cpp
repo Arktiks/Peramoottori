@@ -1,4 +1,5 @@
 #include "Triangle.h"
+#include "Triangle.h"
 using namespace pm;
 
 Triangle::Triangle(float tempPositionX, float tempPositionY, float tempRadius)

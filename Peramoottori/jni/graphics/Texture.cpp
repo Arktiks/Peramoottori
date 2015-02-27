@@ -1,7 +1,6 @@
 #include "Texture.h"
 using namespace pm;
 
-
 Texture::Texture()
 {	
 }
@@ -26,7 +25,6 @@ pm::Image Texture::LoadImage(std::string fileName)
 	pm::Image image = pm::ResourceReader::GetInstance()->ReadImage(fileName);
 	return image;
 }
-
 std::vector<unsigned char> Texture::DecodePNG(pm::Image image)
 {
 	std::vector<unsigned char> decodedImage;
