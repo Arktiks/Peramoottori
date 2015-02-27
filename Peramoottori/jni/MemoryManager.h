@@ -28,6 +28,8 @@ namespace pm
 		///		\param pointer : void* universal pointer.
 		void DeleteTrack(void* pointer);
 
+		void WriteLeaks();
+
 		/// Destructor.
 		/// Dumps leaked memory locations to "memoryleaks.txt" upon closure.
 		virtual ~MemoryManager();
