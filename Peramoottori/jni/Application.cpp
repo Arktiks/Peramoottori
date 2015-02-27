@@ -18,7 +18,7 @@ int HandleInput(android_app* application, AInputEvent* event);
 
 Application::Application()
 {
-	engine.applicationPointer = (this);
+	//engine.applicationPointer = (this);
 }
 
 void Application::Initialize(android_app* application)
@@ -30,7 +30,7 @@ void Application::Initialize(android_app* application)
 	engine.app->onInputEvent = HandleInput;
 	engine.assetManager = application->activity->assetManager;
 	pm::ResourceReader::GetInstance(application->activity->assetManager); // Initialize the ResourceReader with AAssetManager.
-	engine.spritebatch = SpriteBatch();
+	//engine.spritebatch = SpriteBatch();
 
 	//LOGI("Application has been initialized.");
 }
@@ -62,7 +62,7 @@ void Application::DrawFrame()
 	}
 	else
 	{
-		engine.spritebatch.Draw();
+		//engine.spritebatch.Draw();
 	}
 	
 	eglSwapBuffers(engine.display, engine.surface);
