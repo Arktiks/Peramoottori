@@ -1,3 +1,5 @@
+#include <GlobalNew.h>
+
 #include <jni.h>
 #include <errno.h>
 
@@ -17,6 +19,7 @@
 
 void android_main(android_app* application)
 {
+	pm::MemoryManager::GetInstance();
 	pm::Application app;
 	pm::Time aika;
 	pm::ResourceManager ressu;
@@ -24,6 +27,8 @@ void android_main(android_app* application)
 
 
 	bool initialize = true;
+
+	pm::MemoryManager::DeleteInstance();
 
 	while (app.Update())
 	{

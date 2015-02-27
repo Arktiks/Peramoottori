@@ -6,6 +6,7 @@ Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int t
 	radius = tempRadius;
 	position = glm::vec2(tempPositionX, tempPositionY);
 	size = glm::vec2(1, 1);
+	draw = true;
 
 	vertices.push_back(tempPositionX); //1 xpos
 	vertices.push_back(tempPositionY); //2 ypos
@@ -14,6 +15,7 @@ Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int t
 	vertices.push_back(0.0f); //5 blue
 	vertices.push_back(0.0f); //6 txpos
 	vertices.push_back(0.0f); //7 typos
+
 
 	for (int i = 0; i < tempSmoothness; i++)
 	{

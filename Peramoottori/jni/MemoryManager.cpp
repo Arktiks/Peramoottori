@@ -1,6 +1,9 @@
 #include "MemoryManager.h"
 #include <iostream>
-#include <fstream>
+//#include <fstream>
+#include <stdio.h>
+#include <cstdio>
+#include <system\PMdebug.h>
 
 using namespace std;
 using namespace pm;
@@ -27,6 +30,8 @@ void MemoryManager::AddTrack(MemoryTrack track)
 
 void MemoryManager::DeleteTrack(void* pointer)
 {
+	FILE file;
+
 	if (!memory.empty())
 	{
 		for (vector<MemoryTrack>::iterator it = memory.begin(); it != memory.end(); it++) // Search through all new calls.
@@ -41,13 +46,31 @@ void MemoryManager::DeleteTrack(void* pointer)
 	//cout << "Couldn't delete track." << endl;
 }
 
+void MemoryManager::WriteLeaks()
+{
+	FILE* file = fopen("/internal/memoryleak.txt", "w+");
+	if (file != NULL)
+	{
+		fputs("hei", file);
+		fflush(file);
+		fclose(file);
+	}
+	else
+	{
+	}
+}
+
 MemoryManager::~MemoryManager()
 {
-	if (!memory.empty()) // If there are undeleted tracks.
-	{
-		ofstream log("memoryleaks.txt");
+	WriteLeaks();
 
-		if (log.is_open())
+	/*if (!memory.empty()) // If there are undeleted tracks.
+	{
+		//const string &name = "memoryleaks.txt";
+		ofstream log("memoryleaks.txt", ios::out);
+		log.clear();
+		//if (log.is_open())
+		if (!log.fail())
 		{
 			log << "MEMORY LEAKS" << endl << "############" << endl;
 
@@ -61,5 +84,5 @@ MemoryManager::~MemoryManager()
 		}
 		else
 			cout << "Couldn't open memoryleaks text." << endl;
-	}
+	}*/
 }

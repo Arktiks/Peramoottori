@@ -19,12 +19,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jni\Application.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="jni\audio\Audio.cpp" />
     <ClCompile Include="jni\audio\AudioManager.cpp" />
+=======
+    <ClCompile Include="jni\audio\Audio.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
+>>>>>>> a39a354a12a35fe219ef7608be12593647762d83
     <ClCompile Include="jni\audio\AudioPlayer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\graphics\Atlas.cpp" />
+    <ClCompile Include="jni\graphics\AtlasTexture.cpp" />
     <ClCompile Include="jni\graphics\Circle.cpp" />
     <ClCompile Include="jni\graphics\Font.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
@@ -33,12 +41,15 @@
     <ClCompile Include="jni\graphics\Rectangle.cpp" />
     <ClCompile Include="jni\graphics\Shader.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\graphics\Sprite.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\graphics\Text.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
@@ -66,16 +77,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\Application.h" />
+<<<<<<< HEAD
     <ClInclude Include="jni\audio\Audio.h" />
     <ClInclude Include="jni\audio\AudioManager.h" />
+=======
+    <ClInclude Include="jni\audio\Audio.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
+>>>>>>> a39a354a12a35fe219ef7608be12593647762d83
     <ClInclude Include="jni\audio\AudioPlayer.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="jni\GlobalNew.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
+=======
+    <ClInclude Include="jni\GlobalNew.h" />
+    <ClInclude Include="jni\graphics\Atlas.h" />
+    <ClInclude Include="jni\graphics\AtlasTexture.h" />
+>>>>>>> a39a354a12a35fe219ef7608be12593647762d83
     <ClInclude Include="jni\graphics\Circle.h" />
     <ClInclude Include="jni\graphics\Font.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
@@ -84,13 +107,16 @@
     <ClInclude Include="jni\graphics\Rectangle.h" />
     <ClInclude Include="jni\graphics\Shader.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\graphics\Shape.h" />
     <ClInclude Include="jni\graphics\Sprite.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\graphics\SpriteBatch.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\graphics\Text.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>

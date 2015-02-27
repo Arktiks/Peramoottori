@@ -1,34 +1,34 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
-
+#include "resources\Image.h"
 #include <glm\common.hpp>
-
+#include <string>
+#include <vector>
+#include <GLES2\gl2.h>
+#include "lodepng.h"
+#include "resources\ResourceReader.h"
 namespace pm
 {
 	class Texture
 	{
 	public:
-
-		Texture(int atlas, glm::vec2 texturePosition, glm::vec2 textureSize);
+		Texture(std::string fileName);
 		Texture();
+		GLuint getId();
+		glm::vec2 getTextureSize();
+		glm::vec2 getTexturePosition(){ return glm::vec2(0, 0); };
+		void createTexture(std::string filename);
 		~Texture();
 
-		void setSourceRectSize(glm::vec2);
-		void setSourceRectPosition(glm::vec2);
 
-		glm::vec2 getSourceRectSize();
-		glm::vec2 getSourceRectPosition();
-
-		glm::vec2 getTexturePosition();
-		glm::vec2 getTextureSize();
-		int getAtlasID();
 
 	private:
+		GLuint textureIndex;
 
-		int atlasIndex; // index tekstuuriatlaksen sijainnille.
-		glm::vec2 texturePosition; // Texture position on atlas.
-		glm::vec2 textureSize;
-
+		pm::Image LoadImage(std::string fileName);
+		std::vector<unsigned char> DecodePNG(pm::Image image);
+		void GenerateTexture(std::vector<unsigned char> decodedImage);
+		glm::uvec2 textureSize;
 	};
 }
 

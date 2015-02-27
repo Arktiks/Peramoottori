@@ -5,9 +5,10 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include <android/input.h>
+#include <MemoryManager.h>
 
-#include <system\PMassert.h>
-#include <system\PMdebug.h>
+#include <system/PMassert.h>
+#include <system/PMdebug.h>
 #include <System\Time.h>
 #include <resources/ResourceManager.h>
 //#include <system\Input.h>
@@ -31,6 +32,7 @@ void Application::Initialize(android_app* application)
 	engine.app->onInputEvent = HandleInput;
 	engine.assetManager = application->activity->assetManager;
 	pm::ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
+
 
 	//LOGI("Application has been initialized.");
 }
@@ -60,6 +62,10 @@ void Application::DrawFrame()
 		// No display.
 		//LOGW("No EGL_DISPLAY present while DrawFrame() was called.");
 	}
+	/*else
+	{
+		pm::SpriteBatch::GetInstance()->Draw();
+	}*/
 	
 	eglSwapBuffers(engine.display, engine.surface);
 }
@@ -136,7 +142,10 @@ int Application::InitializeDisplay()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
 	glClearColor(1.0f, 0.4f, 1.0f, 1);
-
+	Texture texture("test.png");
+	Sprite sprite(texture);
+	pm::SpriteBatch::GetInstance()->Initialize(glm::vec2(engine.width, engine.height));
+	pm::SpriteBatch::GetInstance()->addSprite(sprite);
 	//LOGI("Succesfully initialized display.");
 	return 0;
 }
