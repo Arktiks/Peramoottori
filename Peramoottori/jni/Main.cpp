@@ -1,3 +1,5 @@
+#include <GlobalNew.h>
+
 #include <jni.h>
 #include <errno.h>
 
@@ -16,9 +18,15 @@
 
 void android_main(android_app* application)
 {
+	pm::MemoryManager::GetInstance();
 	pm::Application app;
 	pm::Time aika;
 	app.Initialize(application);
+
+	int* a = NEW int(23);
+	double* b = NEW double(23.00);
+
+	pm::MemoryManager::DeleteInstance();
 
 	while (app.Update())
 	{
@@ -30,7 +38,7 @@ void android_main(android_app* application)
 
 		double frameTime = aika.calculateTimeInFrame();
 
-		LOGI("Frame time: %f", frameTime);
+		//LOGI("Frame time: %f", frameTime);
 
 		glClearColor(0, 1, 0, 1);
 	

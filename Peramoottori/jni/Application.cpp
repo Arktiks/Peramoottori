@@ -5,9 +5,10 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include <android/input.h>
+#include <MemoryManager.h>
 
-#include <system\PMassert.h>
-#include <system\PMdebug.h>
+#include <system/PMassert.h>
+#include <system/PMdebug.h>
 #include <resources/ResourceReader.h>
 //#include <system\Input.h>
 
@@ -18,7 +19,7 @@ int HandleInput(android_app* application, AInputEvent* event);
 
 Application::Application()
 {
-	//engine.applicationPointer = (this);
+	engine.applicationPointer = (this);
 }
 
 void Application::Initialize(android_app* application)
@@ -60,10 +61,10 @@ void Application::DrawFrame()
 		// No display.
 		//LOGW("No EGL_DISPLAY present while DrawFrame() was called.");
 	}
-	else
+	/*else
 	{
 		//engine.spritebatch.Draw();
-	}
+	}*/
 	
 	eglSwapBuffers(engine.display, engine.surface);
 }
