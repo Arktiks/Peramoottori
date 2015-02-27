@@ -30,7 +30,7 @@ void Application::Initialize(android_app* application)
 	engine.app->onInputEvent = HandleInput;
 	engine.assetManager = application->activity->assetManager;
 	pm::ResourceReader::GetInstance(application->activity->assetManager); // Initialize the ResourceReader with AAssetManager.
-	//engine.spritebatch = SpriteBatch();
+
 
 	//LOGI("Application has been initialized.");
 }
@@ -62,7 +62,7 @@ void Application::DrawFrame()
 	}
 	else
 	{
-		//engine.spritebatch.Draw();
+		pm::SpriteBatch::GetInstance()->Draw();
 	}
 	
 	eglSwapBuffers(engine.display, engine.surface);
@@ -140,7 +140,10 @@ int Application::InitializeDisplay()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
 	glClearColor(1.0f, 0.4f, 1.0f, 1);
-
+	Texture texture("test.png");
+	Sprite sprite(texture);
+	pm::SpriteBatch::GetInstance()->Initialize(glm::vec2(engine.width, engine.height));
+	pm::SpriteBatch::GetInstance()->addSprite(sprite);
 	//LOGI("Succesfully initialized display.");
 	return 0;
 }

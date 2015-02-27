@@ -1,12 +1,13 @@
 #include "SpriteBatch.h"
 #include <algorithm>
-//#include "Shape.h"
+
 
 using namespace pm;
 
 // TODO: Tuki indeksimäärältään erikokoisille spriteille tehdään piirtämällä kolmioita vain.
 // Spritebatcheja on vain yksi, singleton? 
 // Tämän kautta piirretään kaikki
+SpriteBatch* SpriteBatch::instance = nullptr;
 
 SpriteBatch::SpriteBatch()
 {
@@ -15,9 +16,25 @@ SpriteBatch::SpriteBatch()
 	glGenBuffers(2, &buffer[0]);
 }
 
-SpriteBatch::~SpriteBatch()
+SpriteBatch* SpriteBatch::GetInstance()
 {
+	if (instance == nullptr)
+	{
+		instance = new SpriteBatch();
+	}
+	return instance;
 }
+void SpriteBatch::Initialize(glm::vec2 screenSize)
+{
+	this->screenSize = screenSize;
+}
+
+void SpriteBatch::DestroyInstance()
+{
+	delete instance;
+	instance = nullptr;
+}
+
 void SpriteBatch::addSprite(Sprite &sprite)
 {
 	sprites.push_back(&sprite);
@@ -25,6 +42,7 @@ void SpriteBatch::addSprite(Sprite &sprite)
 
 void SpriteBatch::Draw()
 {
+	Update();
 	// Draws textures that are in same layer. TODO: Add texture-sort to sort-function
 	if (sprites.size() != 0)
 	{

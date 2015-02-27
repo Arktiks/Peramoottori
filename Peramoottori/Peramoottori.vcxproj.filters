@@ -116,6 +116,12 @@
     <ClCompile Include="jni\Application.cpp">
       <Filter>jni\core</Filter>
     </ClCompile>
+    <ClCompile Include="jni\graphics\Atlas.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\AtlasTexture.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -879,6 +885,12 @@
     </ClInclude>
     <ClInclude Include="jni\Application.h">
       <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Atlas.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\AtlasTexture.h">
+      <Filter>jni\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
