@@ -32,6 +32,7 @@ namespace pm
 			EGLDisplay display;
 			EGLSurface surface;
 			EGLContext context;
+			SpriteBatch spritebatch;
 
 			/// Touch, x and y are for input system.
 			bool touch;

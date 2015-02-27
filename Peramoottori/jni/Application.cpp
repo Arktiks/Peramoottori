@@ -30,6 +30,7 @@ void Application::Initialize(android_app* application)
 	engine.app->onInputEvent = HandleInput;
 	engine.assetManager = application->activity->assetManager;
 	pm::ResourceReader::GetInstance(application->activity->assetManager); // Initialize the ResourceReader with AAssetManager.
+	engine.spritebatch = SpriteBatch();
 
 	//LOGI("Application has been initialized.");
 }

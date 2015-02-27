@@ -29,6 +29,6 @@
 	void GenerateTexture(std::vector<unsigned char> decodedImage);
 	glm::uvec2 textureSize;
 	};
-}
+
 
 #endif
