@@ -22,7 +22,7 @@ void Texture::createTexture(std::string fileName) // Nimeämiset
 }
 pm::Image Texture::LoadImage(std::string fileName)
 {
-	pm::Image image = pm::ResourceReader::GetInstance()->ReadImage(fileName);
+	pm::Image image = pm::ResourceManager::GetInstance()->ReadImage(fileName);
 	return image;
 }
 std::vector<unsigned char> Texture::DecodePNG(pm::Image image)

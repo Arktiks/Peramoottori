@@ -3,38 +3,9 @@
 #include <System\PMdebug.h>
 
 using namespace pm;
-
 ResourceManager* ResourceManager::instance;
 
-//ResourceManager::ResourceManager()
-//{
-//}
-
-ResourceManager* ResourceManager::GetInstance(AAssetManager* manager)
-{
-	if (instance == nullptr)
-	{
-		instance = new ResourceManager;
-		instance->Initialize(manager);
-	}
-	else if (instance != nullptr && instance->manager == nullptr)
-	{
-		instance->Initialize(manager);
-	}
-	return instance;
-}
-
-void ResourceManager::Initialize(AAssetManager* manager)
-{
-	if (manager != nullptr)
-		PMdebug::MsgWarning("ResourceManager has already been initialized!");
-	else
-		PMdebug::MsgInfo("ResourceManager assigned");
-
-	(this->manager) = manager;
-}
-
-std::string ResourceManager::ReadAsset(std::string filePath)
+void ResourceManager::ReadAsset(std::string filePath)
 {
 	int tempLen = filePath.length();
 
@@ -48,7 +19,7 @@ std::string ResourceManager::ReadAsset(std::string filePath)
 	if (filePath.compare(tempTxt.c_str()))
 	{
 		PMdebug::MsgInfo("TXT compare works");
-	} 
+	}
 
 	else if (filePath.compare(tempTtf.c_str()))
 	{
@@ -65,7 +36,34 @@ std::string ResourceManager::ReadAsset(std::string filePath)
 		PMdebug::MsgInfo("PNG compare works");
 	}
 
-	return "kakka";
+	else
+	{
+		PMdebug::MsgWarning("File type not recognized");
+	}
+}
+
+ResourceManager* ResourceManager::GetInstance(AAssetManager* manager)
+{
+	if (instance == nullptr) // If instance has not been initialized yet.
+	{
+		instance = new ResourceManager;
+		instance->Initialize(manager);
+	}
+	else if (instance != nullptr && instance->manager == nullptr) // If instance has been initialize and manager not.
+	{
+		instance->Initialize(manager);
+	}
+	return instance;
+}
+
+void ResourceManager::Initialize(AAssetManager* manager)
+{
+	if (manager != nullptr)  // If manager has already been set write a warning.
+		PMdebug::MsgWarning("ResourceManager has already been initialized!");
+	else
+		PMdebug::MsgInfo("ResourceManager assigned");
+
+	(this->manager) = manager;
 }
 
 void ResourceManager::DestroyInstance()

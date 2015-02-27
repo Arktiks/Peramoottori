@@ -22,7 +22,6 @@ void android_main(android_app* application)
 	pm::MemoryManager::GetInstance();
 	pm::Application app;
 	pm::Time aika;
-	pm::ResourceManager ressu;
 	app.Initialize(application);
 
 
@@ -38,10 +37,11 @@ void android_main(android_app* application)
 		/////////////////////
 		if (initialize == true)
 		{
-			ressu.ReadAsset("teksti.txt");
-			ressu.ReadAsset("fontti.ttf");
-			ressu.ReadAsset("aani.ogg");
-			ressu.ReadAsset("kuva.png");
+	
+			//pm::ResourceManager::GetInstance()->ReadAsset("teksti.txt");
+			//pm::ResourceManager::GetInstance()->ReadAsset("fontti.ttf");
+			//pm::ResourceManager::GetInstance()->ReadAsset("aani.ogg");
+			//pm::ResourceManager::GetInstance()->ReadAsset("kuva.png");
 
 			initialize = false;
 		}

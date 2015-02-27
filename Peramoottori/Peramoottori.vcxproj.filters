@@ -68,9 +68,6 @@
     <ClCompile Include="jni\Main.cpp">
       <Filter>jni</Filter>
     </ClCompile>
-    <ClCompile Include="jni\resources\ResourceReader.cpp">
-      <Filter>jni\resources</Filter>
-    </ClCompile>
     <ClCompile Include="jni\system\Input.cpp">
       <Filter>jni\system</Filter>
     </ClCompile>
@@ -113,19 +110,14 @@
     <ClCompile Include="jni\Application.cpp">
       <Filter>jni\core</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="jni\audio\AudioManager.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
     <ClCompile Include="jni\resources\ResourceManager.cpp">
       <Filter>jni\resources</Filter>
-=======
-    <ClCompile Include="jni\graphics\Atlas.cpp">
-      <Filter>jni\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\AtlasTexture.cpp">
-      <Filter>jni\graphics</Filter>
->>>>>>> a39a354a12a35fe219ef7608be12593647762d83
+    <ClCompile Include="jni\MemoryManager.cpp">
+      <Filter>jni\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -825,9 +817,6 @@
     <ClInclude Include="libs\glm\vector_relational.hpp">
       <Filter>libs\glm</Filter>
     </ClInclude>
-    <ClInclude Include="jni\resources\ResourceReader.h">
-      <Filter>jni\resources</Filter>
-    </ClInclude>
     <ClInclude Include="jni\system\Input.h">
       <Filter>jni\system</Filter>
     </ClInclude>
@@ -888,19 +877,14 @@
     <ClInclude Include="jni\Application.h">
       <Filter>jni\core</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="jni\resources\ResourceManager.h">
       <Filter>jni\resources</Filter>
     </ClInclude>
     <ClInclude Include="jni\audio\AudioManager.h">
       <Filter>jni\audio</Filter>
-=======
-    <ClInclude Include="jni\graphics\Atlas.h">
-      <Filter>jni\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\AtlasTexture.h">
-      <Filter>jni\graphics</Filter>
->>>>>>> a39a354a12a35fe219ef7608be12593647762d83
+    <ClInclude Include="jni\MemoryManager.h">
+      <Filter>jni\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

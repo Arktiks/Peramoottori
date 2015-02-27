@@ -6,7 +6,7 @@
 #include <vector>
 #include <GLES2\gl2.h>
 #include "lodepng.h"
-#include "resources\ResourceReader.h"
+#include "resources\ResourceManager.h"
 namespace pm
 {
 	class Texture
