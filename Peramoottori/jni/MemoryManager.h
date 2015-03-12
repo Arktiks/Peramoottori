@@ -28,7 +28,7 @@ namespace pm
 		///		\param pointer : void* universal pointer.
 		void DeleteTrack(void* pointer);
 
-		void WriteLeaks();
+		void WriteLeaks(); // TO-DO-MAYBE
 
 		/// Destructor.
 		/// Dumps leaked memory locations to "memoryleaks.txt" upon closure.

@@ -1,8 +1,9 @@
-#ifdef _DEBUG
+#ifdef _DEBUG // If we are building debug version.
 #ifndef GLOBALNEW_H
 #define GLOBALNEW_H
 
-//#pragma comment(linker, "/nodefaultlib:libc.lib")
+// Uncomment these if there are linker errors.
+//#pragma comment(linker, "/nodefaultlib:libc.lib") 
 //#pragma comment(linker, "/nodefaultlib:libcd.lib")
 
 #include <iostream>
@@ -36,14 +37,14 @@ void operator delete[](void* ptr)
 	operator delete(ptr);
 }
 
-#define NEW new(__FILE__, __LINE__)
+#define NEW new(__FILE__, __LINE__) // All instances of NEW are overloaded with our macro.
 
-#endif
-#endif
+#endif // GLOBALNEW_H
+#endif // _DEBUG
 
 
-#ifdef NDEBUG
+#ifdef NDEBUG // If we are building release version.
 
 #define NEW new
 
-#endif
+#endif // NDEBUG

@@ -7,7 +7,7 @@
 namespace pm
 {
 	/// Struct to hold memory tracks during debugging.
-	/// Tracks contain information where operator new is called.
+	/// Tracks contain information where new-operator is called.
 
 	struct MemoryTrack
 	{
