@@ -2,8 +2,11 @@
 #define FONT_H
 
 #include <string>
-#include <freetype\ft2build.h>
-#include FT_FREETYPE_H
+#include <GLES2\gl2.h>
+#include "stb_truetype.h"
+#define STB_TRUETYPE_IMPLEMENTATION
+
+
 
 namespace pm
 {
@@ -15,12 +18,8 @@ namespace pm
 		Font(const char* filePath);
 		~Font();
 
-	private:
-
-		FT_Library library;
-		FT_Face face;
-		FT_GlyphSlot glyphSlot;
-
+		stbtt_bakedchar cdata[96];
+		GLuint fontTexture;
 	};
 }
 

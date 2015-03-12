@@ -350,6 +350,7 @@
     <ClInclude Include="libs\glm\vec4.hpp" />
     <ClInclude Include="libs\glm\vector_relational.hpp" />
     <ClInclude Include="libs\lodepng.h" />
+    <ClInclude Include="stb_easy_font.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl" />
