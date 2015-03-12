@@ -17,7 +17,7 @@ namespace pm
 		void DestroyInstance();
 		void Draw();
 		void Initialize(glm::vec2 screenSize);
-		void addSprite(Sprite &sprite);
+		void addSprite(Sprite *sprite);
 		virtual ~SpriteBatch(){};
 	private:
 		SpriteBatch();
@@ -41,7 +41,7 @@ namespace pm
 		// Todennäköisesti muuttuvat:
 	void TempCreateShader();
 
-		GLuint glObject;
+	GLuint glObject;
 	int spriteAmount;
 	GLuint buffer[2];
 	};

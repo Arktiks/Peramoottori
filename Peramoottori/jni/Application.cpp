@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
+#include <glm\common.hpp>
 #include <android/input.h>
 #include <MemoryManager.h>
 
@@ -11,7 +12,7 @@
 #include <system/PMdebug.h>
 #include <System\Time.h>
 #include <resources/ResourceManager.h>
-//#include <system\Input.h>
+#include <system\Input.h>
 
 using namespace pm;
 
@@ -39,7 +40,7 @@ void Application::Initialize(android_app* application)
 
 bool Application::Update()
 {
-	//Input::Update();
+	Input::Update();
 	while (ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
 	{
 		if (eventSource != nullptr)
@@ -62,12 +63,14 @@ void Application::DrawFrame()
 		// No display.
 		//LOGW("No EGL_DISPLAY present while DrawFrame() was called.");
 	}
-	/*else
+
+	else
 	{
 		pm::SpriteBatch::GetInstance()->Draw();
-	}*/
-	
+	}
+	//sprites;
 	eglSwapBuffers(engine.display, engine.surface);
+	sprites;
 }
 
 
@@ -142,10 +145,20 @@ int Application::InitializeDisplay()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
 	glClearColor(1.0f, 0.4f, 1.0f, 1);
-	Texture texture("test.png");
-	Sprite sprite(texture);
+
 	pm::SpriteBatch::GetInstance()->Initialize(glm::vec2(engine.width, engine.height));
-	pm::SpriteBatch::GetInstance()->addSprite(sprite);
+	Texture texture("test.png");
+	Sprite* sprite = new Sprite(texture);
+	Sprite* sprite2 = new Sprite(texture);
+	Sprite* sprite3 = new Sprite(texture);
+
+	sprites.push_back(sprite2);
+	sprites.push_back(sprite);
+	sprites.push_back(sprite3);
+
+	pm::SpriteBatch::GetInstance()->addSprite(sprites[0]);
+	pm::SpriteBatch::GetInstance()->addSprite(sprites[1]);
+	pm::SpriteBatch::GetInstance()->addSprite(sprites[2]);
 	//LOGI("Succesfully initialized display.");
 	return 0;
 }
@@ -164,12 +177,22 @@ Application::Engine* Application::GetEngine()
 int HandleInput(android_app* application, AInputEvent* event)
 {
 	struct Application::Engine* engine = (struct Application::Engine*)application->userData;
+
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
 	{
-	
-		//Input::InputEvent(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
-		return 1;
+		Input::InputEventMovement(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
 	}
+
+	if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_DOWN)
+	{
+		Input::InputEventKeyDown();
+	}
+
+	if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_UP)
+	{
+		Input::InputEventKeyUp();
+	}
+
 	return 0;
 }
 
