@@ -35,9 +35,9 @@ void SpriteBatch::DestroyInstance()
 	instance = nullptr;
 }
 
-void SpriteBatch::addSprite(Sprite &sprite)
+void SpriteBatch::addSprite(Sprite *sprite)
 {
-	sprites.push_back(&sprite);
+	sprites.push_back(sprite);
 }
 
 void SpriteBatch::Draw()
@@ -58,7 +58,7 @@ void SpriteBatch::Draw()
 
 		for (unsigned i = 0; i < sprites.size(); i++)
 		{
-			if (i+1 != sprites.size())
+			if (i+1 == sprites.size())
 			{
 				glBindTexture(GL_TEXTURE_2D, currentAtlasIndex);
 				glDrawElements(GL_TRIANGLES, indiceAmount, GL_UNSIGNED_INT,
@@ -85,7 +85,7 @@ void SpriteBatch::Draw()
 					reinterpret_cast<GLvoid*>(totalIndiceAmount *sizeof(GLuint)));
 				glBindTexture(GL_TEXTURE_2D, 0u);
 
-				totalIndiceAmount += indiceAmount;
+				totalIndiceAmount += indiceAmount;		//not needed
 				indiceAmount = sprites[i+1]->indices.size();
 				currentAtlasIndex = sprites[i + 1]->texture.getId();
 			}
@@ -136,7 +136,13 @@ void SpriteBatch::CreateBufferData()
 	{
 		if (sprites[i]->draw)
 		{
-			indexData.insert(indexData.end(), sprites[i]->indices.begin(), sprites[i]->indices.end());
+
+			indexData.push_back(sprites[i]->indices[0] + i * 6);
+			indexData.push_back(sprites[i]->indices[1] + i * 6);
+			indexData.push_back(sprites[i]->indices[2] + i * 6);
+			indexData.push_back(sprites[i]->indices[3] + i * 6);
+			indexData.push_back(sprites[i]->indices[4] + i * 6);
+			indexData.push_back(sprites[i]->indices[5] + i * 6);
 
 			std::vector<GLfloat> tempVertices = createGLCoord(sprites[i]->vertices, sprites[i]->texture.getTextureSize());	// Tarkasta textureSize että palauttaa oikean.
 			vertexData.insert(vertexData.end(), tempVertices.begin(), tempVertices.end());
@@ -146,19 +152,25 @@ void SpriteBatch::CreateBufferData()
 
 std::vector<GLfloat> SpriteBatch::createGLCoord(std::vector<GLfloat> convertVertices, glm::vec2 textureSize)
 {	
-	glm::vec2 position = PositionToGLCoord(glm::vec2(convertVertices[0], convertVertices[1]));
-	glm::vec3 color = ColorToGLCoord(glm::vec3(convertVertices[2], convertVertices[3], convertVertices[4]));
-	glm::vec2 texturePosition = TextureToGLCoord(glm::vec2(convertVertices[5], convertVertices[6]), textureSize);
-	
+
+
 	std::vector<GLfloat> glVertexData;
 
-	glVertexData[0] = position.x;
-	glVertexData[1] = position.y;
-	glVertexData[2] = color.r;
-	glVertexData[3] = color.b;
-	glVertexData[4] = color.g;
-	glVertexData[5] = texturePosition.x;
-	glVertexData[6] = texturePosition.y;
+	glVertexData.clear();
+	for (int i = 0; i < 4; i++)
+	{
+		glm::vec2 position = PositionToGLCoord(glm::vec2(convertVertices[0 + i * 7], convertVertices[1 + i * 7]));
+		glm::vec3 color = ColorToGLCoord(glm::vec3(convertVertices[2 + i * 7], convertVertices[3 + i * 7], convertVertices[4 + i * 7]));
+		//glm::vec2 texturePosition = TextureToGLCoord(glm::vec2(convertVertices[5 + i * 7], convertVertices[6 + i * 7]), textureSize);
+
+		glVertexData.push_back(position.x);
+		glVertexData.push_back(position.y);
+		glVertexData.push_back(color.r);
+		glVertexData.push_back(color.b);
+		glVertexData.push_back(color.g);
+		glVertexData.push_back(convertVertices[5+i*7]);
+		glVertexData.push_back(convertVertices[6+i*7]);
+	}
 
 	return glVertexData;
 }

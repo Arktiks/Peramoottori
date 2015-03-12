@@ -5,9 +5,11 @@
 #include "graphics\SpriteBatch.h"
 #include "graphics\Sprite.h"
 #include "graphics\Texture.h"
+#include <vector>
 #include <android_native_app_glue.h>
 #include <android/asset_manager.h>
 #include <EGL/egl.h>
+
 
 namespace pm
 {
@@ -43,6 +45,8 @@ namespace pm
 
 			int width;
 			int height;
+
+
 
 			double frameTime;
 
@@ -103,6 +107,10 @@ namespace pm
 		Engine engine; ///< The engine struct used to store data between native and android side.
 
 		android_poll_source* eventSource; ///< Used by Update() 
+		//TEMPORARY
+		std::vector<Sprite*> sprites;
+		std::vector<Texture> textures;
+		//
 	};
 }
 
