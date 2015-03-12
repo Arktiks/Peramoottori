@@ -8,6 +8,7 @@ float Input::_y = 0;
 float Input::lx = 0;
 float Input::ly = 0;
 bool Input::touch = false;
+bool Input::singleTouch = false;
 float Input::startOfDragX = 0;
 float Input::startOfDragY = 0;
 
@@ -32,6 +33,15 @@ bool Input::IsTouching()
 {
 	return touch;
 }
+bool Input::GetSingleTouch()
+{
+	if (touch == true && singleTouch == false)
+	{
+		singleTouch = true;
+		return true;
+	}
+	return false;
+}
 
 
 /// Static functions used in Application.cpp 
@@ -52,9 +62,14 @@ void Input::InputEventKeyUp()
 {
 	touch = false;
 }
+/// Static function used in Application.cpp
 void Input::Update()
 {
 	lx = _x;
 	ly = _y;
-
+	
+	if (touch == false)
+	{
+		singleTouch = false;
+	}
 }
