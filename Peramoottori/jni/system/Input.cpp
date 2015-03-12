@@ -24,7 +24,10 @@ glm::vec2 Input::GetTouchCoordinates()
 {
 	return glm::vec2(_x, _y);
 }
-
+glm::vec2 Input::GetDragVector()
+{
+	return glm::vec2(_x - lx,_y - ly);
+}
 bool Input::IsTouching()
 {
 	return touch;
