@@ -73,7 +73,8 @@ void pm::Audio::SetMaxPlayerCount(unsigned newMaxCount)
 
 		for (int i = maxPlayerCount; i > newMaxCount; i--)
 		{
-			player.pop_back();
+			delete &(player.at(i));
+			player.erase(player.begin() + i);
 		}		
 
 		playerCount = newMaxCount;

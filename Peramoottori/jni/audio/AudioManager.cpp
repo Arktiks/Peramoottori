@@ -1,5 +1,16 @@
 #include "AudioManager.h"
 
+void AudioPlayerCallback(SLPlayItf playerObject, void* context, SLuint32 event)
+{
+	pm::PMdebug::MsgInfo("AudioPlayer callback called");
+
+	if (event == SL_PLAYEVENT_HEADATEND)
+	{
+		pm::PMdebug::MsgInfo("AudioPlayer callback event: SL_PLAYEVENT_HEADATED");
+		(*playerObject)->SetPlayState(playerObject, SL_PLAYSTATE_STOPPED);
+	}
+}
+
 pm::AudioManager* pm::AudioManager::instance = nullptr;
 
 pm::AudioManager* pm::AudioManager::GetInstance()
@@ -36,6 +47,13 @@ void pm::AudioManager::InitAudioPlayer(AudioPlayer* player)
 
 	result = (*player->audioPlayerObj)->GetInterface(player->audioPlayerObj, SL_IID_VOLUME, &player->audioPlayerVol);
 	CheckError("Getting OpenSL volume interface failed");
+
+	result = (*player->audioPlayerPlay)->RegisterCallback(player->audioPlayerPlay, AudioPlayerCallback, NULL);
+	CheckError("Registering OpenSL audio player callback failed");
+
+	result = (*player->audioPlayerPlay)->SetCallbackEventsMask(player->audioPlayerPlay, SL_PLAYEVENT_HEADATEND);
+	CheckError("Setting OpenSL callback events mask failed");
+
 }
 
 void pm::AudioManager::CreateEngine()

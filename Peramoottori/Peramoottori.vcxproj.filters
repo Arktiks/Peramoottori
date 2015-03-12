@@ -886,6 +886,9 @@
     <ClInclude Include="jni\MemoryManager.h">
       <Filter>jni\core</Filter>
     </ClInclude>
+    <ClInclude Include="stb_easy_font.h">
+      <Filter>libs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">

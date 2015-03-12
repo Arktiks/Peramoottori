@@ -1,5 +1,4 @@
 #include "MemoryManager.h"
-//#include <fstream>
 #include <iostream>
 #include <stdio.h>
 #include <cstdio>
@@ -30,8 +29,6 @@ void MemoryManager::AddTrack(MemoryTrack track)
 
 void MemoryManager::DeleteTrack(void* pointer)
 {
-	FILE file;
-
 	if (!memory.empty())
 	{
 		for (vector<MemoryTrack>::iterator it = memory.begin(); it != memory.end(); it++) // Search through all new calls.
@@ -43,46 +40,57 @@ void MemoryManager::DeleteTrack(void* pointer)
 			}
 		}
 	}
+
 	//cout << "Couldn't delete track." << endl;
 }
 
-void MemoryManager::WriteLeaks()
+bool MemoryManager::WriteLeaks()
 {
-	FILE* file = fopen("/internal/memoryleak.txt", "w+");
-	if (file != NULL)
+	if (!memory.empty()) // If there are undeleted tracks.
 	{
-		fputs("hei", file);
-		fflush(file);
-		fclose(file);
-	}
-	else
-	{
+		PMdebug::MsgWarning("::: MEMORY LEAKS :::");
+
+		for (vector<MemoryTrack>::iterator it = memory.begin(); it != memory.end(); it++) // Iterate through memory leaks and write them on logcat.
+		{
+			PMdebug::MsgWarning("%s (%i) : size (%i)", it->filename.c_str(), it->line, it->size); // FILENAME (LINE) : size (SIZE)
+		}
 	}
 }
 
 MemoryManager::~MemoryManager()
 {
 	WriteLeaks();
-
-	/*if (!memory.empty()) // If there are undeleted tracks.
-	{
-		//const string &name = "memoryleaks.txt";
-		ofstream log("memoryleaks.txt", ios::out);
-		log.clear();
-		//if (log.is_open())
-		if (!log.fail())
-		{
-			log << "MEMORY LEAKS" << endl << "############" << endl;
-
-			for (vector<MemoryTrack>::iterator it = memory.begin(); it != memory.end(); it++) // Iterate through memory leaks and write them.
-			{
-				cout << it->filename << " (" << it->line << ") : size (" << it->size << ")" << endl;
-				log << it->filename << " (" << it->line << ") : size (" << it->size << ")" << endl; // FILENAME (LINE) : size (SIZE)
-			}
-
-			log.close();
-		}
-		else
-			cout << "Couldn't open memoryleaks text." << endl;
-	}*/
 }
+
+/*if (!memory.empty()) // If there are undeleted tracks.
+{
+//const string &name = "memoryleaks.txt";
+ofstream log("memoryleaks.txt", ios::out);
+log.clear();
+//if (log.is_open())
+if (!log.fail())
+{
+log << "MEMORY LEAKS" << endl << "############" << endl;
+
+for (vector<MemoryTrack>::iterator it = memory.begin(); it != memory.end(); it++) // Iterate through memory leaks and write them.
+{
+cout << it->filename << " (" << it->line << ") : size (" << it->size << ")" << endl;
+log << it->filename << " (" << it->line << ") : size (" << it->size << ")" << endl;
+}
+
+log.close();
+}
+else
+cout << "Couldn't open memoryleaks text." << endl;
+}
+
+FILE* file = fopen("/internal/memoryleak.txt", "w+");
+if (file != NULL)
+{
+	fputs("hei", file);
+	fflush(file);
+	fclose(file);
+}
+else
+{
+}*/

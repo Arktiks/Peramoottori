@@ -10,13 +10,13 @@ namespace pm
 
 	public:
 
-		Text(const char* text, float x, float y, float widht, float height, Font font);
+		Text(const char* text, float x, float y, Font font);
 		~Text();
 
 	private:
 
 		const char* text;
-		float x, y, widht, height;
+		float x, y;
 
 		Font font;
 

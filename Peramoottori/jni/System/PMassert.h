@@ -10,41 +10,13 @@
 	!(expression) ? Assert(__FILE__, __LINE__) : (void)0 // !a
 
 #define ASSERT_EQ(expression1, expression2) \
-	expression1 != expression2 ? Assert_EQ(__FILE__, __LINE__) : (void)0 // a == b
+	expression1 != expression2 ? Assert(__FILE__, __LINE__) : (void)0 // a == b
 
 #define ASSERT_NEQ(expression1, expression2) \
-	expression1 == expression2 ? Assert_NEQ(__FILE__, __LINE__) : (void)0 // a != b
+	expression1 == expression2 ? Assert(__FILE__, __LINE__) : (void)0 // a != b
 
 #define ASSERT_MINMAX(expression1, expression2, value) \
-	expression1 < value && value < expression2 ? Assert_MINMAX(__FILE__, __LINE__) : (void)0 // min < x < max
-
-/*void Assert(const char* file, const int line)
-{
-	// Log file and file
-	__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", file, line);
-	std::abort();
-}
-
-void Assert_EQ(const char* file, const int line)
-{
-	// Log file and file
-	__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", file, line);
-	std::abort();
-}
-
-void Assert_NEQ(const char* file, const int line)
-{
-	// Log file and file
-	__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", file, line);
-	std::abort();
-}
-
-void Assert_MINMAX(const char* file, const int line)
-{
-	// Log file and file
-	__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", file, line);
-	std::abort();
-}*/
+	expression1 < value && value < expression2 ? Assert(__FILE__, __LINE__) : (void)0 // min < x < max
 
 namespace pm
 {
@@ -66,9 +38,9 @@ namespace pm
 			{
 				const char *cstr = s.c_str();
 				__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", cstr);
+				std::abort();
 			}
-			__builtin_trap(); // break debugger
-			assert(a == b);
+
 		};
 
 
@@ -86,9 +58,9 @@ namespace pm
 			{
 				const char *cstr = s.c_str();
 				__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", cstr);
+				std::abort();
 			}
 
-			assert(a != b);
 		};
 
 		template<typename T>
@@ -105,9 +77,10 @@ namespace pm
 			{
 				const char *cstr = s.c_str();
 				__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", cstr);
+				std::abort();
 			}
 
-			assert(min < x && x < max);
+
 		};
 	};
 }

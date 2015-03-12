@@ -28,10 +28,12 @@ namespace pm
 		///		\param pointer : void* universal pointer.
 		void DeleteTrack(void* pointer);
 
-		void WriteLeaks(); // TO-DO-MAYBE
+		/// Prints memory leaks to logcat.
+		/// Should be called when app is destroyed.
+		///		\return true if there are leaks.
+		bool WriteLeaks();
 
 		/// Destructor.
-		/// Dumps leaked memory locations to "memoryleaks.txt" upon closure.
 		virtual ~MemoryManager();
 
 	private:
