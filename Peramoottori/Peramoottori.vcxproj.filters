@@ -22,9 +22,6 @@
     <Filter Include="jni\graphics">
       <UniqueIdentifier>{e09a90b2-d069-4521-8b01-3215cf702caf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\system">
-      <UniqueIdentifier>{ff934716-1873-4437-9e0b-aa6b93b98e4e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\audio">
       <UniqueIdentifier>{a35a28c0-d7ba-4b45-bee4-ff24747a34ad}</UniqueIdentifier>
     </Filter>
@@ -42,6 +39,9 @@
     </Filter>
     <Filter Include="jni\core">
       <UniqueIdentifier>{630f5179-d094-4c47-8d06-b3e5be560189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\core\debug">
+      <UniqueIdentifier>{b4082515-3808-4ef4-a4e3-f1b0e0d0a2df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,12 +67,6 @@
     </ClCompile>
     <ClCompile Include="jni\Main.cpp">
       <Filter>jni</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\system\Input.cpp">
-      <Filter>jni\system</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\system\Time.cpp">
-      <Filter>jni\system</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Circle.cpp">
       <Filter>jni\graphics\Shapes</Filter>
@@ -107,17 +101,26 @@
     <ClCompile Include="jni\audio\Audio.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
-    <ClCompile Include="jni\Application.cpp">
-      <Filter>jni\core</Filter>
-    </ClCompile>
     <ClCompile Include="jni\audio\AudioManager.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
     <ClCompile Include="jni\resources\ResourceManager.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
-    <ClCompile Include="jni\MemoryManager.cpp">
+    <ClCompile Include="jni\core\Application.cpp">
       <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\Input.cpp">
+      <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\Time.cpp">
+      <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\debug\MemoryManager.cpp">
+      <Filter>jni\core\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\debug\Debug.cpp">
+      <Filter>jni\core\debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -817,18 +820,6 @@
     <ClInclude Include="libs\glm\vector_relational.hpp">
       <Filter>libs\glm</Filter>
     </ClInclude>
-    <ClInclude Include="jni\system\Input.h">
-      <Filter>jni\system</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\system\PMassert.h">
-      <Filter>jni\system</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\system\PMdebug.h">
-      <Filter>jni\system</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\system\Time.h">
-      <Filter>jni\system</Filter>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Circle.h">
       <Filter>jni\graphics\Shapes</Filter>
     </ClInclude>
@@ -871,23 +862,29 @@
     <ClInclude Include="jni\structs\MemoryTrack.h">
       <Filter>structs</Filter>
     </ClInclude>
-    <ClInclude Include="jni\GlobalNew.h">
-      <Filter>jni\core</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\Application.h">
-      <Filter>jni\core</Filter>
-    </ClInclude>
     <ClInclude Include="jni\resources\ResourceManager.h">
       <Filter>jni\resources</Filter>
     </ClInclude>
     <ClInclude Include="jni\audio\AudioManager.h">
       <Filter>jni\audio</Filter>
     </ClInclude>
-    <ClInclude Include="jni\MemoryManager.h">
+    <ClInclude Include="jni\core\Application.h">
       <Filter>jni\core</Filter>
     </ClInclude>
-    <ClInclude Include="stb_easy_font.h">
+    <ClInclude Include="jni\core\Input.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Time.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\debug\MemoryManager.h">
+      <Filter>jni\core\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\stb_easy_font.h">
       <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\debug\Debug.h">
+      <Filter>jni\core\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
