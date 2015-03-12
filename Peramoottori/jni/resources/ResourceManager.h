@@ -23,7 +23,8 @@ namespace pm
 	{
 	public:		
 		
-		void ReadAsset(std::string filePath);
+		void ReadAsset(std::string fileName);
+
 
 		/// Static function that returns instance pointer of ResourceManager.
 		/// Only one instance of ResourceManager will exist during runtime.
@@ -91,7 +92,7 @@ namespace pm
 
 
 
-		std::multimap <std::string, int> assets;
+		//std::map <std::string, RESOURCE> assets;
 	};
 }
 #endif // !RESOURCEMANAGER_H

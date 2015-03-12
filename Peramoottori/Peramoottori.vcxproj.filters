@@ -119,6 +119,9 @@
     <ClCompile Include="jni\MemoryManager.cpp">
       <Filter>jni\core</Filter>
     </ClCompile>
+    <ClCompile Include="jni\resources\Resource.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -888,6 +891,9 @@
     </ClInclude>
     <ClInclude Include="stb_easy_font.h">
       <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\Resource.h">
+      <Filter>jni\resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
