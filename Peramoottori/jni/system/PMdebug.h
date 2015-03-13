@@ -4,6 +4,7 @@
 #include <android/log.h>
 #include <cstdarg>
 #include <cstdio>
+#include <string>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "DEBUG_MSG", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "WARNING_MSG", __VA_ARGS__))
@@ -31,6 +32,10 @@ namespace pm
 			LOGI(tempString);
 		};
 
+		static void MsgInfo(std::string string)
+		{
+			MsgInfo(string.c_str());
+		}
 		/**
 		*Kirjoita viestisi jonka haluat nähdä Logcatissa WARNING_MSG.
 		*Toimii samanlailla kuin printf eli MsgInfo("%i %s %f", int, string, float); jne

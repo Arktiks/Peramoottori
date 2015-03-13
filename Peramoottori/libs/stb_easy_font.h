@@ -76,11 +76,18 @@ void print_string(float x, float y, char *text, float r, float g, float b)
 
 	num_quads = stb_easy_font_print(x, y, text, NULL, buffer, sizeof(buffer));
 
-	glColor3f(r, g, b);
+	/*glColor3f(r, g, b);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 16, buffer);
 	glDrawArrays(GL_QUADS, 0, num_quads * 4);
-	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);*/
+
+	glEnableVertexAttribArray(POS_LOCATION);
+	glVertexAttribPointer(POS_LOCATION, 2, GL_FLOAT, GL_FALSE, 16, buffer); // Position
+	glEnableVertexAttribArray(TEX_LOCATION);
+	glVertexAttribPointer(TEX_LOCATION, 2, GL_FLOAT, GL_FALSE, 16, buffer + 8); // Texture coords
+
+	glVertexAttrib3f(COL_LOCATION, r, g, b); // Colour
 }
 #endif
 

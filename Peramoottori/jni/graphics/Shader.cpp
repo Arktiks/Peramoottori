@@ -2,6 +2,7 @@
 #include <resources\ResourceManager.h>
 #include <system\PMdebug.h>
 #include <string>
+#include "GLES2\gl2.h"
 using namespace pm;
 
 Shader::Shader()
@@ -14,10 +15,10 @@ Shader::Shader(GLuint tempShader)
 	shader = tempShader;
 }
 
-Shader Shader::LoadShader(const char* filePath, GLenum ShaderType)
+Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 {
 	ResourceManager* r = ResourceManager::GetInstance();
-	std::string tempString = r->ReadText(*filePath);
+	std::string tempString = r->ReadText(filePath);
 	tempString.at(tempString.end()) = '\0';
 
 	GLuint tempShader;
@@ -26,7 +27,7 @@ Shader Shader::LoadShader(const char* filePath, GLenum ShaderType)
 	if (tempShader == 0)
 	{
 		PMdebug::MsgWarning("%s", "shader not created");
-		return Shader();
+		return;
 	}
 
 	const char *charString = tempString.c_str(); // muuttaa Stringin char*:ksi 
@@ -52,18 +53,14 @@ Shader Shader::LoadShader(const char* filePath, GLenum ShaderType)
 		}
 
 		glDeleteShader(shader);
-
-		return Shader();
+		PMdebug::MsgWarning("%s", "shader not created");
+		return;
 	}
-
-	return Shader(tempShader);
+	shader = tempShader;
 }
+
+
 
 Shader::~Shader()
 {
 }
-
-/*unsigned int Shader::AddShader(GLuint programObject)
-{
-	glAttachShader(shader, programObject);
-}*/

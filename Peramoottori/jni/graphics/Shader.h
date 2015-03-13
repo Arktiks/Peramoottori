@@ -3,6 +3,7 @@
 
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
+#include <string>
 
 class Shader
 {
@@ -12,9 +13,8 @@ public:
 	Shader(GLuint shader);
 	~Shader();
 
-	Shader LoadShader(const char* filePath, GLenum ShaderType);
-
-	//unsigned int AddShader(Shader shader, GLuint program);
+	Shader LoadShader(std::string filePath, GLenum shaderType);
+	GLuint GetShader();
 
 private:
 
