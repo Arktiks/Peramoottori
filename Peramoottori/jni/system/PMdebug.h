@@ -34,8 +34,8 @@ namespace pm
 
 		static void MsgInfo(std::string string)
 		{
-			MsgInfo(string.c_str());
-		}
+			MsgInfo("%s", string);
+		};
 		/**
 		*Kirjoita viestisi jonka haluat nähdä Logcatissa WARNING_MSG.
 		*Toimii samanlailla kuin printf eli MsgInfo("%i %s %f", int, string, float); jne
