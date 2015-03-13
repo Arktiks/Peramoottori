@@ -5,15 +5,22 @@ class ShaderProgram
 public:
 	ShaderProgram();
 
+	/**
+	*ShaderProgram 
+	*
+	*
+	*/
 	ShaderProgram(Shader vertexShader, Shader fragmentShader);
 
 	~ShaderProgram();
 
-	Shader GetVertexShader();
+	Shader GetVertexShader(){ return vertexShader; };
+	void SetVertexShader(Shader vertexShader);
 
-	Shader GetFragmentShader();
+	Shader GetFragmentShader(){ return fragmentShader; };
+	void SetFragmentShader(Shader fragmentShader);
 
-	void UseProgram();
+	void AttachShaders(GLuint program);
 
 private:
 

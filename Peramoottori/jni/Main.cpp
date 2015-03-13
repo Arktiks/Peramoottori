@@ -13,6 +13,7 @@
 #include "resources\Resource.h"
 #include "System\Time.h"
 #include "resources\ResourceManager.h"
+#include "System\PMassert.h"
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Info", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "Warning", __VA_ARGS__))
@@ -46,6 +47,10 @@ void android_main(android_app* application)
 
 			initialize = false;
 		}
+		int x, y;
+		x = 1;
+		y = 1;
+		ASSERT_EQ(x,y);
 
 
 		double frameTime = aika.calculateTimeInFrame();

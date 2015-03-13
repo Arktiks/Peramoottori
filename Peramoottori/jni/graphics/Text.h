@@ -30,6 +30,7 @@ namespace pm
 
 		GLuint textVertexBuffer;
 		GLuint textIndexBuffer;
+		
 
 	};
 }
