@@ -122,6 +122,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\resources\ResourceManager.h" />
+    <ClInclude Include="jni\scene\Component.h" />
+    <ClInclude Include="jni\scene\GameEntity.h" />
     <ClInclude Include="jni\structs\MemoryTrack.h" />
     <ClInclude Include="jni\system\Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>

@@ -43,6 +43,9 @@
     <Filter Include="jni\core">
       <UniqueIdentifier>{630f5179-d094-4c47-8d06-b3e5be560189}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\scene">
+      <UniqueIdentifier>{a33d9d6a-ebe6-4aa8-8b6a-8de85a9ca13a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -123,6 +126,7 @@
       <Filter>jni\system</Filter>
     </ClCompile>
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="jni\resources\Resource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -897,6 +901,12 @@
       <Filter>jni\resources</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="jni\scene\Component.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\GameEntity.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">
