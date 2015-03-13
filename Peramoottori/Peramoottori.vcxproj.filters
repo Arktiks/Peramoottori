@@ -127,6 +127,12 @@
     </ClCompile>
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="jni\resources\Resource.cpp" />
+    <ClCompile Include="jni\scene\Transformable.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\Component.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -905,6 +911,9 @@
       <Filter>jni\scene</Filter>
     </ClInclude>
     <ClInclude Include="jni\scene\GameEntity.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Transformable.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
   </ItemGroup>

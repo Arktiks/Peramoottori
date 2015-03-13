@@ -34,7 +34,7 @@ namespace pm
 
 		static void MsgInfo(std::string string)
 		{
-			MsgInfo("%s", string);
+			MsgInfo("%s", string.c_str());
 		};
 		/**
 		*Kirjoita viestisi jonka haluat nähdä Logcatissa WARNING_MSG.

@@ -12,7 +12,7 @@
 #include <system/PMdebug.h>
 #include <System\Time.h>
 #include <resources/ResourceManager.h>
-#include <system\Input.h>
+//#include <system\Input.h>
 
 using namespace pm;
 
@@ -40,7 +40,7 @@ void Application::Initialize(android_app* application)
 
 bool Application::Update()
 {
-	Input::Update();
+	//Input::Update();
 	while (ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
 	{
 		if (eventSource != nullptr)
@@ -70,7 +70,7 @@ void Application::DrawFrame()
 	}
 	//sprites;
 	eglSwapBuffers(engine.display, engine.surface);
-	sprites;
+	//sprites;
 }
 
 
@@ -180,17 +180,17 @@ int HandleInput(android_app* application, AInputEvent* event)
 
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
 	{
-		Input::InputEventMovement(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
+		//Input::InputEventMovement(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
 	}
 
 	if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_DOWN)
 	{
-		Input::InputEventKeyDown();
+		//Input::InputEventKeyDown();
 	}
 
 	if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_UP)
 	{
-		Input::InputEventKeyUp();
+		//Input::InputEventKeyUp();
 	}
 
 	return 0;

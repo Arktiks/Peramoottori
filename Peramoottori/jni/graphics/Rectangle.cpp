@@ -1,10 +1,9 @@
 #include "Rectangle.h"
-using namespace pm;
 
-Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, float tempHeight)
+pm::Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, float tempHeight)
 {
-	position = glm::vec2(tempPositionX, tempPositionY);
-	size = glm::vec2(1, 1);
+	transformable.SetPosition(tempPositionX, tempPositionY);
+	transformable.SetScale(1, 1);
 	widht = tempWidht;
 	height = tempHeight;
 	draw = true;
@@ -31,10 +30,10 @@ Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, 
 	indices.push_back(2);
 }
 
-Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
+pm::Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
 {
-	position = glm::vec2(tempPosition.x, tempPosition.y);
-	size = glm::vec2(1, 1);
+	transformable.SetPosition(tempPosition);
+	transformable.SetScale(1, 1);
 	widht = tempWidthHeight.x;
 	height = tempWidthHeight.y;
 	draw = true;
@@ -61,6 +60,6 @@ Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
 	indices.push_back(1);
 }
 
-Rectangle::~Rectangle()
+pm::Rectangle::~Rectangle()
 {
 }

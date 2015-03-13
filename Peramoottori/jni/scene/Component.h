@@ -8,8 +8,11 @@ namespace pm
 	class Component
 	{
 	public:
-		virtual void update(){};
-	
+		Component();
+		Component(Component& component);
+		Component(GameEntity* entity);
+		~Component();
+		
 	private:
 		GameEntity* parent;
 	};

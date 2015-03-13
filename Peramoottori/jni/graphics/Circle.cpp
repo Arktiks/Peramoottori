@@ -1,11 +1,10 @@
 #include "Circle.h"
-using namespace pm;
 
-Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int tempSmoothness)
+pm::Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int tempSmoothness)
 {
 	radius = tempRadius;
-	position = glm::vec2(tempPositionX, tempPositionY);
-	size = glm::vec2(1, 1);
+	transformable.SetPosition(tempPositionX, tempPositionY);
+	transformable.SetScale(1, 1);
 	draw = true;
 
 	vertices.push_back(tempPositionX); //1 xpos
@@ -30,6 +29,6 @@ Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int t
 
 }
 
-Circle::~Circle()
+pm::Circle::~Circle()
 {
 }

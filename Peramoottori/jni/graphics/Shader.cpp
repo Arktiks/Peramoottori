@@ -19,7 +19,7 @@ Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 {
 	ResourceManager* r = ResourceManager::GetInstance();
 	std::string tempString = r->ReadText(filePath);
-	tempString.at(tempString.end()) = '\0';
+	//tempString.at(tempString.end()) = '\0';
 
 	GLuint tempShader;
 	tempShader = glCreateShader(ShaderType); // m‰‰ritt‰‰ shaderin tyypin
@@ -27,7 +27,7 @@ Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 	if (tempShader == 0)
 	{
 		PMdebug::MsgWarning("%s", "shader not created");
-		return;
+		return tempShader;
 	}
 
 	const char *charString = tempString.c_str(); // muuttaa Stringin char*:ksi 
@@ -54,7 +54,7 @@ Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 
 		glDeleteShader(shader);
 		PMdebug::MsgWarning("%s", "shader not created");
-		return;
+		return tempShader;
 	}
 	shader = tempShader;
 }
