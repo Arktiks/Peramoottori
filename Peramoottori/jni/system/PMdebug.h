@@ -31,7 +31,10 @@ namespace pm
 
 			LOGI(tempString);
 		};
-
+		/**
+		*Kirjoita viestisi jonka haluat nähdä Logcatissa DEBUG_MSG.
+		*Toimii samanlailla kuin printf(string));
+		*/
 		static void MsgInfo(std::string string)
 		{
 			MsgInfo(string.c_str());
