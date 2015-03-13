@@ -889,6 +889,9 @@
     <ClInclude Include="stb_easy_font.h">
       <Filter>libs</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderVertexAttrib.h">
+      <Filter>structs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">

@@ -32,7 +32,8 @@
     </ClCompile>
     <ClCompile Include="jni\graphics\Rectangle.cpp" />
     <ClCompile Include="jni\graphics\Shader.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\graphics\Sprite.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -85,7 +86,8 @@
     </ClInclude>
     <ClInclude Include="jni\graphics\Rectangle.h" />
     <ClInclude Include="jni\graphics\Shader.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\graphics\Shape.h" />
     <ClInclude Include="jni\graphics\Sprite.h">
@@ -350,6 +352,7 @@
     <ClInclude Include="libs\glm\vec4.hpp" />
     <ClInclude Include="libs\glm\vector_relational.hpp" />
     <ClInclude Include="libs\lodepng.h" />
+    <ClInclude Include="ShaderVertexAttrib.h" />
     <ClInclude Include="stb_easy_font.h" />
   </ItemGroup>
   <ItemGroup>

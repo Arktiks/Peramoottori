@@ -6,6 +6,8 @@
 #include <string>
 #include <cstdlib>
 
+namespace pm
+{
 #define ASSERT(expression) \
 	!(expression) ? Assert(__FILE__, __LINE__) : (void)0 // !a
 
@@ -18,8 +20,7 @@
 #define ASSERT_MINMAX(expression1, expression2, value) \
 	expression1 < value && value < expression2 ? Assert(__FILE__, __LINE__) : (void)0 // min < x < max
 
-namespace pm
-{
+
 	
 	class PMassert
 	{

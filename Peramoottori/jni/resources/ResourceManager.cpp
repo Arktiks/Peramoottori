@@ -126,12 +126,19 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 	if (ManagerCheck())
 	{
 		AAsset* tempAsset = AAssetManager_open(manager, fileName.c_str(), AASSET_MODE_UNKNOWN); // Open AAsset using AAssetManager.
-		size_t tempSize = AAsset_getLength(tempAsset); // Check AAsset length.
 
-		if (tempAsset != nullptr && tempSize > 0) // AAsset opened succesfully and size greater than 0.
+		if (tempAsset != nullptr) // AAsset opened succesfully and size greater than 0.
 		{
-			PMdebug::MsgInfo("Succesfully read file: %s (%i)", fileName.c_str(), tempSize);
-			return tempAsset; // Return AAsset pointer for further use.
+			size_t tempSize = AAsset_getLength(tempAsset); // Check AAsset length.
+			if (tempSize > 0)
+			{
+				PMdebug::MsgInfo("Succesfully read file: %s (%i)", fileName.c_str(), tempSize);
+				return tempAsset; // Return AAsset pointer for further use.
+			}
+			else
+			{
+				PMdebug::MsgWarning("Reading file failed: %s, filelenght zero", fileName.c_str());
+			}
 		}
 		else // There was an error opening the AAsset.
 		{

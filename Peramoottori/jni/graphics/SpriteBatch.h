@@ -2,7 +2,7 @@
 #define SPRITEBATCH_H
 
 #include "Sprite.h"
-
+#include "Shader.h"
 #include <vector>
 #include <glm\common.hpp>
 #include <EGL\egl.h>
@@ -19,6 +19,11 @@ namespace pm
 		void Initialize(glm::vec2 screenSize);
 		void addSprite(Sprite *sprite);
 		virtual ~SpriteBatch(){};
+	
+		// muuttuu
+		Shader *shader;
+		//
+	
 	private:
 		SpriteBatch();
 		static SpriteBatch* instance;
@@ -39,11 +44,12 @@ namespace pm
 		std::vector<GLfloat> vertexData;
 
 		// Todennäköisesti muuttuvat:
-	void TempCreateShader();
 
-	GLuint glObject;
-	int spriteAmount;
-	GLuint buffer[2];
+		void CreateShader();
+
+		int spriteAmount;
+		GLuint buffer[2];
+	
 	};
 }
 
