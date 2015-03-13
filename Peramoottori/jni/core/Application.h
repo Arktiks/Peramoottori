@@ -1,13 +1,14 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <cstddef>
-#include "graphics\SpriteBatch.h"
-#include "graphics\Sprite.h"
-#include "graphics\Texture.h"
+//#include <cstddef>
+//#include <android/asset_manager.h>
+//#include <EGL/egl.h>
+
+
 #include <android_native_app_glue.h>
-#include <android/asset_manager.h>
-#include <EGL/egl.h>
+#include "WindowHandler.h"
+
 
 namespace pm
 {
@@ -22,39 +23,8 @@ namespace pm
 	{
 	public:
 
-		/// Struct that holds application information and can be stored on java side.
-		struct Engine
-		{
-			struct android_app* app;
-			AAssetManager* assetManager;
-			Application* applicationPointer;
-
-			EGLDisplay display;
-			EGLSurface surface;
-			EGLContext context;
-
-
-			/// Touch, x and y are for input system.
-			bool touch;
-			float x;
-			float y;
-			float lx;
-			float ly;
-
-			int width;
-			int height;
-
-			double frameTime;
-
-			Engine() : app(nullptr), assetManager(nullptr), display(EGL_NO_DISPLAY),
-				surface(EGL_NO_SURFACE), context(EGL_NO_SURFACE), touch(false),  x(0.0f), y(0.0f), width(0), height(0)
-			{
-
-			};
-		};
-
 		/// Default Constructor.
-		Application();
+		Application() {};
 
 		/// Initializing the Application.
 		/**
@@ -94,15 +64,18 @@ namespace pm
 		*/
 		int InitializeDisplay();
 
-		/// Returns engine for use outside of this class.
-		/**
-		*/
-		Engine* GetEngine();
+
 
 	private:
-		Engine engine; ///< The engine struct used to store data between native and android side.
 
 		android_poll_source* eventSource; ///< Used by Update() 
+
+		struct android_app* app; // android app pointteri
+
+		double frameTime; // ehkä timeria varten
+
+		WindowHandler window;
+
 	};
 }
 

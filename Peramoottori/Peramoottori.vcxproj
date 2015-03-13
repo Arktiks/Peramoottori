@@ -33,6 +33,7 @@
     <ClCompile Include="jni\core\Application.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\core\EventHandler.cpp" />
     <ClCompile Include="jni\core\Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
@@ -42,6 +43,7 @@
     <ClCompile Include="jni\core\Time.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\core\WindowHandler.cpp" />
     <ClCompile Include="jni\graphics\Circle.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
@@ -100,6 +102,7 @@
     <ClInclude Include="jni\core\Application.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\core\EventHandler.h" />
     <ClInclude Include="jni\core\Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
@@ -109,6 +112,7 @@
     <ClInclude Include="jni\core\Time.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\core\WindowHandler.h" />
     <ClInclude Include="jni\graphics\Circle.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
