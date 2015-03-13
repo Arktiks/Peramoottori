@@ -18,12 +18,19 @@
 #define ASSERT_MINMAX(expression1, expression2, value) \
 	expression1 < value && value < expression2 ? Assert(__FILE__, __LINE__) : (void)0 // min < x < max
 
+//DO NOT USE!
+void Assert(const char*, int);
+
+
 namespace pm
 {
 	
 	class PMassert
 	{
 	public:
+
+	
+
 		template<typename T>
 		/**
 		*Katsoo onko kaksi arvoa samoja: a == b,
@@ -43,6 +50,7 @@ namespace pm
 
 		};
 
+		
 
 		template<typename T>
 		/**
