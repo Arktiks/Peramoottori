@@ -1,34 +1,28 @@
-#include "Debug.h"
+#include "Log.h"
+#include <android/log.h>
 #include <cstdarg>
 #include <cstdio>
-#include <cstdlib>
-#include <android/log.h>
+
+using namespace pm;
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "DEBUG_INFO", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "DEBUG_WARNING", __VA_ARGS__))
 
-
-void Debug::PrintInfo(const char* text...)
+void Log::PrintInfo(const char* text...)
 {
-	char* tempInfo = FormateMessage(text);
+	char* tempInfo = FormatMessage(text);
 	LOGI(tempInfo);
 	delete tempInfo;
 }
 
-void Debug::PrintWarning(const char* text...)
+void Log::PrintWarning(const char* text...)
 {
-	char* tempWarning = FormateMessage(text);
+	char* tempWarning = FormatMessage(text);
 	LOGI(tempWarning);
 	delete tempWarning;
 }
 
-void Assert(const char* file, const int line)
-{
-	__android_log_print(ANDROID_LOG_INFO, "ASSERTION_INFO", file, line); // Log filename and line number.
-	std::abort(); // Causes abnormal program termination.
-}
-
-char* Debug::FormateMessage(const char* text...)
+char* Log::FormatMessage(const char* text...)
 {
 	char* tempBuffer = nullptr; // Buffer to hold our formatted string.
 

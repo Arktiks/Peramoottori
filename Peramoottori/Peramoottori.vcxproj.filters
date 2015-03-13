@@ -40,8 +40,11 @@
     <Filter Include="jni\core">
       <UniqueIdentifier>{630f5179-d094-4c47-8d06-b3e5be560189}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\core\debug">
-      <UniqueIdentifier>{b4082515-3808-4ef4-a4e3-f1b0e0d0a2df}</UniqueIdentifier>
+    <Filter Include="jni\core\debug-tools">
+      <UniqueIdentifier>{a7362c88-1698-4af1-aabe-798359aff3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\core\application">
+      <UniqueIdentifier>{25627f9b-0efc-4c5b-a8ab-f95c8318e206}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -107,20 +110,23 @@
     <ClCompile Include="jni\resources\ResourceManager.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
-    <ClCompile Include="jni\core\Application.cpp">
-      <Filter>jni\core</Filter>
-    </ClCompile>
     <ClCompile Include="jni\core\Input.cpp">
       <Filter>jni\core</Filter>
     </ClCompile>
     <ClCompile Include="jni\core\Time.cpp">
       <Filter>jni\core</Filter>
     </ClCompile>
-    <ClCompile Include="jni\core\debug\MemoryManager.cpp">
-      <Filter>jni\core\debug</Filter>
+    <ClCompile Include="jni\core\Log.cpp">
+      <Filter>jni\core\debug-tools</Filter>
     </ClCompile>
-    <ClCompile Include="jni\core\debug\Debug.cpp">
-      <Filter>jni\core\debug</Filter>
+    <ClCompile Include="jni\core\Memory.cpp">
+      <Filter>jni\core\debug-tools</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\Passert.cpp">
+      <Filter>jni\core\debug-tools</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\Application.cpp">
+      <Filter>jni\core\application</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -868,23 +874,26 @@
     <ClInclude Include="jni\audio\AudioManager.h">
       <Filter>jni\audio</Filter>
     </ClInclude>
-    <ClInclude Include="jni\core\Application.h">
-      <Filter>jni\core</Filter>
-    </ClInclude>
     <ClInclude Include="jni\core\Input.h">
       <Filter>jni\core</Filter>
     </ClInclude>
     <ClInclude Include="jni\core\Time.h">
       <Filter>jni\core</Filter>
     </ClInclude>
-    <ClInclude Include="jni\core\debug\MemoryManager.h">
-      <Filter>jni\core\debug</Filter>
-    </ClInclude>
     <ClInclude Include="libs\stb_easy_font.h">
       <Filter>libs</Filter>
     </ClInclude>
-    <ClInclude Include="jni\core\debug\Debug.h">
-      <Filter>jni\core\debug</Filter>
+    <ClInclude Include="jni\core\Log.h">
+      <Filter>jni\core\debug-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Memory.h">
+      <Filter>jni\core\debug-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Passert.h">
+      <Filter>jni\core\debug-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Application.h">
+      <Filter>jni\core\application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

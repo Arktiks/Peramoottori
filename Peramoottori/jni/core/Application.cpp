@@ -5,13 +5,15 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include <android/input.h>
-#include <MemoryManager.h>
 
-#include <system/PMassert.h>
-#include <system/PMdebug.h>
-#include <System\Time.h>
-#include <resources/ResourceManager.h>
-#include <system\Input.h>
+#include <core\Input.h>
+
+//#include <MemoryManager.h>
+//#include <system/PMassert.h>
+//#include <system/PMdebug.h>
+//#include <System\Time.h>
+//#include <resources/ResourceManager.h>
+//#include <system\Input.h>
 
 using namespace pm;
 
@@ -31,7 +33,7 @@ void Application::Initialize(android_app* application)
 	engine.app->userData = &engine;
 	engine.app->onInputEvent = HandleInput;
 	engine.assetManager = application->activity->assetManager;
-	pm::ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
+	//pm::ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
 
 
 	//LOGI("Application has been initialized.");
@@ -142,10 +144,10 @@ int Application::InitializeDisplay()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
 	glClearColor(1.0f, 0.4f, 1.0f, 1);
-	Texture texture("test.png");
-	Sprite sprite(texture);
-	pm::SpriteBatch::GetInstance()->Initialize(glm::vec2(engine.width, engine.height));
-	pm::SpriteBatch::GetInstance()->addSprite(sprite);
+	//Texture texture("test.png");
+	//Sprite sprite(texture);
+	//pm::SpriteBatch::GetInstance()->Initialize(glm::vec2(engine.width, engine.height));
+	//pm::SpriteBatch::GetInstance()->addSprite(sprite);
 	//LOGI("Succesfully initialized display.");
 	return 0;
 }
@@ -189,11 +191,11 @@ void ProcessCommand(android_app* application, int32_t command)
 	switch (command)
 	{
 	case APP_CMD_RESUME:
-		LOGI("RESUME");
+		//LOGI("RESUME");
 		break;
 
 	case APP_CMD_PAUSE:
-		LOGI("PAUSE");
+		//LOGI("PAUSE");
 		break;
 
 	case APP_CMD_INIT_WINDOW:
