@@ -63,6 +63,7 @@ void pm::AudioPlayer::SetVolume(float volPercentage)
 
 void pm::AudioPlayer::CheckError(std::string errorText)
 {
-	//PMassert::AssertEquals(result, SL_RESULT_SUCCESS, errorText);
+	PMdebug::MsgInfo(errorText);
+	ASSERT_EQ(result, SL_RESULT_SUCCESS);
 	(void)result;
 }
