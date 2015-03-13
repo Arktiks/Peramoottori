@@ -77,7 +77,7 @@ void pm::AudioManager::CreateEngine()
 void pm::AudioManager::CheckError(std::string errorText)
 {
 	PMdebug::MsgInfo(errorText);
-	ASSERT_EQ(result, SL_RESULT_SUCCESS);
+	//ASSERT_EQ(result, SL_RESULT_SUCCESS);
 	(void)result;
 }
 
