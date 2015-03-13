@@ -68,7 +68,7 @@ namespace pm
 		/// Private variables(of multiple input systems if wanted)
 		float dragX, dragY;
 		/// Static member variables
-		static bool touch, singleTouch;
+		static bool touch, singleTouch, startOfDrag;
 		static float startOfDragX, startOfDragY, _x, _y, lx, ly;
 	};
 }
