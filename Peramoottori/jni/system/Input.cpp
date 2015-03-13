@@ -9,6 +9,7 @@ float Input::lx = 0;
 float Input::ly = 0;
 bool Input::touch = false;
 bool Input::singleTouch = false;
+bool Input::startOfDrag = false;
 float Input::startOfDragX = 0;
 float Input::startOfDragY = 0;
 
@@ -27,7 +28,12 @@ glm::vec2 Input::GetTouchCoordinates()
 }
 glm::vec2 Input::GetDragVector()
 {
-	return glm::vec2(_x - lx,_y - ly);
+	if (touch == true && startOfDrag == false)
+	{
+		startOfDrag = true;
+		return glm::vec2(0, 0);
+	}
+	return glm::vec2(_x - lx, _y - ly);
 }
 bool Input::IsTouching()
 {
@@ -71,5 +77,6 @@ void Input::Update()
 	if (touch == false)
 	{
 		singleTouch = false;
+		startOfDrag = false;
 	}
 }
