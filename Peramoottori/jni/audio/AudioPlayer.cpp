@@ -1,5 +1,4 @@
 #include "AudioPlayer.h"
-
 pm::AudioPlayer::AudioPlayer(int fileDescriptor, off_t start, off_t length)
 {
 	(this)->fileDescriptor = fileDescriptor;

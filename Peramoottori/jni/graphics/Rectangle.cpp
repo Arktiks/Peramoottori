@@ -57,8 +57,8 @@ Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
 	indices.push_back(1);
 	indices.push_back(2);
 	indices.push_back(2);
-	indices.push_back(4);
 	indices.push_back(3);
+	indices.push_back(1);
 }
 
 Rectangle::~Rectangle()

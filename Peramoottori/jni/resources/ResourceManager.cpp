@@ -5,35 +5,41 @@
 using namespace pm;
 ResourceManager* ResourceManager::instance;
 
-void ResourceManager::ReadAsset(std::string filePath)
+void ResourceManager::ReadAsset(std::string fileName)
 {
-	int tempLen = filePath.length();
+	int tempLen = fileName.length();
 
-	filePath.substr(filePath.size() - 4);
+	std::string tempFileExtension = fileName.substr(fileName.size() - 4);
+	//tempFileExtension.c_str();
 
 	std::string tempTxt = ".txt";
 	std::string tempTtf = ".ttf";
 	std::string tempOgg = ".ogg";
 	std::string tempPng = ".png";
 
-	if (filePath.compare(tempTxt.c_str()))
+	if (strcmp(tempFileExtension.c_str(),tempTxt.c_str())==0)
 	{
 		PMdebug::MsgInfo("TXT compare works");
+		//assets.insert(std::make_pair<std::string, std::string>(fileName, ReadText(fileName)));
+
 	}
 
-	else if (filePath.compare(tempTtf.c_str()))
+	else if (strcmp(tempFileExtension.c_str(), tempTtf.c_str())==0)
 	{
 		PMdebug::MsgInfo("TTF compare works");
+		//ReadFont
 	}
 
-	else if (filePath.compare(tempOgg.c_str()))
+	else if (strcmp(tempFileExtension.c_str(), tempOgg.c_str())==0)
 	{
 		PMdebug::MsgInfo("OGG compare works");
+		//ReadSound
 	}
 
-	else if (filePath.compare(tempPng.c_str()))
+	else if (strcmp(tempFileExtension.c_str(), tempPng.c_str())==0)
 	{
 		PMdebug::MsgInfo("PNG compare works");
+		ReadImage(fileName);
 	}
 
 	else

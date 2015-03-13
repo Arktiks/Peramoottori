@@ -10,6 +10,7 @@
 #include <android_native_app_glue.h>
 
 #include "Application.h"
+#include "resources\Resource.h"
 #include "System\Time.h"
 #include "resources\ResourceManager.h"
 
@@ -38,10 +39,10 @@ void android_main(android_app* application)
 		if (initialize == true)
 		{
 	
-			//pm::ResourceManager::GetInstance()->ReadAsset("teksti.txt");
-			//pm::ResourceManager::GetInstance()->ReadAsset("fontti.ttf");
-			//pm::ResourceManager::GetInstance()->ReadAsset("aani.ogg");
-			//pm::ResourceManager::GetInstance()->ReadAsset("kuva.png");
+			pm::ResourceManager::GetInstance()->ReadAsset("teksti.txt");
+			pm::ResourceManager::GetInstance()->ReadAsset("fontti.ttf");
+			pm::ResourceManager::GetInstance()->ReadAsset("aani.ogg");
+			pm::ResourceManager::GetInstance()->ReadAsset("test.png");
 
 			initialize = false;
 		}

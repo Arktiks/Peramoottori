@@ -5,6 +5,7 @@
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
 #include <system\PMassert.h>
+#include <System\PMdebug.h>
 #include <string>
 
 namespace pm
@@ -43,5 +44,4 @@ namespace pm
 		off_t start, length;
 	};
 }
-
 #endif //AUDIOPLAYER_H

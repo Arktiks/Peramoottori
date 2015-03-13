@@ -893,6 +893,9 @@
     <ClInclude Include="libs\stb_easy_font.h">
       <Filter>libs</Filter>
     </ClInclude>
+    <ClInclude Include="jni\resources\Resource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
     <ClInclude Include="ShaderProgram.h" />
   </ItemGroup>
   <ItemGroup>
