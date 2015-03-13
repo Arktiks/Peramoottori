@@ -56,9 +56,8 @@ bool Application::Update()
 				ASensorEvent event;
 				while (ASensorEventQueue_getEvents(engine.sensorEventQueue, &event, 1) > 0)
 				{
-					LOGI("accelerometer: x=%f y=%f z=%f",
-						event.acceleration.x, event.acceleration.y,
-						event.acceleration.z);
+					//LOGI("accelerometer: x=%f y=%f z=%f", event.acceleration.x, event.acceleration.y, event.acceleration.z);
+					Input::InputEventAccelerometer(event.acceleration.x, event.acceleration.y, event.acceleration.z);
 				}
 			}
 		}
