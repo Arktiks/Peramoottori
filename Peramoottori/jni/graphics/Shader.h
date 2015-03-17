@@ -9,9 +9,9 @@ class Shader
 {
 public:
 
-	Shader();
+	Shader() : shader(0), compiled(0) {};
 	Shader(GLuint shader);
-	~Shader();
+	~Shader() {};
 
 	Shader LoadShader(std::string filePath, GLenum shaderType);
 	GLuint GetShader();

@@ -18,7 +18,7 @@ void Log::PrintInfo(const char* text...)
 void Log::PrintWarning(const char* text...)
 {
 	char* tempWarning = FormatMessage(text);
-	LOGI(tempWarning);
+	LOGW(tempWarning);
 	delete tempWarning;
 }
 

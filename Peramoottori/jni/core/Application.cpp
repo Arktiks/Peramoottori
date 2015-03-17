@@ -23,7 +23,7 @@ void Application::Initialize(android_app* application)
 
 void Application::InitializeModules(android_app* application)
 {
-	//ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
+	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
 }
 
 bool Application::Update()

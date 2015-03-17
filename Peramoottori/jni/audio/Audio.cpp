@@ -1,4 +1,7 @@
 #include "Audio.h"
+#include <core\Log.h>
+//#include <core\Passert.h>
+#include <resources\ResourceManager.h>
 
 pm::Audio::Audio(std::string fileName)
 {
@@ -14,7 +17,7 @@ pm::Audio::Audio(std::string fileName)
 	int fileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
 
 	if (fileDescriptor <= 0)
-	//	PMassert::AssertEquals(true, false, "Opening audio file descriptor failed!");
+	//PMassert::AssertEquals(true, false, "Opening audio file descriptor failed!");
 	
 	AAsset_close(tempAudioAsset);
 	
@@ -69,7 +72,7 @@ void pm::Audio::SetMaxPlayerCount(unsigned newMaxCount)
 {
 	if (newMaxCount < maxPlayerCount)
 	{
-		PMdebug::MsgWarning("Removing AudioPlayers. Possible loss of data!");
+		DEBUG_WARNING(("Removing AudioPlayers. Possible loss of data!"));
 
 		for (int i = maxPlayerCount; i > newMaxCount; i--)
 		{

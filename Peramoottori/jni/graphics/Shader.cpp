@@ -1,18 +1,13 @@
 #include "Shader.h"
-#include <resources\ResourceManager.h>
-#include <system\PMdebug.h>
+#include <GLES2\gl2.h>
 #include <string>
-#include "GLES2\gl2.h"
+#include <resources\ResourceManager.h>
+#include <core\Log.h>
 using namespace pm;
 
-Shader::Shader()
+Shader::Shader(GLuint shader)
 {
-	shader = NULL;
-}
-
-Shader::Shader(GLuint tempShader)
-{
-	shader = tempShader;
+	(this->shader) = shader;
 }
 
 Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
@@ -26,7 +21,7 @@ Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 
 	if (tempShader == 0)
 	{
-		PMdebug::MsgWarning("%s", "shader not created");
+		DEBUG_WARNING(("Shader not created!"));
 		return tempShader;
 	}
 
@@ -47,13 +42,13 @@ Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 			char* info;
 			glGetShaderInfoLog(shader, msg, NULL, info);
 
-			PMdebug::MsgInfo("%s", info);
+			DEBUG_INFO(("%s", info));
 
 			free(info);
 		}
 
 		glDeleteShader(shader);
-		PMdebug::MsgWarning("%s", "shader not created");
+		DEBUG_WARNING(("Shader not created!"));
 		return tempShader;
 	}
 	shader = tempShader;
@@ -62,11 +57,4 @@ Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 GLuint Shader::GetShader()
 {
 	return shader;
-}
-
-
-
-
-Shader::~Shader()
-{
 }
