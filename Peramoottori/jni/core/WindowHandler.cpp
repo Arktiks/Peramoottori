@@ -6,7 +6,7 @@
 
 void WindowHandler::LoadDisplay(android_app* application)
 {
-	DEBUG_INFO(("WindowHandler::LoadDisplay() START"));
+	DEBUG_INFO(("WindowHandler::LoadDisplay() beginning."));
 
 	// Attributes are hard customised to work with OpenGL ES2.
 	const EGLint attribs[] =
@@ -53,12 +53,12 @@ void WindowHandler::LoadDisplay(android_app* application)
 
 	glClearColor(1.0f, 0.4f, 1.0f, 1);
 
-	DEBUG_INFO(("WindowHandler::LoadDisplay() FINISH"));
+	DEBUG_INFO(("WindowHandler::LoadDisplay() ending."));
 }
 
 void WindowHandler::CloseDisplay()
 {
-	DEBUG_INFO(("WindowHandler::CloseDisplay() START"));
+	DEBUG_INFO(("WindowHandler::CloseDisplay() beginning."));
 
 	if (display != EGL_NO_DISPLAY)
 	{
@@ -74,5 +74,5 @@ void WindowHandler::CloseDisplay()
 	context = EGL_NO_CONTEXT;
 	surface = EGL_NO_SURFACE;
 
-	DEBUG_INFO(("WindowHandler::CloseDisplay() FINISH"));
+	DEBUG_INFO(("WindowHandler::CloseDisplay() ending."));
 }

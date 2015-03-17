@@ -1,82 +1,61 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-//#include <cstddef>
-//#include <android/asset_manager.h>
-//#include <EGL/egl.h>
-
-
 #include <android_native_app_glue.h>
 #include "WindowHandler.h"
 
-
 namespace pm
 {
-	/// The core application system.
-	/**
-	Handles most of the communication with java side. 
-		-Create an Application instance.
-		-use the Initialize.
-		-Create your mainloop with while(app.Update)
-	*/
+	/// Core application system.
+	/// Handles most of communication with java side. 
+	///	To use simply create an Application instance.
+	///	Initialize it with pointer to android application.
+
 	class Application
 	{
 	public:
-
 		/// Default Constructor.
-		Application() {};
+		Application() : eventSource(nullptr), androidApplication(nullptr), frameTime(0.0) {};
 
-		/// Initializing the Application.
-		/**
-			\param application takes in the android_app
-		*/
+		/// Constructor that initializes everything neccessary.
+		Application(android_app* application);
+
+		/// Initializes our custom Application.
+		///		\param application : pointer to android_application.
 		void Initialize(android_app* application);
 
+		/// TO-BE-USED-MAYBE - easily add our modules to the initializing list.
+		void InitializeModules(android_app* application);
+
 		/// The core update loop.
-		/**
-			You can construct the main loop of your game using the update, place it in while(app.Update).
-			\return Returns true as default, when TerminateDisplay is called, returns false.
-		*/
+		///	You can construct the main loop of your game using Update(), place it in while(app.Update()).
+		///		\return true as default. When TerminateDisplay is called returns false.
 		bool Update();
 
 		/// Handles swapping buffers if the display is initialized.
-		/**
-			TODO
-		*/
+		/// TODO
 		void DrawFrame();
 
-		/// Returns Android AssetManager for use outside of this class.
-		/**
-			\return Returns the AAssetManager*
-		*/
-		AAssetManager* GetAssetManager();
+		/// Get reference to display manager.
+		WindowHandler& GetWindow();
 
-		/// Called when APP_CMD_TERM_WINDOW is received by processCommand.
-		/**
-			Destroys the egl Context, Surface and terminates the Display when done.
-		*/
-		void TerminateDisplay();
+		/// Handles inputs for android application.
+		static int HandleInput(android_app* application, AInputEvent* event);
 
-		/// Called when APP_CMD_INIT_WINDOW is received by processCommand.
-		/**
-			Initializes the EGL surface, display and context, Stores them in Engine.
-			\return Returns -1 if failed to make the display, surface and context current. Returns 0 if succesful.
-		*/
-		int InitializeDisplay();
-
-
+		/// Handles command processing for android application.
+		static void ProcessCommand(android_app* application, int32_t command);
 
 	private:
-
-		android_poll_source* eventSource; ///< Used by Update() 
-
-		struct android_app* app; // android app pointteri
-
-		double frameTime; // ehkä timeria varten
-
-		WindowHandler window;
-
+		android_poll_source* eventSource; ///< Used by Update().
+		struct android_app* androidApplication; ///< Pointer to android application.
+		double frameTime; ///< Track deltaTime.
+		WindowHandler window; ///< Handles display of android device.
 	};
 }
 
 #endif
+
+/*
+/// Returns Android AssetManager for use outside of this class.
+///		\return Returns the AAssetManager*
+AAssetManager* GetAssetManager();*/

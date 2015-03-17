@@ -1,78 +1,64 @@
 #include "Application.h"
-
-#include <jni.h>
-#include <errno.h>
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#include <android/input.h>
-
 #include <core/Input.h>
 #include <core/Log.h>
-
-//#include <MemoryManager.h>
-//#include <system/PMassert.h>
-//#include <system/PMdebug.h>
-//#include <System\Time.h>
-//#include <resources/ResourceManager.h>
-//#include <system\Input.h>
-
+#include <resources\ResourceManager.h>
 using namespace pm;
 
-void ProcessCommand(android_app* application, int32_t command);
-int HandleInput(android_app* application, AInputEvent* event);
-
-
+Application::Application(android_app* application) : eventSource(nullptr), frameTime(0.0)
+{
+	Initialize(application);
+}
 
 void Application::Initialize(android_app* application)
 {
-	//app_dummy(); // Ensures glue code isn't stripped.
-	app = application;
-	engine.app->onAppCmd = ProcessCommand;
-	engine.app->userData = &engine;
-	engine.app->onInputEvent = HandleInput;
-	engine.assetManager = application->activity->assetManager;
-	//pm::ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
+	app_dummy(); // Ensures glue code isn't stripped.
+	(this->androidApplication) = application; // Make note of application pointer.
+	application->onAppCmd = ProcessCommand; // What function is referred on application calls.
+	application->userData = static_cast<void*>(this); // Store our Application class to Native Glue.
+	application->onInputEvent = HandleInput; // What function is referred on input calls.
 
-
-	//LOGI("Application has been initialized.");
+	InitializeModules(application);
+	DEBUG_INFO(("Application has been initialized."));
 }
 
+void Application::InitializeModules(android_app* application)
+{
+	//ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
+}
 
 bool Application::Update()
 {
 	Input::Update();
+
 	while (ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
 	{
 		if (eventSource != nullptr)
-			eventSource->process(engine.app, eventSource);
+			eventSource->process(androidApplication, eventSource);
 
-		if (engine.app->destroyRequested != 0)
-		{
-			TerminateDisplay();
+		if(androidApplication->destroyRequested != 0)
 			return false;
-		}
 	}
 	return true;
 }
 
-
 void Application::DrawFrame()
 {
-	if(engine.display == EGL_NO_DISPLAY)
+	if(window.display == EGL_NO_DISPLAY)
 	{
+		//DEBUG_INFO(("No EGL_DISPLAY present while DrawFrame() was called."));
 		return;
-		// No display.
-		//LOGW("No EGL_DISPLAY present while DrawFrame() was called.");
 	}
 	
-	eglSwapBuffers(engine.display, engine.surface);
+	eglSwapBuffers(window.display, window.surface);
 }
 
-
-int HandleInput(android_app* application, AInputEvent* event)
+WindowHandler& Application::GetWindow()
 {
-	struct Application::Engine* engine = (struct Application::Engine*)application->userData;
+	return window;
+}
 
+int Application::HandleInput(android_app* application, AInputEvent* event)
+{
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
 	{
 		Input::InputEventMovement(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
@@ -91,9 +77,11 @@ int HandleInput(android_app* application, AInputEvent* event)
 	return 0;
 }
 
-
-void ProcessCommand(android_app* application, int32_t command)
+void Application::ProcessCommand(android_app* application, int32_t command)
 {
+	// Get reference to our created Application class.
+	Application* tempApplication = static_cast<Application*>(application->userData);
+
 	switch (command)
 	{
 	case APP_CMD_RESUME:
@@ -105,12 +93,14 @@ void ProcessCommand(android_app* application, int32_t command)
 		break;
 
 	case APP_CMD_INIT_WINDOW:
-		if (application->window != nullptr) // The window is being shown, get it ready.
-			window.LoadDisplay();
+		DEBUG_INFO(("INIT_WINDOW"));
+		if(application->window != nullptr) // The window is being shown, get it ready.
+			tempApplication->GetWindow().LoadDisplay(application);
 		break;
 
 	case APP_CMD_TERM_WINDOW:
-		engine->applicationPointer->TerminateDisplay(); // The window is being hidden or closed, clean it up.
+		DEBUG_INFO(("TERM_WINDOW"));
+		tempApplication->GetWindow().CloseDisplay(); // The window is being hidden or closed, clean it up.
 		break;
 
 	default:

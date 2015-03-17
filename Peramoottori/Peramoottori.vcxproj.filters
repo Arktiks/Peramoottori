@@ -128,9 +128,6 @@
     <ClCompile Include="jni\core\Application.cpp">
       <Filter>jni\core\application</Filter>
     </ClCompile>
-    <ClCompile Include="jni\core\EventHandler.cpp">
-      <Filter>jni\core\application</Filter>
-    </ClCompile>
     <ClCompile Include="jni\core\WindowHandler.cpp">
       <Filter>jni\core\application</Filter>
     </ClCompile>
@@ -899,9 +896,6 @@
       <Filter>jni\core\debug-tools</Filter>
     </ClInclude>
     <ClInclude Include="jni\core\Application.h">
-      <Filter>jni\core\application</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\core\EventHandler.h">
       <Filter>jni\core\application</Filter>
     </ClInclude>
     <ClInclude Include="jni\core\WindowHandler.h">
