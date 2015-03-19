@@ -1,6 +1,6 @@
 #include "Audio.h"
 #include <core\Log.h>
-//#include <core\Passert.h>
+#include <core\Passert.h>
 #include <resources\ResourceManager.h>
 
 pm::Audio::Audio(std::string fileName)

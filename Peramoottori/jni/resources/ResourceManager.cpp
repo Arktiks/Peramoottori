@@ -143,7 +143,7 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 			}
 			else
 			{
-				PMdebug::MsgWarning("Reading file failed: %s, filelenght zero", fileName.c_str());
+				Log::PrintWarning("Reading file failed: %s, filelenght zero", fileName.c_str());
 			}
 		}
 		else // There was an error opening the AAsset.

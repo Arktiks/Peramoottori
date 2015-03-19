@@ -110,6 +110,8 @@
     <ClInclude Include="jni\core\Time.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\core\Vector2.h" />
+    <ClInclude Include="jni\core\Vector3.h" />
     <ClInclude Include="jni\core\WindowHandler.h" />
     <ClInclude Include="jni\graphics\Circle.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
