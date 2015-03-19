@@ -12,6 +12,7 @@ bool Input::singleTouch = false;
 bool Input::startOfDrag = false;
 float Input::startOfDragX = 0;
 float Input::startOfDragY = 0;
+glm::vec3 Input::accelerometer = glm::vec3(0, 0, 0);
 
 Input::Input()
 {
@@ -49,6 +50,10 @@ bool Input::GetSingleTouch()
 	return false;
 }
 
+glm::vec3 Input::GetAccelerometerData()
+{
+	return accelerometer;
+}
 
 /// Static functions used in Application.cpp 
 void Input::InputEventMovement(float x, float y)
@@ -79,4 +84,11 @@ void Input::Update()
 		singleTouch = false;
 		startOfDrag = false;
 	}
+}
+///Static function used in Application.cpp to get Accelerometer Data
+void Input::InputEventAccelerometer(float x, float y, float z)
+{
+	accelerometer.x = x;
+	accelerometer.y = y;
+	accelerometer.z = z;
 }

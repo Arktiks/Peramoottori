@@ -1,6 +1,6 @@
 #include "Audio.h"
 #include <core\Log.h>
-//#include <core\Passert.h>
+#include <core\Passert.h>
 #include <resources\ResourceManager.h>
 
 pm::Audio::Audio(std::string fileName)
@@ -11,6 +11,7 @@ pm::Audio::Audio(std::string fileName)
 	AAsset* tempAudioAsset = pm::ResourceManager::GetInstance()->GetAsset(fileName);
 	AAsset* tempNull = nullptr;
 	//PMassert::AssertNotEquals(tempAudioAsset, tempNull, "Reading an audio asset failed!");
+	ASSERT(tempAudioAsset);
 
 	off_t start, length;
 

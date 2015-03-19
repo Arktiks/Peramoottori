@@ -1,7 +1,6 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#include "ResourceManager.h"
 #include <android\asset_manager.h>
 #include <resources\Image.h>
 #include <string>
@@ -16,14 +15,11 @@ namespace pm
 	class Resource
 	{
 	public:
-		ResourceManager resourcemanager;
-
+		std::string name;
 
 		Resource();
-
-		void ReadAsset(std::string fileName);
-
 		~Resource();
+
 	};
 }
 #endif //!RESOURCE_H

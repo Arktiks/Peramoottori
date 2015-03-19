@@ -131,6 +131,15 @@
     <ClCompile Include="jni\core\WindowHandler.cpp">
       <Filter>jni\core\application</Filter>
     </ClCompile>
+    <ClCompile Include="jni\resources\Resource.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\TextResource.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\ImageResource.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -900,6 +909,21 @@
     </ClInclude>
     <ClInclude Include="jni\core\WindowHandler.h">
       <Filter>jni\core\application</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\Resource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\TextResource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\ImageResource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Vector2.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Vector3.h">
+      <Filter>jni\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
