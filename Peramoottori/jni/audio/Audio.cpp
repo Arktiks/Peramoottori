@@ -8,13 +8,14 @@ pm::Audio::Audio(std::string fileName)
 	AAsset* tempAudioAsset = pm::ResourceManager::GetInstance()->GetAsset(fileName);
 	AAsset* tempNull = nullptr;
 	//PMassert::AssertNotEquals(tempAudioAsset, tempNull, "Reading an audio asset failed!");
+	ASSERT(tempAudioAsset);
 
 	off_t start, length;
 
 	int fileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
 
 	if (fileDescriptor <= 0)
-	//	PMassert::AssertEquals(true, false, "Opening audio file descriptor failed!");
+		PMassert::AssertEquals(true, false, "Opening audio file descriptor failed!");
 	
 	AAsset_close(tempAudioAsset);
 	

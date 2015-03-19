@@ -145,6 +145,7 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 			return nullptr;
 		}
 	}
+	return nullptr;
 }
 
 std::vector<char> ResourceManager::ReadChar(AAsset* asset)
