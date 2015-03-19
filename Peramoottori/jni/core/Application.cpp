@@ -3,7 +3,12 @@
 #include <core/Log.h>
 #include <resources\ResourceManager.h>
 #include <android/input.h>
+
+using namespace std;
 using namespace pm;
+
+vector<bool(*)()> Application::updateFunctions;
+vector<void(*)()> Application::drawFunctions;
 
 Application::Application(android_app* application) : eventSource(nullptr), frameTime(0.0)
 {
@@ -63,12 +68,28 @@ void Application::DrawFrame()
 		return;
 	}
 	
+	for (vector<void(*)()>::iterator it = drawFunctions.begin(); it != drawFunctions.end(); it++)
+	{
+		//(*drawFunctions[it])();;
+	}
+
 	eglSwapBuffers(window.display, window.surface);
 }
 
 WindowHandler& Application::GetWindow()
 {
 	return window;
+}
+
+void Application::AddUpdateFunction(bool (*Update)())
+{
+	// Need to add checks and such that code won't explode.
+	updateFunctions.push_back(Update);
+}
+
+void Application::AddDrawFunction(void (*Draw)())
+{
+	drawFunctions.push_back(Draw);
 }
 
 int Application::HandleInput(android_app* application, AInputEvent* event)
