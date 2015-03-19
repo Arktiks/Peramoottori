@@ -3,19 +3,13 @@
 
 #include <android\asset_manager.h>
 #include <resources\Image.h>
+#include <resources\Resource.h>
+#include <resources\TextResource.h>
 #include <string>
 #include <cstring>
 #include <vector>
 #include <map>
 #include <iostream>
-
-enum ASSET_TYPE
-{
-	IMAGE = 1,
-	TEXTURE = 2,
-	SOUND = 3,
-	FONT = 4,
-};
 
 namespace pm
 {
@@ -23,6 +17,8 @@ namespace pm
 	{
 	public:		
 		
+		Resource resource;
+
 		void ReadAsset(std::string fileName);
 
 
@@ -90,7 +86,7 @@ namespace pm
 		AAssetManager* manager; ///< Pointer to Androids AAssetManager.
 
 
-
+		std::map < std::string, Resource >  assets;
 
 		//std::map <std::string, RESOURCE> assets;
 	};

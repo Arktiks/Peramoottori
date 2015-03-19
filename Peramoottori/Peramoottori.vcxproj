@@ -77,9 +77,12 @@
     <ClCompile Include="jni\Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\resources\ImageResource.cpp" />
+    <ClCompile Include="jni\resources\Resource.cpp" />
     <ClCompile Include="jni\resources\ResourceManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\resources\TextResource.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
     <ClCompile Include="libs\glm\detail\dummy.cpp" />
     <ClCompile Include="libs\glm\detail\glm.cpp" />
@@ -148,9 +151,12 @@
     <ClInclude Include="jni\resources\Image.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\resources\ImageResource.h" />
+    <ClInclude Include="jni\resources\Resource.h" />
     <ClInclude Include="jni\resources\ResourceManager.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\resources\TextResource.h" />
     <ClInclude Include="jni\structs\MemoryTrack.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
     <ClInclude Include="libs\freetype\config\ftconfig.h" />

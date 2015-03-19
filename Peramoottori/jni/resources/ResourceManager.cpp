@@ -20,7 +20,14 @@ void ResourceManager::ReadAsset(std::string fileName)
 	if (strcmp(tempFileExtension.c_str(),tempTxt.c_str())==0)
 	{
 		DEBUG_INFO(("TXT compare works"));
-		//assets.insert(std::make_pair<std::string, std::string>(fileName, ReadText(fileName)));
+
+		resource.name = fileName;
+
+		std::string textData = ReadText(resource.name);
+
+		TextResource tempTextData(textData);
+
+		assets.insert(std::make_pair<std::string, Resource>(resource.name, tempTextData));
 
 	}
 
@@ -96,17 +103,18 @@ std::string ResourceManager::ReadText(std::string fileName)
 Image ResourceManager::ReadImage(std::string fileName)
 {
 	AAsset* tempAsset = OpenAsset(fileName);
+	std::vector<unsigned char> tempBuffer;
 
 	if (tempAsset)
 	{
-		std::vector<unsigned char> tempBuffer = ReadUnsignedChar(tempAsset); // Buffer containing picture content.
+		tempBuffer = ReadUnsignedChar(tempAsset); // Buffer containing picture content.
 		//std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
 		// Currently Images picture dimensions are not calculated.
 		// Image dimensions can be decoded in Graphics module.
-		return Image(tempBuffer);
+		return tempBuffer;
 	}
 	else
-		return Image(); // Returns empty Image if there is an error.
+		return tempBuffer; // Returns empty Image if there is an error.
 }
 
 AAsset* ResourceManager::GetAsset(std::string fileName)
@@ -143,7 +151,7 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 			}
 			else
 			{
-				PMdebug::MsgWarning("Reading file failed: %s, filelenght zero", fileName.c_str());
+				DEBUG_INFO("Reading file failed: %s, filelenght zero", fileName.c_str());
 			}
 		}
 		else // There was an error opening the AAsset.
