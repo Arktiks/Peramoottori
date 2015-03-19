@@ -8,16 +8,14 @@ namespace pm
 	class Time
 	{
 	public:
-		Time();
+		Time() : inFrame(false), timeInFrame(0), rawTime(0) {};
 
-		double calculateTimeInFrame();
+		double CalculateTimeInFrame();
+
 		time_t rawTime;
-
 		double timeInFrame;
 		struct timespec start;
 		struct timespec end;
-		
-		~Time();
 
 	private:
 		bool inFrame;
