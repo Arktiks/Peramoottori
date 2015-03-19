@@ -12,7 +12,7 @@ public:
 
 	Shader() : created(false), shader(0) {};
 	Shader(GLuint shader);
-	~Shader();
+	~Shader() {};
 
 	Shader LoadShader(std::string filePath, GLenum shaderType);
 	bool LinkProgram();

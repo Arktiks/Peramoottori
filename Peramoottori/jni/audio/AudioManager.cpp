@@ -1,12 +1,13 @@
 #include "AudioManager.h"
+#include <core\Log.h>
 
 void AudioPlayerCallback(SLPlayItf playerObject, void* context, SLuint32 event)
 {
-	pm::PMdebug::MsgInfo("AudioPlayer callback called");
+	DEBUG_INFO(("AudioPlayer callback called"));
 
 	if (event == SL_PLAYEVENT_HEADATEND)
 	{
-		pm::PMdebug::MsgInfo("AudioPlayer callback event: SL_PLAYEVENT_HEADATED");
+		DEBUG_INFO(("AudioPlayer callback event: SL_PLAYEVENT_HEADATED"));
 		(*playerObject)->SetPlayState(playerObject, SL_PLAYSTATE_STOPPED);
 	}
 }
@@ -76,7 +77,7 @@ void pm::AudioManager::CreateEngine()
 
 void pm::AudioManager::CheckError(std::string errorText)
 {
-	PMdebug::MsgInfo(errorText);
+	DEBUG_INFO((errorText.c_str()));
 	//ASSERT_EQ(result, SL_RESULT_SUCCESS);
 	(void)result;
 }
