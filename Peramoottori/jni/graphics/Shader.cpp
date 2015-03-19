@@ -70,7 +70,7 @@ bool Shader::LinkProgram()
 
 	if (linkCheck == GL_FALSE)
 	{
-		Log::PrintInfo("%s", "!!!! Linker fails - change this message to assert");
+		DEBUG_INFO(("%s", "!!!! Linker fails - change this message to assert"));
 		return false;
 	}
 	else
