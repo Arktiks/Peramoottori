@@ -70,10 +70,15 @@ void Application::DrawFrame()
 		return;
 	}
 	
-	for (vector<void(*)()>::iterator it = drawFunctions.begin(); it != drawFunctions.end(); it++)
+	for (const auto& function : drawFunctions)
+	{
+		function();
+	}
+
+	/*for (vector<void(*)()>::iterator it = drawFunctions.begin(); it != drawFunctions.end(); it++)
 	{
 		//(*drawFunctions[it])();;
-	}
+	}*/
 
 	SpriteBatch::GetInstance()->Draw();
 	eglSwapBuffers(window.display, window.surface);
