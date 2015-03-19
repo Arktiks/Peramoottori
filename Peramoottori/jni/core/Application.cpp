@@ -140,7 +140,10 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 	case APP_CMD_INIT_WINDOW:
 		DEBUG_INFO(("INIT_WINDOW"));
 		if (application->window != nullptr) // The window is being shown, get it ready.
+		{
 			tempApplication->GetWindow().LoadDisplay(application);
+			SpriteBatch::GetInstance()->Initialize();
+		}
 		break;
 
 	case APP_CMD_TERM_WINDOW:
