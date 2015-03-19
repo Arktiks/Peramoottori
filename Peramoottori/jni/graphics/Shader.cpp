@@ -3,6 +3,7 @@
 #include <string>
 #include <resources\ResourceManager.h>
 #include <core\Log.h>
+#include <core\Passert.h>
 using namespace pm;
 
 
@@ -11,7 +12,7 @@ Shader::Shader(GLuint shader)
 	this->shader = shader;
 }
 
-Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
+bool Shader::LoadShader(std::string filePath, GLenum ShaderType)
 {
 	if (!created)
 	{
@@ -22,20 +23,12 @@ Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 	ResourceManager* r = ResourceManager::GetInstance();
 	std::string tempString = r->ReadText(filePath);
 	tempString.push_back('\0');
-	//tempString.at(tempString.end()) = '\0';
+	const char *charString = tempString.c_str(); // muuttaa Stringin char*:ksi 
 
 	GLuint tempShader;
 	tempShader = glCreateShader(ShaderType); // määrittää shaderin tyypin
 
-	if (tempShader == 0)
-	{
-		DEBUG_WARNING(("Shader not created!"));
-		return tempShader;
-	}
-
-	const char *charString = tempString.c_str(); // muuttaa Stringin char*:ksi 
-
-	glShaderSource(tempShader, 1, &charString, NULL);// antaa shaderille ladatun shaderfilen
+	glShaderSource(tempShader, 1, &charString, nullptr);// antaa shaderille ladatun shaderfilen
 
 	glCompileShader(tempShader);
 	
@@ -47,19 +40,19 @@ Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &msg);
 		if (msg > 1)
 		{
-			char* info;
-			glGetShaderInfoLog(shader, msg, NULL, info);
+			char info[200];
+			glGetShaderInfoLog(shader, 200, NULL, info);
 
 			DEBUG_INFO(("%s", info));
 
 			free(info);
 		}
-
 		glDeleteShader(shader);
 		DEBUG_WARNING(("Shader not created!"));
-		return tempShader;
+		return false;
 	}
-	shader = tempShader;
+	glAttachShader(shader, tempShader);
+	return true;
 }
 
 bool Shader::LinkProgram()
@@ -68,15 +61,9 @@ bool Shader::LinkProgram()
 	glLinkProgram(shader);
 	glGetProgramiv(shader, GL_LINK_STATUS, &linkCheck);
 
-	if (linkCheck == GL_FALSE)
-	{
-		PMdebug::MsgInfo("%s", "!!!! Linker fails - change this message to assert");
-		return false;
-	}
-	else
-	{
-		return true;
-	}
+	ASSERT_EQUAL(linkCheck, GL_TRUE);
+
+	return true;
 }
 bool Shader::GetLinkStatus()
 {
@@ -115,7 +102,4 @@ void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsiz
 	tempAttrib.size = size;
 	tempAttrib.stride = stride;
 	ShaderVertexAttribs.push_back(tempAttrib);
-}
-{
-	return shader;
 }

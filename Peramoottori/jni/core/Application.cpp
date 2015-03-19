@@ -2,6 +2,9 @@
 #include <core/Input.h>
 #include <core/Log.h>
 #include <resources\ResourceManager.h>
+
+#include <graphics\SpriteBatch.h> // FIX LATER
+
 using namespace pm;
 
 Application::Application(android_app* application) : eventSource(nullptr), frameTime(0.0)
@@ -23,6 +26,7 @@ void Application::Initialize(android_app* application)
 
 void Application::InitializeModules(android_app* application)
 {
+	SpriteBatch::GetInstance()->Initialize(glm::vec2(500.0f, 500.0f));
 	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
 }
 
@@ -49,6 +53,7 @@ void Application::DrawFrame()
 		return;
 	}
 	
+	SpriteBatch::GetInstance()->Draw();
 	eglSwapBuffers(window.display, window.surface);
 }
 

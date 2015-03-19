@@ -14,7 +14,7 @@ public:
 	Shader(GLuint shader);
 	~Shader() {};
 
-	Shader LoadShader(std::string filePath, GLenum shaderType);
+	bool LoadShader(std::string filePath, GLenum shaderType);
 	bool LinkProgram();
 	bool GetLinkStatus();
 	void RunProgram();
