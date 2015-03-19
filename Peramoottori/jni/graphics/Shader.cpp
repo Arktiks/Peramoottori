@@ -116,7 +116,4 @@ void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsiz
 	tempAttrib.stride = stride;
 	ShaderVertexAttribs.push_back(tempAttrib);
 }
-
 /*{
-	return shader;
-}*/

@@ -901,6 +901,12 @@
     <ClInclude Include="jni\core\WindowHandler.h">
       <Filter>jni\core\application</Filter>
     </ClInclude>
+    <ClInclude Include="jni\core\Vector2.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Vector3.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">
