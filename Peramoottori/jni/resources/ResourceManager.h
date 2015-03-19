@@ -2,9 +2,9 @@
 #define RESOURCEMANAGER_H
 
 #include <android\asset_manager.h>
-#include <resources\Image.h>
 #include <resources\Resource.h>
 #include <resources\TextResource.h>
+#include <resources\ImageResource.h>
 #include <string>
 #include <cstring>
 #include <vector>
@@ -41,11 +41,11 @@ namespace pm
 		///		\return content of AAsset as string.
 		std::string ReadText(std::string fileName);
 
-		/// Returns image that contains pixel data.
-		/// Image is contained as unsigned char.
+		/// Returns vector that contains pixel data.
+		/// Image is contained as unsigned char vector.
 		///		\param fileName : string name of AAsset.
-		///		\return content of AAsset as Image.
-		Image ReadImage(std::string fileName);
+		///		\return content of AAsset as unsigned char vector.
+		std::vector<unsigned char> ReadImage(std::string fileName);
 
 		/// Returns opened AAsset for further use.
 		/// The AAsset needs to be closed manually.
@@ -86,7 +86,7 @@ namespace pm
 		AAssetManager* manager; ///< Pointer to Androids AAssetManager.
 
 
-		std::map < std::string, Resource >  assets;
+		std::map < std::string, Resource *>  assets;
 
 		//std::map <std::string, RESOURCE> assets;
 	};

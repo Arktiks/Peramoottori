@@ -150,9 +150,6 @@
     <ClInclude Include="jni\graphics\Triangle.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\resources\Image.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="jni\resources\ImageResource.h" />
     <ClInclude Include="jni\resources\Resource.h" />
     <ClInclude Include="jni\resources\ResourceManager.h">

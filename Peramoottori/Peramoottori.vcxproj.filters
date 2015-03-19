@@ -874,9 +874,6 @@
     <ClInclude Include="jni\audio\Audio.h">
       <Filter>jni\audio</Filter>
     </ClInclude>
-    <ClInclude Include="jni\resources\Image.h">
-      <Filter>jni\resources</Filter>
-    </ClInclude>
     <ClInclude Include="jni\structs\MemoryTrack.h">
       <Filter>structs</Filter>
     </ClInclude>
