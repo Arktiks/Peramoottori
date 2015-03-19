@@ -70,7 +70,7 @@ bool Shader::LinkProgram()
 
 	if (linkCheck == GL_FALSE)
 	{
-		PMdebug::MsgInfo("%s", "!!!! Linker fails - change this message to assert");
+		//PMdebug::MsgInfo("%s", "!!!! Linker fails - change this message to assert");
 		return false;
 	}
 	else
@@ -116,3 +116,4 @@ void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsiz
 	tempAttrib.stride = stride;
 	ShaderVertexAttribs.push_back(tempAttrib);
 }
+/*{

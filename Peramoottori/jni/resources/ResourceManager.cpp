@@ -146,12 +146,12 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 			size_t tempSize = AAsset_getLength(tempAsset); // Check AAsset length.
 			if (tempSize > 0)
 			{
-			DEBUG_INFO(("Succesfully read file: %s (%i)", fileName.c_str(), tempSize));
+				DEBUG_INFO(("Succesfully read file: %s (%i)", fileName.c_str(), tempSize));
 				return tempAsset; // Return AAsset pointer for further use.
 			}
 			else
 			{
-				DEBUG_INFO("Reading file failed: %s, filelenght zero", fileName.c_str());
+				DEBUG_WARNING(("Reading file failed: %s, filelenght zero", fileName.c_str()));
 			}
 		}
 		else // There was an error opening the AAsset.
@@ -160,6 +160,7 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 			return nullptr;
 		}
 	}
+	return nullptr;
 }
 
 std::vector<char> ResourceManager::ReadChar(AAsset* asset)

@@ -1,8 +1,10 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <android_native_app_glue.h>
 #include "WindowHandler.h"
+#include <android_native_app_glue.h>
+#include <android/sensor.h>
+#include <vector>
 
 namespace pm
 {
@@ -39,6 +41,12 @@ namespace pm
 		/// Get reference to display manager.
 		WindowHandler& GetWindow();
 
+		/// Adds function calls to Update() loop.
+		static void AddUpdateFunction(bool (*Update)());
+
+		/// Adds function calls to DrawFrame() loop.
+		static void AddDrawFunction(void (*Draw)());
+
 		/// Handles inputs for android application.
 		static int HandleInput(android_app* application, AInputEvent* event);
 
@@ -50,6 +58,13 @@ namespace pm
 		struct android_app* androidApplication; ///< Pointer to android application.
 		double frameTime; ///< Track deltaTime.
 		WindowHandler window; ///< Handles display of android device.
+
+		ASensorManager* sensorManager; ///< Singleton that manages sensors.
+		ASensorEventQueue* sensorEventQueue; ///< Sensor event queue.
+		const ASensor* accelerometerSensor; ///< Accelerometer.
+
+		static std::vector<bool (*)()> updateFunctions; ///< Functions that are added into Update() loop.
+		static std::vector<void (*)()> drawFunctions; ///< Functions that are added into DrawFrame() loop.
 	};
 }
 

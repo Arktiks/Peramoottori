@@ -2,6 +2,7 @@
 #define INPUT_H
 
 #include "glm\vec2.hpp"
+#include "glm\vec3.hpp"
 namespace pm
 {
 	/// Need to decide wether we will make this class partialy or completely static
@@ -23,6 +24,12 @@ namespace pm
 		*/
 		glm::vec2 GetDragVector();
 
+		/// Returns Accelerometer data
+		/**
+			\return Returns accelerometer data as glm vec3.
+		*/
+		glm::vec3 GetAccelerometerData();
+
 		/// Checks if its the first time calling GetSingleTouch during touch.
 		/**
 			Single touch, will return true the first time called between touch down and touch up event.
@@ -36,7 +43,6 @@ namespace pm
 			\return Returns the current state of touch (up/down). Touching = true, not touching = false.
 		*/
 		bool IsTouching();
-
 
 		/// Static member functions
 
@@ -64,12 +70,19 @@ namespace pm
 		*/
 		static void InputEventMovement(float x, float y);
 
+		/// Called in Application.Update().
+		/**
+		\param accelerometer The accelerometer data to be given to input.
+		*/
+		static void InputEventAccelerometer(float x, float y, float z);
+
 	private:
 		/// Private variables(of multiple input systems if wanted)
 		float dragX, dragY;
 		/// Static member variables
 		static bool touch, singleTouch, startOfDrag;
 		static float startOfDragX, startOfDragY, _x, _y, lx, ly;
+		static glm::vec3 accelerometer;
 	};
 }
 #endif
