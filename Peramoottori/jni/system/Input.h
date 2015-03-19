@@ -22,6 +22,14 @@ namespace pm
 			\return Returns the drag vector that happened between last main loops as glm vec2.
 		*/
 		glm::vec2 GetDragVector();
+
+		/// Checks if its the first time calling GetSingleTouch during touch.
+		/**
+			Single touch, will return true the first time called between touch down and touch up event.
+			Resets the state when touch up is called.
+			\return Returns true if called first time after a registered touch down event and before touch up event.
+		*/
+		bool GetSingleTouch();
 		
 		/// Updates the static parts at start of main loop. /-> Application.cpp
 		/**
@@ -59,9 +67,8 @@ namespace pm
 	private:
 		/// Private variables(of multiple input systems if wanted)
 		float dragX, dragY;
-
 		/// Static member variables
-		static bool touch;
+		static bool touch, singleTouch, startOfDrag;
 		static float startOfDragX, startOfDragY, _x, _y, lx, ly;
 	};
 }

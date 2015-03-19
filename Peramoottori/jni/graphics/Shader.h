@@ -14,14 +14,13 @@ public:
 	Shader(GLuint shader);
 	~Shader();
 
-	Shader LoadShader(const char* filePath, GLenum ShaderType);
+	Shader LoadShader(std::string filePath, GLenum shaderType);
 	bool LinkProgram();
 	bool GetLinkStatus();
 	void RunProgram();
 	GLuint GetAttribLocation(std::string attributeName);
 	GLuint GetShaderProgramLocation(){ return shader; };
 	void AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset);
-	//unsigned int AddShader(Shader shader, GLuint program);
 
 private:
 

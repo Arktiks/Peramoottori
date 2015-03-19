@@ -70,7 +70,7 @@ void Application::DrawFrame()
 		drawStuff();
 		// KOMMENTOI POIS JOS VIHASTUTTAA
 	}
-	//sprites;
+
 	eglSwapBuffers(engine.display, engine.surface);
 }
 
@@ -150,7 +150,7 @@ int Application::InitializeDisplay()
 	// RUMAA TAVARAA TESTAAMISEEN
 	initializeStuff();
 	// KOMMENTOI POIS JOS VIHASTUTTAA
-
+	//
 	//LOGI("Succesfully initialized display.");
 	return 0;
 }

@@ -43,6 +43,9 @@
     <Filter Include="jni\core">
       <UniqueIdentifier>{630f5179-d094-4c47-8d06-b3e5be560189}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\graphics\Shader">
+      <UniqueIdentifier>{6cdd8d91-6766-4813-aa61-7fd1b31ef861}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -89,9 +92,6 @@
     <ClCompile Include="jni\graphics\Triangle.cpp">
       <Filter>jni\graphics\Shapes</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Shader.cpp">
-      <Filter>jni\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Sprite.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
@@ -118,6 +118,16 @@
     </ClCompile>
     <ClCompile Include="jni\MemoryManager.cpp">
       <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="PMassert.cpp">
+      <Filter>jni\system</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\Resource.cpp" />
+    <ClCompile Include="jni\graphics\Shader.cpp">
+      <Filter>jni\graphics\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram.cpp">
+      <Filter>jni\graphics\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -847,9 +857,6 @@
     <ClInclude Include="jni\graphics\Triangle.h">
       <Filter>jni\graphics\Shapes</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Shader.h">
-      <Filter>jni\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Sprite.h">
       <Filter>jni\graphics</Filter>
     </ClInclude>
@@ -886,11 +893,17 @@
     <ClInclude Include="jni\MemoryManager.h">
       <Filter>jni\core</Filter>
     </ClInclude>
-    <ClInclude Include="stb_easy_font.h">
+    <ClInclude Include="libs\stb_easy_font.h">
       <Filter>libs</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderVertexAttrib.h">
-      <Filter>structs</Filter>
+    <ClInclude Include="jni\resources\Resource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Shader.h">
+      <Filter>jni\graphics\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgram.h">
+      <Filter>jni\graphics\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

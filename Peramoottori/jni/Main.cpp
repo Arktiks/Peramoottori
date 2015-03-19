@@ -10,8 +10,10 @@
 #include <android_native_app_glue.h>
 
 #include "Application.h"
+#include "resources\Resource.h"
 #include "System\Time.h"
 #include "resources\ResourceManager.h"
+#include "System\PMassert.h"
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Info", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "Warning", __VA_ARGS__))
@@ -38,13 +40,17 @@ void android_main(android_app* application)
 		if (initialize == true)
 		{
 	
-			//pm::ResourceManager::GetInstance()->ReadAsset("teksti.txt");
-			//pm::ResourceManager::GetInstance()->ReadAsset("fontti.ttf");
-			//pm::ResourceManager::GetInstance()->ReadAsset("aani.ogg");
-			//pm::ResourceManager::GetInstance()->ReadAsset("kuva.png");
+			pm::ResourceManager::GetInstance()->ReadAsset("teksti.txt");
+			pm::ResourceManager::GetInstance()->ReadAsset("fontti.ttf");
+			pm::ResourceManager::GetInstance()->ReadAsset("aani.ogg");
+			pm::ResourceManager::GetInstance()->ReadAsset("test.png");
 
 			initialize = false;
 		}
+		int x, y;
+		x = 1;
+		y = 1;
+		ASSERT_EQ(x,y);
 
 
 		double frameTime = aika.calculateTimeInFrame();

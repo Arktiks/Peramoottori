@@ -2,6 +2,7 @@
 #include <resources\ResourceManager.h>
 #include <system\PMdebug.h>
 #include <string>
+#include "GLES2\gl2.h"
 using namespace pm;
 
 
@@ -11,7 +12,7 @@ Shader::Shader(GLuint shader)
 	this->shader = shader;
 }
 
-Shader Shader::LoadShader(const char* filePath, GLenum ShaderType)
+Shader Shader::LoadShader(std::string filePath, GLenum ShaderType)
 {
 	if (!created)
 	{
@@ -30,7 +31,7 @@ Shader Shader::LoadShader(const char* filePath, GLenum ShaderType)
 	if (tempShader == 0)
 	{
 		PMdebug::MsgWarning("%s", "shader not created");
-		return Shader();
+		return tempShader;
 	}
 
 	const char *charString = tempString.c_str(); // muuttaa Stringin char*:ksi 
@@ -56,11 +57,10 @@ Shader Shader::LoadShader(const char* filePath, GLenum ShaderType)
 		}
 
 		glDeleteShader(shader);
-
-		return Shader();
+		PMdebug::MsgWarning("%s", "shader not created");
+		return tempShader;
 	}
-
-	return Shader(tempShader);
+	shader = tempShader;
 }
 
 bool Shader::LinkProgram()
@@ -117,11 +117,13 @@ void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsiz
 	tempAttrib.stride = stride;
 	ShaderVertexAttribs.push_back(tempAttrib);
 }
+{
+	return shader;
+}
+
+
+
+
 Shader::~Shader()
 {
 }
-
-/*unsigned int Shader::AddShader(GLuint programObject)
-{
-	glAttachShader(shader, programObject);
-}*/
