@@ -1,29 +1,24 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#include "ResourceManager.h"
-#include <android\asset_manager.h>
-#include <resources\Image.h>
-#include <string>
-#include <cstring>
-#include <vector>
-#include <map>
-#include <iostream>
 
+#include <string>
 
 namespace pm
 {
 	class Resource
 	{
 	public:
-		ResourceManager resourcemanager;
-
 
 		Resource();
-
-		void ReadAsset(std::string fileName);
+		void SetName(std::string name);
+		std::string GetName();
 
 		~Resource();
+
+	private:
+
+		std::string fileName;
 	};
 }
 #endif //!RESOURCE_H

@@ -1,9 +1,15 @@
 #include "Application.h"
 #include <core/Input.h>
 #include <core/Log.h>
-#include <resources\ResourceManager.h>
+#include <resources/ResourceManager.h>
 #include <android/input.h>
+#include <graphics/SpriteBatch.h>
+
+using namespace std;
 using namespace pm;
+
+vector<bool(*)()> Application::updateFunctions;
+vector<void(*)()> Application::drawFunctions;
 
 Application::Application(android_app* application) : eventSource(nullptr), frameTime(0.0)
 {
@@ -24,6 +30,7 @@ void Application::Initialize(android_app* application)
 
 void Application::InitializeModules(android_app* application)
 {
+	SpriteBatch::GetInstance()->Initialize();
 	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
 }
 
@@ -57,18 +64,40 @@ bool Application::Update()
 
 void Application::DrawFrame()
 {
-	if(window.display == EGL_NO_DISPLAY)
+	if(window.display == EGL_NO_DISPLAY || window.context == EGL_NO_CONTEXT)
 	{
 		//DEBUG_INFO(("No EGL_DISPLAY present while DrawFrame() was called."));
 		return;
 	}
 	
+	for (const auto& function : drawFunctions)
+	{
+		function();
+	}
+
+	/*for (vector<void(*)()>::iterator it = drawFunctions.begin(); it != drawFunctions.end(); it++)
+	{
+		//(*drawFunctions[it])();;
+	}*/
+
+	SpriteBatch::GetInstance()->Draw();
 	eglSwapBuffers(window.display, window.surface);
 }
 
 WindowHandler& Application::GetWindow()
 {
 	return window;
+}
+
+void Application::AddUpdateFunction(bool (*Update)())
+{
+	// Need to add checks and such that code won't explode.
+	updateFunctions.push_back(Update);
+}
+
+void Application::AddDrawFunction(void (*Draw)())
+{
+	drawFunctions.push_back(Draw);
 }
 
 int Application::HandleInput(android_app* application, AInputEvent* event)

@@ -16,13 +16,10 @@ namespace pm
 		static SpriteBatch* GetInstance();
 		void DestroyInstance();
 		void Draw();
-		void Initialize(glm::vec2 screenSize);
+		void Initialize();
 		void addSprite(Sprite *sprite);
 		virtual ~SpriteBatch(){};
 	
-		// muuttuu
-		Shader *shader;
-		//
 	
 	private:
 		SpriteBatch();
@@ -46,10 +43,10 @@ namespace pm
 		// Todennäköisesti muuttuvat:
 
 		void CreateShader();
-
+		
 		int spriteAmount;
 		GLuint buffer[2];
-	
+		Shader defaultShader;
 	};
 }
 

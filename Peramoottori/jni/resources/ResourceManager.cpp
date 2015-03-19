@@ -1,6 +1,7 @@
 #include "ResourceManager.h"
 #include <core\Log.h>
 #include <core\Passert.h>
+#include <core\Memory.h>
 
 using namespace pm;
 ResourceManager* ResourceManager::instance;
@@ -20,7 +21,14 @@ void ResourceManager::ReadAsset(std::string fileName)
 	if (strcmp(tempFileExtension.c_str(),tempTxt.c_str())==0)
 	{
 		DEBUG_INFO(("TXT compare works"));
-		//assets.insert(std::make_pair<std::string, std::string>(fileName, ReadText(fileName)));
+
+		resource.SetName(fileName);
+
+		std::string textData = ReadText(resource.GetName());
+
+		TextResource* tempTextData = NEW TextResource(textData);
+
+		assets.insert(std::make_pair<std::string, Resource*>(resource.GetName(), tempTextData));
 
 	}
 
@@ -39,7 +47,9 @@ void ResourceManager::ReadAsset(std::string fileName)
 	else if (strcmp(tempFileExtension.c_str(), tempPng.c_str())==0)
 	{
 		DEBUG_INFO(("PNG compare works"));
-		ReadImage(fileName);
+		ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
+
+		assets.insert(std::make_pair<std::string, Resource*>(resource.GetName(), tempImageResource));
 	}
 
 	else
@@ -93,20 +103,18 @@ std::string ResourceManager::ReadText(std::string fileName)
 		return std::string(); // Returns empty string if there is an error.
 }
 
-Image ResourceManager::ReadImage(std::string fileName)
+std::vector<unsigned char> ResourceManager::ReadImage(std::string fileName)
 {
 	AAsset* tempAsset = OpenAsset(fileName);
+	std::vector<unsigned char> tempBuffer;
 
 	if (tempAsset)
 	{
-		std::vector<unsigned char> tempBuffer = ReadUnsignedChar(tempAsset); // Buffer containing picture content.
-		//std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-		// Currently Images picture dimensions are not calculated.
-		// Image dimensions can be decoded in Graphics module.
-		return Image(tempBuffer);
+		tempBuffer = ReadUnsignedChar(tempAsset); 
+		return tempBuffer;
 	}
 	else
-		return Image(); // Returns empty Image if there is an error.
+		return tempBuffer; // Returns empty Image if there is an error.
 }
 
 AAsset* ResourceManager::GetAsset(std::string fileName)
@@ -138,7 +146,7 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 			size_t tempSize = AAsset_getLength(tempAsset); // Check AAsset length.
 			if (tempSize > 0)
 			{
-			DEBUG_INFO(("Succesfully read file: %s (%i)", fileName.c_str(), tempSize));
+				DEBUG_INFO(("Succesfully read file: %s (%i)", fileName.c_str(), tempSize));
 				return tempAsset; // Return AAsset pointer for further use.
 			}
 			else

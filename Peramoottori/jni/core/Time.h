@@ -12,12 +12,11 @@ namespace pm
 
 		double CalculateTimeInFrame();
 
+	private:
 		time_t rawTime;
 		double timeInFrame;
 		struct timespec start;
 		struct timespec end;
-
-	private:
 		bool inFrame;
 
 	};
