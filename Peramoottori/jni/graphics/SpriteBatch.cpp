@@ -24,9 +24,16 @@ SpriteBatch* SpriteBatch::GetInstance()
 	}
 	return instance;
 }
-void SpriteBatch::Initialize(glm::vec2 screenSize)
+void SpriteBatch::Initialize()
 {
-	this->screenSize = screenSize;
+	defaultShader.LoadShader("TestVertexShader.txt", GL_VERTEX_SHADER);
+	defaultShader.LoadShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER);
+
+	defaultShader.AddVertexAttribPointer("attrPosition", 2, 7, 0);
+	defaultShader.AddVertexAttribPointer("attrColor", 3, 7, 2);
+	defaultShader.AddVertexAttribPointer("textPosition", 2, 7, 5);
+	defaultShader.LinkProgram();
+	
 }
 
 void SpriteBatch::DestroyInstance()
@@ -43,9 +50,9 @@ void SpriteBatch::addSprite(Sprite *sprite)
 void SpriteBatch::Draw()
 {
 	Update();
-	if (shader->GetLinkStatus())
+	if (defaultShader.GetLinkStatus())
 	{
-		shader->RunProgram();
+		defaultShader.RunProgram();
 	}
 	// Draws textures that are in same layer. TODO: Add texture-sort to sort-function
 	if (sprites.size() != 0)
