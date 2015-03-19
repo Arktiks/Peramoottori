@@ -1,4 +1,7 @@
 #include "AudioPlayer.h"
+#include <core/Log.h>
+//#include <core/Passert.h>
+
 pm::AudioPlayer::AudioPlayer(int fileDescriptor, off_t start, off_t length)
 {
 	(this)->fileDescriptor = fileDescriptor;
@@ -63,7 +66,7 @@ void pm::AudioPlayer::SetVolume(float volPercentage)
 
 void pm::AudioPlayer::CheckError(std::string errorText)
 {
-	PMdebug::MsgInfo(errorText);
+	DEBUG_INFO((errorText.c_str()));
 	//ASSERT_EQ(result, SL_RESULT_SUCCESS);
 	(void)result;
 }

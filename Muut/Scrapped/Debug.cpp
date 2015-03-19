@@ -1,14 +1,18 @@
-#ifdef _DEBUG
-#ifndef GLOBALNEW_H
-#define GLOBALNEW_H
+#include "Debug.h"
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
+#include <android/log.h>
 
-//#pragma comment(linker, "/nodefaultlib:libc.lib")
-//#pragma comment(linker, "/nodefaultlib:libcd.lib")
 
-#include <iostream>
-#include <string>
-#include "MemoryManager.h"
-#include "MemoryTrack.h"
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////
+//		Definitions for new and delete operators.
+/////////////////////////////////////////////////////////////////////
 
 void* operator new (size_t size, const char* file, int line)
 {
@@ -16,7 +20,6 @@ void* operator new (size_t size, const char* file, int line)
 	std::string filename = std::string(file); // Convert filename to string.
 	MemoryTrack track(ptr, size, filename, line); // Make struct of it.
 	MemoryManager::GetInstance()->AddTrack(track); // Make note of memory track.
-	std::cout << "New: " << file << " (" << line << ")" << std::endl; // Debug info.
 	return ptr; // Return pointer as per normal.
 }
 
@@ -35,15 +38,3 @@ void operator delete[](void* ptr)
 {
 	operator delete(ptr);
 }
-
-#define NEW new(__FILE__, __LINE__)
-
-#endif
-#endif
-
-
-#ifdef NDEBUG
-
-#define NEW new
-
-#endif

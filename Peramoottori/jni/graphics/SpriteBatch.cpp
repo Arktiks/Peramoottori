@@ -43,6 +43,10 @@ void SpriteBatch::addSprite(Sprite *sprite)
 void SpriteBatch::Draw()
 {
 	Update();
+	if (shader->GetLinkStatus())
+	{
+		shader->RunProgram();
+	}
 	// Draws textures that are in same layer. TODO: Add texture-sort to sort-function
 	if (sprites.size() != 0)
 	{
@@ -69,7 +73,7 @@ void SpriteBatch::Draw()
 
 			else if (sprites[i + 1]->texture.getId() == currentAtlasIndex)
 			{
-				// Only add indices if sprite will be drawn; This is because we ignore sprites that are not drawn in
+				// Only add indices if sprite has draw = true
 				// CreateBufferData()
 				if (sprites[i + 1]->draw)
 				{
@@ -90,6 +94,8 @@ void SpriteBatch::Draw()
 				currentAtlasIndex = sprites[i + 1]->texture.getId();
 			}
 		}
+		glBindBuffer(GL_ARRAY_BUFFER, 0u);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);
 	}
 }
 
@@ -103,7 +109,8 @@ void SpriteBatch::Update()
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glBufferSubData(GL_ARRAY_BUFFER, 0u, vertexData.size()*sizeof(GLfloat), &vertexData.front());
-	glBindBuffer(GL_ARRAY_BUFFER, 0u);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
+
 }
 /// SpriteVector depth sort
 /**
@@ -122,9 +129,11 @@ void SpriteBatch::BindBuffers()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glBufferData(GL_ARRAY_BUFFER, vertexData.size()*sizeof(GLfloat), &vertexData.front(), GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0u);
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size()*sizeof(GLuint), &indexData.front(), GL_DYNAMIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0u);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);
 }
 void SpriteBatch::CreateBufferData()
 {
@@ -144,7 +153,8 @@ void SpriteBatch::CreateBufferData()
 			indexData.push_back(sprites[i]->indices[4] + i * 6);
 			indexData.push_back(sprites[i]->indices[5] + i * 6);
 
-			std::vector<GLfloat> tempVertices = createGLCoord(sprites[i]->vertices, sprites[i]->texture.getTextureSize());	// Tarkasta textureSize että palauttaa oikean.
+			std::vector<GLfloat> tempVertices = createGLCoord(sprites[i]->vertices, sprites[i]->texture.getTextureSize());
+			
 			vertexData.insert(vertexData.end(), tempVertices.begin(), tempVertices.end());
 		}
 	}
@@ -152,7 +162,6 @@ void SpriteBatch::CreateBufferData()
 
 std::vector<GLfloat> SpriteBatch::createGLCoord(std::vector<GLfloat> convertVertices, glm::vec2 textureSize)
 {	
-
 
 	std::vector<GLfloat> glVertexData;
 

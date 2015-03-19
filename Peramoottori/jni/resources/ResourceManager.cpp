@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
-#include <System\PMassert.h>
-#include <System\PMdebug.h>
+#include <core\Log.h>
+#include <core\Passert.h>
 
 using namespace pm;
 ResourceManager* ResourceManager::instance;
@@ -19,32 +19,32 @@ void ResourceManager::ReadAsset(std::string fileName)
 
 	if (strcmp(tempFileExtension.c_str(),tempTxt.c_str())==0)
 	{
-		PMdebug::MsgInfo("TXT compare works");
+		DEBUG_INFO(("TXT compare works"));
 		//assets.insert(std::make_pair<std::string, std::string>(fileName, ReadText(fileName)));
 
 	}
 
 	else if (strcmp(tempFileExtension.c_str(), tempTtf.c_str())==0)
 	{
-		PMdebug::MsgInfo("TTF compare works");
+		DEBUG_INFO(("TTF compare works"));
 		//ReadFont
 	}
 
 	else if (strcmp(tempFileExtension.c_str(), tempOgg.c_str())==0)
 	{
-		PMdebug::MsgInfo("OGG compare works");
+		DEBUG_INFO(("OGG compare works"));
 		//ReadSound
 	}
 
 	else if (strcmp(tempFileExtension.c_str(), tempPng.c_str())==0)
 	{
-		PMdebug::MsgInfo("PNG compare works");
+		DEBUG_INFO(("PNG compare works"));
 		ReadImage(fileName);
 	}
 
 	else
 	{
-		PMdebug::MsgWarning("File type not recognized");
+		DEBUG_WARNING(("File type not recognized"));
 	}
 }
 
@@ -65,9 +65,9 @@ ResourceManager* ResourceManager::GetInstance(AAssetManager* manager)
 void ResourceManager::Initialize(AAssetManager* manager)
 {
 	if (manager != nullptr)  // If manager has already been set write a warning.
-		PMdebug::MsgWarning("ResourceManager has already been initialized!");
+		DEBUG_WARNING(("ResourceManager has already been initialized!"));
 	else
-		PMdebug::MsgInfo("ResourceManager assigned");
+		DEBUG_INFO(("ResourceManager assigned"));
 
 	(this->manager) = manager;
 }
@@ -86,7 +86,7 @@ std::string ResourceManager::ReadText(std::string fileName)
 	{
 		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
 		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-		PMdebug::MsgInfo(tempString.c_str()); // Prints processed text as confirmation.
+		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
 		return tempString;
 	}
 	else
@@ -122,7 +122,7 @@ bool ResourceManager::ManagerCheck()
 		return true;
 	else
 	{
-		PMdebug::MsgWarning("Trying to use ResourceManager without initializing!");
+		DEBUG_WARNING(("Trying to use ResourceManager without initializing!"));
 		return false;
 	}
 }
@@ -132,16 +132,23 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 	if (ManagerCheck())
 	{
 		AAsset* tempAsset = AAssetManager_open(manager, fileName.c_str(), AASSET_MODE_UNKNOWN); // Open AAsset using AAssetManager.
-		size_t tempSize = AAsset_getLength(tempAsset); // Check AAsset length.
 
-		if (tempAsset != nullptr && tempSize > 0) // AAsset opened succesfully and size greater than 0.
+		if (tempAsset != nullptr) // AAsset opened succesfully and size greater than 0.
 		{
-			PMdebug::MsgInfo("Succesfully read file: %s (%i)", fileName.c_str(), tempSize);
-			return tempAsset; // Return AAsset pointer for further use.
+			size_t tempSize = AAsset_getLength(tempAsset); // Check AAsset length.
+			if (tempSize > 0)
+			{
+			DEBUG_INFO(("Succesfully read file: %s (%i)", fileName.c_str(), tempSize));
+				return tempAsset; // Return AAsset pointer for further use.
+			}
+			else
+			{
+				PMdebug::MsgWarning("Reading file failed: %s, filelenght zero", fileName.c_str());
+			}
 		}
 		else // There was an error opening the AAsset.
 		{
-			PMdebug::MsgWarning("Reading file failed: %s", fileName.c_str());
+			DEBUG_WARNING(("Reading file failed: %s", fileName.c_str()));
 			return nullptr;
 		}
 	}
