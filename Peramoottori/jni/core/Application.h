@@ -3,6 +3,7 @@
 
 #include <android_native_app_glue.h>
 #include "WindowHandler.h"
+#include <android/sensor.h>
 
 namespace pm
 {
@@ -50,6 +51,11 @@ namespace pm
 		struct android_app* androidApplication; ///< Pointer to android application.
 		double frameTime; ///< Track deltaTime.
 		WindowHandler window; ///< Handles display of android device.
+
+		ASensorManager* sensorManager; ///< ASensorManager
+		const ASensor* accelerometerSensor; ///< Accelerometer
+		ASensorEventQueue* sensorEventQueue; ///< Sensor event queue
+
 	};
 }
 

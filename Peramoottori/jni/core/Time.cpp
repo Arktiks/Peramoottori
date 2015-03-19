@@ -1,13 +1,6 @@
 #include "Time.h"
 
-pm::Time::Time()
-{
-	inFrame = false;
-	timeInFrame = 0;
-	rawTime = 0;
-}
-
-double pm::Time::calculateTimeInFrame()
+double pm::Time::CalculateTimeInFrame()
 {
 	if (inFrame == false)
 	{	
@@ -30,8 +23,4 @@ double pm::Time::calculateTimeInFrame()
 	}
 
 	return 0;
-}
-
-pm::Time::~Time()
-{
 }
