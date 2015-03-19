@@ -1,8 +1,9 @@
 #include "Application.h"
 #include <core/Input.h>
 #include <core/Log.h>
-#include <resources\ResourceManager.h>
+#include <resources/ResourceManager.h>
 #include <android/input.h>
+#include <graphics/SpriteBatch.h>
 
 using namespace std;
 using namespace pm;
@@ -63,7 +64,7 @@ bool Application::Update()
 
 void Application::DrawFrame()
 {
-	if(window.display == EGL_NO_DISPLAY)
+	if(window.display == EGL_NO_DISPLAY || window.context == EGL_NO_CONTEXT)
 	{
 		//DEBUG_INFO(("No EGL_DISPLAY present while DrawFrame() was called."));
 		return;
@@ -74,6 +75,7 @@ void Application::DrawFrame()
 		//(*drawFunctions[it])();;
 	}
 
+	SpriteBatch::GetInstance()->Draw();
 	eglSwapBuffers(window.display, window.surface);
 }
 
