@@ -30,7 +30,7 @@ void Application::Initialize(android_app* application)
 
 void Application::InitializeModules(android_app* application)
 {
-	SpriteBatch::GetInstance()->Initialize(glm::vec2(500.0f, 500.0f));
+	SpriteBatch::GetInstance()->Initialize();
 	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
 }
 

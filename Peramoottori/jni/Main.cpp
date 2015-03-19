@@ -45,14 +45,7 @@ void initializeSpriteBatch()
 	pm::SpriteBatch::GetInstance()->addSprite(sprites[1]);
 	pm::SpriteBatch::GetInstance()->addSprite(sprites[2]);
 
-	shader.LoadShader("TestVertexShader.txt", GL_VERTEX_SHADER);
-	shader.LoadShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER);
-
-	shader.AddVertexAttribPointer("attrPosition", 2, 7, 0);
-	shader.AddVertexAttribPointer("attrColor", 3, 7, 2);
-	shader.AddVertexAttribPointer("textPosition", 2, 7, 5);
-	shader.LinkProgram();
-	pm::SpriteBatch::GetInstance()->shader = &shader;
+	
 }
 
 void android_main(android_app* application)
