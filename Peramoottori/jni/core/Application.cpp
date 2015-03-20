@@ -30,7 +30,7 @@ void Application::Initialize(android_app* application)
 
 void Application::InitializeModules(android_app* application)
 {
-	SpriteBatch::GetInstance()->Initialize();
+	
 	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
 }
 
@@ -156,7 +156,7 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 		if (tempApplication->accelerometerSensor != NULL)
 		{
 			ASensorEventQueue_enableSensor(tempApplication->sensorEventQueue,
-				tempApplication->accelerometerSensor);
+			tempApplication->accelerometerSensor);
 			// We'd like to get 60 events per second (in us).
 			ASensorEventQueue_setEventRate(tempApplication->sensorEventQueue,
 				tempApplication->accelerometerSensor, (1000L / 60) * 1000);

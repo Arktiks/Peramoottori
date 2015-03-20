@@ -10,7 +10,7 @@ class Shader
 {
 public:
 
-	Shader() : created(false), shader(0) {};
+	Shader() : created(false), shaderProgram(0) {};
 	Shader(GLuint shader);
 	~Shader() {};
 
@@ -19,13 +19,13 @@ public:
 	bool GetLinkStatus();
 	void RunProgram();
 	GLuint GetAttribLocation(std::string attributeName);
-	GLuint GetShaderProgramLocation(){ return shader; };
+	GLuint GetShaderProgramLocation(){ return shaderProgram; };
 	void AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset);
 
 private:
 
 	std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
-	GLuint shader;
+	GLuint shaderProgram;
 	GLint compiled;
 	bool created;
 
