@@ -1,6 +1,7 @@
 #include "SpriteBatch.h"
 #include <algorithm>
 #include <core\Passert.h>
+#include <core\Log.h>
 
 using namespace pm;
 
@@ -27,13 +28,21 @@ SpriteBatch* SpriteBatch::GetInstance()
 
 void SpriteBatch::Initialize()
 {
-	defaultShader.AddShader("TestVertexShader.txt", GL_VERTEX_SHADER);
-	defaultShader.AddShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER);
+	bool tempCheck = false;
+	
+	tempCheck = defaultShader.AddShader("TestVertexShader.txt", GL_VERTEX_SHADER);
+	ASSERT(tempCheck);
+
+	tempCheck = defaultShader.AddShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER);
+	ASSERT(tempCheck);
 
 	defaultShader.AddVertexAttribPointer("attrPosition", 2, 7, 0);
 	defaultShader.AddVertexAttribPointer("attrColor", 3, 7, 2);
 	defaultShader.AddVertexAttribPointer("textPosition", 2, 7, 5);
+
 	defaultShader.LinkProgram();
+	
+	DEBUG_INFO(("SpriteBatch initialize finished."));
 }
 
 void SpriteBatch::DestroyInstance()

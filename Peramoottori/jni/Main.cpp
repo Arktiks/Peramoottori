@@ -53,7 +53,7 @@ void android_main(android_app* application)
 	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 
 	
-	//initializeSpriteBatch(); //SpriteBatch testing.
+	initializeSpriteBatch(); // SpriteBatch testing.
 
 
 	app.AddContextFunction(TestFunction);
