@@ -57,14 +57,14 @@ bool Application::Update()
 		if(androidApplication->destroyRequested != 0)
 			return false;
 
-		if (!contextFunctions.empty() && window.context != EGL_NO_CONTEXT)
+		/*if (!contextFunctions.empty() && window.context != EGL_NO_CONTEXT)
 		{
 			for (vector<bool(*)()>::iterator it = contextFunctions.begin(); it != contextFunctions.end(); it++)
 			{
 				ASSERT(*it);
 				it = contextFunctions.erase(it);
 			}
-		}
+		}*/
 	}
 	return true;
 }

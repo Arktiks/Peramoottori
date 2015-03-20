@@ -53,13 +53,6 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 	glAttachShader(shaderProgram, tempShader);
 	return true;
 }
-std::string Shader::LoadShader(std::string filePath)
-{
-	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
-	tempString.push_back('\0');
-
-	return tempString;
-}
 
 bool Shader::LinkProgram()
 {
@@ -110,3 +103,10 @@ void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsiz
 	ShaderVertexAttribs.push_back(tempAttrib);
 }
 
+std::string Shader::LoadShader(std::string filePath)
+{
+	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
+	tempString.push_back('\0');
+
+	return tempString;
+}
