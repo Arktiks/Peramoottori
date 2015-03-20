@@ -1,4 +1,4 @@
-#include "scene\Component.h"
+#include <scene\Component.h>
 
 pm::Component::Component()
 {
@@ -7,7 +7,7 @@ pm::Component::Component()
 
 pm::Component::Component(Component& component)
 {
-	this->parent = component.parent;
+	parent = component.parent;
 }
 
 pm::Component::Component(GameEntity* entity)
@@ -17,5 +17,9 @@ pm::Component::Component(GameEntity* entity)
 
 pm::Component::~Component()
 {
-	delete parent;
+}
+
+void pm::Component::SetParent(GameEntity* entity)
+{
+	parent = entity;
 }

@@ -4,8 +4,6 @@
 pm::Triangle::Triangle(float tempPositionX, float tempPositionY, float tempRadius)
 {
 	radius = tempRadius;
-	transformable.SetPosition(tempPositionX, tempPositionY);
-	transformable.SetScale(1, 1);
 	draw = true;
 
 	for (int i = 0; i < 3; i++)

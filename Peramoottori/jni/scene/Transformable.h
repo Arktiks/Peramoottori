@@ -11,6 +11,7 @@ namespace pm
 	public:
 		Transformable();
 		Transformable(glm::vec2 position, glm::vec2 origin, glm::vec2 scale, float rotation);
+		~Transformable();
 
 		void SetPosition(glm::vec2 newPosition);
 		void SetPosition(float positionX, float positionY);

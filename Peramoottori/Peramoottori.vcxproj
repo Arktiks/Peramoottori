@@ -18,6 +18,7 @@
     <AndroidBuild Include="res\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="jni\Application.cpp" />
     <ClCompile Include="jni\audio\Audio.cpp" />
     <ClCompile Include="jni\audio\AudioManager.cpp" />

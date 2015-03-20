@@ -130,6 +130,9 @@
     <ClCompile Include="jni\scene\Transformable.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
+    <ClCompile Include="GameEntity.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
     <ClCompile Include="jni\scene\Component.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>

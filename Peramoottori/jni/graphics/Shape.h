@@ -20,9 +20,7 @@ namespace pm
 
 		std::vector<float> vertices;
 		std::vector<unsigned int> indices;
-
-		Transformable transformable;
-
+		
 		float colorRed, colorGreen, colorBlue;
 
 	};

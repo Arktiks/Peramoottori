@@ -2,8 +2,6 @@
 
 pm::Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, float tempHeight)
 {
-	transformable.SetPosition(tempPositionX, tempPositionY);
-	transformable.SetScale(1, 1);
 	widht = tempWidht;
 	height = tempHeight;
 	draw = true;
@@ -32,8 +30,6 @@ pm::Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWid
 
 pm::Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
 {
-	transformable.SetPosition(tempPosition);
-	transformable.SetScale(1, 1);
 	widht = tempWidthHeight.x;
 	height = tempWidthHeight.y;
 	draw = true;

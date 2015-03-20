@@ -3,8 +3,6 @@
 pm::Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int tempSmoothness)
 {
 	radius = tempRadius;
-	transformable.SetPosition(tempPositionX, tempPositionY);
-	transformable.SetScale(1, 1);
 	draw = true;
 
 	vertices.push_back(tempPositionX); //1 xpos
