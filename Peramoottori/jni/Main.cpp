@@ -25,25 +25,25 @@ void initializeSpriteBatch() // Temporary spritebatch test initialization functi
 {
 	Texture texture("test.png");
 	Sprite* sprite = new Sprite(texture);
-	Sprite* sprite2 = new Sprite(texture);
-	Sprite* sprite3 = new Sprite(texture);
+	//Sprite* sprite2 = new Sprite(texture);
+	//Sprite* sprite3 = new Sprite(texture);
 	
 	sprite->setPosition(glm::vec2(150, 150));
 	sprite->setSize(glm::vec2(100, 100));
 	
-	sprite->setPosition(glm::vec2(50, 50));
-	sprite->setSize(glm::vec2(100, 50));
+	//sprite2->setPosition(glm::vec2(50, 50));
+	//sprite2->setSize(glm::vec2(100, 50));
 
-	sprite->setPosition(glm::vec2(250, 250));
-	sprite->setSize(glm::vec2(200, 100));
+	//sprite3->setPosition(glm::vec2(250, 250));
+	//sprite3->setSize(glm::vec2(200, 100));
 	
-	sprites.push_back(sprite2);
 	sprites.push_back(sprite);
-	sprites.push_back(sprite3);
+	//sprites.push_back(sprite2);
+	//sprites.push_back(sprite3);
 
 	pm::SpriteBatch::GetInstance()->addSprite(sprites[0]);
-	pm::SpriteBatch::GetInstance()->addSprite(sprites[1]);
-	pm::SpriteBatch::GetInstance()->addSprite(sprites[2]);
+	//pm::SpriteBatch::GetInstance()->addSprite(sprites[1]);
+	//pm::SpriteBatch::GetInstance()->addSprite(sprites[2]);
 }
 
 
@@ -56,7 +56,7 @@ void android_main(android_app* application)
 	initializeSpriteBatch(); // SpriteBatch testing.
 
 
-	app.AddContextFunction(TestFunction);
+//	app.AddContextFunction(TestFunction);
 
 
 	//ResourceManager::GetInstance()->ReadAsset("aani.ogg");
