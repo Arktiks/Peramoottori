@@ -38,6 +38,9 @@ namespace pm
 		/// TODO
 		void DrawFrame();
 
+		/// Clears the display.
+		void ClearScreen();
+
 		/// Get reference to display manager.
 		WindowHandler& GetWindow();
 
@@ -46,6 +49,9 @@ namespace pm
 
 		/// Adds function calls to DrawFrame() loop.
 		static void AddDrawFunction(void (*Draw)());
+
+		/// Adds functions call that are only called once after context creation.
+		static void AddContextFunction(bool (*)());
 
 		/// Handles inputs for android application.
 		static int HandleInput(android_app* application, AInputEvent* event);
@@ -65,6 +71,7 @@ namespace pm
 
 		static std::vector<bool (*)()> updateFunctions; ///< Functions that are added into Update() loop.
 		static std::vector<void (*)()> drawFunctions; ///< Functions that are added into DrawFrame() loop.
+		static std::vector<bool(*)()> contextFunctions; ///< Functions that are only called once after 
 	};
 }
 
