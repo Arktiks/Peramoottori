@@ -4,6 +4,8 @@
 #include <core/Log.h>
 #include <core/Passert.h>
 
+using namespace pm;
+
 void WindowHandler::LoadDisplay(android_app* application)
 {
 	DEBUG_INFO(("WindowHandler::LoadDisplay() beginning."));

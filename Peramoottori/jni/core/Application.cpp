@@ -32,7 +32,6 @@ void Application::Initialize(android_app* application)
 
 void Application::InitializeModules(android_app* application)
 {
-	
 	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
 }
 
@@ -63,8 +62,11 @@ bool Application::Update()
 
 		if (!contextFunctions.empty() && window.context != EGL_NO_CONTEXT)
 		{
-			for (const auto& tempFunction : contextFunctions)
-				tempFunction();
+			for (vector<bool(*)()>::iterator it = contextFunctions.begin(); it != contextFunctions.end(); it++)
+			{
+				ASSERT(*it);
+				it = contextFunctions.erase(it);
+			}
 		}
 	}
 	return true;
@@ -91,10 +93,10 @@ void Application::ClearScreen()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-WindowHandler& Application::GetWindow()
+/*WindowHandler& Application::GetWindow()
 {
 	return window;
-}
+}*/
 
 void Application::AddUpdateFunction(bool (*Update)())
 {
@@ -105,6 +107,11 @@ void Application::AddUpdateFunction(bool (*Update)())
 void Application::AddDrawFunction(void (*Draw)())
 {
 	drawFunctions.push_back(Draw);
+}
+
+void Application::AddContextFunction(bool(*Context)())
+{
+	contextFunctions.push_back(Context);
 }
 
 int Application::HandleInput(android_app* application, AInputEvent* event)
@@ -148,14 +155,14 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 		DEBUG_INFO(("INIT_WINDOW"));
 		if (application->window != nullptr) // The window is being shown, get it ready.
 		{
-			tempApplication->GetWindow().LoadDisplay(application);
+			tempApplication->window.LoadDisplay(application);
 			SpriteBatch::GetInstance()->Initialize();
 		}
 		break;
 
 	case APP_CMD_TERM_WINDOW:
 		DEBUG_INFO(("TERM_WINDOW"));
-		tempApplication->GetWindow().CloseDisplay(); // The window is being hidden or closed, clean it up.
+		tempApplication->window.CloseDisplay(); // The window is being hidden or closed, clean it up.
 		break;
 
 	case APP_CMD_GAINED_FOCUS:

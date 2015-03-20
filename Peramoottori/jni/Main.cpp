@@ -12,6 +12,13 @@
 using namespace pm;
 
 
+static bool TestFunction()
+{
+	DEBUG_INFO(("Olen funktio joka palauttaa true :D"));
+	return true;
+}
+
+
 std::vector<Sprite*> sprites; // Vector for spritebatch testing.
 
 void initializeSpriteBatch() // Temporary spritebatch test initialization function.
@@ -45,16 +52,17 @@ void android_main(android_app* application)
 	Application app(application);
 	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 
-
 	//SpriteBatch testing
 	//initializeSpriteBatch();
+
+	app.AddContextFunction(TestFunction);
 
 	ResourceManager::GetInstance()->ReadAsset("teksti.txt");
 	ResourceManager::GetInstance()->ReadAsset("fontti.ttf");
 	ResourceManager::GetInstance()->ReadAsset("aani.ogg");
 	ResourceManager::GetInstance()->ReadAsset("test.png");
 
-	DEBUG_INFO(("Tassa on numero %i ja stringi %s.", 2, "STRING"));
+	/*DEBUG_INFO(("Tassa on numero %i ja stringi %s.", 2, "STRING"));
 	DEBUG_WARNING(("Tama on vain tekstia"));
 
 	ASSERT(true);
@@ -66,9 +74,8 @@ void android_main(android_app* application)
 	float* b = NEW float(2.2f);
 	double* c = NEW double(2.3333);
 	delete b;
-	Memory::WriteLeaks();
-
-
+	Memory::WriteLeaks();*/
+	
 	while (app.Update())
 	{
 		app.ClearScreen();
