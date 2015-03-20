@@ -167,14 +167,14 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 
 	case APP_CMD_GAINED_FOCUS:
 		// When our app gains focus, we start monitoring the accelerometer.
-		if (tempApplication->accelerometerSensor != NULL)
-		{
-			ASensorEventQueue_enableSensor(tempApplication->sensorEventQueue,
-			tempApplication->accelerometerSensor);
-			// We'd like to get 60 events per second (in us).
-			ASensorEventQueue_setEventRate(tempApplication->sensorEventQueue,
-				tempApplication->accelerometerSensor, (1000L / 60) * 1000);
-		}
+		//if (tempApplication->accelerometerSensor != NULL)
+		//{
+		//	ASensorEventQueue_enableSensor(tempApplication->sensorEventQueue,
+		//	tempApplication->accelerometerSensor);
+		//	// We'd like to get 60 events per second (in us).
+		//	ASensorEventQueue_setEventRate(tempApplication->sensorEventQueue,
+		//		tempApplication->accelerometerSensor, (1000L / 60) * 1000);
+		//}
 		break;
 
 	default:

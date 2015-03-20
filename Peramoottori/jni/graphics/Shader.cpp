@@ -20,35 +20,35 @@ bool Shader::LoadShader(std::string filePath, GLenum ShaderType)
 		created = true;
 	}
 
-	ResourceManager* r = ResourceManager::GetInstance();
-	std::string tempString = r->ReadText(filePath);
+	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
 	tempString.push_back('\0');
-	const char *charString = tempString.c_str(); // muuttaa Stringin char*:ksi 
+	const char* charArray = tempString.c_str(); // muuttaa Stringin char*:ksi 
 
 	GLuint tempShader;
 	tempShader = glCreateShader(ShaderType); // määrittää shaderin tyypin
 
-	glShaderSource(tempShader, 1, &charString, nullptr);// antaa shaderille ladatun shaderfilen
-
-	glCompileShader(tempShader);
+	glShaderSource(tempShader, 1, &charArray, nullptr);// antaa shaderille ladatun shaderfilen
 	
+	glCompileShader(tempShader);
+	GLint compiled = 0;
 	glGetShaderiv(tempShader, GL_COMPILE_STATUS, &compiled);
-
+	
 	if (!compiled)
 	{
-		GLint msg = 0;
+		GLint length = 0;
 
-		glGetShaderiv(shaderProgram, GL_INFO_LOG_LENGTH, &msg);
-		if (msg > 1)
+		glGetShaderiv(tempShader, GL_INFO_LOG_LENGTH, &length);
+		if (length > 0)
 		{
-			char info[200];
-			glGetShaderInfoLog(shaderProgram, 200, NULL, info);
+			GLint infoLength;
+			char* infoBuf = (char*) malloc(sizeof(char) * length);
+			glGetShaderInfoLog(tempShader, length, &infoLength, infoBuf);
 
-			DEBUG_INFO(("%s", info));
+			DEBUG_INFO(("%s", infoBuf));
+			free(infoBuf);
 
-			free(info);
 		}
-		glDeleteShader(shaderProgram);
+		glDeleteShader(tempShader);
 		created = false;
 		DEBUG_WARNING(("Shader not created!"));
 		return false;
@@ -59,17 +59,17 @@ bool Shader::LoadShader(std::string filePath, GLenum ShaderType)
 
 bool Shader::LinkProgram()
 {
-	GLint linkCheck = 0;
+	GLint linkCheck = GL_FALSE;
 	glLinkProgram(shaderProgram);
-	//glGetProgramiv(shader, GL_LINK_STATUS, &linkCheck); getprogramiv ei toimi regards tuukka
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
 
-	//ASSERT_EQUAL(linkCheck, GL_TRUE);
+	ASSERT_EQUAL(linkCheck, GL_TRUE);
 
 	return true;
 }
 bool Shader::GetLinkStatus()
 {
-	GLint linkCheck = NULL;
+	GLint linkCheck = GL_FALSE;
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
 	if (linkCheck = GL_TRUE)
 		return true;

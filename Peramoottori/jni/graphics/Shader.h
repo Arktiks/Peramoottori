@@ -26,7 +26,7 @@ private:
 
 	std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
 	GLuint shaderProgram;
-	GLint compiled;
+
 	bool created;
 
 };

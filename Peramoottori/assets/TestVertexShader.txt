@@ -1,3 +1,7 @@
+
+precision mediump float;
+
+
 attribute vec2 attrPosition;
 attribute vec3 attrColor;
 attribute vec2 textPosition;
