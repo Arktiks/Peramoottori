@@ -19,31 +19,28 @@ static bool TestFunction()
 }
 
 
-std::vector<Sprite*> sprites; // Vector for spritebatch testing.
+//std::vector<Sprite*> sprites; // Vector for spritebatch testing.
 
 void initializeSpriteBatch() // Temporary spritebatch test initialization function.
 {
 	Texture texture("test.png");
-	Sprite* sprite = new Sprite(texture);
-	//Sprite* sprite2 = new Sprite(texture);
-	//Sprite* sprite3 = new Sprite(texture);
-	
+	Sprite* sprite = NEW Sprite(texture);
 	sprite->setPosition(glm::vec2(150, 150));
 	sprite->setSize(glm::vec2(100, 100));
-	
-	//sprite2->setPosition(glm::vec2(50, 50));
-	//sprite2->setSize(glm::vec2(100, 50));
+	SpriteBatch::GetInstance()->addSprite(sprite);
 
-	//sprite3->setPosition(glm::vec2(250, 250));
+	/*Sprite* sprite2 = NEW Sprite(texture);
+	sprite2->setPosition(glm::vec2(50, 50));
+	sprite2->setSize(glm::vec2(100, 50));
+	SpriteBatch::GetInstance()->addSprite(sprite2);
+
+	Sprite* sprite3 = new Sprite(texture);
 	//sprite3->setSize(glm::vec2(200, 100));
-	
 	sprites.push_back(sprite);
-	//sprites.push_back(sprite2);
+	sprites.push_back(sprite2);
 	//sprites.push_back(sprite3);
-
-	pm::SpriteBatch::GetInstance()->addSprite(sprites[0]);
 	//pm::SpriteBatch::GetInstance()->addSprite(sprites[1]);
-	//pm::SpriteBatch::GetInstance()->addSprite(sprites[2]);
+	pm::SpriteBatch::GetInstance()->addSprite(sprites[2]);*/
 }
 
 
@@ -51,16 +48,13 @@ void android_main(android_app* application)
 {
 	Application app(application);
 	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-
 	
 	initializeSpriteBatch(); // SpriteBatch testing.
 
-
 //	app.AddContextFunction(TestFunction);
 
-
-	//ResourceManager::GetInstance()->ReadAsset("aani.ogg");
-	//ResourceManager::GetInstance()->ReadAsset("test.png");
+	/*	ResourceManager::GetInstance()->ReadAsset("aani.ogg");
+	ResourceManager::GetInstance()->ReadAsset("test.png");
 
 	/*DEBUG_INFO(("Tassa on numero %i ja stringi %s.", 2, "STRING"));
 	DEBUG_WARNING(("Tama on vain tekstia"));

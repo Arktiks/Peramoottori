@@ -35,14 +35,14 @@ void Application::Initialize(android_app* application)
 bool Application::Update()
 {
 	Input::Update();
-	int ident;
+	//int ident;
 
 	while (ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
 	{
 		if (eventSource != nullptr)
 			eventSource->process(androidApplication, eventSource);
 
-		if (ident == LOOPER_ID_USER)
+		/*if (ident == LOOPER_ID_USER)
 		{
 			//if (accelerometerSensor != NULL)
 			//{
@@ -52,13 +52,13 @@ bool Application::Update()
 			//		Input::InputEventAccelerometer(event.acceleration.x, event.acceleration.y, event.acceleration.z);
 			//	}
 			//}
-		}
+		}*/
 
-		if(androidApplication->destroyRequested != 0)
+		if (androidApplication->destroyRequested != 0)
 			return false;
 
-		if (window.context != EGL_NO_CONTEXT)
-			return false;
+		//if (window.context == EGL_NO_CONTEXT)
+			//return false;
 
 		/*if (!contextFunctions.empty() && window.context != EGL_NO_CONTEXT)
 		{
@@ -69,6 +69,7 @@ bool Application::Update()
 			}
 		}*/
 	}
+
 	return true;
 }
 

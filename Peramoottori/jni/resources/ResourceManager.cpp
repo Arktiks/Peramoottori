@@ -77,7 +77,7 @@ void ResourceManager::Initialize(AAssetManager* manager)
 	if (manager != nullptr)  // If manager has already been set write a warning.
 		DEBUG_WARNING(("ResourceManager has already been initialized!"));
 	else
-		DEBUG_INFO(("ResourceManager assigned"));
+		DEBUG_INFO(("ResourceManager assigned!"));
 
 	(this->manager) = manager;
 }
