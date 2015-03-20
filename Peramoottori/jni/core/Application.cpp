@@ -1,6 +1,7 @@
 #include "Application.h"
 #include <core/Input.h>
 #include <core/Log.h>
+#include <core/Passert.h>
 #include <resources/ResourceManager.h>
 #include <android/input.h>
 #include <graphics/SpriteBatch.h>
@@ -10,6 +11,7 @@ using namespace pm;
 
 vector<bool(*)()> Application::updateFunctions;
 vector<void(*)()> Application::drawFunctions;
+vector<bool(*)()> Application::contextFunctions;
 
 Application::Application(android_app* application) : eventSource(nullptr), frameTime(0.0)
 {
@@ -58,6 +60,12 @@ bool Application::Update()
 
 		if(androidApplication->destroyRequested != 0)
 			return false;
+
+		if (!contextFunctions.empty() && window.context != EGL_NO_CONTEXT)
+		{
+			for (const auto& tempFunction : contextFunctions)
+				tempFunction();
+		}
 	}
 	return true;
 }
@@ -66,22 +74,21 @@ void Application::DrawFrame()
 {
 	if(window.display == EGL_NO_DISPLAY || window.context == EGL_NO_CONTEXT)
 	{
-		//DEBUG_INFO(("No EGL_DISPLAY present while DrawFrame() was called."));
+		DEBUG_INFO(("Skipped DrawFrame()."));
 		return;
 	}
 	
-	for (const auto& function : drawFunctions)
-	{
-		function();
-	}
-
-	/*for (vector<void(*)()>::iterator it = drawFunctions.begin(); it != drawFunctions.end(); it++)
-	{
-		//(*drawFunctions[it])();;
-	}*/
+	for (const auto& tempFunction : drawFunctions) // Loop through our added functions.
+		tempFunction();
 
 	SpriteBatch::GetInstance()->Draw();
+
 	eglSwapBuffers(window.display, window.surface);
+}
+
+void Application::ClearScreen()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 WindowHandler& Application::GetWindow()

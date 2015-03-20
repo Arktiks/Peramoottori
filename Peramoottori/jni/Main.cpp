@@ -9,20 +9,13 @@
 #include <graphics\SpriteBatch.h>
 #include <graphics\Sprite.h>
 
-
-
-
-
 using namespace pm;
 
-// vector and shader for spritebatch testing
-std::vector<Sprite*> sprites;
-Shader shader;
-// TEST
-//Temporary spritebatch test initialization function
-void initializeSpriteBatch()
-{
 
+std::vector<Sprite*> sprites; // Vector for spritebatch testing.
+
+void initializeSpriteBatch() // Temporary spritebatch test initialization function.
+{
 	Texture texture("test.png");
 	Sprite* sprite = new Sprite(texture);
 	Sprite* sprite2 = new Sprite(texture);
@@ -44,48 +37,44 @@ void initializeSpriteBatch()
 	pm::SpriteBatch::GetInstance()->addSprite(sprites[0]);
 	pm::SpriteBatch::GetInstance()->addSprite(sprites[1]);
 	pm::SpriteBatch::GetInstance()->addSprite(sprites[2]);
-
-	
 }
+
 
 void android_main(android_app* application)
 {
 	Application app(application);
 	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-	bool init = true;
+
+
 	//SpriteBatch testing
 	//initializeSpriteBatch();
 
-	/// MAIN LOOP ///
+	ResourceManager::GetInstance()->ReadAsset("teksti.txt");
+	ResourceManager::GetInstance()->ReadAsset("fontti.ttf");
+	ResourceManager::GetInstance()->ReadAsset("aani.ogg");
+	ResourceManager::GetInstance()->ReadAsset("test.png");
+
+	DEBUG_INFO(("Tassa on numero %i ja stringi %s.", 2, "STRING"));
+	DEBUG_WARNING(("Tama on vain tekstia"));
+
+	ASSERT(true);
+	ASSERT_EQUAL(true, true);
+	ASSERT_NEQUAL(true, false);
+	ASSERT_MINMAX(2, 4, 5);
+
+	int* a = NEW int(3);
+	float* b = NEW float(2.2f);
+	double* c = NEW double(2.3333);
+	delete b;
+	Memory::WriteLeaks();
+
+
 	while (app.Update())
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		app.ClearScreen();
 
-		if (init)
-		{
-			init = false;
+		/// MAIN LOOP ///
 
-			ResourceManager::GetInstance()->ReadAsset("teksti.txt");
-			ResourceManager::GetInstance()->ReadAsset("fontti.ttf");
-			ResourceManager::GetInstance()->ReadAsset("aani.ogg");
-			ResourceManager::GetInstance()->ReadAsset("test.png");
-
-			DEBUG_INFO(("Tassa on numero %i ja stringi %s.", 2, "STRING"));
-			DEBUG_WARNING(("Tama on vain tekstia"));
-
-			ASSERT(true);
-			ASSERT_EQUAL(true, true);
-			ASSERT_NEQUAL(true, false);
-			ASSERT_MINMAX(2, 4, 5);
-
-			int* a = NEW int(3);
-			float* b = NEW float(2.2f);
-			double* c = NEW double(2.3333);
-			delete b;
-			Memory::WriteLeaks();
-		}
-
-		//LOGI("Frame time: %f", frameTime);
-		app.DrawFrame(); // Swap buffers.
+		app.DrawFrame();
 	}
 }
