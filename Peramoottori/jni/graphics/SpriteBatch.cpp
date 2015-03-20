@@ -12,7 +12,7 @@ SpriteBatch* SpriteBatch::instance = nullptr;
 
 SpriteBatch::SpriteBatch()
 {
-	screenSize = glm::vec2(500, 500); // !!!!! Get real screen resolution!
+	screenSize = glm::vec2(1200, 720); // !!!!! Get real screen resolution!
 	spriteAmount = 0;
 	glGenBuffers(2, &buffer[0]);
 }

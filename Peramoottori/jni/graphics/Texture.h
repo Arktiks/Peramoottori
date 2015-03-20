@@ -16,7 +16,7 @@ namespace pm
 		Texture();
 		GLuint getId();
 		glm::vec2 getTextureSize();
-		glm::vec2 getTexturePosition(){ return glm::vec2(50, 50); }; // atlas position, fix later
+		glm::vec2 getTexturePosition(){ return glm::vec2(0, 0); }; // atlas position, fix later
 		void createTexture(std::string filename);
 		~Texture();
 
