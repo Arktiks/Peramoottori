@@ -18,8 +18,8 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 
 	std::string loadedString = LoadShader(filePath);
 	const char* charArray = loadedString.c_str();
+
 	glShaderSource(tempShader, 1, &charArray, nullptr); // antaa shaderille ladatun shaderfilen
-	
 	glCompileShader(tempShader);
 
 	GLint compiled = 0;
