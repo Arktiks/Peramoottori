@@ -140,6 +140,7 @@
     <ClCompile Include="jni\resources\ImageResource.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
+    <ClCompile Include="Buffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -922,6 +923,7 @@
     <ClInclude Include="jni\core\Vector3.h">
       <Filter>jni\core</Filter>
     </ClInclude>
+    <ClInclude Include="Buffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">

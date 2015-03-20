@@ -44,14 +44,14 @@ bool Application::Update()
 
 		/*if (ident == LOOPER_ID_USER)
 		{
-			if (accelerometerSensor != NULL)
-			{
-				ASensorEvent event;
-				while (ASensorEventQueue_getEvents(sensorEventQueue, &event, 1) > 0)
-				{
-					Input::InputEventAccelerometer(event.acceleration.x, event.acceleration.y, event.acceleration.z);
-				}
-			}
+			//if (accelerometerSensor != NULL)
+			//{
+			//	ASensorEvent event;
+			//	while (ASensorEventQueue_getEvents(sensorEventQueue, &event, 1) > 0)
+			//	{
+			//		Input::InputEventAccelerometer(event.acceleration.x, event.acceleration.y, event.acceleration.z);
+			//	}
+			//}
 		}*/
 
 		if (androidApplication->destroyRequested != 0)
