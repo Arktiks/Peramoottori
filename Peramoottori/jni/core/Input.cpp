@@ -14,19 +14,12 @@ float Input::startOfDragX = 0;
 float Input::startOfDragY = 0;
 glm::vec3 Input::accelerometer = glm::vec3(0, 0, 0);
 
-Input::Input()
-{
-	dragX = 0;
-	dragY = 0;
-}
-Input::~Input()
-{
-}
 
 glm::vec2 Input::GetTouchCoordinates()
 {
 	return glm::vec2(_x, _y);
 }
+
 glm::vec2 Input::GetDragVector()
 {
 	if (touch == true && startOfDrag == false)
@@ -36,10 +29,12 @@ glm::vec2 Input::GetDragVector()
 	}
 	return glm::vec2(_x - lx, _y - ly);
 }
+
 bool Input::IsTouching()
 {
 	return touch;
 }
+
 bool Input::GetSingleTouch()
 {
 	if (touch == true && singleTouch == false)
@@ -61,6 +56,7 @@ void Input::InputEventMovement(float x, float y)
 	_x = x;
 	_y = y;
 }
+
 /// Static functions used in Application.cpp 
 void Input::InputEventKeyDown()
 {
@@ -68,11 +64,13 @@ void Input::InputEventKeyDown()
 	startOfDragX = _x;
 	startOfDragY = _y;
 }
+
 /// Static functions used in Application.cpp 
 void Input::InputEventKeyUp()
 {
 	touch = false;
 }
+
 /// Static function used in Application.cpp
 void Input::Update()
 {
@@ -85,6 +83,7 @@ void Input::Update()
 		startOfDrag = false;
 	}
 }
+
 ///Static function used in Application.cpp to get Accelerometer Data
 void Input::InputEventAccelerometer(float x, float y, float z)
 {

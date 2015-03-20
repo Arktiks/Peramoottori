@@ -24,6 +24,7 @@ SpriteBatch* SpriteBatch::GetInstance()
 	}
 	return instance;
 }
+
 void SpriteBatch::Initialize()
 {
 	defaultShader.AddShader("TestVertexShader.txt", GL_VERTEX_SHADER);
@@ -33,7 +34,7 @@ void SpriteBatch::Initialize()
 	defaultShader.AddVertexAttribPointer("attrColor", 3, 7, 2);
 	defaultShader.AddVertexAttribPointer("textPosition", 2, 7, 5);
 	defaultShader.LinkProgram();
-
+	
 }
 
 void SpriteBatch::DestroyInstance()

@@ -42,7 +42,7 @@ namespace pm
 		void ClearScreen();
 
 		/// Get reference to display manager.
-		WindowHandler& GetWindow();
+		//WindowHandler& GetWindow();
 
 		/// Adds function calls to Update() loop.
 		static void AddUpdateFunction(bool (*Update)());
@@ -51,7 +51,7 @@ namespace pm
 		static void AddDrawFunction(void (*Draw)());
 
 		/// Adds functions call that are only called once after context creation.
-		static void AddContextFunction(bool (*)());
+		static void AddContextFunction(bool (*Context)());
 
 		/// Handles inputs for android application.
 		static int HandleInput(android_app* application, AInputEvent* event);
