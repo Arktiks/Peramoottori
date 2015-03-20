@@ -16,7 +16,8 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 	GLuint tempShader = 0;
 	tempShader = glCreateShader(ShaderType); // määrittää shaderin tyypin
 
-	const char* charArray = LoadShader(filePath);
+	std::string loadedString = LoadShader(filePath);
+	const char* charArray = loadedString.c_str();
 	glShaderSource(tempShader, 1, &charArray, nullptr); // antaa shaderille ladatun shaderfilen
 	
 	glCompileShader(tempShader);
@@ -51,6 +52,13 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 
 	glAttachShader(shaderProgram, tempShader);
 	return true;
+}
+std::string Shader::LoadShader(std::string filePath)
+{
+	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
+	tempString.push_back('\0');
+
+	return tempString;
 }
 
 bool Shader::LinkProgram()
@@ -102,10 +110,3 @@ void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsiz
 	ShaderVertexAttribs.push_back(tempAttrib);
 }
 
-const char* Shader::LoadShader(std::string filePath)
-{
-	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
-	tempString.push_back('\0');
-	const char* charArray = tempString.c_str();
-	return charArray;
-}

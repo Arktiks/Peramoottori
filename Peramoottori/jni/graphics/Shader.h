@@ -26,7 +26,7 @@ public:
 
 private:
 
-	const char* LoadShader(std::string filePath);
+	std::string LoadShader(std::string filePath);
 
 	std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
 	GLuint shaderProgram;
