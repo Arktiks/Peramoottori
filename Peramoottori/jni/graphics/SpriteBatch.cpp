@@ -1,6 +1,6 @@
 #include "SpriteBatch.h"
 #include <algorithm>
-
+#include <core\Passert.h>
 
 using namespace pm;
 
@@ -27,14 +27,13 @@ SpriteBatch* SpriteBatch::GetInstance()
 
 void SpriteBatch::Initialize()
 {
-	defaultShader.AddShader("TestVertexShader.txt", GL_VERTEX_SHADER);
-	defaultShader.AddShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER);
+	ASSERT(defaultShader.AddShader("TestVertexShader.txt", GL_VERTEX_SHADER));
+	ASSERT(defaultShader.AddShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER));
 
 	defaultShader.AddVertexAttribPointer("attrPosition", 2, 7, 0);
 	defaultShader.AddVertexAttribPointer("attrColor", 3, 7, 2);
 	defaultShader.AddVertexAttribPointer("textPosition", 2, 7, 5);
 	defaultShader.LinkProgram();
-	
 }
 
 void SpriteBatch::DestroyInstance()
@@ -55,6 +54,7 @@ void SpriteBatch::Draw()
 	{
 		defaultShader.RunProgram();
 	}
+
 	// Draws textures that are in same layer. TODO: Add texture-sort to sort-function
 	if (sprites.size() != 0)
 	{
@@ -102,6 +102,7 @@ void SpriteBatch::Draw()
 				currentAtlasIndex = sprites[i + 1]->texture.getId();
 			}
 		}
+
 		glBindBuffer(GL_ARRAY_BUFFER, 0u);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);
 	}
@@ -115,11 +116,12 @@ void SpriteBatch::Update()
 		spriteAmount = sprites.size();
 		BindBuffers();
 	}
+
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glBufferSubData(GL_ARRAY_BUFFER, 0u, vertexData.size()*sizeof(GLfloat), &vertexData.front());
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
-
 }
+
 /// SpriteVector depth sort
 /**
 	Sorts sprites according to their draw depth.
@@ -133,6 +135,7 @@ void SpriteBatch::Sort()
 			[](Sprite* a, Sprite* b ){return (a->drawDepht > b->drawDepht); });
 	}
 }
+
 void SpriteBatch::BindBuffers()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
@@ -143,6 +146,7 @@ void SpriteBatch::BindBuffers()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size()*sizeof(GLuint), &indexData.front(), GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);
 }
+
 void SpriteBatch::CreateBufferData()
 {
 	indexData.clear();
@@ -170,7 +174,6 @@ void SpriteBatch::CreateBufferData()
 
 std::vector<GLfloat> SpriteBatch::createGLCoord(std::vector<GLfloat> convertVertices, glm::vec2 textureSize)
 {	
-
 	std::vector<GLfloat> glVertexData;
 
 	glVertexData.clear();
@@ -192,14 +195,6 @@ std::vector<GLfloat> SpriteBatch::createGLCoord(std::vector<GLfloat> convertVert
 	return glVertexData;
 }
 
-glm::vec2 SpriteBatch::TextureToGLCoord(glm::vec2 position, glm::vec2 spriteSize)
-{
-	glm::vec2 tempTexCoord;
-	tempTexCoord.x = position.x / spriteSize.x;
-	tempTexCoord.y = position.y / spriteSize.y;
-	return tempTexCoord;
-
-}
 glm::vec2 SpriteBatch::PositionToGLCoord(glm::vec2 position)
 {
 	glm::vec2 tempPosCoord;
@@ -217,7 +212,15 @@ glm::vec3 SpriteBatch::ColorToGLCoord(glm::vec3 color)
 	return tempColor;
 }
 
-// Todennäköisesti muuttuvat:
-void TempCreateShader()
+glm::vec2 SpriteBatch::TextureToGLCoord(glm::vec2 position, glm::vec2 spriteSize)
 {
+	glm::vec2 tempTexCoord;
+	tempTexCoord.x = position.x / spriteSize.x;
+	tempTexCoord.y = position.y / spriteSize.y;
+	return tempTexCoord;
 }
+
+// Todennäköisesti muuttuvat:
+/*void TempCreateShader()
+{
+}*/

@@ -14,21 +14,25 @@ namespace pm
 	{
 	public:
 		static SpriteBatch* GetInstance();
-		void DestroyInstance();
-		void Draw();
 		void Initialize();
+		void DestroyInstance();
+		
 		void addSprite(Sprite *sprite);
-		virtual ~SpriteBatch(){};
+		void Draw();
+
+		virtual ~SpriteBatch() {};
 	
-	
+
 	private:
+
 		SpriteBatch();
 		static SpriteBatch* instance;
 
 		void Update();
-		void CreateBufferData();
-		void BindBuffers();
 		void Sort();
+		void BindBuffers();
+		void CreateBufferData();
+
 		std::vector<GLfloat> createGLCoord(std::vector<GLfloat> convertVertices, glm::vec2 textureSize);
 		glm::vec2 PositionToGLCoord(glm::vec2 position);
 		glm::vec3 ColorToGLCoord(glm::vec3 color);

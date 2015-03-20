@@ -52,26 +52,28 @@ void android_main(android_app* application)
 	Application app(application);
 	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 
-	//SpriteBatch testing
-	initializeSpriteBatch();
+	
+	//initializeSpriteBatch(); //SpriteBatch testing.
+
 
 	app.AddContextFunction(TestFunction);
+
 
 	//ResourceManager::GetInstance()->ReadAsset("aani.ogg");
 	//ResourceManager::GetInstance()->ReadAsset("test.png");
 
 	/*DEBUG_INFO(("Tassa on numero %i ja stringi %s.", 2, "STRING"));
-	//DEBUG_WARNING(("Tama on vain tekstia"));
+	DEBUG_WARNING(("Tama on vain tekstia"));
 
-	//ASSERT(true);
-	//ASSERT_EQUAL(true, true);
-	//ASSERT_NEQUAL(true, false);
-	//ASSERT_MINMAX(2, 4, 5);
+	ASSERT(true);
+	ASSERT_EQUAL(true, true);
+	ASSERT_NEQUAL(true, false);
+	ASSERT_MINMAX(2, 4, 5);
 
-	//int* a = NEW int(3);
-	//float* b = NEW float(2.2f);
-	//double* c = NEW double(2.3333);
-	//delete b;
+	int* a = NEW int(3);
+	float* b = NEW float(2.2f);
+	double* c = NEW double(2.3333);
+	delete b;
 	Memory::WriteLeaks();*/
 	
 	while (app.Update())

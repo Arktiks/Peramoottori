@@ -1,24 +1,9 @@
 #include "Shader.h"
-#include <GLES2\gl2.h>
-#include <string>
 #include <resources\ResourceManager.h>
 #include <core\Log.h>
 #include <core\Passert.h>
+
 using namespace pm;
-
-
-Shader::Shader(GLuint shader)
-{
-	this->shaderProgram = shader;
-}
-
-const char* Shader::LoadShader(std::string filePath)
-{
-	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
-	tempString.push_back('\0');
-	const char* charArray = tempString.c_str();
-		return charArray;
-}
 
 bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 {
@@ -27,36 +12,43 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 		shaderProgram = glCreateProgram();
 		created = true;
 	}
-	GLuint tempShader;
+
+	GLuint tempShader = 0;
 	tempShader = glCreateShader(ShaderType); // määrittää shaderin tyypin
 
 	const char* charArray = LoadShader(filePath);
-	glShaderSource(tempShader, 1, &charArray, nullptr);// antaa shaderille ladatun shaderfilen
+	glShaderSource(tempShader, 1, &charArray, nullptr); // antaa shaderille ladatun shaderfilen
 	
 	glCompileShader(tempShader);
+
 	GLint compiled = 0;
 	glGetShaderiv(tempShader, GL_COMPILE_STATUS, &compiled);
 	
 	if (!compiled)
 	{
 		GLint length = 0;
-
 		glGetShaderiv(tempShader, GL_INFO_LOG_LENGTH, &length);
+
 		if (length > 0)
 		{
-			GLint infoLength;
+			GLint infoLength = 0;
 			char* infoBuf = (char*) malloc(sizeof(char) * length);
+
 			glGetShaderInfoLog(tempShader, length, &infoLength, infoBuf);
 
 			DEBUG_INFO(("%s", infoBuf));
-			free(infoBuf);
 
+			//free(infoBuf);
+			delete infoBuf;
 		}
+
 		glDeleteShader(tempShader);
-		created = false;
+		//created = false;
 		DEBUG_WARNING(("Shader not created!"));
+
 		return false;
 	}
+
 	glAttachShader(shaderProgram, tempShader);
 	return true;
 }
@@ -64,6 +56,7 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 bool Shader::LinkProgram()
 {
 	GLint linkCheck = GL_FALSE;
+
 	glLinkProgram(shaderProgram);
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
 
@@ -71,6 +64,7 @@ bool Shader::LinkProgram()
 
 	return true;
 }
+
 bool Shader::GetLinkStatus()
 {
 	GLint linkCheck = GL_FALSE;
@@ -98,8 +92,6 @@ GLuint Shader::GetAttribLocation(std::string attributeName)
 	return glGetAttribLocation(shaderProgram, attributeName.c_str());
 }
 
-
-
 void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset)
 {
 	ShaderVertexAttrib tempAttrib;
@@ -108,4 +100,12 @@ void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsiz
 	tempAttrib.size = size;
 	tempAttrib.stride = stride;
 	ShaderVertexAttribs.push_back(tempAttrib);
+}
+
+const char* Shader::LoadShader(std::string filePath)
+{
+	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
+	tempString.push_back('\0');
+	const char* charArray = tempString.c_str();
+	return charArray;
 }

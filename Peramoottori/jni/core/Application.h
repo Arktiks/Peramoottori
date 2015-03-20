@@ -27,7 +27,7 @@ namespace pm
 		void Initialize(android_app* application);
 
 		/// TO-BE-USED-MAYBE - easily add our modules to the initializing list.
-		void InitializeModules(android_app* application);
+		//void InitializeModules(android_app* application);
 
 		/// The core update loop.
 		///	You can construct the main loop of your game using Update(), place it in while(app.Update()).

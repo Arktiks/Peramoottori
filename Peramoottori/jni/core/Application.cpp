@@ -26,13 +26,10 @@ void Application::Initialize(android_app* application)
 	application->userData = static_cast<void*>(this); // Store our Application class to Native Glue.
 	application->onInputEvent = HandleInput; // What function is referred on input calls.
 
-	InitializeModules(application);
-	DEBUG_INFO(("Application has been initialized."));
-}
-
-void Application::InitializeModules(android_app* application)
-{
 	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
+
+	//InitializeModules(application);
+	DEBUG_INFO(("Application has been initialized."));
 }
 
 bool Application::Update()
