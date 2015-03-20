@@ -26,8 +26,8 @@ SpriteBatch* SpriteBatch::GetInstance()
 }
 void SpriteBatch::Initialize()
 {
-	defaultShader.LoadShader("TestVertexShader.txt", GL_VERTEX_SHADER);
-	defaultShader.LoadShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER);
+	defaultShader.AddShader("TestVertexShader.txt", GL_VERTEX_SHADER);
+	defaultShader.AddShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER);
 
 	defaultShader.AddVertexAttribPointer("attrPosition", 2, 7, 0);
 	defaultShader.AddVertexAttribPointer("attrColor", 3, 7, 2);

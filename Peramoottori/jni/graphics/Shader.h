@@ -14,7 +14,8 @@ public:
 	Shader(GLuint shader);
 	~Shader() {};
 
-	bool LoadShader(std::string filePath, GLenum shaderType);
+	bool AddShader(std::string filePath, GLenum shaderType);
+
 	bool LinkProgram();
 	bool GetLinkStatus();
 	void RunProgram();
@@ -26,7 +27,7 @@ private:
 
 	std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
 	GLuint shaderProgram;
-
+	const char* LoadShader(std::string filePath);
 	bool created;
 
 };

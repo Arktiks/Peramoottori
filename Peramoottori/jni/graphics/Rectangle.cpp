@@ -15,9 +15,9 @@ Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, 
 		{
 			vertices.push_back(tempPositionX + tempWidht * i); //1 xpos
 			vertices.push_back(tempPositionY + tempHeight * k); //2 ypos
-			vertices.push_back(0.0f); //3 red
-			vertices.push_back(0.0f); //4 green
-			vertices.push_back(0.0f); //5 blue
+			vertices.push_back(255.0f); //3 red
+			vertices.push_back(255.0f); //4 green
+			vertices.push_back(255.0f); //5 blue
 			vertices.push_back(i); //6 txpos
 			vertices.push_back(k); //7 typos
 		}
@@ -45,9 +45,9 @@ Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
 		{
 			vertices.push_back(tempPosition.x + tempWidthHeight.x *i); //1 xpos
 			vertices.push_back(tempPosition.y + tempWidthHeight.y *k); //2 ypos
-			vertices.push_back(0.0f); //3 red
-			vertices.push_back(0.0f); //4 green
-			vertices.push_back(0.0f); //5 blue
+			vertices.push_back(255.0f); //3 red
+			vertices.push_back(255.0f); //4 green
+			vertices.push_back(255.0f); //5 blue
 			vertices.push_back(i); //6 txpos
 			vertices.push_back(k); //7 typos
 		}

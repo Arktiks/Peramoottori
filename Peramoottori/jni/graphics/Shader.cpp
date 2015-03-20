@@ -12,21 +12,25 @@ Shader::Shader(GLuint shader)
 	this->shaderProgram = shader;
 }
 
-bool Shader::LoadShader(std::string filePath, GLenum ShaderType)
+const char* Shader::LoadShader(std::string filePath)
+{
+	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
+	tempString.push_back('\0');
+	const char* charArray = tempString.c_str();
+		return charArray;
+}
+
+bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 {
 	if (!created)
 	{
 		shaderProgram = glCreateProgram();
 		created = true;
 	}
-
-	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
-	tempString.push_back('\0');
-	const char* charArray = tempString.c_str(); // muuttaa Stringin char*:ksi 
-
 	GLuint tempShader;
 	tempShader = glCreateShader(ShaderType); // m‰‰ritt‰‰ shaderin tyypin
 
+	const char* charArray = LoadShader(filePath);
 	glShaderSource(tempShader, 1, &charArray, nullptr);// antaa shaderille ladatun shaderfilen
 	
 	glCompileShader(tempShader);
