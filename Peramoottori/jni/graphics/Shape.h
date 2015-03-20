@@ -11,14 +11,14 @@ namespace pm
 	class Shape
 	{
 	public:
-		void setPosition(glm::vec2 position)
-		{
-			this->position = position;
-		}
-		void setSize(glm::vec2 size)
-		{
-			this->size = size;
-		}
+		//virtual void setPosition(glm::vec2 position)
+		//{
+		//	this->position = position;
+		//};
+		//virtual void setSize(glm::vec2 size)
+		//{
+		//	this->size = size;
+		//};
 		int drawDepht;
 
 		bool draw; // Think about better name. Spritebatch uses this to determinate if sprite will be added to buffer.

@@ -19,28 +19,30 @@ static bool TestFunction()
 }
 
 
-//std::vector<Sprite*> sprites; // Vector for spritebatch testing.
+std::vector<Sprite*> sprites; // Vector for spritebatch testing.
 
 void initializeSpriteBatch() // Temporary spritebatch test initialization function.
 {
 	Texture texture("test.png");
+	//Texture texture2("test.png");
 	Sprite* sprite = NEW Sprite(texture);
-	sprite->setPosition(glm::vec2(150, 150));
-	sprite->setSize(glm::vec2(100, 100));
+	sprite->setPosition(glm::vec2(500, 500));
 	SpriteBatch::GetInstance()->addSprite(sprite);
 
-	/*Sprite* sprite2 = NEW Sprite(texture);
-	sprite2->setPosition(glm::vec2(50, 50));
-	sprite2->setSize(glm::vec2(100, 50));
-	SpriteBatch::GetInstance()->addSprite(sprite2);
+	//Sprite* sprite2 = NEW Sprite(texture2);
+	//sprite2->setPosition(glm::vec2(-50, -50));
+	//sprite2->setSize(glm::vec2(100, 50));
+	//SpriteBatch::GetInstance()->addSprite(sprite2);
 
-	Sprite* sprite3 = new Sprite(texture);
+	//Sprite* sprite3 = new Sprite(texture);
 	//sprite3->setSize(glm::vec2(200, 100));
-	sprites.push_back(sprite);
-	sprites.push_back(sprite2);
+	//sprites.push_back(sprite);
+	//sprites.push_back(sprite2);
 	//sprites.push_back(sprite3);
 	//pm::SpriteBatch::GetInstance()->addSprite(sprites[1]);
-	pm::SpriteBatch::GetInstance()->addSprite(sprites[2]);*/
+	//pm::SpriteBatch::GetInstance()->addSprite(sprites[0]);
+
+	
 }
 
 

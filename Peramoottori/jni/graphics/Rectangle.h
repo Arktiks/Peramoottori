@@ -11,6 +11,10 @@ namespace pm
 
 		Rectangle(float yPosition, float xPosition, float widht, float height);
 		Rectangle(glm::vec2 position, glm::vec2 size);
+		void setPosition(glm::vec2 position);
+		void setSize(glm::vec2 size);
+
+
 		~Rectangle();
 
 	private:
