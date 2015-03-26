@@ -11,14 +11,14 @@ namespace pm
 
 		Rectangle(float newWidth, float newHeight);
 		Rectangle(glm::vec2 size);
-		void setSize(glm::vec2 size);
 
-
+		void SetOrigin(glm::vec2 newOrigin);
+		void SetOrigin(float x, float y);
 		~Rectangle();
 
 	private:
 
-		float widht, height;
+		float width, height;
 
 	};
 }
