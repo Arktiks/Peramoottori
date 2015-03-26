@@ -19,7 +19,8 @@ namespace pm
 		
 		Resource resource;
 
-		void ReadAsset(std::string fileName);
+		Resource ReadAsset(std::string fileName);
+		//Resource getAsset(std::string fileKey);
 
 
 		/// Static function that returns instance pointer of ResourceManager.
@@ -88,7 +89,6 @@ namespace pm
 
 		std::map < std::string, Resource *>  assets;
 
-		//std::map <std::string, RESOURCE> assets;
 	};
 }
 #endif // !RESOURCEMANAGER_H

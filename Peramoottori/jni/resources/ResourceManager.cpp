@@ -30,6 +30,7 @@ void ResourceManager::ReadAsset(std::string fileName)
 
 		assets.insert(std::make_pair<std::string, Resource*>(resource.GetName(), tempTextData));
 
+		return assets.find(fileName);
 	}
 
 	else if (strcmp(tempFileExtension.c_str(), tempTtf.c_str())==0)
