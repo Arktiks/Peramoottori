@@ -158,6 +158,9 @@
     <ClCompile Include="jni\graphics\ShaderProgram.cpp">
       <Filter>jni\graphics\shaders</Filter>
     </ClCompile>
+    <ClCompile Include="jni\TestClass.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -951,6 +954,9 @@
     </ClInclude>
     <ClInclude Include="jni\scene\Drawable.h">
       <Filter>jni\scene\components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\TestClass.h">
+      <Filter>jni</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

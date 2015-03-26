@@ -17,6 +17,7 @@ namespace pm
 	{
 
 	friend class Game;
+	friend class TestClass;
 
 	public:
 		/// Default Constructor.
@@ -29,6 +30,27 @@ namespace pm
 
 		/// Constructor that initializes everything neccessary.
 		Application(android_app* application);
+		
+		/// Handles inputs for android application.
+		static int HandleInput(android_app* application, AInputEvent* event);
+
+		/// Handles command processing for android application.
+		static void ProcessCommand(android_app* application, int32_t command);
+
+
+	private:
+
+		/// Adds function calls to Update() loop.
+		static void AddUpdateFunction(bool(*Update)());
+
+		/// Adds function calls to DrawFrame() loop.
+		static void AddDrawFunction(void(*Draw)());
+
+		/// Adds functions call that are only called once after context creation.
+		static void AddContextFunction(bool(*Context)());
+
+
+	protected:
 
 		/// Initializes our custom Application.
 		///		\param application : pointer to android_application.
@@ -43,25 +65,8 @@ namespace pm
 		/// TODO
 		void DrawFrame();
 
-		/// Clears the display.
-		void ClearScreen();
-		
-		/// Adds function calls to Update() loop.
-		static void AddUpdateFunction(bool (*Update)());
+		void ClearScreen(); ///< Clears the display.
 
-		/// Adds function calls to DrawFrame() loop.
-		static void AddDrawFunction(void (*Draw)());
-
-		/// Adds functions call that are only called once after context creation.
-		static void AddContextFunction(bool (*Context)());
-
-		/// Handles inputs for android application.
-		static int HandleInput(android_app* application, AInputEvent* event);
-
-		/// Handles command processing for android application.
-		static void ProcessCommand(android_app* application, int32_t command);
-
-	protected:
 		android_poll_source* eventSource; ///< Used by Update().
 		struct android_app* androidApplication; ///< Pointer to android application.
 		WindowHandler window; ///< Handles display of android device.
@@ -72,7 +77,7 @@ namespace pm
 
 		static std::vector<bool (*)()> updateFunctions; ///< Functions that are added into Update() loop.
 		static std::vector<void (*)()> drawFunctions; ///< Functions that are added into DrawFrame() loop.
-		static std::vector<bool(*)()> contextFunctions; ///< Functions that are only called once after 
+		static std::vector<bool(*)()> contextFunctions; ///< Functions that are only called once after context initialize.
 	};
 }
 

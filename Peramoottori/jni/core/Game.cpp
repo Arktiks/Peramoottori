@@ -4,8 +4,9 @@
 #include <core/Passert.h>
 
 using namespace pm;
+using namespace std;
 
-size_t Game::instances = 0;
+std::size_t Game::instances = 0;
 
 Game::Game()
 {
@@ -37,6 +38,9 @@ Vector2<int> Game::GetResolution()
 
 void Game::Clear()
 {
+	if (!IsReady())
+		return;
+
 	Application::ClearScreen();
 }
 
@@ -55,8 +59,14 @@ bool Game::IsReady()
 
 bool Game::Update()
 {
-	if (!IsReady()) // Prematurely end Update if everything is not prepared.
-		return true;
+	if (!contextFunctions.empty() && IsReady())
+	{
+		for (vector<bool(*)()>::iterator it = contextFunctions.begin(); it != contextFunctions.end(); it++)
+		{
+			ASSERT(*it);
+			it = contextFunctions.erase(it);
+		}
+	}
 
 	return Application::Update();
 }
@@ -77,5 +87,5 @@ Game::~Game()
 void Game::AddInstance()
 {
 	instances++;
-	ASSERT_EQUAL(instances, size_t(1)); // Only one instance of Game should ever exist.
+	ASSERT_EQUAL(instances, std::size_t(1)); // Only one instance of Game should ever exist.
 }

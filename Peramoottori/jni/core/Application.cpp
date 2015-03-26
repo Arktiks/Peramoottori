@@ -13,6 +13,7 @@ vector<bool(*)()> Application::updateFunctions;
 vector<void(*)()> Application::drawFunctions;
 vector<bool(*)()> Application::contextFunctions;
 
+
 Application::Application(android_app* application) : eventSource(nullptr)
 {
 	Initialize(application);
@@ -177,10 +178,12 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 				tempApplication->accelerometerSensor, (1000L / 60) * 1000);
 		}
 		break;
+
 	case APP_CMD_LOST_FOCUS:
 		// When our app loses focus, we stop monitoring the accelerometer.
 		// This is to avoid consuming battery while not being used.
-		if (tempApplication->accelerometerSensor != NULL) {
+		if (tempApplication->accelerometerSensor != NULL)
+		{
 			ASensorEventQueue_disableSensor(tempApplication->sensorEventQueue,
 				tempApplication->accelerometerSensor);
 		}

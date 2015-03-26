@@ -205,7 +205,7 @@ void pm::ResourceManager::Initialize(AAssetManager* manager)
 	if (manager != nullptr)  // If manager has already been set write a warning.
 	{
 		DEBUG_WARNING(("ResourceManager has already been initialized!"));
-		ASSERT(false);
+		//ASSERT(false);
 	}
 	else
 		DEBUG_INFO(("ResourceManager assigned!"));
