@@ -3,8 +3,7 @@
 #include <core\Passert.h>
 #include <core\Memory.h>
 
-using namespace pm;
-
+pm::ResourceManager* pm::ResourceManager::instance;
 ResourceManager* ResourceManager::instance = nullptr;
 
 
@@ -18,52 +17,51 @@ ResourceManager* ResourceManager::GetInstance()
 	return instance;
 }
 
-Resource ResourceManager::LoadAsset(std::string fileName)
+pm::Resource pm::ResourceManager::LoadAsset(std::string fileName)
 {
-	std::string tempFileExtension = fileName.substr(fileName.size() - 4);
-
 	assetMap::iterator check = assets.find(fileName);
 
+	// Checking that there isn't a file with the same name as the parameter in the assetMap
 	if (check == assets.end())
 	{
-
+		std::string tempFileExtension = fileName.substr(fileName.size() - 4);
 		std::string tempTxt = ".txt";
 		std::string tempTtf = ".ttf";
 		std::string tempOgg = ".ogg";
 		std::string tempPng = ".png";
 
+		// Comparing the extension of text file and tempTxt
 		if (strcmp(tempFileExtension.c_str(), tempTxt.c_str()) == 0)
 		{
 			DEBUG_INFO(("TXT compare works"));
 
 			std::string textData = ReadText(fileName);
-
 			TextResource* tempTextData = NEW TextResource(textData);
-
 			assets.insert(std::make_pair<std::string, Resource*>(fileName, tempTextData));
 
 			return GetAsset(fileName);
 		}
 
+		// Comparing the extension of font file and tempTtf
 		else if (strcmp(tempFileExtension.c_str(), tempTtf.c_str()) == 0)
 		{
 			DEBUG_INFO(("TTF compare works"));
 			//ReadFont
 		}
 
+		// Comparing the extension of audio file and tempOgg
 		else if (strcmp(tempFileExtension.c_str(), tempOgg.c_str()) == 0)
 		{
 			DEBUG_INFO(("OGG compare works"));
 			//ReadSound
 		}
 
+		// Comparing the extension of image file and tempPng
 		else if (strcmp(tempFileExtension.c_str(), tempPng.c_str()) == 0)
 		{
 			DEBUG_INFO(("PNG compare works"));
+
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
-
-			assets.insert(std::make_pair<std::string, Resource*>(tempImageResource.GetName(), tempImageResource));
-
 			return GetAsset(fileName);
 		}
 
@@ -75,6 +73,8 @@ Resource ResourceManager::LoadAsset(std::string fileName)
 			return new Resource;
 		}
 	}
+
+	// If there is a file with the same name already.
 	else
 	{
 		DEBUG_INFO(("File was already in memory"));
@@ -82,26 +82,9 @@ Resource ResourceManager::LoadAsset(std::string fileName)
 	}
 }
 
-
-/// Private Functions ///
-
-Resource ResourceManager::GetAsset(std::string fileName)
+std::string pm::ResourceManager::ReadText(std::string fileName)
 {
-	assetMap::iterator it = assets.find(fileName);
-	Resource *tempResource = it->second;
-	return *tempResource;
-}
-
-AAsset* ResourceManager::GetAAsset(std::string fileName)
-{
-	// Temporary function for audio streaming.
-	// The AAsset needs to be closed manually.
-	return OpenAsset(fileName);
-}
-
-std::string ResourceManager::ReadText(std::string fileName)
-{
-	AAsset* tempAsset = OpenAsset(fileName);
+	AAsset* tempAsset = OpenAAsset(fileName);
 
 	if (tempAsset)
 	{
@@ -114,21 +97,60 @@ std::string ResourceManager::ReadText(std::string fileName)
 		return std::string(); // Returns empty string if there is an error.
 }
 
-std::vector<unsigned char> ResourceManager::ReadImage(std::string fileName)
+//LOAD FONT FUNCTION HERES()
+//{
+//}
+
+//LOAD AUDIO FUNCTION HERES()
+//TODO FIX THIS TO BE IN THE SAME FORM AS OTHER RESOURCE LOADERS
+AAsset* pm::ResourceManager::GetAAsset(std::string fileName)
 {
-	AAsset* tempAsset = OpenAsset(fileName);
+	// Temporary function for audio streaming.
+	// The AAsset needs to be closed manually.
+	return OpenAAsset(fileName);
+}
+
+std::vector<unsigned char> pm::ResourceManager::ReadImage(std::string fileName)
+{
+	AAsset* tempAsset = OpenAAsset(fileName);
 	std::vector<unsigned char> tempBuffer;
 
 	if (tempAsset)
 	{
-		tempBuffer = ReadUnsignedChar(tempAsset); 
+		tempBuffer = ReadUnsignedChar(tempAsset);
 		return tempBuffer;
 	}
 	else
 		return tempBuffer; // Returns empty Image if there is an error.
 }
 
-AAsset* ResourceManager::OpenAsset(std::string fileName)
+pm::Resource pm::ResourceManager::GetAsset(std::string fileName)
+{
+	assetMap::iterator it = assets.find(fileName);
+	if (it == assets.end())
+	{
+		DEBUG_INFO(("File was already in memory"));
+		return new Resource;
+	}
+	else
+	{
+		Resource *tempResource = it->second;
+		return *tempResource;
+	}
+}
+
+pm::ResourceManager* pm::ResourceManager::GetInstance(AAssetManager* manager)
+{
+	// Temporary function for audio streaming.
+	// The AAsset needs to be closed manually.
+	return OpenAsset(fileName);
+void pm::ResourceManager::Initialize(AAssetManager* manager)
+void pm::ResourceManager::DestroyInstance()
+}
+
+bool pm::ResourceManager::ManagerCheck()
+{
+AAsset* pm::ResourceManager::OpenAAsset(std::string fileName)
 {
 	if (ManagerCheck())
 	{
@@ -157,7 +179,7 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 	return nullptr;
 }
 
-std::vector<char> ResourceManager::ReadChar(AAsset* asset)
+std::vector<char> pm::ResourceManager::ReadChar(AAsset* asset)
 {
 	size_t tempSize = AAsset_getLength(asset);		// Check AAsset length.
 	std::vector<char> tempBuffer;					// Buffer for AAsset content.
@@ -167,7 +189,7 @@ std::vector<char> ResourceManager::ReadChar(AAsset* asset)
 	return tempBuffer;
 }
 
-std::vector<unsigned char> ResourceManager::ReadUnsignedChar(AAsset* asset)
+std::vector<unsigned char> pm::ResourceManager::ReadUnsignedChar(AAsset* asset)
 {
 	size_t tempSize = AAsset_getLength(asset);
 	std::vector<unsigned char> tempBuffer;

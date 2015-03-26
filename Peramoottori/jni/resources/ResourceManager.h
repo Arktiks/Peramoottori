@@ -17,6 +17,13 @@ namespace pm
 	{
 	public:
 
+		/// This is the main resource management function for the user.
+		/// Checks that there won't be duplicate files.
+		/// Determines the type of the file and calls the proper function to decrypt it.
+		/// Every file is converted to a Resource type.
+		/// Pushes Resource to the assetMap with the file name as it's key.
+		///		\param fileName : string name of the file.
+		///		\return Resource from assetMap.
 		/// Static function that returns instance pointer of ResourceManager.
 		/// Only one instance of ResourceManager will exist during runtime.
 		///		\return pointer to only instance of this class.
@@ -54,7 +61,7 @@ namespace pm
 		/// Opens AAsset for further use.
 		///		\param fileName : string name of AAsset.
 		///		\return pointer to AAsset.
-		AAsset* OpenAsset(std::string fileName);
+		AAsset* OpenAAsset(std::string fileName);
 
 		/// Returns content of AAsset as character.
 		///		\param asset : pointer of AAsset.
@@ -76,6 +83,7 @@ namespace pm
 		static ResourceManager* instance; ///< Pointer to only instance of the class.
 		AAssetManager* manager; ///< Pointer to Androids AAssetManager.
 
+		//Typedef to ease coding
 		typedef std::map<std::string, Resource*> assetMap;
 		assetMap assets;
 

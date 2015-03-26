@@ -21,15 +21,26 @@ namespace pm
 		//{
 		//	this->size = size;
 		//};
-		int drawDepht;
+		Shape() : Component(){};
 
-		bool draw; // Think about better name. Spritebatch uses this to determinate if sprite will be added to buffer.
+		int drawDepht;
+		virtual void SetOrigin(glm::vec2 newOrigin)
+		{
+			origin = newOrigin;
+		}
+		virtual void SetOrigin(float x, float y)
+		{
+			origin = { x, y };
+		}
+
 
 	protected:
 
 
 		std::vector<float> vertices;
 		std::vector<unsigned int> indices;
+
+		glm::vec2 origin = { 0.0f, 0.0f };
 		
 		float colorRed, colorGreen, colorBlue;
 
