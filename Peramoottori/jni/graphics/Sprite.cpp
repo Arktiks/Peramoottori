@@ -6,7 +6,7 @@ pm::Sprite::Sprite() : Rectangle(0, 0, 0, 0)
 	draw = true;
 }
 
-Sprite::Sprite(Texture texture) : Rectangle(glm::vec2(0,0), texture.getTextureSize())
+pm::Sprite::Sprite(Texture texture) : Rectangle(glm::vec2(0,0), texture.getTextureSize())
 {
 	this->texture = texture;
 	hasTexture = true;

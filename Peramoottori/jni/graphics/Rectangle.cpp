@@ -56,7 +56,7 @@ pm::Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
 	indices.push_back(1);
 }
 
-void Rectangle::setPosition(glm::vec2 position)
+void pm::Rectangle::setPosition(glm::vec2 position)
 {
 	
 	vertices[0] = position.x;
@@ -73,7 +73,7 @@ void Rectangle::setPosition(glm::vec2 position)
 
 	this->position = position;
 };
-void Rectangle::setSize(glm::vec2 size)
+void pm::Rectangle::setSize(glm::vec2 size)
 {
 	//this->setSize(size);
 }

@@ -46,6 +46,9 @@
     <Filter Include="jni\core\application">
       <UniqueIdentifier>{25627f9b-0efc-4c5b-a8ab-f95c8318e206}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\scene">
+      <UniqueIdentifier>{b0373214-0b77-4a38-b73d-0d27c20187ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -141,6 +144,15 @@
       <Filter>jni\resources</Filter>
     </ClCompile>
     <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="jni\scene\Component.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\GameEntity.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\Transformable.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -924,6 +936,15 @@
       <Filter>jni\core</Filter>
     </ClInclude>
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="jni\scene\Component.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\GameEntity.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Transformable.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">
