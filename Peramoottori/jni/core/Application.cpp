@@ -22,8 +22,13 @@ void Application::Initialize(android_app* application)
 {
 	app_dummy(); // Ensures glue code isn't stripped.
 	(this->androidApplication) = application; // Make note of application pointer.
-	application->onAppCmd = ProcessCommand; // What function is referred on application calls.
+
+	sensorManager = ASensorManager_getInstance();
+	accelerometerSensor = ASensorManager_getDefaultSensor(sensorManager, ASENSOR_TYPE_ACCELEROMETER);
+	sensorEventQueue = ASensorManager_createEventQueue(sensorManager, application->looper, LOOPER_ID_USER, NULL, NULL);
+
 	application->userData = static_cast<void*>(this); // Store our Application class to Native Glue.
+	application->onAppCmd = ProcessCommand; // What function is referred on application calls.
 	application->onInputEvent = HandleInput; // What function is referred on input calls.
 
 	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
@@ -34,24 +39,24 @@ void Application::Initialize(android_app* application)
 bool Application::Update()
 {
 	Input::Update();
-	//int ident;
+	int ident;
 
-	while (ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
+	while (ident = ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
 	{
 		if (eventSource != nullptr)
 			eventSource->process(androidApplication, eventSource);
 
-		/*if (ident == LOOPER_ID_USER)
+	if (ident == LOOPER_ID_USER)
 		{
-			//if (accelerometerSensor != NULL)
-			//{
-			//	ASensorEvent event;
-			//	while (ASensorEventQueue_getEvents(sensorEventQueue, &event, 1) > 0)
-			//	{
-			//		Input::InputEventAccelerometer(event.acceleration.x, event.acceleration.y, event.acceleration.z);
-			//	}
-			//}
-		}*/
+			if (accelerometerSensor != NULL)
+			{
+				ASensorEvent event;
+				while (ASensorEventQueue_getEvents(sensorEventQueue, &event, 1) > 0)
+				{
+					Input::InputEventAccelerometer(event.acceleration.x, event.acceleration.y, event.acceleration.z);
+				}
+			}
+		}
 
 		if (androidApplication->destroyRequested != 0)
 			return false;
@@ -135,7 +140,7 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 {
 	// Get reference to our created Application class.
 	Application* tempApplication = static_cast<Application*>(application->userData);
-
+	
 	switch (command)
 	{
 	case APP_CMD_RESUME:
@@ -161,17 +166,24 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 		break;
 
 	case APP_CMD_GAINED_FOCUS:
-		// When our app gains focus, we start monitoring the accelerometer.
-		//if (tempApplication->accelerometerSensor != NULL)
-		//{
-		//	ASensorEventQueue_enableSensor(tempApplication->sensorEventQueue,
-		//	tempApplication->accelerometerSensor);
-		//	// We'd like to get 60 events per second (in us).
-		//	ASensorEventQueue_setEventRate(tempApplication->sensorEventQueue,
-		//		tempApplication->accelerometerSensor, (1000L / 60) * 1000);
-		//}
-		break;
+		/// When our app gains focus, we start monitoring the accelerometer.
+		if (tempApplication->accelerometerSensor != NULL)
+		{
+			ASensorEventQueue_enableSensor(tempApplication->sensorEventQueue,
+				tempApplication->accelerometerSensor);
 
+			ASensorEventQueue_setEventRate(tempApplication->sensorEventQueue,
+				tempApplication->accelerometerSensor, (1000L / 60) * 1000);
+		}
+		break;
+	case APP_CMD_LOST_FOCUS:
+		// When our app loses focus, we stop monitoring the accelerometer.
+		// This is to avoid consuming battery while not being used.
+		if (tempApplication->accelerometerSensor != NULL) {
+			ASensorEventQueue_disableSensor(tempApplication->sensorEventQueue,
+				tempApplication->accelerometerSensor);
+		}
+		break;
 	default:
 		break;
 	}
