@@ -28,7 +28,6 @@ void Application::Initialize(android_app* application)
 
 	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
 
-	//InitializeModules(application);
 	DEBUG_INFO(("Application has been initialized."));
 }
 
@@ -93,11 +92,6 @@ void Application::ClearScreen()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
-
-/*WindowHandler& Application::GetWindow()
-{
-	return window;
-}*/
 
 void Application::AddUpdateFunction(bool (*Update)())
 {
@@ -182,3 +176,8 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 		break;
 	}
 }
+
+/*WindowHandler& Application::GetWindow()
+{
+return window;
+}*/

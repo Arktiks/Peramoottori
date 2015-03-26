@@ -26,9 +26,6 @@ namespace pm
 		///		\param application : pointer to android_application.
 		void Initialize(android_app* application);
 
-		/// TO-BE-USED-MAYBE - easily add our modules to the initializing list.
-		//void InitializeModules(android_app* application);
-
 		/// The core update loop.
 		///	You can construct the main loop of your game using Update(), place it in while(app.Update()).
 		///		\return true as default. When TerminateDisplay is called returns false.
@@ -40,10 +37,7 @@ namespace pm
 
 		/// Clears the display.
 		void ClearScreen();
-
-		/// Get reference to display manager.
-		//WindowHandler& GetWindow();
-
+		
 		/// Adds function calls to Update() loop.
 		static void AddUpdateFunction(bool (*Update)());
 
@@ -81,3 +75,7 @@ namespace pm
 /// Returns Android AssetManager for use outside of this class.
 ///		\return Returns the AAssetManager*
 AAssetManager* GetAssetManager();*/
+/// TO-BE-USED-MAYBE - easily add our modules to the initializing list.
+//void InitializeModules(android_app* application);
+/// Get reference to display manager.
+//WindowHandler& GetWindow();
