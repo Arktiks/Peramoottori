@@ -1,28 +1,26 @@
 #include "Circle.h"
 
-pm::Circle::Circle(float tempPositionX, float tempPositionY, float tempRadius, int tempSmoothness)
+pm::Circle::Circle(float radius, int iterations) : Shape()
 {
-	radius = tempRadius;
-	draw = true;
+	this->radius = radius;
 
-	vertices.push_back(tempPositionX); //1 xpos
-	vertices.push_back(tempPositionY); //2 ypos
+	vertices.push_back(origin.x); //1 xpos
+	vertices.push_back(origin.y); //2 ypos
 	vertices.push_back(0.0f); //3 red
 	vertices.push_back(0.0f); //4 green
 	vertices.push_back(0.0f); //5 blue
 	vertices.push_back(0.0f); //6 txpos
 	vertices.push_back(0.0f); //7 typos
-
-
-	for (int i = 0; i < tempSmoothness; i++)
+	
+	for (int i = 0; i < iterations; i++)
 	{
-		vertices.push_back(tempPositionX + tempRadius * cos(PI / 2 + i * (PI * 2 / tempSmoothness))); //1 xpos
-		vertices.push_back(tempPositionY + tempRadius * sin(PI / 2 + i * (PI * 2 / tempSmoothness))); //2 ypos
+		vertices.push_back(origin.x + radius * cos(PI / 2 + i * (PI * 2 / iterations))); //1 xpos
+		vertices.push_back(origin.y + radius * sin(PI / 2 + i * (PI * 2 / iterations))); //2 ypos
 		vertices.push_back(0.0f); //3 red
 		vertices.push_back(0.0f); //4 green
 		vertices.push_back(0.0f); //5 blue
-		vertices.push_back(cos(PI / 2 + i * (PI * 2 / tempSmoothness))); //6 txpos
-		vertices.push_back(sin(PI / 2 + i * (PI * 2 / tempSmoothness))); //7 typos
+		vertices.push_back(cos(PI / 2 + i * (PI * 2 / iterations))); //6 txpos
+		vertices.push_back(sin(PI / 2 + i * (PI * 2 / iterations))); //7 typos
 	}
 
 }

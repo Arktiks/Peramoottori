@@ -9,7 +9,7 @@ namespace pm
 	{
 	public:
 
-		Circle(float tempPositionX, float tempPositionY, float tempRadius, int smoothness);
+		Circle(float radius, int iterations);
 		~Circle();
 
 	private:

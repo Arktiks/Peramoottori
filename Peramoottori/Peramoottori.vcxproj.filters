@@ -25,9 +25,6 @@
     <Filter Include="jni\audio">
       <UniqueIdentifier>{a35a28c0-d7ba-4b45-bee4-ff24747a34ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\graphics\Shapes">
-      <UniqueIdentifier>{165bcdb1-6867-4137-bfdd-47483eb79bf3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\graphics\Text">
       <UniqueIdentifier>{49bc82f1-7a32-4a82-b304-acee6312b610}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,12 @@
     </Filter>
     <Filter Include="jni\scene">
       <UniqueIdentifier>{b0373214-0b77-4a38-b73d-0d27c20187ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\components">
+      <UniqueIdentifier>{4538c9cf-38f4-47cc-8408-9ea041aca08a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\components\Shapes">
+      <UniqueIdentifier>{165bcdb1-6867-4137-bfdd-47483eb79bf3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,19 +78,16 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Circle.cpp">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\components\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Font.cpp">
       <Filter>jni\graphics\Text</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Rectangle.cpp">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\components\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Text.cpp">
       <Filter>jni\graphics\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\graphics\Triangle.cpp">
-      <Filter>jni\graphics\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Shader.cpp">
       <Filter>jni\graphics</Filter>
@@ -141,14 +141,14 @@
       <Filter>jni\resources</Filter>
     </ClCompile>
     <ClCompile Include="Buffer.cpp" />
-    <ClCompile Include="jni\scene\Component.cpp">
-      <Filter>jni\scene</Filter>
-    </ClCompile>
     <ClCompile Include="jni\scene\GameEntity.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
-    <ClCompile Include="jni\scene\Transformable.cpp">
+    <ClCompile Include="jni\scene\Component.cpp">
       <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\Transformable.cpp">
+      <Filter>jni\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -849,22 +849,19 @@
       <Filter>libs\glm</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Circle.h">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\components\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Font.h">
       <Filter>jni\graphics\Text</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Rectangle.h">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\components\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Shape.h">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\components\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Text.h">
       <Filter>jni\graphics\Text</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\graphics\Triangle.h">
-      <Filter>jni\graphics\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Shader.h">
       <Filter>jni\graphics</Filter>
@@ -930,14 +927,17 @@
       <Filter>jni\core</Filter>
     </ClInclude>
     <ClInclude Include="Buffer.h" />
-    <ClInclude Include="jni\scene\Component.h">
-      <Filter>jni\scene</Filter>
-    </ClInclude>
     <ClInclude Include="jni\scene\GameEntity.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
-    <ClInclude Include="jni\scene\Transformable.h">
+    <ClInclude Include="jni\scene\Component.h">
       <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Transformable.h">
+      <Filter>jni\components</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>jni\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

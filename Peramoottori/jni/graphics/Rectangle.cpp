@@ -1,17 +1,16 @@
 #include "Rectangle.h"
 
-pm::Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWidht, float tempHeight)
+pm::Rectangle::Rectangle(float width, float height) : Shape()
 {
-	widht = tempWidht;
-	height = tempHeight;
-	draw = true;
+	this->width = width;
+	this->height = height;
 
 	for (int i = 0; i < 2; i++)
 	{
 		for (int k = 0; k < 2; k++)
 		{
-			vertices.push_back(tempPositionX + tempWidht * i); //1 xpos
-			vertices.push_back(tempPositionY + tempHeight * k); //2 ypos
+			vertices.push_back(-origin.x + width * i); //1 xpos
+			vertices.push_back(-origin.y + height * k); //2 ypos
 			vertices.push_back(1.0f); //3 red
 			vertices.push_back(0.0f); //4 green
 			vertices.push_back(1.0f); //5 blue
@@ -28,18 +27,17 @@ pm::Rectangle::Rectangle(float tempPositionX, float tempPositionY, float tempWid
 	indices.push_back(2);
 }
 
-pm::Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
+pm::Rectangle::Rectangle(glm::vec2 size) : Shape()
 {
-	widht = tempWidthHeight.x;
-	height = tempWidthHeight.y;
-	draw = true;
+	width = size.x;
+	height = size.y;
 
 	for (int i = 0; i < 2; i++)
 	{
 		for (int k = 0; k < 2; k++)
 		{
-			vertices.push_back(tempPosition.x + tempWidthHeight.x *i); //1 xpos
-			vertices.push_back(tempPosition.y + tempWidthHeight.y *k); //2 ypos
+			vertices.push_back(-origin.x + width * i); //1 xpos
+			vertices.push_back(-origin.y + height * k); //2 ypos
 			vertices.push_back(1.0f); //3 red
 			vertices.push_back(0.0f); //4 green
 			vertices.push_back(1.0f); //5 blue
@@ -56,27 +54,30 @@ pm::Rectangle::Rectangle(glm::vec2 tempPosition, glm::vec2 tempWidthHeight)
 	indices.push_back(1);
 }
 
-void pm::Rectangle::setPosition(glm::vec2 position)
+void pm::Rectangle::SetOrigin(glm::vec2 newOrigin)
 {
-	
-	vertices[0] = position.x;
-	vertices[1] = position.y;
+	origin = newOrigin;
 
-	vertices[7] = position.x;
-	vertices[8] = position.y + height;
-
-	vertices[14] = position.x + widht;
-	vertices[15] = position.y;
-
-	vertices[21] = position.x + height;
-	vertices[22] = position.y + widht;
-
-	this->position = position;
-};
-void pm::Rectangle::setSize(glm::vec2 size)
-{
-	//this->setSize(size);
+	for (int i = 0; i < 2; i++)
+	{
+		for (int k = 0; k < 2; k++)
+		{
+			vertices.push_back(-origin.x + width * i); //1 xpos
+			vertices.push_back(-origin.y + height * k); //2 ypos
+			vertices.push_back(1.0f); //3 red
+			vertices.push_back(0.0f); //4 green
+			vertices.push_back(1.0f); //5 blue
+			vertices.push_back(i); //6 txpos
+			vertices.push_back(k); //7 typos
+		}
+	}
 }
+
+void pm::Rectangle::SetOrigin(float x, float y)
+{
+	SetOrigin(glm::vec2(x, y));
+}
+
 
 pm::Rectangle::~Rectangle()
 {
