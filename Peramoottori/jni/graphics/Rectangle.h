@@ -9,9 +9,8 @@ namespace pm
 	{
 	public:
 
-		Rectangle(float yPosition, float xPosition, float widht, float height);
-		Rectangle(glm::vec2 position, glm::vec2 size);
-		void setPosition(glm::vec2 position);
+		Rectangle(float newWidth, float newHeight);
+		Rectangle(glm::vec2 size);
 		void setSize(glm::vec2 size);
 
 

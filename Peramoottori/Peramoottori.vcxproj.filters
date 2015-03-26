@@ -92,9 +92,6 @@
     <ClCompile Include="jni\graphics\Shader.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Sprite.cpp">
-      <Filter>jni\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
@@ -870,9 +867,6 @@
       <Filter>jni\graphics\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Shader.h">
-      <Filter>jni\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\graphics\Sprite.h">
       <Filter>jni\graphics</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\SpriteBatch.h">
