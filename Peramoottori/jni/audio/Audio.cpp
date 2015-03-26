@@ -8,7 +8,7 @@ pm::Audio::Audio(std::string fileName)
 	maxPlayerCount = 3;
 	playerCount = 1;
 
-	AAsset* tempAudioAsset = pm::ResourceManager::GetInstance()->GetAsset(fileName);
+	AAsset* tempAudioAsset = pm::ResourceManager::GetInstance()->GetAAsset(fileName);
 	AAsset* tempNull = nullptr;
 	//PMassert::AssertNotEquals(tempAudioAsset, tempNull, "Reading an audio asset failed!");
 	ASSERT(tempAudioAsset);

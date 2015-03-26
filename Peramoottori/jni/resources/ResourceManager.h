@@ -72,7 +72,7 @@ namespace pm
 		/// Opens AAsset for further use.
 		///		\param fileName : string name of AAsset.
 		///		\return pointer to AAsset.
-		AAsset* OpenAsset(std::string fileName);
+		AAsset* OpenAAsset(std::string fileName);
 
 		/// Returns content of AAsset as character.
 		///		\param asset : pointer of AAsset.

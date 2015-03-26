@@ -9,16 +9,10 @@ pm::Resource pm::ResourceManager::LoadAsset(std::string fileName)
 {
 	assetMap::iterator check = assets.find(fileName);
 
-	// Checking that there isn't a file with the same name
-	// as the parameter in the assetMap
+	// Checking that there isn't a file with the same name as the parameter in the assetMap
 	if (check == assets.end())
 	{
-		// Takes the last 4 letters of the file name
 		std::string tempFileExtension = fileName.substr(fileName.size() - 4);
-
-		// Temporal file extension strings for the comparisons
-		// If the file extension matches the temp strings
-		// that type of resource will be added to the assetMap container
 		std::string tempTxt = ".txt";
 		std::string tempTtf = ".ttf";
 		std::string tempOgg = ".ogg";
@@ -77,6 +71,48 @@ pm::Resource pm::ResourceManager::LoadAsset(std::string fileName)
 	}
 }
 
+std::string pm::ResourceManager::ReadText(std::string fileName)
+{
+	AAsset* tempAsset = OpenAAsset(fileName);
+
+	if (tempAsset)
+	{
+		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
+		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
+		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
+		return tempString;
+	}
+	else
+		return std::string(); // Returns empty string if there is an error.
+}
+
+//LOAD FONT FUNCTION HERES()
+//{
+//}
+
+//LOAD AUDIO FUNCTION HERES()
+//TODO FIX THIS TO BE IN THE SAME FORM AS OTHER RESOURCE LOADERS
+AAsset* pm::ResourceManager::GetAAsset(std::string fileName)
+{
+	// Temporary function for audio streaming.
+	// The AAsset needs to be closed manually.
+	return OpenAAsset(fileName);
+}
+
+std::vector<unsigned char> pm::ResourceManager::ReadImage(std::string fileName)
+{
+	AAsset* tempAsset = OpenAAsset(fileName);
+	std::vector<unsigned char> tempBuffer;
+
+	if (tempAsset)
+	{
+		tempBuffer = ReadUnsignedChar(tempAsset);
+		return tempBuffer;
+	}
+	else
+		return tempBuffer; // Returns empty Image if there is an error.
+}
+
 pm::Resource pm::ResourceManager::GetAsset(std::string fileName)
 {
 	assetMap::iterator it = assets.find(fileName);
@@ -122,42 +158,6 @@ void pm::ResourceManager::DestroyInstance()
 	instance = nullptr;
 }
 
-std::string pm::ResourceManager::ReadText(std::string fileName)
-{
-	AAsset* tempAsset = OpenAsset(fileName);
-
-	if (tempAsset)
-	{
-		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
-		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
-		return tempString;
-	}
-	else
-		return std::string(); // Returns empty string if there is an error.
-}
-
-std::vector<unsigned char> pm::ResourceManager::ReadImage(std::string fileName)
-{
-	AAsset* tempAsset = OpenAsset(fileName);
-	std::vector<unsigned char> tempBuffer;
-
-	if (tempAsset)
-	{
-		tempBuffer = ReadUnsignedChar(tempAsset); 
-		return tempBuffer;
-	}
-	else
-		return tempBuffer; // Returns empty Image if there is an error.
-}
-
-AAsset* pm::ResourceManager::GetAAsset(std::string fileName)
-{
-	// Temporary function for audio streaming.
-	// The AAsset needs to be closed manually.
-	return OpenAsset(fileName);
-}
-
 bool pm::ResourceManager::ManagerCheck()
 {
 	if (instance->manager != nullptr) // If manager has been set everything is fine.
@@ -169,7 +169,7 @@ bool pm::ResourceManager::ManagerCheck()
 	}
 }
 
-AAsset* pm::ResourceManager::OpenAsset(std::string fileName)
+AAsset* pm::ResourceManager::OpenAAsset(std::string fileName)
 {
 	if (ManagerCheck())
 	{
