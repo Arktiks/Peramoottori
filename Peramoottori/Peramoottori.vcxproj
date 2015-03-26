@@ -18,7 +18,6 @@
     <AndroidBuild Include="res\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="jni\Application.cpp" />
     <ClCompile Include="jni\audio\Audio.cpp" />
     <ClCompile Include="jni\audio\AudioManager.cpp" />
@@ -63,6 +62,7 @@
     </ClCompile>
     <ClCompile Include="jni\resources\ResourceManager.cpp" />
     <ClCompile Include="jni\scene\Component.cpp" />
+    <ClCompile Include="jni\scene\GameEntity.cpp" />
     <ClCompile Include="jni\scene\Transformable.cpp" />
     <ClCompile Include="jni\system\Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
