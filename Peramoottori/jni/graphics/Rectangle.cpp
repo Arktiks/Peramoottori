@@ -30,7 +30,7 @@ pm::Rectangle::Rectangle(float width, float height) : Shape()
 pm::Rectangle::Rectangle(glm::vec2 size) : Shape()
 {
 	width = size.x;
-	height = tempWidthHeight.y;
+	height = size.y;
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -77,11 +77,7 @@ void pm::Rectangle::SetOrigin(float x, float y)
 {
 	SetOrigin(glm::vec2(x, y));
 }
-};
-void pm::Rectangle::setSize(glm::vec2 size)
-{
-	//this->setSize(size);
-}
+
 
 pm::Rectangle::~Rectangle()
 {
