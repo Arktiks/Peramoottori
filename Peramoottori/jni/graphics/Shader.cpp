@@ -34,6 +34,7 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 		{
 			GLint infoLength = 0;
 			char* infoBuf = (char*) malloc(sizeof(char) * length);
+	//tempString.at(tempString.end()) = '\0';
 
 			glGetShaderInfoLog(tempShader, length, &infoLength, infoBuf);
 

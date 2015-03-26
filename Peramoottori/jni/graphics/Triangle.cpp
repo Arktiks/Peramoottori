@@ -1,12 +1,9 @@
 #include "Triangle.h"
 #include "Triangle.h"
-using namespace pm;
 
-Triangle::Triangle(float tempPositionX, float tempPositionY, float tempRadius)
+pm::Triangle::Triangle(float tempPositionX, float tempPositionY, float tempRadius)
 {
 	radius = tempRadius;
-	position = glm::vec2(tempPositionX, tempPositionY);
-	size = glm::vec2(1, 1);
 	draw = true;
 
 	for (int i = 0; i < 3; i++)
@@ -25,6 +22,6 @@ Triangle::Triangle(float tempPositionX, float tempPositionY, float tempRadius)
 	indices.push_back(2);
 }
 
-Triangle::~Triangle()
+pm::Triangle::~Triangle()
 {
 }

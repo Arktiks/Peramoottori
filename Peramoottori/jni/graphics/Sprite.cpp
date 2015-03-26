@@ -1,7 +1,6 @@
 #include "Sprite.h"
-using namespace pm;
 
-Sprite::Sprite() : Rectangle(0, 0, 0, 0)
+pm::Sprite::Sprite() : Rectangle(0, 0, 0, 0)
 {
 	hasTexture = false;
 	draw = true;
@@ -16,19 +15,19 @@ Sprite::Sprite(Texture texture) : Rectangle(glm::vec2(0,0), texture.getTextureSi
 	setSourceRectSize(texture.getTextureSize());
 }
 
-Sprite::Sprite(Texture texture, float x, float y, float widht, float heigth) : Rectangle(x, y, widht, heigth)
+pm::Sprite::Sprite(Texture texture, float x, float y, float widht, float heigth) : Rectangle(x, y, widht, heigth)
 {
 	this->texture = texture;
 	hasTexture = true;
 	draw = true;
 }
 
-Sprite::~Sprite()
+pm::Sprite::~Sprite()
 {
 
 }
 
-void Sprite::setSourceRectSize(glm::vec2 tempsourceRectSize)
+void pm::Sprite::setSourceRectSize(glm::vec2 tempsourceRectSize)
 {
 	this->sourceRect[2] = tempsourceRectSize[0];
 	this->sourceRect[3] = tempsourceRectSize[1];
@@ -39,7 +38,7 @@ void Sprite::setSourceRectSize(glm::vec2 tempsourceRectSize)
 	vertices[6 + 7 * 4] = (tempsourceRectSize[1] / texture.getTextureSize()[1]);
 }
 
-void Sprite::setSourceRectPosition(glm::vec2 tempsourceRectPosition)
+void pm::Sprite::setSourceRectPosition(glm::vec2 tempsourceRectPosition)
 {
 	this->sourceRect[0] = tempsourceRectPosition[0];
 	this->sourceRect[1] = tempsourceRectPosition[1];
@@ -48,7 +47,7 @@ void Sprite::setSourceRectPosition(glm::vec2 tempsourceRectPosition)
 	vertices[6] = (tempsourceRectPosition[1] / texture.getTextureSize()[1]);
 }
 
-void Sprite::setSourceRect(glm::vec4 tempsourceRect)
+void pm::Sprite::setSourceRect(glm::vec4 tempsourceRect)
 {
 	this->sourceRect = tempsourceRect;
 
@@ -60,17 +59,17 @@ void Sprite::setSourceRect(glm::vec4 tempsourceRect)
 	vertices[6 + 7 * 4] = (tempsourceRect[3] / texture.getTextureSize()[3]);
 }
 
-glm::vec2 Sprite::getSourceRectSize()
+glm::vec2 pm::Sprite::getSourceRectSize()
 {
 	return glm::vec2(sourceRect[2], sourceRect[3]);
 }
 
-glm::vec2 Sprite::getSourceRectPosition()
+glm::vec2 pm::Sprite::getSourceRectPosition()
 {
 	return glm::vec2(sourceRect[0], sourceRect[1]);
 }
 
-glm::vec4 Sprite::getSourceRect()
+glm::vec4 pm::Sprite::getSourceRect()
 {
 	return sourceRect;
 }

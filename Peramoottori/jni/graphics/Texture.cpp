@@ -1,31 +1,31 @@
 #include "Texture.h"
-using namespace pm;
 
-Texture::Texture()
+
+pm::Texture::Texture()
 {	
 }
 
-Texture::Texture(std::string fileName)
+pm::Texture::Texture(std::string fileName)
 {
 	createTexture(fileName);
 }
 
-Texture::~Texture()
+pm::Texture::~Texture()
 {
 }
 
-void Texture::createTexture(std::string fileName) // Nimeämiset
+void pm::Texture::createTexture(std::string fileName) // Nimeämiset
 {
 	pm::Image image = LoadImage(fileName);
 	std::vector<unsigned char> decodedImage = DecodePNG(image);
 	GenerateTexture(decodedImage);
 }
-pm::Image Texture::LoadImage(std::string fileName)
+pm::Image pm::Texture::LoadImage(std::string fileName)
 {
 	pm::Image image = pm::ResourceManager::GetInstance()->ReadImage(fileName);
 	return image;
 }
-std::vector<unsigned char> Texture::DecodePNG(pm::Image image)
+std::vector<unsigned char> pm::Texture::DecodePNG(pm::Image image)
 {
 	std::vector<unsigned char> decodedImage;
 	
@@ -40,7 +40,7 @@ std::vector<unsigned char> Texture::DecodePNG(pm::Image image)
 	
 }
 
-void Texture::GenerateTexture(std::vector<unsigned char> decodedImage)
+void pm::Texture::GenerateTexture(std::vector<unsigned char> decodedImage)
 {
 	glGenTextures(1, &textureIndex);
 	glBindTexture(GL_TEXTURE_2D, textureIndex);
@@ -52,11 +52,11 @@ void Texture::GenerateTexture(std::vector<unsigned char> decodedImage)
 		decodedImage.data());
 }
 
-GLuint Texture::getId()
+GLuint pm::Texture::getId()
 {
 	return textureIndex;
 }
-glm::vec2 Texture::getTextureSize()
+glm::vec2 pm::Texture::getTextureSize()
 {
 	return textureSize;
 }
