@@ -13,7 +13,7 @@ vector<bool(*)()> Application::updateFunctions;
 vector<void(*)()> Application::drawFunctions;
 vector<bool(*)()> Application::contextFunctions;
 
-Application::Application(android_app* application) : eventSource(nullptr), frameTime(0.0)
+Application::Application(android_app* application) : eventSource(nullptr)
 {
 	Initialize(application);
 }
@@ -31,7 +31,7 @@ void Application::Initialize(android_app* application)
 	application->onAppCmd = ProcessCommand; // What function is referred on application calls.
 	application->onInputEvent = HandleInput; // What function is referred on input calls.
 
-	ResourceManager::GetInstance(application->activity->assetManager); // Initialize the ResourceManager with AAssetManager.
+	ResourceManager::GetInstance(application->activity->assetManager); // Initialize ResourceManager with AAssetManager.
 
 	DEBUG_INFO(("Application has been initialized."));
 }
@@ -95,7 +95,8 @@ void Application::DrawFrame()
 
 void Application::ClearScreen()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if(window.HasContext())
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Application::AddUpdateFunction(bool (*Update)())
@@ -184,6 +185,7 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 				tempApplication->accelerometerSensor);
 		}
 		break;
+
 	default:
 		break;
 	}

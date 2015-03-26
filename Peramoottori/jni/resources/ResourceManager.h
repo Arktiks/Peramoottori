@@ -15,26 +15,30 @@ namespace pm
 {
 	class ResourceManager
 	{
-	public:		
-		
-		Resource resource;
-
-		/// Main resource function for the user
-		Resource LoadAsset(std::string fileName);
+	public:
 
 		/// Static function that returns instance pointer of ResourceManager.
 		/// Only one instance of ResourceManager will exist during runtime.
-		///		\param manager : AAssetManager pointer, defaults to nullptr.
 		///		\return pointer to only instance of this class.
-		static ResourceManager* GetInstance(AAssetManager* manager = nullptr);
+		static ResourceManager* GetInstance();
 
-		/// Initializes AAssetManager location for ResourceManager.
-		///		\param manager : AAssetManager pointer.
-		void Initialize(AAssetManager* manager);
+		/// Load and fetch supported files for usage.
+		/// MORE-WRITE
+		Resource LoadAsset(std::string fileName);
 
-		/// Deletes ResourceManager instance.
-		/// Should be called once application is ready to close.
-		void DestroyInstance();
+
+	private:
+
+		///	Finds an asset from the assetMap.
+		///		\param fileName : string.
+		///		\return requested Resource.
+		Resource GetAsset(std::string fileName);
+
+		/// Returns opened AAsset for further use.
+		/// The AAsset needs to be closed manually.
+		///		\parama fileName : string name of AAsset.
+		///		\return pointer to AAsset.
+		AAsset* GetAAsset(std::string fileName);
 
 		/// Returns content of AAsset as std::string.
 		///		\param fileName : string name of AAsset.
@@ -46,22 +50,6 @@ namespace pm
 		///		\param fileName : string name of AAsset.
 		///		\return content of AAsset as unsigned char vector.
 		std::vector<unsigned char> ReadImage(std::string fileName);
-
-		/// Returns opened AAsset for further use.
-		/// The AAsset needs to be closed manually.
-		///		\parama fileName : string name of AAsset.
-		///		\return pointer to AAsset.
-		AAsset* GetAAsset(std::string fileName);
-
-		/// Destructor.
-		virtual ~ResourceManager() {};
-
-
-
-	private:
-		/// Checks if AAssetManager has been set before class use.
-		///		\return bool depending on success.
-		bool ManagerCheck();
 
 		/// Opens AAsset for further use.
 		///		\param fileName : string name of AAsset.
@@ -78,14 +66,12 @@ namespace pm
 		///		\return content of AAsset as vector<unsigned char>.
 		std::vector<unsigned char> ReadUnsignedChar(AAsset* asset);
 
-		///	Finds an asset from the assetMap
-		///		\param fileName
-		///		\return requested resource
-		Resource GetAsset(std::string fileName);
+		/// Checks if AAssetManager has been set before class use.
+		///		\return bool depending on success.
+		bool ManagerCheck();
 
 		/// Constructor as private class.
 		ResourceManager() : manager(nullptr) {};
-
 
 		static ResourceManager* instance; ///< Pointer to only instance of the class.
 		AAssetManager* manager; ///< Pointer to Androids AAssetManager.
@@ -93,6 +79,21 @@ namespace pm
 		typedef std::map<std::string, Resource*> assetMap;
 		assetMap assets;
 
+
+	protected:
+
+		/// Initializes AAssetManager location for ResourceManager.
+		///		\param manager : AAssetManager pointer.
+		void Initialize(AAssetManager* manager);
+
+		/// Deletes ResourceManager instance.
+		/// Should be called once application is ready to close.
+		void DestroyInstance();
+
+		/// Destructor.
+		virtual ~ResourceManager();
+
 	};
 }
+
 #endif // !RESOURCEMANAGER_H

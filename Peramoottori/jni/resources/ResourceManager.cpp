@@ -4,13 +4,23 @@
 #include <core\Memory.h>
 
 using namespace pm;
-ResourceManager* ResourceManager::instance;
 
+ResourceManager* ResourceManager::instance = nullptr;
+
+
+/// User Functions ///
+
+ResourceManager* ResourceManager::GetInstance()
+{
+	if (instance == nullptr) // If instance has not been initialized yet.
+		instance = new ResourceManager;
+
+	return instance;
+}
 
 Resource ResourceManager::LoadAsset(std::string fileName)
 {
 	std::string tempFileExtension = fileName.substr(fileName.size() - 4);
-
 
 	assetMap::iterator check = assets.find(fileName);
 
@@ -52,7 +62,7 @@ Resource ResourceManager::LoadAsset(std::string fileName)
 			DEBUG_INFO(("PNG compare works"));
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
 
-			assets.insert(std::make_pair<std::string, Resource*>(resource.GetName(), tempImageResource));
+			assets.insert(std::make_pair<std::string, Resource*>(tempImageResource.GetName(), tempImageResource));
 
 			return GetAsset(fileName);
 		}
@@ -72,6 +82,9 @@ Resource ResourceManager::LoadAsset(std::string fileName)
 	}
 }
 
+
+/// Private Functions ///
+
 Resource ResourceManager::GetAsset(std::string fileName)
 {
 	assetMap::iterator it = assets.find(fileName);
@@ -79,34 +92,11 @@ Resource ResourceManager::GetAsset(std::string fileName)
 	return *tempResource;
 }
 
-ResourceManager* ResourceManager::GetInstance(AAssetManager* manager)
+AAsset* ResourceManager::GetAAsset(std::string fileName)
 {
-	if (instance == nullptr) // If instance has not been initialized yet.
-	{
-		instance = new ResourceManager;
-		instance->Initialize(manager);
-	}
-	else if (instance != nullptr && instance->manager == nullptr) // If instance has been initialize and manager not.
-	{
-		instance->Initialize(manager);
-	}
-	return instance;
-}
-
-void ResourceManager::Initialize(AAssetManager* manager)
-{
-	if (manager != nullptr)  // If manager has already been set write a warning.
-		DEBUG_WARNING(("ResourceManager has already been initialized!"));
-	else
-		DEBUG_INFO(("ResourceManager assigned!"));
-
-	(this->manager) = manager;
-}
-
-void ResourceManager::DestroyInstance()
-{
-	delete instance;
-	instance = nullptr;
+	// Temporary function for audio streaming.
+	// The AAsset needs to be closed manually.
+	return OpenAsset(fileName);
 }
 
 std::string ResourceManager::ReadText(std::string fileName)
@@ -138,24 +128,6 @@ std::vector<unsigned char> ResourceManager::ReadImage(std::string fileName)
 		return tempBuffer; // Returns empty Image if there is an error.
 }
 
-AAsset* ResourceManager::GetAAsset(std::string fileName)
-{
-	// Temporary function for audio streaming.
-	// The AAsset needs to be closed manually.
-	return OpenAsset(fileName);
-}
-
-bool ResourceManager::ManagerCheck()
-{
-	if (instance->manager != nullptr) // If manager has been set everything is fine.
-		return true;
-	else
-	{
-		DEBUG_WARNING(("Trying to use ResourceManager without initializing!"));
-		return false;
-	}
-}
-
 AAsset* ResourceManager::OpenAsset(std::string fileName)
 {
 	if (ManagerCheck())
@@ -181,6 +153,7 @@ AAsset* ResourceManager::OpenAsset(std::string fileName)
 			return nullptr;
 		}
 	}
+
 	return nullptr;
 }
 
@@ -202,4 +175,42 @@ std::vector<unsigned char> ResourceManager::ReadUnsignedChar(AAsset* asset)
 	AAsset_read(asset, &tempBuffer[0], tempSize);
 	AAsset_close(asset);
 	return tempBuffer;
+}
+
+bool ResourceManager::ManagerCheck()
+{
+	if (instance->manager != nullptr) // If manager has been set everything is fine.
+		return true;
+	else
+	{
+		DEBUG_WARNING(("Trying to use ResourceManager without initializing!"));
+		return false;
+	}
+}
+
+
+/// Engine Functions ///
+
+void ResourceManager::Initialize(AAssetManager* manager)
+{
+	if (manager != nullptr)  // If manager has already been set write a warning.
+	{
+		DEBUG_WARNING(("ResourceManager has already been initialized!"));
+		ASSERT(false);
+	}
+	else
+		DEBUG_INFO(("ResourceManager assigned!"));
+
+	(this->manager) = manager;
+}
+
+void ResourceManager::DestroyInstance()
+{
+	delete instance;
+	instance = nullptr;
+}
+
+ResourceManager::~ResourceManager()
+{
+	// CLEAN UP ASSETS
 }

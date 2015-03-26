@@ -15,9 +15,17 @@ namespace pm
 
 	class Application
 	{
+
+	friend class Game;
+
 	public:
 		/// Default Constructor.
-		Application() : eventSource(nullptr), androidApplication(nullptr), frameTime(0.0) {};
+		Application() :
+			eventSource(nullptr),
+			androidApplication(nullptr),
+			sensorManager(nullptr),
+			sensorEventQueue(nullptr),
+			accelerometerSensor(nullptr) {};
 
 		/// Constructor that initializes everything neccessary.
 		Application(android_app* application);
@@ -53,10 +61,9 @@ namespace pm
 		/// Handles command processing for android application.
 		static void ProcessCommand(android_app* application, int32_t command);
 
-	private:
+	protected:
 		android_poll_source* eventSource; ///< Used by Update().
 		struct android_app* androidApplication; ///< Pointer to android application.
-		double frameTime; ///< Track deltaTime.
 		WindowHandler window; ///< Handles display of android device.
 
 		ASensorManager* sensorManager; ///< Singleton that manages sensors.
@@ -74,8 +81,10 @@ namespace pm
 /*
 /// Returns Android AssetManager for use outside of this class.
 ///		\return Returns the AAssetManager*
-AAssetManager* GetAssetManager();*/
+AAssetManager* GetAssetManager();
 /// TO-BE-USED-MAYBE - easily add our modules to the initializing list.
 //void InitializeModules(android_app* application);
 /// Get reference to display manager.
 //WindowHandler& GetWindow();
+//double frameTime; ///< Track deltaTime.
+*/

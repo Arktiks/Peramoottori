@@ -25,12 +25,6 @@
     <Filter Include="jni\audio">
       <UniqueIdentifier>{a35a28c0-d7ba-4b45-bee4-ff24747a34ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\graphics\Shapes">
-      <UniqueIdentifier>{165bcdb1-6867-4137-bfdd-47483eb79bf3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="jni\graphics\Text">
-      <UniqueIdentifier>{49bc82f1-7a32-4a82-b304-acee6312b610}</UniqueIdentifier>
-    </Filter>
     <Filter Include="libs\freetype">
       <UniqueIdentifier>{44db8199-73e5-4b98-8cfa-ecb57bcc8b96}</UniqueIdentifier>
     </Filter>
@@ -48,6 +42,12 @@
     </Filter>
     <Filter Include="jni\scene">
       <UniqueIdentifier>{b0373214-0b77-4a38-b73d-0d27c20187ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\graphics\shapes">
+      <UniqueIdentifier>{165bcdb1-6867-4137-bfdd-47483eb79bf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\graphics\text">
+      <UniqueIdentifier>{49bc82f1-7a32-4a82-b304-acee6312b610}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,19 +75,19 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Circle.cpp">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\graphics\shapes</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Font.cpp">
-      <Filter>jni\graphics\Text</Filter>
+      <Filter>jni\graphics\text</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Rectangle.cpp">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\graphics\shapes</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Text.cpp">
-      <Filter>jni\graphics\Text</Filter>
+      <Filter>jni\graphics\text</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Triangle.cpp">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\graphics\shapes</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Shader.cpp">
       <Filter>jni\graphics</Filter>
@@ -149,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="jni\scene\Transformable.cpp">
       <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\Game.cpp">
+      <Filter>jni\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -849,22 +852,22 @@
       <Filter>libs\glm</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Circle.h">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\graphics\shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Font.h">
-      <Filter>jni\graphics\Text</Filter>
+      <Filter>jni\graphics\text</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Rectangle.h">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\graphics\shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Shape.h">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\graphics\shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Text.h">
-      <Filter>jni\graphics\Text</Filter>
+      <Filter>jni\graphics\text</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Triangle.h">
-      <Filter>jni\graphics\Shapes</Filter>
+      <Filter>jni\graphics\shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Shader.h">
       <Filter>jni\graphics</Filter>
@@ -908,9 +911,6 @@
     <ClInclude Include="jni\core\Passert.h">
       <Filter>jni\core\debug-tools</Filter>
     </ClInclude>
-    <ClInclude Include="jni\core\Application.h">
-      <Filter>jni\core\application</Filter>
-    </ClInclude>
     <ClInclude Include="jni\core\WindowHandler.h">
       <Filter>jni\core\application</Filter>
     </ClInclude>
@@ -938,6 +938,12 @@
     </ClInclude>
     <ClInclude Include="jni\scene\Transformable.h">
       <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Game.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Application.h">
+      <Filter>jni\core\application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

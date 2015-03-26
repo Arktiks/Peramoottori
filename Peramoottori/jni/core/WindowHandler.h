@@ -3,7 +3,7 @@
 
 #include <EGL/egl.h>
 #include <android_native_app_glue.h>
-//#include <core\Application.h>
+#include <core/Vector2.h>
 
 namespace pm
 {
@@ -13,6 +13,7 @@ namespace pm
 	{
 
 	friend class Application; // Application can use this class freely.
+	friend class Game;
 
 	public:
 		WindowHandler() :
@@ -23,6 +24,11 @@ namespace pm
 			height(0) {};
 
 	private:
+
+		bool HasContext();
+
+		Vector2<int> GetResolution();
+
 		/// Called when APP_CMD_INIT_WINDOW is received by ProcessCommand.
 		/// Initializes EGL surface, display and context.
 		void LoadDisplay(android_app* application);

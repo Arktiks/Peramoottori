@@ -6,6 +6,25 @@
 
 using namespace pm;
 
+bool WindowHandler::HasContext()
+{
+	if (context != EGL_NO_CONTEXT)
+		return true;
+	else
+		return false;
+}
+
+Vector2<int> WindowHandler::GetResolution()
+{
+	if (HasContext())
+		return Vector2<int>(width, height);
+	else
+	{
+		return Vector2<int>(0, 0);
+		DEBUG_WARNING(("GetResolution() without context!"));
+	}
+}
+
 void WindowHandler::LoadDisplay(android_app* application)
 {
 	DEBUG_INFO(("WindowHandler::LoadDisplay() beginning."));
@@ -41,7 +60,8 @@ void WindowHandler::LoadDisplay(android_app* application)
 	EGLContext context = eglCreateContext(display, config, nullptr, attribList);
 
 	// Crash the program if we can't bind context to rendering thread.
-	ASSERT_NEQUAL(eglMakeCurrent(display, surface, surface, context), EGL_FALSE);
+	EGLBoolean check = eglMakeCurrent(display, surface, surface, context);
+	ASSERT_NEQUAL(check, EGL_FALSE);
 
 	eglQuerySurface(display, surface, EGL_WIDTH, &width);
 	eglQuerySurface(display, surface, EGL_HEIGHT, &height);

@@ -9,6 +9,7 @@
 #include <graphics\SpriteBatch.h>
 #include <graphics\Sprite.h>
 
+
 using namespace pm;
 
 
@@ -41,8 +42,6 @@ void initializeSpriteBatch() // Temporary spritebatch test initialization functi
 	//sprites.push_back(sprite3);
 	//pm::SpriteBatch::GetInstance()->addSprite(sprites[1]);
 	//pm::SpriteBatch::GetInstance()->addSprite(sprites[0]);
-
-	
 }
 
 

@@ -10,7 +10,7 @@ namespace pm
 	{
 		friend std::ostream operator<<(std::ostream& os, const Vector2<T>& v)
 		{
-			os << v.x << " , " << v.y, ;
+			os << v.x << " , " << v.y ;
 			return os;
 		}
 
