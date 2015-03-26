@@ -24,11 +24,11 @@ std::vector<Sprite*> sprites; // Vector for spritebatch testing.
 
 void initializeSpriteBatch() // Temporary spritebatch test initialization function.
 {
-	Texture texture("test.png");
+	/*Texture texture("test.png");
 	//Texture texture2("test.png");
 	Sprite* sprite = NEW Sprite(texture);
 	sprite->setPosition(glm::vec2(500, 500));
-	SpriteBatch::GetInstance()->addSprite(sprite);
+	SpriteBatch::GetInstance()->addSprite(sprite);*/
 
 	//Sprite* sprite2 = NEW Sprite(texture2);
 	//sprite2->setPosition(glm::vec2(-50, -50));

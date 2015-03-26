@@ -5,6 +5,11 @@ class ShaderProgram
 public:
 	ShaderProgram();
 
+	/**
+	*ShaderProgram 
+	*
+	*
+	*/
 	ShaderProgram(Shader vertexShader, Shader fragmentShader);
 
 	~ShaderProgram();

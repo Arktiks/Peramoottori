@@ -31,7 +31,7 @@ void Application::Initialize(android_app* application)
 	application->onAppCmd = ProcessCommand; // What function is referred on application calls.
 	application->onInputEvent = HandleInput; // What function is referred on input calls.
 
-	ResourceManager::GetInstance(application->activity->assetManager); // Initialize ResourceManager with AAssetManager.
+	ResourceManager::GetInstance()->Initialize(application->activity->assetManager); // Initialize ResourceManager with AAssetManager.
 
 	DEBUG_INFO(("Application has been initialized."));
 }
@@ -88,7 +88,7 @@ void Application::DrawFrame()
 	for (const auto& tempFunction : drawFunctions) // Loop through our added functions.
 		tempFunction();
 
-	SpriteBatch::GetInstance()->Draw();
+	//SpriteBatch::GetInstance()->Draw();
 
 	eglSwapBuffers(window.display, window.surface);
 }
@@ -157,7 +157,7 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 		if (application->window != nullptr) // The window is being shown, get it ready.
 		{
 			tempApplication->window.LoadDisplay(application);
-			SpriteBatch::GetInstance()->Initialize();
+			//SpriteBatch::GetInstance()->Initialize();
 		}
 		break;
 

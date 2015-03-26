@@ -25,9 +25,6 @@
     <Filter Include="jni\audio">
       <UniqueIdentifier>{a35a28c0-d7ba-4b45-bee4-ff24747a34ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\graphics\Text">
-      <UniqueIdentifier>{49bc82f1-7a32-4a82-b304-acee6312b610}</UniqueIdentifier>
-    </Filter>
     <Filter Include="libs\freetype">
       <UniqueIdentifier>{44db8199-73e5-4b98-8cfa-ecb57bcc8b96}</UniqueIdentifier>
     </Filter>
@@ -46,10 +43,16 @@
     <Filter Include="jni\scene">
       <UniqueIdentifier>{b0373214-0b77-4a38-b73d-0d27c20187ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\components">
+    <Filter Include="jni\graphics\text">
+      <UniqueIdentifier>{49bc82f1-7a32-4a82-b304-acee6312b610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\graphics\shaders">
+      <UniqueIdentifier>{3ed54ec8-099e-41c9-bbdb-1d48c3a92798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\scene\components">
       <UniqueIdentifier>{4538c9cf-38f4-47cc-8408-9ea041aca08a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\components\Shapes">
+    <Filter Include="jni\scene\components\shapes">
       <UniqueIdentifier>{165bcdb1-6867-4137-bfdd-47483eb79bf3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -78,19 +81,16 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Circle.cpp">
-      <Filter>jni\components\Shapes</Filter>
+      <Filter>jni\scene\components\shapes</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Font.cpp">
-      <Filter>jni\graphics\Text</Filter>
+      <Filter>jni\graphics\text</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Rectangle.cpp">
-      <Filter>jni\components\Shapes</Filter>
+      <Filter>jni\scene\components\shapes</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Text.cpp">
-      <Filter>jni\graphics\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\graphics\Shader.cpp">
-      <Filter>jni\graphics</Filter>
+      <Filter>jni\graphics\text</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
       <Filter>jni\graphics</Filter>
@@ -140,7 +140,6 @@
     <ClCompile Include="jni\resources\ImageResource.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
-    <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="jni\scene\GameEntity.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
@@ -148,7 +147,16 @@
       <Filter>jni\scene</Filter>
     </ClCompile>
     <ClCompile Include="jni\scene\Transformable.cpp">
-      <Filter>jni\components</Filter>
+      <Filter>jni\scene\components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\Game.cpp">
+      <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Shader.cpp">
+      <Filter>jni\graphics\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\ShaderProgram.cpp">
+      <Filter>jni\graphics\shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -849,22 +857,19 @@
       <Filter>libs\glm</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Circle.h">
-      <Filter>jni\components\Shapes</Filter>
+      <Filter>jni\scene\components\shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Font.h">
-      <Filter>jni\graphics\Text</Filter>
+      <Filter>jni\graphics\text</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Rectangle.h">
-      <Filter>jni\components\Shapes</Filter>
+      <Filter>jni\scene\components\shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Shape.h">
-      <Filter>jni\components\Shapes</Filter>
+      <Filter>jni\scene\components\shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Text.h">
-      <Filter>jni\graphics\Text</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\graphics\Shader.h">
-      <Filter>jni\graphics</Filter>
+      <Filter>jni\graphics\text</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\SpriteBatch.h">
       <Filter>jni\graphics</Filter>
@@ -926,7 +931,6 @@
     <ClInclude Include="jni\core\Vector3.h">
       <Filter>jni\core</Filter>
     </ClInclude>
-    <ClInclude Include="Buffer.h" />
     <ClInclude Include="jni\scene\GameEntity.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
@@ -934,10 +938,19 @@
       <Filter>jni\scene</Filter>
     </ClInclude>
     <ClInclude Include="jni\scene\Transformable.h">
-      <Filter>jni\components</Filter>
+      <Filter>jni\scene\components</Filter>
     </ClInclude>
-    <ClInclude Include="Drawable.h">
-      <Filter>jni\components</Filter>
+    <ClInclude Include="jni\core\Game.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Shader.h">
+      <Filter>jni\graphics\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\ShaderProgram.h">
+      <Filter>jni\graphics\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Drawable.h">
+      <Filter>jni\scene\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

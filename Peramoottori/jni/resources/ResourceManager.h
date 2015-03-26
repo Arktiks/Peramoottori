@@ -6,8 +6,6 @@
 #include <resources\TextResource.h>
 #include <resources\ImageResource.h>
 #include <string>
-#include <cstring>
-#include <vector>
 #include <map>
 #include <iostream>
 
@@ -15,36 +13,28 @@ namespace pm
 {
 	class ResourceManager
 	{
+
+		friend class Application;
+		friend class Game;
+
 	public:
 
-		/// This is the main resource management function for the user.
-		/// Checks that there won't be duplicate files.
-		/// Determines the type of the file and calls the proper function to decrypt it.
-		/// Every file is converted to a Resource type.
-		/// Pushes Resource to the assetMap with the file name as it's key.
-		///		\param fileName : string name of the file.
-		///		\return Resource from assetMap.
 		/// Static function that returns instance pointer of ResourceManager.
 		/// Only one instance of ResourceManager will exist during runtime.
 		///		\return pointer to only instance of this class.
 		static ResourceManager* GetInstance();
 
-		/// Load and fetch supported files for usage.
-		/// MORE-WRITE
-		Resource LoadAsset(std::string fileName);
+		/// Main resource management function for user.
+		/// Checks that there won't be duplicate files.
+		/// Determines type of file and calls proper function to decrypt it.
+		/// Every file is converted to Resource type.
+		///		\param fileName : string name of the file.
+		///		\return created or loaded Resource.
+		Resource* LoadAsset(std::string fileName);
 
+		
+		/// Change to Private ///
 
-	private:
-
-		///	Finds an asset from the assetMap.
-		///		\param fileName : string.
-		///		\return requested Resource.
-		Resource GetAsset(std::string fileName);
-
-		/// Returns opened AAsset for further use.
-		/// The AAsset needs to be closed manually.
-		///		\parama fileName : string name of AAsset.
-		///		\return pointer to AAsset.
 		AAsset* GetAAsset(std::string fileName);
 
 		/// Returns content of AAsset as std::string.
@@ -57,6 +47,16 @@ namespace pm
 		///		\param fileName : string name of AAsset.
 		///		\return content of AAsset as unsigned char vector.
 		std::vector<unsigned char> ReadImage(std::string fileName);
+
+		/////////////////////////
+
+
+	private:
+
+		///	Finds an asset from the assetMap.
+		///		\param fileName : string.
+		///		\return requested Resource.
+		Resource* GetAsset(std::string fileName);
 
 		/// Opens AAsset for further use.
 		///		\param fileName : string name of AAsset.
@@ -88,7 +88,7 @@ namespace pm
 		assetMap assets;
 
 
-	protected:
+	protected: // These are handled in Application calls.
 
 		/// Initializes AAssetManager location for ResourceManager.
 		///		\param manager : AAssetManager pointer.

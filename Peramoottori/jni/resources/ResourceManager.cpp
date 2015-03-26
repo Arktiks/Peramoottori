@@ -3,84 +3,83 @@
 #include <core\Passert.h>
 #include <core\Memory.h>
 
-pm::ResourceManager* pm::ResourceManager::instance;
-ResourceManager* ResourceManager::instance = nullptr;
+pm::ResourceManager* pm::ResourceManager::instance = nullptr;
 
+const std::string TXT = ".txt";
+const std::string TTF = ".ttf";
+const std::string OGG = ".ogg";
+const std::string PNG = ".png";
 
 /// User Functions ///
 
-ResourceManager* ResourceManager::GetInstance()
+pm::ResourceManager* pm::ResourceManager::GetInstance()
 {
 	if (instance == nullptr) // If instance has not been initialized yet.
 		instance = new ResourceManager;
-
 	return instance;
 }
 
-pm::Resource pm::ResourceManager::LoadAsset(std::string fileName)
+pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 {
-	assetMap::iterator check = assets.find(fileName);
+	assetMap::iterator check = assets.find(fileName); // Iterate through loaded Resources.
 
-	// Checking that there isn't a file with the same name as the parameter in the assetMap
-	if (check == assets.end())
+	if (check == assets.end()) // Checking that there isn't a file with the same name as the parameter in assetMap.
 	{
-		std::string tempFileExtension = fileName.substr(fileName.size() - 4);
-		std::string tempTxt = ".txt";
-		std::string tempTtf = ".ttf";
-		std::string tempOgg = ".ogg";
-		std::string tempPng = ".png";
+		std::string tempFileExtension = fileName.substr(fileName.size() - 4); // Extension of file.
 
-		// Comparing the extension of text file and tempTxt
-		if (strcmp(tempFileExtension.c_str(), tempTxt.c_str()) == 0)
+		if (tempFileExtension.compare(TXT) == 0) // TXT FILE
 		{
-			DEBUG_INFO(("TXT compare works"));
+			DEBUG_INFO(("Loading TXT file."));
 
 			std::string textData = ReadText(fileName);
 			TextResource* tempTextData = NEW TextResource(textData);
-			assets.insert(std::make_pair<std::string, Resource*>(fileName, tempTextData));
+			assets.insert(std::pair<std::string, Resource*>(fileName, tempTextData));
 
-			return GetAsset(fileName);
+			return tempTextData; // Return created resource instantly.
+			//return GetAsset(fileName);
 		}
 
-		// Comparing the extension of font file and tempTtf
-		else if (strcmp(tempFileExtension.c_str(), tempTtf.c_str()) == 0)
+		else if (tempFileExtension.compare(TTF) == 0) // TTF FILE
 		{
-			DEBUG_INFO(("TTF compare works"));
-			//ReadFont
+			DEBUG_INFO(("Loading TTF file."));
+			//ReadFont()
 		}
 
-		// Comparing the extension of audio file and tempOgg
-		else if (strcmp(tempFileExtension.c_str(), tempOgg.c_str()) == 0)
+		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE
 		{
-			DEBUG_INFO(("OGG compare works"));
-			//ReadSound
+			DEBUG_INFO(("Loading OGG file."));
+			//ReadSound()
 		}
 
-		// Comparing the extension of image file and tempPng
-		else if (strcmp(tempFileExtension.c_str(), tempPng.c_str()) == 0)
+		else if (tempFileExtension.compare(PNG) == 0) // PNG FILE
 		{
-			DEBUG_INFO(("PNG compare works"));
+			DEBUG_INFO(("Loading PNG file."));
 
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
-			return GetAsset(fileName);
+
+			return tempImageResource;
+			//return GetAsset(fileName);
 		}
 
 		else
 		{
-			DEBUG_WARNING(("File type not recognized"));
+			DEBUG_WARNING(("Filetype not recognized."));
 
 			//TODO: FIX THIS ie find a proper return stuff
-			return new Resource;
+			//return new Resource;
+			return nullptr;
 		}
 	}
 
-	// If there is a file with the same name already.
-	else
+	else // If there is a file with the same name already.
 	{
-		DEBUG_INFO(("File was already in memory"));
+		DEBUG_INFO(("File was already in memory."));
 		return GetAsset(fileName);
 	}
 }
+
+
+/// Private Functions ///
 
 std::string pm::ResourceManager::ReadText(std::string fileName)
 {
@@ -97,12 +96,11 @@ std::string pm::ResourceManager::ReadText(std::string fileName)
 		return std::string(); // Returns empty string if there is an error.
 }
 
-//LOAD FONT FUNCTION HERES()
-//{
-//}
+/// LOAD FONT FUNCTION HERES()
 
-//LOAD AUDIO FUNCTION HERES()
-//TODO FIX THIS TO BE IN THE SAME FORM AS OTHER RESOURCE LOADERS
+/// LOAD AUDIO FUNCTION HERES()
+
+/// FIX THIS TO BE IN THE SAME FORM AS OTHER RESOURCE LOADERS
 AAsset* pm::ResourceManager::GetAAsset(std::string fileName)
 {
 	// Temporary function for audio streaming.
@@ -124,32 +122,21 @@ std::vector<unsigned char> pm::ResourceManager::ReadImage(std::string fileName)
 		return tempBuffer; // Returns empty Image if there is an error.
 }
 
-pm::Resource pm::ResourceManager::GetAsset(std::string fileName)
+pm::Resource* pm::ResourceManager::GetAsset(std::string fileName)
 {
-	assetMap::iterator it = assets.find(fileName);
-	if (it == assets.end())
+	assetMap::iterator it = assets.find(fileName); // Iterate through loaded Resources.
+
+	if (it == assets.end()) // Couldn't find Resource.
 	{
-		DEBUG_INFO(("File was already in memory"));
-		return new Resource;
+		DEBUG_WARNING(("Couldn't find Resource %s!", fileName.c_str()));
+		return nullptr;
+		//DEBUG_INFO(("File was already in memory"));
+		//return new Resource;
 	}
 	else
-	{
-		Resource *tempResource = it->second;
-		return *tempResource;
-	}
+		return it->second; // Found a match.
 }
 
-pm::ResourceManager* pm::ResourceManager::GetInstance(AAssetManager* manager)
-{
-	// Temporary function for audio streaming.
-	// The AAsset needs to be closed manually.
-	return OpenAsset(fileName);
-void pm::ResourceManager::Initialize(AAssetManager* manager)
-void pm::ResourceManager::DestroyInstance()
-}
-
-bool pm::ResourceManager::ManagerCheck()
-{
 AAsset* pm::ResourceManager::OpenAAsset(std::string fileName)
 {
 	if (ManagerCheck())
@@ -199,7 +186,7 @@ std::vector<unsigned char> pm::ResourceManager::ReadUnsignedChar(AAsset* asset)
 	return tempBuffer;
 }
 
-bool ResourceManager::ManagerCheck()
+bool pm::ResourceManager::ManagerCheck()
 {
 	if (instance->manager != nullptr) // If manager has been set everything is fine.
 		return true;
@@ -213,7 +200,7 @@ bool ResourceManager::ManagerCheck()
 
 /// Engine Functions ///
 
-void ResourceManager::Initialize(AAssetManager* manager)
+void pm::ResourceManager::Initialize(AAssetManager* manager)
 {
 	if (manager != nullptr)  // If manager has already been set write a warning.
 	{
@@ -226,13 +213,13 @@ void ResourceManager::Initialize(AAssetManager* manager)
 	(this->manager) = manager;
 }
 
-void ResourceManager::DestroyInstance()
+void pm::ResourceManager::DestroyInstance()
 {
 	delete instance;
 	instance = nullptr;
 }
 
-ResourceManager::~ResourceManager()
+pm::ResourceManager::~ResourceManager()
 {
 	// CLEAN UP ASSETS
 }
