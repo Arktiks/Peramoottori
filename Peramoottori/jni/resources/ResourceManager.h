@@ -19,9 +19,8 @@ namespace pm
 		
 		Resource resource;
 
-		Resource ReadAsset(std::string fileName);
-		//Resource getAsset(std::string fileKey);
-
+		/// Main resource function for the user
+		Resource LoadAsset(std::string fileName);
 
 		/// Static function that returns instance pointer of ResourceManager.
 		/// Only one instance of ResourceManager will exist during runtime.
@@ -52,7 +51,7 @@ namespace pm
 		/// The AAsset needs to be closed manually.
 		///		\parama fileName : string name of AAsset.
 		///		\return pointer to AAsset.
-		AAsset* GetAsset(std::string fileName);
+		AAsset* GetAAsset(std::string fileName);
 
 		/// Destructor.
 		virtual ~ResourceManager() {};
@@ -79,6 +78,11 @@ namespace pm
 		///		\return content of AAsset as vector<unsigned char>.
 		std::vector<unsigned char> ReadUnsignedChar(AAsset* asset);
 
+		///	Finds an asset from the assetMap
+		///		\param fileName
+		///		\return requested resource
+		Resource GetAsset(std::string fileName);
+
 		/// Constructor as private class.
 		ResourceManager() : manager(nullptr) {};
 
@@ -86,8 +90,8 @@ namespace pm
 		static ResourceManager* instance; ///< Pointer to only instance of the class.
 		AAssetManager* manager; ///< Pointer to Androids AAssetManager.
 
-
-		std::map < std::string, Resource *>  assets;
+		typedef std::map<std::string, Resource*> assetMap;
+		assetMap assets;
 
 	};
 }

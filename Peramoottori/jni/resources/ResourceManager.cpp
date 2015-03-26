@@ -6,57 +6,77 @@
 using namespace pm;
 ResourceManager* ResourceManager::instance;
 
-void ResourceManager::ReadAsset(std::string fileName)
+
+Resource ResourceManager::LoadAsset(std::string fileName)
 {
-	int tempLen = fileName.length();
-
 	std::string tempFileExtension = fileName.substr(fileName.size() - 4);
-	//tempFileExtension.c_str();
 
-	std::string tempTxt = ".txt";
-	std::string tempTtf = ".ttf";
-	std::string tempOgg = ".ogg";
-	std::string tempPng = ".png";
 
-	if (strcmp(tempFileExtension.c_str(),tempTxt.c_str())==0)
+	assetMap::iterator check = assets.find(fileName);
+
+	if (check == assets.end())
 	{
-		DEBUG_INFO(("TXT compare works"));
 
-		resource.SetName(fileName);
+		std::string tempTxt = ".txt";
+		std::string tempTtf = ".ttf";
+		std::string tempOgg = ".ogg";
+		std::string tempPng = ".png";
 
-		std::string textData = ReadText(resource.GetName());
+		if (strcmp(tempFileExtension.c_str(), tempTxt.c_str()) == 0)
+		{
+			DEBUG_INFO(("TXT compare works"));
 
-		TextResource* tempTextData = NEW TextResource(textData);
+			std::string textData = ReadText(fileName);
 
-		assets.insert(std::make_pair<std::string, Resource*>(resource.GetName(), tempTextData));
+			TextResource* tempTextData = NEW TextResource(textData);
 
-		return assets.find(fileName);
+			assets.insert(std::make_pair<std::string, Resource*>(fileName, tempTextData));
+
+			return GetAsset(fileName);
+		}
+
+		else if (strcmp(tempFileExtension.c_str(), tempTtf.c_str()) == 0)
+		{
+			DEBUG_INFO(("TTF compare works"));
+			//ReadFont
+		}
+
+		else if (strcmp(tempFileExtension.c_str(), tempOgg.c_str()) == 0)
+		{
+			DEBUG_INFO(("OGG compare works"));
+			//ReadSound
+		}
+
+		else if (strcmp(tempFileExtension.c_str(), tempPng.c_str()) == 0)
+		{
+			DEBUG_INFO(("PNG compare works"));
+			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
+
+			assets.insert(std::make_pair<std::string, Resource*>(resource.GetName(), tempImageResource));
+
+			return GetAsset(fileName);
+		}
+
+		else
+		{
+			DEBUG_WARNING(("File type not recognized"));
+
+			//TODO: FIX THIS ie find a proper return stuff
+			return new Resource;
+		}
 	}
-
-	else if (strcmp(tempFileExtension.c_str(), tempTtf.c_str())==0)
-	{
-		DEBUG_INFO(("TTF compare works"));
-		//ReadFont
-	}
-
-	else if (strcmp(tempFileExtension.c_str(), tempOgg.c_str())==0)
-	{
-		DEBUG_INFO(("OGG compare works"));
-		//ReadSound
-	}
-
-	else if (strcmp(tempFileExtension.c_str(), tempPng.c_str())==0)
-	{
-		DEBUG_INFO(("PNG compare works"));
-		ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
-
-		assets.insert(std::make_pair<std::string, Resource*>(resource.GetName(), tempImageResource));
-	}
-
 	else
 	{
-		DEBUG_WARNING(("File type not recognized"));
+		DEBUG_INFO(("File was already in memory"));
+		return GetAsset(fileName);
 	}
+}
+
+Resource ResourceManager::GetAsset(std::string fileName)
+{
+	assetMap::iterator it = assets.find(fileName);
+	Resource *tempResource = it->second;
+	return *tempResource;
 }
 
 ResourceManager* ResourceManager::GetInstance(AAssetManager* manager)
@@ -118,7 +138,7 @@ std::vector<unsigned char> ResourceManager::ReadImage(std::string fileName)
 		return tempBuffer; // Returns empty Image if there is an error.
 }
 
-AAsset* ResourceManager::GetAsset(std::string fileName)
+AAsset* ResourceManager::GetAAsset(std::string fileName)
 {
 	// Temporary function for audio streaming.
 	// The AAsset needs to be closed manually.
