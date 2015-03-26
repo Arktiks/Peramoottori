@@ -25,7 +25,7 @@ namespace pm
 } //namespace pm
 
 template<typename T>
-T* GameEntity::GetComponent()
+T* pm::GameEntity::GetComponent()
 {
 	if (components.count(&typeid(T)) != 0)
 		return static_cast<T*>(components[&typeid(T)]);

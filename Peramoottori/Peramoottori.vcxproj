@@ -509,6 +509,7 @@
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;_DEBUG</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\freetype\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
@@ -520,6 +521,7 @@
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;NDEBUG</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\freetype\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>

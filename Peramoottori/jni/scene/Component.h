@@ -1,11 +1,12 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-#include <scene\GameEntity.h>
 #include <typeinfo>
 
 namespace pm
 {
+	class GameEntity;
+
 	class Component
 	{
 	public:
