@@ -32,6 +32,7 @@ namespace pm
 		void Sort();
 		void BindBuffers();
 		void CreateBufferData();
+		void CreateShaders();
 
 		std::vector<GLfloat> createGLCoord(std::vector<GLfloat> convertVertices, glm::vec2 textureSize);
 		glm::vec2 PositionToGLCoord(glm::vec2 position);
@@ -46,8 +47,7 @@ namespace pm
 
 		// Todennäköisesti muuttuvat:
 
-		void CreateShader();
-		
+
 		int spriteAmount;
 		GLuint buffer[2];
 		Shader defaultShader;
