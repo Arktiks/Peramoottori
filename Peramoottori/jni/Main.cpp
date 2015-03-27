@@ -8,7 +8,7 @@
 #include <core\Passert.h>
 #include <core\Memory.h>
 
-//#include <resources\ResourceManager.h>
+#include <resources\ResourceManager.h>
 //#include <graphics\SpriteBatch.h>
 //#include <graphics\Sprite.h>
 
@@ -52,6 +52,9 @@ void android_main(android_app* application)
 
 	Game game(application);
 	
+	
+
+	pm::ResourceManager::GetInstance()->LoadAsset("kakkanaama.txt");
 
 	while (game.Update())
 	{
@@ -68,3 +71,4 @@ void android_main(android_app* application)
 		app.DrawFrame();
 	}*/
 }
+

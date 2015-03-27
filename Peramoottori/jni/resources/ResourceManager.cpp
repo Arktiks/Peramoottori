@@ -36,13 +36,17 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempTextData));
 
 			return tempTextData; // Return created resource instantly.
-			//return GetAsset(fileName);
 		}
 
 		else if (tempFileExtension.compare(TTF) == 0) // TTF FILE
 		{
 			DEBUG_INFO(("Loading TTF file."));
-			//ReadFont()
+			
+			const unsigned char* fontData = (const unsigned char*)ReadFont(fileName).c_str();
+			FontResource* tempFontData = NEW FontResource(*fontData);
+			assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
+
+			return tempFontData; // Return created resource instantly.
 		}
 
 		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE
@@ -58,15 +62,11 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
 
 			return tempImageResource;
-			//return GetAsset(fileName);
 		}
 
 		else
 		{
 			DEBUG_WARNING(("Filetype not recognized."));
-
-			//TODO: FIX THIS ie find a proper return stuff
-			//return new Resource;
 			return nullptr;
 		}
 	}
@@ -96,7 +96,21 @@ std::string pm::ResourceManager::ReadText(std::string fileName)
 		return std::string(); // Returns empty string if there is an error.
 }
 
-/// LOAD FONT FUNCTION HERES()
+std::string pm::ResourceManager::ReadFont(std::string fileName)
+{
+	AAsset* tempAsset = OpenAAsset(fileName);
+
+	if (tempAsset)
+	{
+		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
+		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
+		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
+		return tempString;
+	}
+	else
+		return std::string();
+
+}
 
 /// LOAD AUDIO FUNCTION HERES()
 
@@ -219,7 +233,19 @@ void pm::ResourceManager::DestroyInstance()
 	instance = nullptr;
 }
 
+void pm::ResourceManager::DeleteResource(std::string fileName)
+{
+	assetMap::iterator it = assets.find(fileName); // Iterate through loaded Resources.
+
+	if (it == assets.end()) // Couldn't find Resource.
+	{
+		DEBUG_WARNING(("Couldn't find Resource %s!", fileName.c_str()));
+	}
+	else
+		delete it->second; // Found a match.
+}
+
 pm::ResourceManager::~ResourceManager()
 {
-	// CLEAN UP ASSETS
+	
 }

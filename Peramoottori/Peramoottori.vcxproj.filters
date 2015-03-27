@@ -43,9 +43,6 @@
     <Filter Include="jni\scene">
       <UniqueIdentifier>{b0373214-0b77-4a38-b73d-0d27c20187ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\graphics\text">
-      <UniqueIdentifier>{49bc82f1-7a32-4a82-b304-acee6312b610}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\graphics\shaders">
       <UniqueIdentifier>{3ed54ec8-099e-41c9-bbdb-1d48c3a92798}</UniqueIdentifier>
     </Filter>
@@ -83,14 +80,8 @@
     <ClCompile Include="jni\graphics\Circle.cpp">
       <Filter>jni\scene\components\shapes</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Font.cpp">
-      <Filter>jni\graphics\text</Filter>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Rectangle.cpp">
       <Filter>jni\scene\components\shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\graphics\Text.cpp">
-      <Filter>jni\graphics\text</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
       <Filter>jni\graphics</Filter>
@@ -160,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="jni\TestClass.cpp">
       <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\FontResource.cpp">
+      <Filter>jni\resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -862,17 +856,11 @@
     <ClInclude Include="jni\graphics\Circle.h">
       <Filter>jni\scene\components\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Font.h">
-      <Filter>jni\graphics\text</Filter>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Rectangle.h">
       <Filter>jni\scene\components\shapes</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Shape.h">
       <Filter>jni\scene\components\shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\graphics\Text.h">
-      <Filter>jni\graphics\text</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\SpriteBatch.h">
       <Filter>jni\graphics</Filter>
@@ -957,6 +945,9 @@
     </ClInclude>
     <ClInclude Include="jni\TestClass.h">
       <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\FontResource.h">
+      <Filter>jni\resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

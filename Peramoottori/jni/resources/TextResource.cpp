@@ -1,21 +1,19 @@
 #include "TextResource.h"
 
-using namespace pm;
-
-TextResource::TextResource()
+pm::TextResource::TextResource()
 {
 }
 
-TextResource::TextResource(std::string data)
+pm::TextResource::TextResource(std::string data)
 {
 	textData = data;
 }
 
-std::string TextResource::getTextData()
+std::string pm::TextResource::getTextData()
 {
 	return textData ;
 }
 
-TextResource::~TextResource()
+pm::TextResource::~TextResource()
 {
 }
