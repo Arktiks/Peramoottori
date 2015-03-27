@@ -6,7 +6,7 @@ using namespace pm;
 
 TestClass::TestClass()
 {
-	Application::AddContextFunction(Initialize);
+	//Application::AddContextFunction(Initialize);
 }
 
 bool TestClass::Initialize()
