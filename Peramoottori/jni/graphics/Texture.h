@@ -1,12 +1,13 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 #include "resources\Image.h"
+#include <glm\common.hpp>
 #include <string>
 #include <vector>
 #include <GLES2\gl2.h>
 #include "lodepng.h"
+#include "core\Log.h"
 #include "resources\ResourceManager.h"
-#include <glm\common.hpp>
 namespace pm
 {
 	class Texture

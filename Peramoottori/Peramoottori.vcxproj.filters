@@ -152,8 +152,8 @@
     <ClCompile Include="jni\TestClass.cpp">
       <Filter>jni</Filter>
     </ClCompile>
-    <ClCompile Include="jni\resources\FontResource.cpp">
-      <Filter>jni\resources</Filter>
+    <ClCompile Include="jni\scene\Scene.cpp">
+      <Filter>jni\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -946,8 +946,8 @@
     <ClInclude Include="jni\TestClass.h">
       <Filter>jni</Filter>
     </ClInclude>
-    <ClInclude Include="jni\resources\FontResource.h">
-      <Filter>jni\resources</Filter>
+    <ClInclude Include="jni\scene\Scene.h">
+      <Filter>jni\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

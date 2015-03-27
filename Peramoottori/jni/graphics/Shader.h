@@ -21,16 +21,17 @@ public:
 	void RunProgram();
 	GLuint GetAttribLocation(std::string attributeName);
 	void AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset);
-
+	void AddSamplerLocation(std::string samplerName);
 	GLuint GetShaderProgramLocation() { return shaderProgram; };
-
+	GLint samplerLoc;
 private:
 
 	std::string LoadShader(std::string filePath);
-
+	
 	std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
 	GLuint shaderProgram;
 	bool created;
+	
 
 };
 

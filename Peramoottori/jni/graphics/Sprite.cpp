@@ -1,75 +1,77 @@
 #include "Sprite.h"
+using namespace pm;
 
-pm::Sprite::Sprite() : Rectangle(0, 0, 0, 0)
+Sprite::Sprite() : Rectangle(0, 0, 0, 0)
 {
 	hasTexture = false;
 	draw = true;
 }
 
-pm::Sprite::Sprite(Texture texture) : Rectangle(glm::vec2(0,0), texture.getTextureSize())
+Sprite::Sprite(Texture texture) : Rectangle(glm::vec2(0,0), texture.getTextureSize())
 {
 	this->texture = texture;
 	hasTexture = true;
 	draw = true;
-	setSourceRectPosition(texture.getTexturePosition());
-	setSourceRectSize(texture.getTextureSize());
+	//setSourceRectPosition(texture.getTexturePosition());
+	//setSourceRectSize(texture.getTextureSize());
 }
 
-pm::Sprite::Sprite(Texture texture, float x, float y, float widht, float heigth) : Rectangle(x, y, widht, heigth)
+Sprite::Sprite(Texture texture, float x, float y, float widht, float heigth) : Rectangle(x, y, widht, heigth)
 {
 	this->texture = texture;
 	hasTexture = true;
 	draw = true;
 }
 
-pm::Sprite::~Sprite()
+Sprite::~Sprite()
 {
 
 }
 
-void pm::Sprite::setSourceRectSize(glm::vec2 tempsourceRectSize)
+void Sprite::setSourceRectSize(glm::vec2 tempsourceRectSize)
 {
-	this->sourceRect[2] = tempsourceRectSize[0];
-	this->sourceRect[3] = tempsourceRectSize[1];
+	this->sourceRect.x = tempsourceRectSize.x;
+	this->sourceRect.y = tempsourceRectSize.y;
 
-	vertices[6 + 7 * 2] = (tempsourceRectSize[1] / texture.getTextureSize()[1]);
-	vertices[5 + 7 * 3] = (tempsourceRectSize[0] / texture.getTextureSize()[0]);
-	vertices[5 + 7 * 4] = (tempsourceRectSize[0] / texture.getTextureSize()[0]);
-	vertices[6 + 7 * 4] = (tempsourceRectSize[1] / texture.getTextureSize()[1]);
+	vertices[6 + 7 * 1] = (tempsourceRectSize.y / texture.getTextureSize().y + 100);
+	vertices[5 + 7 * 2] = (tempsourceRectSize.x / texture.getTextureSize().x);
+
+	vertices[6 + 7 * 3] = (tempsourceRectSize.y / texture.getTextureSize().y);		// Tekstuurikoordinaattien piirrossa tässä kohdassa on virhe(itä).
+	vertices[5 + 7 * 3] = (tempsourceRectSize.x / texture.getTextureSize().x);
 }
 
-void pm::Sprite::setSourceRectPosition(glm::vec2 tempsourceRectPosition)
+void Sprite::setSourceRectPosition(glm::vec2 tempsourceRectPosition)
 {
-	this->sourceRect[0] = tempsourceRectPosition[0];
-	this->sourceRect[1] = tempsourceRectPosition[1];
+	this->sourceRect.x = tempsourceRectPosition.x;
+	this->sourceRect.y = tempsourceRectPosition.y;
 
-	vertices[5] = (tempsourceRectPosition[0] / texture.getTextureSize()[0]);
-	vertices[6] = (tempsourceRectPosition[1] / texture.getTextureSize()[1]);
+	vertices[5] = (tempsourceRectPosition.x / texture.getTextureSize().x + 100);
+	vertices[6] = (tempsourceRectPosition.y / texture.getTextureSize().y);
 }
 
-void pm::Sprite::setSourceRect(glm::vec4 tempsourceRect)
+void Sprite::setSourceRect(glm::vec4 tempsourceRect)
 {
 	this->sourceRect = tempsourceRect;
 
-	vertices[5] = (tempsourceRect[0] / texture.getTextureSize()[0]);
+	vertices[5] = (tempsourceRect[0] / texture.getTextureSize()[0] + 100);
 	vertices[6] = (tempsourceRect[1] / texture.getTextureSize()[1]);
-	vertices[6 + 7 * 2] = (tempsourceRect[3] / texture.getTextureSize()[3]);
-	vertices[5 + 7 * 3] = (tempsourceRect[2] / texture.getTextureSize()[2]);
-	vertices[5 + 7 * 4] = (tempsourceRect[2] / texture.getTextureSize()[2]);
-	vertices[6 + 7 * 4] = (tempsourceRect[3] / texture.getTextureSize()[3]);
+	vertices[6 + 7 * 1] = (tempsourceRect[3] / texture.getTextureSize().y);
+	vertices[5 + 7 * 2] = (tempsourceRect[2] / texture.getTextureSize().x);
+	vertices[5 + 7 * 3] = (tempsourceRect[2] / texture.getTextureSize().x);
+	vertices[6 + 7 * 3] = (tempsourceRect[3] / texture.getTextureSize().y);
 }
 
-glm::vec2 pm::Sprite::getSourceRectSize()
+glm::vec2 Sprite::getSourceRectSize()
 {
 	return glm::vec2(sourceRect[2], sourceRect[3]);
 }
 
-glm::vec2 pm::Sprite::getSourceRectPosition()
+glm::vec2 Sprite::getSourceRectPosition()
 {
 	return glm::vec2(sourceRect[0], sourceRect[1]);
 }
 
-glm::vec4 pm::Sprite::getSourceRect()
+glm::vec4 Sprite::getSourceRect()
 {
 	return sourceRect;
 }

@@ -33,15 +33,14 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 		if (length > 0)
 		{
 			GLint infoLength = 0;
-			char* infoBuf = (char*) malloc(sizeof(char) * length);
-	//tempString.at(tempString.end()) = '\0';
+			char* infoBuf; // = (char*) malloc(sizeof(char) * length);	// Testaa joskus rikkoa shaderit
 
 			glGetShaderInfoLog(tempShader, length, &infoLength, infoBuf);
 
 			DEBUG_INFO(("%s", infoBuf));
 
-			//free(infoBuf);
-			delete infoBuf;
+			 //free(infoBuf);
+			//delete infoBuf;
 		}
 
 		glDeleteShader(tempShader);
@@ -81,9 +80,14 @@ void Shader::RunProgram()
 	for (int i = 0; i < ShaderVertexAttribs.size(); i++)
 	{
 		GLint tempLocation = GetAttribLocation(ShaderVertexAttribs[i].attributeName);
-		glVertexAttribPointer(tempLocation, ShaderVertexAttribs[i].size, GL_FLOAT, GL_FALSE,
+		glVertexAttribPointer(
+			tempLocation,
+			ShaderVertexAttribs[i].size, 
+			GL_FLOAT, 
+			GL_FALSE,
 			ShaderVertexAttribs[i].stride * sizeof(GLfloat),
-			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset)* sizeof(GLfloat)));
+			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset)* sizeof(GLfloat))
+			);
 		glEnableVertexAttribArray(tempLocation);
 	}
 	glUseProgram(shaderProgram);
@@ -94,13 +98,21 @@ GLuint Shader::GetAttribLocation(std::string attributeName)
 	return glGetAttribLocation(shaderProgram, attributeName.c_str());
 }
 
+void Shader::AddSamplerLocation(std::string samplerName)
+{
+	samplerLoc = glGetUniformLocation(shaderProgram, samplerName.c_str());
+}
+
+
 void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset)
 {
 	ShaderVertexAttrib tempAttrib;
+
 	tempAttrib.attributeName = attributeName;
-	tempAttrib.offset = offset;
 	tempAttrib.size = size;
 	tempAttrib.stride = stride;
+	tempAttrib.offset = offset;
+
 	ShaderVertexAttribs.push_back(tempAttrib);
 }
 
