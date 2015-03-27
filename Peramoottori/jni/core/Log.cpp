@@ -12,14 +12,14 @@ void Log::PrintInfo(const char* text...)
 {
 	char* tempInfo = FormatMessage(text);
 	LOGI(tempInfo);
-	delete tempInfo;
+	//delete tempInfo;
 }
 
 void Log::PrintWarning(const char* text...)
 {
 	char* tempWarning = FormatMessage(text);
 	LOGW(tempWarning);
-	delete tempWarning;
+	//delete tempWarning;
 }
 
 char* Log::FormatMessage(const char* text...)

@@ -3,26 +3,47 @@
 #include <core/Log.h>
 #include <core/Passert.h>
 #include <resources/ResourceManager.h>
-#include <android/input.h>
 #include <graphics/SpriteBatch.h>
 
 using namespace std;
 using namespace pm;
+
 
 vector<bool(*)()> Application::updateFunctions;
 vector<void(*)()> Application::drawFunctions;
 vector<bool(*)()> Application::contextFunctions;
 
 
-Application::Application(android_app* application) : eventSource(nullptr)
+
+/*void Application::AddContextFunction(bool(*Context)())
+{
+	contextFunctions.push_back(Context);
+}*/
+
+
+
+Application::Application(android_app* application) : eventSource(nullptr),
+	androidApplication(nullptr), sensorManager(nullptr), sensorEventQueue(nullptr),
+	accelerometerSensor(nullptr)
 {
 	Initialize(application);
 }
 
+Application::~Application()
+{
+	updateFunctions.clear(); // Don't need to delete pointers.
+	drawFunctions.clear();
+	contextFunctions.clear();
+	// What pointers need to be deleted?
+}
+
+
+/// Protected functions that are handed down to Game.h to use ///
+
 void Application::Initialize(android_app* application)
 {
 	app_dummy(); // Ensures glue code isn't stripped.
-	(this->androidApplication) = application; // Make note of application pointer.
+	(this->androidApplication) = application;
 
 	sensorManager = ASensorManager_getInstance();
 	accelerometerSensor = ASensorManager_getDefaultSensor(sensorManager, ASENSOR_TYPE_ACCELEROMETER);
@@ -40,14 +61,14 @@ void Application::Initialize(android_app* application)
 bool Application::Update()
 {
 	Input::Update();
-	int ident;
+	int ident = 0;
 
 	while (ident = ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
 	{
 		if (eventSource != nullptr)
 			eventSource->process(androidApplication, eventSource);
 
-	if (ident == LOOPER_ID_USER)
+		if (ident == LOOPER_ID_USER)
 		{
 			if (accelerometerSensor != NULL)
 			{
@@ -58,21 +79,18 @@ bool Application::Update()
 				}
 			}
 		}
-
-		if (androidApplication->destroyRequested != 0)
-			return false;
-
-		//if (window.context == EGL_NO_CONTEXT)
-			//return false;
-
-		/*if (!contextFunctions.empty() && window.context != EGL_NO_CONTEXT)
+		
+		if (!contextFunctions.empty() && window.context != EGL_NO_CONTEXT)
 		{
 			for (vector<bool(*)()>::iterator it = contextFunctions.begin(); it != contextFunctions.end(); it++)
 			{
 				ASSERT(*it);
 				it = contextFunctions.erase(it);
 			}
-		}*/
+		}
+
+		if (androidApplication->destroyRequested != 0) // When Native application is being destroyed.
+			return false;
 	}
 
 	return true;
@@ -80,41 +98,28 @@ bool Application::Update()
 
 void Application::DrawFrame()
 {
-	if(window.display == EGL_NO_DISPLAY || window.context == EGL_NO_CONTEXT)
+	/*if(window.display == EGL_NO_DISPLAY || window.context == EGL_NO_CONTEXT)
 	{
-		DEBUG_INFO(("Skipped DrawFrame()."));
-		return;
+		//DEBUG_INFO(("Skipped DrawFrame()."));
+		return; // End prematurely if there is no context.
 	}
 	
-	for (const auto& tempFunction : drawFunctions) // Loop through our added functions.
-		tempFunction();
+	//for (const auto& tempFunction : drawFunctions) // Loop through our added functions.
+		//tempFunction();
 
-	//SpriteBatch::GetInstance()->Draw();
+	//SpriteBatch::GetInstance()->Draw();*/
 
 	eglSwapBuffers(window.display, window.surface);
 }
 
 void Application::ClearScreen()
 {
-	if(window.HasContext())
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Application::AddUpdateFunction(bool (*Update)())
-{
-	// Need to add checks and such that code won't explode.
-	updateFunctions.push_back(Update);
-}
 
-void Application::AddDrawFunction(void (*Draw)())
-{
-	drawFunctions.push_back(Draw);
-}
 
-void Application::AddContextFunction(bool(*Context)())
-{
-	contextFunctions.push_back(Context);
-}
+/// android_native_app_glue handles usage of these functions ///
 
 int Application::HandleInput(android_app* application, AInputEvent* event)
 {
@@ -135,6 +140,7 @@ int Application::HandleInput(android_app* application, AInputEvent* event)
 			Input::InputEventKeyUp();
 		}
 	}
+
 	return 0;
 }
 
@@ -197,4 +203,15 @@ void Application::ProcessCommand(android_app* application, int32_t command)
 /*WindowHandler& Application::GetWindow()
 {
 return window;
-}*/
+}
+void Application::AddUpdateFunction(bool (*Update)())
+{
+// Need to add checks and such that code won't explode.
+updateFunctions.push_back(Update);
+}
+
+void Application::AddDrawFunction(void (*Draw)())
+{
+drawFunctions.push_back(Draw);
+}
+*/

@@ -51,6 +51,7 @@ void android_main(android_app* application)
 	//initializeSpriteBatch(); // SpriteBatch testing.
 
 	Game game(application);
+	
 
 	while (game.Update())
 	{

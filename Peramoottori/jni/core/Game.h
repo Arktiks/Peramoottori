@@ -33,7 +33,7 @@ namespace pm
 
 		void AddInstance();
 
-		static size_t instances;
+		static std::size_t instances;
 
 	};
 }

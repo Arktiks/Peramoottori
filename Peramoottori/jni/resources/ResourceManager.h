@@ -32,8 +32,6 @@ namespace pm
 		///		\return created or loaded Resource.
 		Resource* LoadAsset(std::string fileName);
 
-		
-		/// Change to Private ///
 
 		AAsset* GetAAsset(std::string fileName);
 
@@ -47,8 +45,6 @@ namespace pm
 		///		\param fileName : string name of AAsset.
 		///		\return content of AAsset as unsigned char vector.
 		std::vector<unsigned char> ReadImage(std::string fileName);
-
-		/////////////////////////
 
 
 	private:

@@ -8,12 +8,12 @@ using namespace std;
 
 std::size_t Game::instances = 0;
 
-Game::Game()
+Game::Game() : Application()
 {
 	AddInstance();
 }
 
-Game::Game(android_app* application)
+Game::Game(android_app* application) : Application()
 {
 	AddInstance();
 	Game::Initialize(application);
@@ -59,14 +59,14 @@ bool Game::IsReady()
 
 bool Game::Update()
 {
-	if (!contextFunctions.empty() && IsReady())
+	/*if (!contextFunctions.empty() && IsReady())
 	{
 		for (vector<bool(*)()>::iterator it = contextFunctions.begin(); it != contextFunctions.end(); it++)
 		{
 			ASSERT(*it);
 			it = contextFunctions.erase(it);
 		}
-	}
+	}*/
 
 	return Application::Update();
 }

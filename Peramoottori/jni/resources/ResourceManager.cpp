@@ -188,7 +188,7 @@ std::vector<unsigned char> pm::ResourceManager::ReadUnsignedChar(AAsset* asset)
 
 bool pm::ResourceManager::ManagerCheck()
 {
-	if (instance->manager != nullptr) // If manager has been set everything is fine.
+	if (manager != nullptr) // If manager has been set everything is fine.
 		return true;
 	else
 	{
@@ -202,7 +202,7 @@ bool pm::ResourceManager::ManagerCheck()
 
 void pm::ResourceManager::Initialize(AAssetManager* manager)
 {
-	if (manager != nullptr)  // If manager has already been set write a warning.
+	if ((this->manager) != nullptr)  // If manager has already been set write a warning.
 	{
 		DEBUG_WARNING(("ResourceManager has already been initialized!"));
 		//ASSERT(false);

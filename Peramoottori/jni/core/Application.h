@@ -1,7 +1,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include "WindowHandler.h"
+#include <core/WindowHandler.h>
 #include <android_native_app_glue.h>
 #include <android/sensor.h>
 #include <vector>
@@ -10,17 +10,21 @@ namespace pm
 {
 	/// Core application system.
 	/// Handles most of communication with java side. 
-	///	To use simply create an Application instance.
-	///	Initialize it with pointer to android application.
+
+
+	//class Application;
+	//static void AddContextFunction(bool(*Context)()); /// Adds functions call that are only called once after context creation.
+
 
 	class Application
 	{
 
-	friend class Game;
-	friend class TestClass;
+		friend class android_native_app_glue; // User won't be able to tamper with input handling and command processing.
+		friend class TestClass;
 
-	public:
-		/// Default Constructor.
+	protected: // User should only use Game class.
+
+		/// Default constructor: Initialize needs to be called for everything to work properly.
 		Application() :
 			eventSource(nullptr),
 			androidApplication(nullptr),
@@ -28,56 +32,46 @@ namespace pm
 			sensorEventQueue(nullptr),
 			accelerometerSensor(nullptr) {};
 
-		/// Constructor that initializes everything neccessary.
+		/// Constructor that calls Initialize().
 		Application(android_app* application);
-		
+
+		~Application();
+
+		/// Initializes context and ResourceManger.
+		///		\param application: pointer to android_application.
+		void Initialize(android_app* application);
+
+		/// Core update loop.
+		///		\return true as default; when TerminateDisplay is called returns false.
+		bool Update();
+
+		/// Handles swapping buffers if display is initialized.
+		void DrawFrame();
+
+		/// Clears display.
+		void ClearScreen();
+
+		android_poll_source* eventSource; ///< Used by Update().
+		android_app* androidApplication; ///< Pointer to android application.
+		ASensorManager* sensorManager; ///< Singleton that manages sensors.
+		ASensorEventQueue* sensorEventQueue; ///< Sensor event queue.
+		const ASensor* accelerometerSensor; ///< Accelerometer.
+
+		WindowHandler window; ///< Handles display of android device.
+
+		static std::vector<bool (*)()> updateFunctions; ///< Functions that are added into Update() loop.
+		static std::vector<void (*)()> drawFunctions; ///< Functions that are added into DrawFrame() loop.
+		static std::vector<bool(*)()> contextFunctions; ///< Functions that are only called once after context initialize.
+
+
+	private: // These should work because app_glue is friend class.
+
 		/// Handles inputs for android application.
 		static int HandleInput(android_app* application, AInputEvent* event);
 
 		/// Handles command processing for android application.
 		static void ProcessCommand(android_app* application, int32_t command);
 
-
-	private:
-
-		/// Adds function calls to Update() loop.
-		static void AddUpdateFunction(bool(*Update)());
-
-		/// Adds function calls to DrawFrame() loop.
-		static void AddDrawFunction(void(*Draw)());
-
-		/// Adds functions call that are only called once after context creation.
-		static void AddContextFunction(bool(*Context)());
-
-
-	protected:
-
-		/// Initializes our custom Application.
-		///		\param application : pointer to android_application.
-		void Initialize(android_app* application);
-
-		/// The core update loop.
-		///	You can construct the main loop of your game using Update(), place it in while(app.Update()).
-		///		\return true as default. When TerminateDisplay is called returns false.
-		bool Update();
-
-		/// Handles swapping buffers if the display is initialized.
-		/// TODO
-		void DrawFrame();
-
-		void ClearScreen(); ///< Clears the display.
-
-		android_poll_source* eventSource; ///< Used by Update().
-		struct android_app* androidApplication; ///< Pointer to android application.
-		WindowHandler window; ///< Handles display of android device.
-
-		ASensorManager* sensorManager; ///< Singleton that manages sensors.
-		ASensorEventQueue* sensorEventQueue; ///< Sensor event queue.
-		const ASensor* accelerometerSensor; ///< Accelerometer.
-
-		static std::vector<bool (*)()> updateFunctions; ///< Functions that are added into Update() loop.
-		static std::vector<void (*)()> drawFunctions; ///< Functions that are added into DrawFrame() loop.
-		static std::vector<bool(*)()> contextFunctions; ///< Functions that are only called once after context initialize.
 	};
 }
 
@@ -92,4 +86,9 @@ AAssetManager* GetAssetManager();
 /// Get reference to display manager.
 //WindowHandler& GetWindow();
 //double frameTime; ///< Track deltaTime.
+/// Adds function calls to Update() loop.
+static void AddUpdateFunction(bool(*Update)());
+
+/// Adds function calls to DrawFrame() loop.
+static void AddDrawFunction(void(*Draw)());
 */
