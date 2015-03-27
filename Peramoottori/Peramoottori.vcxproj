@@ -82,6 +82,7 @@
     <ClCompile Include="jni\resources\TextResource.cpp" />
     <ClCompile Include="jni\scene\Component.cpp" />
     <ClCompile Include="jni\scene\GameEntity.cpp" />
+    <ClCompile Include="jni\scene\Scene.cpp" />
     <ClCompile Include="jni\scene\Transformable.cpp" />
     <ClCompile Include="jni\TestClass.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
@@ -155,6 +156,7 @@
     <ClInclude Include="jni\scene\Component.h" />
     <ClInclude Include="jni\scene\Drawable.h" />
     <ClInclude Include="jni\scene\GameEntity.h" />
+    <ClInclude Include="jni\scene\Scene.h" />
     <ClInclude Include="jni\scene\Transformable.h" />
     <ClInclude Include="jni\structs\MemoryTrack.h" />
     <ClInclude Include="jni\TestClass.h" />
