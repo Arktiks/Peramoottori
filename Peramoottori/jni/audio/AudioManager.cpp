@@ -1,5 +1,6 @@
 #include "AudioManager.h"
 #include <core\Log.h>
+#include <core\Memory.h>
 
 void AudioPlayerCallback(SLPlayItf playerObject, void* context, SLuint32 event)
 {
@@ -17,7 +18,7 @@ pm::AudioManager* pm::AudioManager::instance = nullptr;
 pm::AudioManager* pm::AudioManager::GetInstance()
 {
 	if (instance == nullptr)
-		instance = new AudioManager();
+		instance = NEW AudioManager();
 
 	return instance;
 }

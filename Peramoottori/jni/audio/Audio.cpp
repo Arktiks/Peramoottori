@@ -1,6 +1,7 @@
 #include "Audio.h"
 #include <core\Log.h>
 #include <core\Passert.h>
+#include <core\Memory.h>
 #include <resources\ResourceManager.h>
 
 pm::Audio::Audio(std::string fileName)
@@ -22,7 +23,7 @@ pm::Audio::Audio(std::string fileName)
 	
 	AAsset_close(tempAudioAsset);
 	
-	player.push_back(new AudioPlayer(fileDescriptor, start, length));
+	player.push_back(NEW AudioPlayer(fileDescriptor, start, length));
 	AudioManager::GetInstance()->InitAudioPlayer(player[0]);
 }
 
@@ -99,7 +100,7 @@ pm::AudioPlayer* pm::Audio::GetAvailable()
 	if (playerCount < maxPlayerCount)
 	{
 		playerCount++;
-		player[playerCount] = new AudioPlayer(player[0]);
+		player[playerCount] = NEW AudioPlayer(player[0]);
 		AudioManager::GetInstance()->InitAudioPlayer(player[playerCount]);
 
 		return player[playerCount];

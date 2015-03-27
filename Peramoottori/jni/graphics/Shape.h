@@ -13,17 +13,9 @@ namespace pm
 	class Shape : public Component
 	{
 	public:
-		//virtual void setPosition(glm::vec2 position)
-		//{
-		//	this->position = position;
-		//};
-		//virtual void setSize(glm::vec2 size)
-		//{
-		//	this->size = size;
-		//};
+
 		Shape() : Component(){};
 
-		int drawDepht;
 		virtual void SetOrigin(glm::vec2 newOrigin)
 		{
 			origin = newOrigin;
