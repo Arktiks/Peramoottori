@@ -1,48 +1,20 @@
-#ifndef SPRITE_H
-#define SPRITE_H
-
-#include "Texture.h"
-#include "Rectangle.h"
-
-// TODO: K‰ytt‰j‰lle tapa spriteen muokata erimuotoisia kappaleita, esim ympyr‰‰, kolmiota, viivaa tai omaa.
-// Koordinaatit omille indekseille omassa koordinaatistossaan, sitten sit‰ voi skaalailla, asettaa tekstuurin jotenkin..
-// T‰m‰ kustomoitavissa moottorin kautta? Vai pit‰‰kˆ piirt‰‰ vaan sille sopiva? 
-// Verrattuna grafiikkamoottoriin t‰ytyy luoda erikokoisia taulukkoja -> siirryt‰‰n vektoriin?
-
-namespace pm
+#pragma once
+#include <vector>
+#include "GLES2\gl2.h"
+#include "glm\common.hpp"
+#include "glm\mat4x4.hpp"
+class Sprite
 {
-	class Sprite : public Rectangle
-	{
-		friend class SpriteBatch;
+public:
+	Sprite(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
+		glm::mat4 transformMatrix, GLuint textureIndex);
+	~Sprite();
 
-	public:
+	void SetData(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
+		glm::mat4 transformMatrix, GLuint textureIndex);
+	std::vector<GLfloat> vertexData;
+	std::vector<GLuint> indexData;
+	glm::mat4 transformMatrix;
+	GLuint textureIndex;
+};
 
-		Sprite();
-		Sprite(Texture texture);
-		Sprite(Texture texture, float x, float y, float widht, float heigth);
-		~Sprite();
-
-
-		void setSourceRectSize(glm::vec2 sourceRectSize);
-		void setSourceRectPosition(glm::vec2 sourceRectPosition);
-		void setSourceRect(glm::vec4 sourceRect);
-
-		glm::vec2 getSourceRectSize();
-		glm::vec2 getSourceRectPosition();
-		glm::vec4 getSourceRect();
-
-	private:
-
-		Texture texture;
-		bool hasTexture;
-
-		glm::vec4 sourceRect;
-
-		// false construktorissa, muutetaan trueksi tekstuurin asettamisen j‰lkeen
-		// Jos keksit‰‰n joku tapa katsoa onko tekstuuria olemassa (tai piiret‰‰nkˆ se) voidaan poistaa t‰m‰.
-		// T‰m‰ siis sen takia ett‰ spritebathchissa voidaan piirt‰‰ tekstuurittomia spritej‰.
-
-	};
-}
-
-#endif

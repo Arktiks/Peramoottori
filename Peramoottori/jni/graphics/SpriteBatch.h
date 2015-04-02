@@ -1,6 +1,7 @@
 #ifndef SPRITEBATCH_H
 #define SPRITEBATCH_H
 
+#include "../scene/GameEntity.h"
 #include "Sprite.h"
 #include "Shader.h"
 #include "Batch.h"
@@ -9,52 +10,32 @@
 #include <EGL\egl.h>
 #include <GLES2\gl2.h>
 
+// TODO: More pointers, and decision where data will be on one vector.
+
+
 namespace pm
 {
 	class SpriteBatch
 	{
 	public:
 		static SpriteBatch* GetInstance();
-		void Initialize();
 		void DestroyInstance();
-		
-		void addSprite(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
-			glm::mat4 transformMatrix, GLuint textureIndex);		// Sprite format will be changed
-		void Draw();
-
+		void AddGameEntityToVector(GameEntity *gameEntity);
 		virtual ~SpriteBatch() {};
 	
-
 	private:
-
 		SpriteBatch();
 		static SpriteBatch* instance;
+		// Tarkastetaan piirretäänkö GameEntityä
+		bool CheckIfDrawable(GameEntity *gameEntity);
+		// Kerää componenteilta datan jotta se voidaan batchata.
+		Sprite GatherDataFromComponents(GameEntity *gameEntity);
+		// Lisää GameEntityn komponenteista koodun drawablen oikeaan batchiin.
+		void AddSpriteToBatch(Sprite sprite);
 
-		void Update();
-		void Sort();
-		void BindBuffers();
-		void CreateBufferData();
-		void CreateShaders();
-
-		std::vector<GLfloat> createGLCoord(std::vector<GLfloat> convertVertices, glm::vec2 textureSize);
-		glm::vec2 PositionToGLCoord(glm::vec2 position);
-		glm::vec3 ColorToGLCoord(glm::vec3 color);
-		glm::vec2 TextureToGLCoord(glm::vec2 position, glm::vec2 spriteSize);
-
-		glm::vec2 screenSize;
-
-		std::vector<Sprite*> sprites; // Saadaanko spritet lisättyä automaattisesti tähän listaan?
-		std::vector<GLuint> indexData;
-		std::vector<GLfloat> vertexData;
-
+		std::vector<GameEntity*> gameEntityVector; 
 		std::vector<Batch> batchVector;
 
-		// Todennäköisesti muuttuvat:
-
-
-		int spriteAmount;
-		GLuint buffer[2];
-		Shader defaultShader;
 	};
 }
 

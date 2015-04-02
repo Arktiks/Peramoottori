@@ -150,7 +150,6 @@
       <Filter>jni\scene</Filter>
     </ClCompile>
     <ClCompile Include="jni\resources\FontResource.cpp" />
-    <ClCompile Include="AudioResource.cpp" />
     <ClCompile Include="jni\graphics\Color.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
@@ -160,8 +159,18 @@
     <ClCompile Include="jni\scene\Component.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Batch.cpp" />
-    <ClCompile Include="jni\graphics\RenderSystem.cpp" />
+    <ClCompile Include="jni\graphics\Batch.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\RenderSystem.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Buffer.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Sprite.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -961,8 +970,18 @@
     <ClInclude Include="jni\scene\Component.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Batch.h" />
-    <ClInclude Include="jni\graphics\RenderSystem.h" />
+    <ClInclude Include="jni\graphics\Batch.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\RenderSystem.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Buffer.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Sprite.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">
