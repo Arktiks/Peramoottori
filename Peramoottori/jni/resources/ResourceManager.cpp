@@ -12,6 +12,11 @@ const std::string PNG = ".png";
 
 /// User Functions ///
 
+///TODO t‰‰ toimii nyt sillai typer‰sti ett‰ loadAsset palauttaa k‰ytt‰j‰lle Resourcen,
+///millˆ k‰ytt‰j‰ ei nyt juuri voi tehd‰ mit‰‰n. Pit‰‰ siis tehd‰ jotenkin sillai, 
+///ett‰ kun tietyn tyyppinen resurssi luodaan, niin itse Resource luokasta p‰‰see 
+///assettien dataan k‰siksi joita k‰ytt‰j‰ pystyy hyˆdynt‰m‰‰n.
+
 pm::ResourceManager* pm::ResourceManager::GetInstance()
 {
 	if (instance == nullptr) // If instance has not been initialized yet.
@@ -52,7 +57,15 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE
 		{
 			DEBUG_INFO(("Loading OGG file."));
-			//ReadSound()
+			AAsset* tempAudioAsset = ReadAudio(fileName);
+			off_t start, length;
+
+			int	tempFileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
+			AudioResource* tempFileData = NEW AudioResource(tempFileDescriptor, tempAudioAsset);
+			assets.insert(std::pair<std::string, Resource*>(fileName, tempFileData));
+
+			return tempFileData;
+
 		}
 
 		else if (tempFileExtension.compare(PNG) == 0) // PNG FILE
@@ -114,7 +127,10 @@ std::string pm::ResourceManager::ReadFont(std::string fileName)
 
 }
 
-/// LOAD AUDIO FUNCTION HERES()
+AAsset* pm::ResourceManager::ReadAudio(std::string fileName)
+{
+	return OpenAAsset(fileName);
+}
 
 /// FIX THIS TO BE IN THE SAME FORM AS OTHER RESOURCE LOADERS
 AAsset* pm::ResourceManager::GetAAsset(std::string fileName)

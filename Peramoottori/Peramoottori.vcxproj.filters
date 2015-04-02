@@ -156,7 +156,9 @@
       <Filter>jni\scene</Filter>
     </ClCompile>
     <ClCompile Include="jni\resources\FontResource.cpp" />
-    <ClCompile Include="AudioResource.cpp" />
+    <ClCompile Include="jni\resources\AudioResource.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -952,7 +954,9 @@
       <Filter>jni\scene</Filter>
     </ClInclude>
     <ClInclude Include="jni\resources\FontResource.h" />
-    <ClInclude Include="AudioResource.h" />
+    <ClInclude Include="jni\resources\AudioResource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">

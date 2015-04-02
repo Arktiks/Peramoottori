@@ -9,6 +9,7 @@
 #include <core\Memory.h>
 
 #include <resources\ResourceManager.h>
+#include <audio\Audio.h>
 //#include <graphics\SpriteBatch.h>
 //#include <graphics\Sprite.h>
 
@@ -51,8 +52,10 @@ void android_main(android_app* application)
 	//initializeSpriteBatch(); // SpriteBatch testing.
 
 	Game game(application);
+	Audio audio("test1.ogg");
 	
-	
+	audio.Play();
+	audio.SetLooping(true);
 
 	pm::ResourceManager::GetInstance()->LoadAsset("teksti.txt");
 	pm::ResourceManager::GetInstance()->LoadAsset("test.png");

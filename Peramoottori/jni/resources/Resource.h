@@ -3,6 +3,7 @@
 
 
 #include <string>
+#include <android\asset_manager.h>
 
 namespace pm
 {
