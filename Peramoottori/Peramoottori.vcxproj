@@ -45,10 +45,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\core\WindowHandler.cpp" />
+    <ClCompile Include="jni\graphics\Batch.cpp" />
     <ClCompile Include="jni\graphics\Color.cpp" />
     <ClCompile Include="jni\graphics\Rectangle.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\graphics\RenderSystem.cpp" />
     <ClCompile Include="jni\graphics\Shader.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
@@ -111,11 +113,13 @@
     <ClInclude Include="jni\core\Vector2.h" />
     <ClInclude Include="jni\core\Vector3.h" />
     <ClInclude Include="jni\core\WindowHandler.h" />
+    <ClInclude Include="jni\graphics\Batch.h" />
     <ClInclude Include="jni\graphics\Color.h" />
     <ClInclude Include="jni\graphics\Drawable.h" />
     <ClInclude Include="jni\graphics\Rectangle.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\graphics\RenderSystem.h" />
     <ClInclude Include="jni\graphics\Shader.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>

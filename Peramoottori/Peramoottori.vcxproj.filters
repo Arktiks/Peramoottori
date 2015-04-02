@@ -160,6 +160,8 @@
     <ClCompile Include="jni\scene\Component.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
+    <ClCompile Include="jni\graphics\Batch.cpp" />
+    <ClCompile Include="jni\graphics\RenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -959,6 +961,8 @@
     <ClInclude Include="jni\scene\Component.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
+    <ClInclude Include="jni\graphics\Batch.h" />
+    <ClInclude Include="jni\graphics\RenderSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">
