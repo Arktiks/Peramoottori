@@ -77,9 +77,6 @@
     <ClCompile Include="jni\Main.cpp">
       <Filter>jni</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Circle.cpp">
-      <Filter>jni\scene\components\shapes</Filter>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Rectangle.cpp">
       <Filter>jni\scene\components\shapes</Filter>
     </ClCompile>
@@ -154,6 +151,13 @@
     </ClCompile>
     <ClCompile Include="jni\scene\Scene.cpp">
       <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\FontResource.cpp" />
+    <ClCompile Include="jni\graphics\Color.cpp">
+      <Filter>jni\scene\components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\TextureRectangle.cpp">
+      <Filter>jni\scene\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -853,9 +857,6 @@
     <ClInclude Include="libs\glm\vector_relational.hpp">
       <Filter>libs\glm</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Circle.h">
-      <Filter>jni\scene\components\shapes</Filter>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Rectangle.h">
       <Filter>jni\scene\components\shapes</Filter>
     </ClInclude>
@@ -940,14 +941,21 @@
     <ClInclude Include="jni\graphics\ShaderProgram.h">
       <Filter>jni\graphics\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="jni\scene\Drawable.h">
-      <Filter>jni\scene\components</Filter>
-    </ClInclude>
     <ClInclude Include="jni\TestClass.h">
       <Filter>jni</Filter>
     </ClInclude>
     <ClInclude Include="jni\scene\Scene.h">
       <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\FontResource.h" />
+    <ClInclude Include="jni\graphics\TextureRectangle.h">
+      <Filter>jni\scene\components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Color.h">
+      <Filter>jni\scene\components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Drawable.h">
+      <Filter>jni\scene\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

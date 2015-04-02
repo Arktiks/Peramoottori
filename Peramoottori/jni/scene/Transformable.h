@@ -10,21 +10,21 @@ namespace pm
 	{
 	public:
 		Transformable();
-		Transformable(glm::vec2 position, glm::vec2 origin, glm::vec2 scale, float rotation);
+		Transformable(glm::vec2 position, glm::vec2 scale, float rotation);
 		~Transformable();
 
 		void SetPosition(glm::vec2 newPosition);
-		void SetPosition(float positionX, float positionY);
-		void SetOrigin(glm::vec2 newOrigin);
-		void SetOrigin(float originX, float originY);
+		void SetPosition(float newPositionX, float newPositionY);
 		void SetScale(glm::vec2 newScale);
-		void SetScale(float scaleX, float scaleY);
+		void SetScale(float newScaleX, float newScaleY);
 		void SetRotation(float newRotation);
+		void SetDepth(float newDepthValue);
 		
 	private:
 		glm::vec2 position;
-		glm::vec2 origin;
 		glm::vec2 scale;
+
+		float depthBuffer;
 		
 		float rotation;
 	};
