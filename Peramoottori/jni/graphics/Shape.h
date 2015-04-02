@@ -14,28 +14,27 @@ namespace pm
 	{
 	public:
 
-		Shape() : Component(){};
+		Shape() : Component()
+		{
+			origin = glm::vec2(0.0, 0.0);
+		};
 
 		virtual void SetOrigin(glm::vec2 newOrigin)
 		{
 			origin = newOrigin;
 		}
-		virtual void SetOrigin(float x, float y)
+		virtual void SetOrigin(float newOriginX, float newOriginY)
 		{
-			origin = { x, y };
+			origin = { newOriginX, newOriginY };
 		}
 
 
 	protected:
 
-
 		std::vector<float> vertices;
 		std::vector<unsigned int> indices;
 
-		glm::vec2 origin = { 0.0f, 0.0f };
-		
-		float colorRed, colorGreen, colorBlue;
-
+		glm::vec2 origin;
 	};
 }
 

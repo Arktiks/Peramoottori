@@ -6,8 +6,7 @@
 
 using namespace pm;
 
-// TODO: Tuki indeksimäärältään erikokoisille spriteille tehdään piirtämällä kolmioita vain.
-
+// TODO: GameObjectin tarkastus, joku muu hoitaa?
 
 SpriteBatch* SpriteBatch::instance = nullptr;
 
@@ -27,12 +26,17 @@ SpriteBatch* SpriteBatch::GetInstance()
 	return instance;
 }
 
+// Renderöijä täytyy alustaa vasta kun konteksti on valmis (Kutsutaan siten applicationin puolelta).
+
 void SpriteBatch::Initialize()
 {
+	glEnable(GL_TEXTURE_2D);
 	glGenBuffers(2, &buffer[0]);
 	CreateShaders();
 	DEBUG_INFO(("SpriteBatch initialize finished."));
 }
+
+// Hoidetaan renderöijällä kai? Ainakin jossakin muuaalla kuin täällä.
 void SpriteBatch::CreateShaders()
 {
 	bool tempCheck = false;
@@ -59,9 +63,21 @@ void SpriteBatch::DestroyInstance()
 	instance = nullptr;
 }
 
-void SpriteBatch::addSprite(Sprite *sprite)
+void SpriteBatch::addSprite(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
+	glm::mat4 transformMatrix, GLuint textureIndex)
 {
-	sprites.push_back(sprite);
+	for (unsigned i = 0; i < batchVector.size(); i++)
+	{
+			// If there is a texture with same index as new one, add data to batch.
+		if (batchVector[i].textureIndex == textureIndex);
+		{
+			batchVector[i].AddData(vertexData, indexData, transformMatrix);
+			return;
+		}
+	}
+			// If no batches with same texture were found, create new batch and add data to it.
+	Batch newBatch(vertexData, indexData, transformMatrix, textureIndex);
+	batchVector.push_back(newBatch);
 }
 
 void SpriteBatch::Draw()
@@ -72,7 +88,7 @@ void SpriteBatch::Draw()
 		defaultShader.RunProgram();
 	}
 
-	// Draws textures that are in same layer. TODO: Add texture-sort to sort-function
+	// Tästä saadaan irti lajittelu, siirretään piirtofunktiot renderöinnille.
 	if (sprites.size() != 0)
 	{
 		GLuint currentAtlasIndex = sprites[0]->texture.getId();
@@ -136,13 +152,13 @@ void SpriteBatch::Draw()
 
 void SpriteBatch::Update()
 {
+	// Bufferidatan luonti hoidetaan renderöijällä
 	CreateBufferData();
 	if (spriteAmount != sprites.size())
 	{
 		spriteAmount = sprites.size();
 		BindBuffers();
 	}
-
 
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glBufferSubData(GL_ARRAY_BUFFER, 0u, vertexData.size()*sizeof(GLfloat), &vertexData[0]);
@@ -154,15 +170,9 @@ void SpriteBatch::Update()
 	Sorts sprites according to their draw depth.
 */
 
-void SpriteBatch::Sort()
-{
-	for (std::vector<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++)
-	{
-		std::sort(sprites.begin(), sprites.end(),
-			[](Sprite* a, Sprite* b ){return (a->drawDepht > b->drawDepht); });
-	}
-}
 
+
+// Siirretään renderöinnille
 void SpriteBatch::BindBuffers()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
@@ -174,6 +184,8 @@ void SpriteBatch::BindBuffers()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);
 }
 
+
+// indexDatat ja vertexDatat luodaan täällä. Tarvitaan uusi sort, mikä lajittelee datan tekstuurin mukaan.
 void SpriteBatch::CreateBufferData()
 {
 	indexData.clear();
@@ -198,7 +210,7 @@ void SpriteBatch::CreateBufferData()
 		}
 	}
 }
-
+// Tässä tehdään tarvittavat muunnokset yhden spriten verteksidataan, ja koostetaan yhteen.
 std::vector<GLfloat> SpriteBatch::createGLCoord(std::vector<GLfloat> convertVertices, glm::vec2 textureSize)
 {	
 	std::vector<GLfloat> glVertexData;
@@ -211,6 +223,7 @@ std::vector<GLfloat> SpriteBatch::createGLCoord(std::vector<GLfloat> convertVert
 
 		glVertexData.push_back(position.x);
 		glVertexData.push_back(position.y);
+		
 		glVertexData.push_back(color.r);
 		glVertexData.push_back(color.b);
 		glVertexData.push_back(color.g);
@@ -220,7 +233,7 @@ std::vector<GLfloat> SpriteBatch::createGLCoord(std::vector<GLfloat> convertVert
 
 	return glVertexData;
 }
-
+// Ei tarvita
 glm::vec2 SpriteBatch::PositionToGLCoord(glm::vec2 position)
 {
 	glm::vec2 tempPosCoord;
@@ -229,7 +242,7 @@ glm::vec2 SpriteBatch::PositionToGLCoord(glm::vec2 position)
 	return tempPosCoord;
 }
 
-
+// Ei tarvita
 glm::vec2 SpriteBatch::TextureToGLCoord(glm::vec2 position, glm::vec2 spriteSize)
 {
 	glm::vec2 tempTexCoord;
