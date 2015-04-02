@@ -1,6 +1,8 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
+#include <scene\Component.h>
+#include <scene\Transformable.h>
 #include <glm\common.hpp>
 #include <vector>
 
@@ -8,34 +10,31 @@ static const double PI = 3.141;
 
 namespace pm
 {
-	class Shape
+	class Shape : public Component
 	{
 	public:
-		//virtual void setPosition(glm::vec2 position)
-		//{
-		//	this->position = position;
-		//};
-		//virtual void setSize(glm::vec2 size)
-		//{
-		//	this->size = size;
-		//};
-		int drawDepht;
 
-		bool draw; // Think about better name. Spritebatch uses this to determinate if sprite will be added to buffer.
+		Shape() : Component()
+		{
+			origin = glm::vec2(0.0, 0.0);
+		};
+
+		virtual void SetOrigin(glm::vec2 newOrigin)
+		{
+			origin = newOrigin;
+		}
+		virtual void SetOrigin(float newOriginX, float newOriginY)
+		{
+			origin = { newOriginX, newOriginY };
+		}
+
 
 	protected:
 
 		std::vector<float> vertices;
 		std::vector<unsigned int> indices;
 
-		glm::vec2 position;
 		glm::vec2 origin;
-		glm::vec2 size;
-
-		int rotation;
-
-		float colorRed, colorGreen, colorBlue;
-
 	};
 }
 

@@ -54,7 +54,8 @@ void android_main(android_app* application)
 	
 	
 
-	pm::ResourceManager::GetInstance()->LoadAsset("kakkanaama.txt");
+	pm::ResourceManager::GetInstance()->LoadAsset("teksti.txt");
+	pm::ResourceManager::GetInstance()->LoadAsset("test.png");
 
 	while (game.Update())
 	{

@@ -59,7 +59,9 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 		{
 			DEBUG_INFO(("Loading PNG file."));
 
+
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
+			assets.insert(std::pair<std::string, Resource*>(fileName, tempImageResource));
 
 			return tempImageResource;
 		}

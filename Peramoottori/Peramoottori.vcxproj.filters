@@ -52,9 +52,6 @@
     <Filter Include="jni\scene\components\shapes">
       <UniqueIdentifier>{165bcdb1-6867-4137-bfdd-47483eb79bf3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="assets">
-      <UniqueIdentifier>{d8bd5040-0848-4a43-9848-41a655ea2090}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -79,9 +76,6 @@
     </ClCompile>
     <ClCompile Include="jni\Main.cpp">
       <Filter>jni</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\graphics\Circle.cpp">
-      <Filter>jni\scene\components\shapes</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Rectangle.cpp">
       <Filter>jni\scene\components\shapes</Filter>
@@ -125,6 +119,9 @@
     <ClCompile Include="jni\core\WindowHandler.cpp">
       <Filter>jni\core\application</Filter>
     </ClCompile>
+    <ClCompile Include="jni\resources\Resource.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
     <ClCompile Include="jni\resources\TextResource.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
@@ -132,9 +129,6 @@
       <Filter>jni\resources</Filter>
     </ClCompile>
     <ClCompile Include="jni\scene\GameEntity.cpp">
-      <Filter>jni\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\scene\Component.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
     <ClCompile Include="jni\scene\Transformable.cpp">
@@ -156,14 +150,15 @@
       <Filter>jni\scene</Filter>
     </ClCompile>
     <ClCompile Include="jni\resources\FontResource.cpp" />
-    <ClCompile Include="jni\resources\Resource.cpp">
-      <Filter>jni\graphics</Filter>
+    <ClCompile Include="AudioResource.cpp" />
+    <ClCompile Include="jni\graphics\Color.cpp">
+      <Filter>jni\scene\components</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Batch.cpp">
-      <Filter>jni\graphics</Filter>
+    <ClCompile Include="jni\graphics\TextureRectangle.cpp">
+      <Filter>jni\scene\components</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\RenderSystem.cpp">
-      <Filter>jni\graphics</Filter>
+    <ClCompile Include="jni\scene\Component.cpp">
+      <Filter>jni\scene\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -863,9 +858,6 @@
     <ClInclude Include="libs\glm\vector_relational.hpp">
       <Filter>libs\glm</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Circle.h">
-      <Filter>jni\scene\components\shapes</Filter>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Rectangle.h">
       <Filter>jni\scene\components\shapes</Filter>
     </ClInclude>
@@ -935,9 +927,6 @@
     <ClInclude Include="jni\scene\GameEntity.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
-    <ClInclude Include="jni\scene\Component.h">
-      <Filter>jni\scene</Filter>
-    </ClInclude>
     <ClInclude Include="jni\scene\Transformable.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
@@ -950,9 +939,6 @@
     <ClInclude Include="jni\graphics\ShaderProgram.h">
       <Filter>jni\graphics\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="jni\scene\Drawable.h">
-      <Filter>jni\scene\components</Filter>
-    </ClInclude>
     <ClInclude Include="jni\TestClass.h">
       <Filter>jni</Filter>
     </ClInclude>
@@ -960,11 +946,18 @@
       <Filter>jni\scene</Filter>
     </ClInclude>
     <ClInclude Include="jni\resources\FontResource.h" />
-    <ClInclude Include="jni\graphics\Batch.h">
-      <Filter>jni\graphics</Filter>
+    <ClInclude Include="AudioResource.h" />
+    <ClInclude Include="jni\graphics\Color.h">
+      <Filter>jni\scene\components</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\RenderSystem.h">
-      <Filter>jni\graphics</Filter>
+    <ClInclude Include="jni\graphics\Drawable.h">
+      <Filter>jni\scene\components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\TextureRectangle.h">
+      <Filter>jni\scene\components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Component.h">
+      <Filter>jni\scene\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1294,24 +1287,6 @@
     </None>
     <None Include="libs\glm\gtx\wrap.inl">
       <Filter>libs\glm</Filter>
-    </None>
-    <None Include="assets\teksti.txt">
-      <Filter>assets</Filter>
-    </None>
-    <None Include="assets\test.png">
-      <Filter>assets</Filter>
-    </None>
-    <None Include="assets\test1.ogg">
-      <Filter>assets</Filter>
-    </None>
-    <None Include="assets\test2.ogg">
-      <Filter>assets</Filter>
-    </None>
-    <None Include="assets\TestFragmentShader.txt">
-      <Filter>assets</Filter>
-    </None>
-    <None Include="assets\TestVertexShader.txt">
-      <Filter>assets</Filter>
     </None>
   </ItemGroup>
 </Project>
