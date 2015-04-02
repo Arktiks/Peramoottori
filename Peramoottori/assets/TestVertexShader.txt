@@ -1,8 +1,8 @@
 precision mediump float;
 
-attribute vec2 attrPosition;
+attribute vec3 attrPosition;
 attribute vec3 attrColor;
-attribute vec2 textPosition;
+attribute vec2 texPosition;
 
 varying vec3 varyColor;
 varying vec2 varyPosition;
@@ -10,6 +10,6 @@ varying vec2 varyPosition;
 void main(void)
 {
 	varyColor = attrColor;
-	varyPosition = textPosition;
-	gl_Position = vec4(attrPosition, 1.0, 1.0);
+	varyPosition = texPosition;
+	gl_Position = vec4(attrPosition, 1.0);
 }
