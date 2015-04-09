@@ -83,9 +83,6 @@
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Texture.cpp">
-      <Filter>jni\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="jni\audio\AudioPlayer.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
@@ -149,8 +146,6 @@
     <ClCompile Include="jni\scene\Scene.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
-    <ClCompile Include="jni\resources\FontResource.cpp" />
-    <ClCompile Include="jni\resources\AudioResource.cpp">
     <ClCompile Include="jni\graphics\Color.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
@@ -160,8 +155,27 @@
     <ClCompile Include="jni\scene\Component.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Batch.cpp" />
-    <ClCompile Include="jni\graphics\RenderSystem.cpp" />
+    <ClCompile Include="jni\graphics\Batch.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\RenderSystem.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Buffer.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Sprite.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\FontResource.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\TextureFactory.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\Texture.cpp">
+      <Filter>jni\scene\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -869,9 +883,6 @@
     <ClInclude Include="jni\graphics\SpriteBatch.h">
       <Filter>jni\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Texture.h">
-      <Filter>jni\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="jni\audio\AudioPlayer.h">
       <Filter>jni\audio</Filter>
     </ClInclude>
@@ -947,8 +958,6 @@
     <ClInclude Include="jni\scene\Scene.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
-    <ClInclude Include="jni\resources\FontResource.h" />
-    <ClInclude Include="jni\resources\AudioResource.h">
     <ClInclude Include="jni\graphics\Color.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
@@ -961,8 +970,30 @@
     <ClInclude Include="jni\scene\Component.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Batch.h" />
-    <ClInclude Include="jni\graphics\RenderSystem.h" />
+    <ClInclude Include="jni\graphics\Batch.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\RenderSystem.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Buffer.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Sprite.h">
+      <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\FontResource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioResource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\TextureFactory.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Texture.h">
+      <Filter>jni\scene\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">

@@ -9,6 +9,7 @@
 #include <core\Memory.h>
 #include "Batch.h"
 #include "Shader.h"
+#include "Buffer.h"
 
 class RenderSystem
 {
@@ -17,10 +18,12 @@ public:
 	~RenderSystem();
 	
 	void Draw(Batch batch);	// DATA FOR ONE SPRITEBATCH "BATCH"
+	void Initialize();		// Initialize when context is ready
 private:
 	void CreateShaders();	// Creating shaderprogram, may be changed
+	void BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData);
 	Shader shaderProgram;
-	GLuint buffer[2];
+	Buffer vertexBuffer, indexBuffer;
 	
 };
 

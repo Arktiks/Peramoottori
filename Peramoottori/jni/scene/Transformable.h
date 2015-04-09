@@ -18,13 +18,19 @@ namespace pm
 		void SetScale(glm::vec2 newScale);
 		void SetScale(float newScaleX, float newScaleY);
 		void SetRotation(float newRotation);
-		void SetDepth(float newDepthValue);
+		void SetDepth(int newDepthValue);
+
+		glm::vec2 GetPosition();
+		glm::vec2 GetScale();
+		float GetRotation();
+		int GetDepth();
+
 		
 	private:
 		glm::vec2 position;
 		glm::vec2 scale;
 
-		float depthBuffer;
+		int depthBuffer;
 		
 		float rotation;
 	};
