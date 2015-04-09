@@ -1,57 +1,35 @@
 #include "Application.h"
-#include <core/Input.h>
 #include <core/Log.h>
 #include <core/Passert.h>
+#include <core/Memory.h>
 #include <resources/ResourceManager.h>
-#include <graphics/SpriteBatch.h>
+#include <core/Input.h>
+#include <GLES2/gl2.h> // Should be removed once there are no OpenGL-calls.
 
 using namespace std;
 using namespace pm;
 
-
-vector<bool(*)()> Application::updateFunctions;
-vector<void(*)()> Application::drawFunctions;
-vector<bool(*)()> Application::contextFunctions;
-
-
-
-/*void Application::AddContextFunction(bool(*Context)())
-{
-	contextFunctions.push_back(Context);
-}*/
-
-
-
-Application::Application(android_app* application) : eventSource(nullptr),
-	androidApplication(nullptr), sensorManager(nullptr), sensorEventQueue(nullptr),
-	accelerometerSensor(nullptr)
+/*Application::Application(android_app* application) : androidApplication(nullptr)
 {
 	Initialize(application);
-}
+}*/
 
 Application::~Application()
 {
-	updateFunctions.clear(); // Don't need to delete pointers.
-	drawFunctions.clear();
-	contextFunctions.clear();
-	// What pointers need to be deleted?
+	androidApplication->userData = nullptr; // Remove reference to this class.
+	DEBUG_INFO(("Application destructor called."));
 }
-
-
-/// Protected functions that are handed down to Game.h to use ///
 
 void Application::Initialize(android_app* application)
 {
 	app_dummy(); // Ensures glue code isn't stripped.
-	(this->androidApplication) = application;
+	(this->androidApplication) = application; // Save application pointer for later use.
 
-	sensorManager = ASensorManager_getInstance();
-	accelerometerSensor = ASensorManager_getDefaultSensor(sensorManager, ASENSOR_TYPE_ACCELEROMETER);
-	sensorEventQueue = ASensorManager_createEventQueue(sensorManager, application->looper, LOOPER_ID_USER, NULL, NULL);
+	ASSERT_NEQUAL(androidApplication, nullptr);
 
-	application->userData = static_cast<void*>(this); // Store our Application class to Native Glue.
-	application->onAppCmd = ProcessCommand; // What function is referred on application calls.
-	application->onInputEvent = HandleInput; // What function is referred on input calls.
+	application->userData = static_cast<void*>(this); // Store our Application class to native glue.
+
+	events.Initialize(application);
 
 	ResourceManager::GetInstance()->Initialize(application->activity->assetManager); // Initialize ResourceManager with AAssetManager.
 
@@ -61,54 +39,35 @@ void Application::Initialize(android_app* application)
 bool Application::Update()
 {
 	Input::Update();
-	int ident = 0;
 
-	while (ident = ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&eventSource)) >= 0)
+	int tempIdent; // See what looper is calling.
+	android_poll_source* tempEventSource; // Contains reference to executable command.
+
+	while ((tempIdent = ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&tempEventSource))) >= 0)
 	{
-		if (eventSource != nullptr)
-			eventSource->process(androidApplication, eventSource);
+		if (tempEventSource != nullptr)
+			tempEventSource->process(androidApplication, tempEventSource);
 
-		if (ident == LOOPER_ID_USER)
+		if (tempIdent == LOOPER_ID_USER)
 		{
-			if (accelerometerSensor != NULL)
+			if (events.hasAccelerometer) // Update accelerometer paremeters.
 			{
-				ASensorEvent event;
-				while (ASensorEventQueue_getEvents(sensorEventQueue, &event, 1) > 0)
-				{
-					Input::InputEventAccelerometer(event.acceleration.x, event.acceleration.y, event.acceleration.z);
-				}
-			}
-		}
-		
-		if (!contextFunctions.empty() && window.context != EGL_NO_CONTEXT)
-		{
-			for (vector<bool(*)()>::iterator it = contextFunctions.begin(); it != contextFunctions.end(); it++)
-			{
-				ASSERT(*it);
-				it = contextFunctions.erase(it);
+				ASensorEvent tempEvent; // Holds event details.
+				while (ASensorEventQueue_getEvents(events.sensorEventQueue, &tempEvent, 1) > 0) // Loop through all accelerometer calls.
+					Input::InputEventAccelerometer(tempEvent.acceleration.x, tempEvent.acceleration.y, tempEvent.acceleration.z);
 			}
 		}
 
-		if (androidApplication->destroyRequested != 0) // When Native application is being destroyed.
+		if (androidApplication->destroyRequested != 0) // When application is losing focus or being destroyed.
 			return false;
 	}
 
 	return true;
 }
 
-void Application::DrawFrame()
+void Application::SwapBuffers()
 {
-	/*if(window.display == EGL_NO_DISPLAY || window.context == EGL_NO_CONTEXT)
-	{
-		//DEBUG_INFO(("Skipped DrawFrame()."));
-		return; // End prematurely if there is no context.
-	}
-	
-	//for (const auto& tempFunction : drawFunctions) // Loop through our added functions.
-		//tempFunction();
-
-	//SpriteBatch::GetInstance()->Draw();*/
-
+	// Could be moved elsewhere.
 	eglSwapBuffers(window.display, window.surface);
 }
 
@@ -116,102 +75,3 @@ void Application::ClearScreen()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
-
-
-
-/// android_native_app_glue handles usage of these functions ///
-
-int Application::HandleInput(android_app* application, AInputEvent* event)
-{
-	if (AInputEvent_getSource(event) == AINPUT_SOURCE_TOUCHSCREEN)
-	{
-		if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
-		{
-			Input::InputEventMovement(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
-		}
-
-		if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_DOWN)
-		{
-			Input::InputEventKeyDown();
-		}
-
-		if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_UP)
-		{
-			Input::InputEventKeyUp();
-		}
-	}
-
-	return 0;
-}
-
-void Application::ProcessCommand(android_app* application, int32_t command)
-{
-	// Get reference to our created Application class.
-	Application* tempApplication = static_cast<Application*>(application->userData);
-	
-	switch (command)
-	{
-	case APP_CMD_RESUME:
-		DEBUG_INFO(("RESUME"));
-		break;
-
-	case APP_CMD_PAUSE:
-		DEBUG_INFO(("PAUSE"));
-		break;
-
-	case APP_CMD_INIT_WINDOW:
-		DEBUG_INFO(("INIT_WINDOW"));
-		if (application->window != nullptr) // The window is being shown, get it ready.
-		{
-			tempApplication->window.LoadDisplay(application);
-			//SpriteBatch::GetInstance()->Initialize();
-		}
-		break;
-
-	case APP_CMD_TERM_WINDOW:
-		DEBUG_INFO(("TERM_WINDOW"));
-		tempApplication->window.CloseDisplay(); // The window is being hidden or closed, clean it up.
-		break;
-
-	case APP_CMD_GAINED_FOCUS:
-		/// When our app gains focus, we start monitoring the accelerometer.
-		if (tempApplication->accelerometerSensor != NULL)
-		{
-			ASensorEventQueue_enableSensor(tempApplication->sensorEventQueue,
-				tempApplication->accelerometerSensor);
-
-			ASensorEventQueue_setEventRate(tempApplication->sensorEventQueue,
-				tempApplication->accelerometerSensor, (1000L / 60) * 1000);
-		}
-		break;
-
-	case APP_CMD_LOST_FOCUS:
-		// When our app loses focus, we stop monitoring the accelerometer.
-		// This is to avoid consuming battery while not being used.
-		if (tempApplication->accelerometerSensor != NULL)
-		{
-			ASensorEventQueue_disableSensor(tempApplication->sensorEventQueue,
-				tempApplication->accelerometerSensor);
-		}
-		break;
-
-	default:
-		break;
-	}
-}
-
-/*WindowHandler& Application::GetWindow()
-{
-return window;
-}
-void Application::AddUpdateFunction(bool (*Update)())
-{
-// Need to add checks and such that code won't explode.
-updateFunctions.push_back(Update);
-}
-
-void Application::AddDrawFunction(void (*Draw)())
-{
-drawFunctions.push_back(Draw);
-}
-*/
