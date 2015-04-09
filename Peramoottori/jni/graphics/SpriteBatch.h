@@ -20,6 +20,7 @@ namespace pm
 	public:
 		static SpriteBatch* GetInstance();
 		void DestroyInstance();
+		void Update();
 		void AddGameEntityToVector(GameEntity *gameEntity);
 		virtual ~SpriteBatch() {};
 	

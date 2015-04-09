@@ -2,8 +2,7 @@
 #include "Drawable.h"
 #include "Color.h"
 #include "Shape.h"
-#include "TextureRectangle.h"
-#include "Texture.h"
+#include "scene\Texture.h"
 #include "scene\Transformable.h"
 #include "glm\gtc\matrix_transform.hpp"
 #include "glm\gtx\transform.hpp"
@@ -38,6 +37,14 @@ void SpriteBatch::DestroyInstance()
 	instance = nullptr;
 }
 
+void SpriteBatch::Update()
+{
+	for (int i = 0; i < gameEntityVector.size(); i++)
+	{
+
+	}
+}
+
 void SpriteBatch::AddGameEntityToVector(GameEntity *gameEntity)
 {
 	gameEntityVector.push_back(gameEntity);
@@ -53,16 +60,21 @@ bool SpriteBatch::CheckIfDrawable(GameEntity *gameEntity)
 
 Sprite GatherDataFromComponents(GameEntity *gameEntity)
 {
-	Sprite sprite;
+
 	glm::mat4 translationMatrix;
 	std::vector<GLfloat> vertexPos;
 	GLfloat depth;
-	glm::vec4 vertexTexPos;
+	std::vector<GLfloat> vertexTexPos;
 	glm::vec4 vertexColor;
 	std::vector<GLuint> indices;
+
+	GLuint textureID;
+
 	if (gameEntity->GetComponent<Shape>() == nullptr)
 	{
 		//NO SHAPE
+		vertexPos = NULL;
+		indices = NULL;
 	}
 	else
 	{
@@ -73,24 +85,27 @@ Sprite GatherDataFromComponents(GameEntity *gameEntity)
 	if (gameEntity->GetComponent<Transformable>() == nullptr)
 	{
 		translationMatrix = glm::mat4();
+		depth = NULL;
 	}
 	else
 	{
 		Transformable* transform = gameEntity->GetComponent<Transformable>();
-
+		// !
 		translationMatrix = glm::translate(glm::vec3(transform->GetPosition(), 0.0f));
 		translationMatrix *= glm::rotate(transform->GetRotation(), glm::vec3(0, 0, 1));
 		translationMatrix *= glm::scale(glm::vec3(transform->GetScale(), 0.0f));
 		depth = transform->GetDepth();
 	}
 
-	if (gameEntity->GetComponent<TextureRectangle>() == nullptr)
+	if (gameEntity->GetComponent<Texture>() == nullptr)
 	{
-		vertexTexPos = glm::vec4(0, 1, 1, 0);
+		vertexTexPos = NULL;
+		textureID = NULL;
 	}
 	else
 	{
-		vertexTexPos = GetComponent<TextureRectangle>()->GetTextureRectangle();
+		vertexTexPos = gameEntity->GetComponent<Texture>()->GetTextureVertices();
+		textureID = gameEntity->GetComponent<Texture>()->GetId();
 	}
 
 	if (gameEntity->GetComponent<Color>() == nullptr)
@@ -104,7 +119,11 @@ Sprite GatherDataFromComponents(GameEntity *gameEntity)
 	}
 
 	// TEXTURECOMPONENT WIP
+	
 	std::vector<GLfloat> vertexData;
+	vertexData = CreateVertexData(vertexPos, depth, vertexTexPos, vertexColor);
+
+	Sprite sprite(vertexData, indices, translationMatrix, textureID);
 	return sprite;
 }
 
