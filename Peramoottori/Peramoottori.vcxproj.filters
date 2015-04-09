@@ -83,9 +83,6 @@
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Texture.cpp">
-      <Filter>jni\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="jni\audio\AudioPlayer.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
@@ -143,6 +140,9 @@
     <ClCompile Include="jni\graphics\ShaderProgram.cpp">
       <Filter>jni\graphics\shaders</Filter>
     </ClCompile>
+    <ClCompile Include="jni\TestClass.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
     <ClCompile Include="jni\scene\Scene.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
@@ -170,8 +170,11 @@
     <ClCompile Include="jni\resources\FontResource.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
-    <ClCompile Include="jni\core\EventHandler.cpp">
-      <Filter>jni\core\application</Filter>
+    <ClCompile Include="jni\resources\TextureFactory.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\Texture.cpp">
+      <Filter>jni\scene\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -880,9 +883,6 @@
     <ClInclude Include="jni\graphics\SpriteBatch.h">
       <Filter>jni\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Texture.h">
-      <Filter>jni\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="jni\audio\AudioPlayer.h">
       <Filter>jni\audio</Filter>
     </ClInclude>
@@ -952,6 +952,9 @@
     <ClInclude Include="jni\graphics\ShaderProgram.h">
       <Filter>jni\graphics\shaders</Filter>
     </ClInclude>
+    <ClInclude Include="jni\TestClass.h">
+      <Filter>jni</Filter>
+    </ClInclude>
     <ClInclude Include="jni\scene\Scene.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
@@ -985,8 +988,11 @@
     <ClInclude Include="AudioResource.h">
       <Filter>jni\resources</Filter>
     </ClInclude>
-    <ClInclude Include="jni\core\EventHandler.h">
-      <Filter>jni\core\application</Filter>
+    <ClInclude Include="jni\resources\TextureFactory.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Texture.h">
+      <Filter>jni\scene\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

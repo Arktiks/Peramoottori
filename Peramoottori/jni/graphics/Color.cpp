@@ -15,3 +15,8 @@ void pm::Color::SetColor(glm::vec4 newColor)
 {
 	color = newColor;
 }
+
+glm::vec4 pm::Color::GetColor()
+{
+	return color;
+}

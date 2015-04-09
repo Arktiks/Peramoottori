@@ -13,6 +13,8 @@ namespace pm
 		Color(glm::vec4 color);
 
 		void SetColor(glm::vec4 newColor);
+		
+		glm::vec4 GetColor();
 
 	private:
 		glm::vec4 color;

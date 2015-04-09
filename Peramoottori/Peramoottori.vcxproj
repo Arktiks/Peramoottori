@@ -63,9 +63,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Texture.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="jni\graphics\TextureRectangle.cpp" />
     <ClCompile Include="jni\Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -77,9 +74,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\resources\TextResource.cpp" />
+    <ClCompile Include="jni\resources\TextureFactory.cpp" />
     <ClCompile Include="jni\scene\Component.cpp" />
     <ClCompile Include="jni\scene\GameEntity.cpp" />
     <ClCompile Include="jni\scene\Scene.cpp" />
+    <ClCompile Include="jni\scene\Texture.cpp" />
     <ClCompile Include="jni\scene\Transformable.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
     <ClCompile Include="libs\glm\detail\dummy.cpp" />
@@ -137,9 +136,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Texture.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="jni\graphics\TextureRectangle.h" />
     <ClInclude Include="jni\resources\FontResource.h" />
     <ClInclude Include="jni\resources\ImageResource.h" />
@@ -148,9 +144,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\resources\TextResource.h" />
+    <ClInclude Include="jni\resources\TextureFactory.h" />
     <ClInclude Include="jni\scene\Component.h" />
     <ClInclude Include="jni\scene\GameEntity.h" />
     <ClInclude Include="jni\scene\Scene.h" />
+    <ClInclude Include="jni\scene\Texture.h" />
     <ClInclude Include="jni\scene\Transformable.h" />
     <ClInclude Include="jni\structs\MemoryTrack.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
