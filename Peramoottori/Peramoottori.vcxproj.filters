@@ -149,7 +149,6 @@
     <ClCompile Include="jni\scene\Scene.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
-    <ClCompile Include="jni\resources\FontResource.cpp" />
     <ClCompile Include="jni\graphics\Color.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
@@ -170,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="jni\graphics\Sprite.cpp">
       <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\FontResource.cpp">
+      <Filter>jni\resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -956,8 +958,6 @@
     <ClInclude Include="jni\scene\Scene.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
-    <ClInclude Include="jni\resources\FontResource.h" />
-    <ClInclude Include="AudioResource.h" />
     <ClInclude Include="jni\graphics\Color.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
@@ -981,6 +981,12 @@
     </ClInclude>
     <ClInclude Include="jni\graphics\Sprite.h">
       <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\FontResource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioResource.h">
+      <Filter>jni\resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
