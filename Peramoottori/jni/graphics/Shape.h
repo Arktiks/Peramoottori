@@ -28,6 +28,19 @@ namespace pm
 			origin = { newOriginX, newOriginY };
 		}
 
+		std::vector<float> GetVertices()
+		{
+			return vertices;
+		}
+		std::vector<unsigned int> GetIndices()
+		{
+			return indices;
+		}
+		glm::vec2 GetOrigin()
+		{
+			return origin;
+		}
+
 
 	protected:
 
