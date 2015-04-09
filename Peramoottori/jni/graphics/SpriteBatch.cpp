@@ -54,7 +54,9 @@ bool SpriteBatch::CheckIfDrawable(GameEntity *gameEntity)
 Sprite GatherDataFromComponents(GameEntity *gameEntity)
 {
 	Sprite sprite;
+	glm::mat4 translationMatrix;
 	std::vector<GLfloat> vertexPos;
+	GLfloat depth;
 	glm::vec4 vertexTexPos;
 	glm::vec4 vertexColor;
 	std::vector<GLuint> indices;
@@ -70,17 +72,21 @@ Sprite GatherDataFromComponents(GameEntity *gameEntity)
 
 	if (gameEntity->GetComponent<Transformable>() == nullptr)
 	{
-		// NO TRANSFORMCOMPONENT
+		translationMatrix = glm::mat4();
 	}
 	else
 	{
-		//MATRIX
-		//gameEntity->GetComponent<Transformable>()->
+		Transformable* transform = gameEntity->GetComponent<Transformable>();
+
+		translationMatrix = glm::translate(glm::vec3(transform->GetPosition(), 0.0f));
+		translationMatrix *= glm::rotate(transform->GetRotation(), glm::vec3(0, 0, 1));
+		translationMatrix *= glm::scale(glm::vec3(transform->GetScale(), 0.0f));
+		depth = transform->GetDepth();
 	}
 
 	if (gameEntity->GetComponent<TextureRectangle>() == nullptr)
 	{
-		// NO TEXTUREVERTEXDATA
+		vertexTexPos = glm::vec4(0, 1, 1, 0);
 	}
 	else
 	{
@@ -116,4 +122,23 @@ void SpriteBatch::AddSpriteToBatch(Sprite sprite)
 			// If no batches with same texture were found, create new batch and add data to it.
 	Batch newBatch(sprite.GetVertexData(), sprite.GetIndexData(), sprite.GetTransformMatrix(), sprite.GetTextureIndex());
 	batchVector.push_back(newBatch);
+}
+
+std::vector<GLfloat> SpriteBatch::CreateVertexData(std::vector<GLfloat> vertexPos
+	GLfloat depth, glm::vec4 vertexTexPos, glm::vec4 vertexColor)
+{
+	std::vector<GLfloat> vertexData;
+	for (int i = 0; i < 4; i++)
+	{
+		vertexData.push_back(vertexPos[i * 2]);
+		vertexData.push_back(vertexPos[i * 2 + 1]);
+		vertexData.push_back(depth);
+
+		vertexData.push_back(vertexColor.x);
+		vertexData.push_back(vertexColor.y);
+		vertexData.push_back(vertexColor.z);
+
+		vertexData.push_back(vertexTexPos[]);
+		vertexData.push_back(vertexTexPos[])
+	}
 }
