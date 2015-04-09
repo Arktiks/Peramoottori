@@ -8,10 +8,12 @@ class Sprite
 public:
 	Sprite(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
 		glm::mat4 transformMatrix, GLuint textureIndex);
+	Sprite(){};
 	~Sprite();
 
 	void SetData(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
 		glm::mat4 transformMatrix, GLuint textureIndex);
+private:
 	std::vector<GLfloat> vertexData;
 	std::vector<GLuint> indexData;
 	glm::mat4 transformMatrix;

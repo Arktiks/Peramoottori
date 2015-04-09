@@ -1,8 +1,17 @@
 #include "SpriteBatch.h"
+#include "Drawable.h"
+#include "Color.h"
+#include "Shape.h"
+#include "TextureRectangle.h"
+#include "Texture.h"
+#include "scene\Transformable.h"
+#include "glm\gtc\matrix_transform.hpp"
+#include "glm\gtx\transform.hpp"
 #include <algorithm>
 #include <core\Passert.h>
 #include <core\Log.h>
 #include <core\Memory.h>
+
 
 using namespace pm;
 
@@ -36,12 +45,54 @@ void SpriteBatch::AddGameEntityToVector(GameEntity *gameEntity)
 
 bool SpriteBatch::CheckIfDrawable(GameEntity *gameEntity)
 {
-	// TODO: Check if sprite will be drawn, using components.
+	if (gameEntity->GetComponent<Drawable>() == nullptr)
+		return false;
+	else
+		return gameEntity->GetComponent<Drawable>()->GetDrawState();
 }
 
 Sprite GatherDataFromComponents(GameEntity *gameEntity)
 {
-	// Gather stuff for the sprite using components. Sprite will be batched and forwarded to RenderSystem
+	Sprite sprite;
+	if (gameEntity->GetComponent<Shape>() == nullptr)
+	{
+		//NO SHAPE
+	}
+	else
+	{
+
+	}
+
+	if (gameEntity->GetComponent<Transformable>() == nullptr)
+	{
+		// NO TRANSFORMCOMPONENT
+	}
+	else
+	{
+		//gameEntity->GetComponent<Transformable>()->
+	}
+
+	if (gameEntity->GetComponent<TextureRectangle>() == nullptr)
+	{
+		//NO TEXTURERECTANGLE
+	}
+	else
+	{
+
+	}
+
+	if (gameEntity->GetComponent<Color>() == nullptr)
+	{
+		//NO COLOR
+	}
+	else
+	{
+
+	}
+
+	// TEXTURECOMPONENT WIP
+
+	return sprite;
 }
 
 void SpriteBatch::AddSpriteToBatch(Sprite sprite)
