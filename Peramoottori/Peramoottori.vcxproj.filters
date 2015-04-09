@@ -83,9 +83,6 @@
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Texture.cpp">
-      <Filter>jni\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="jni\audio\AudioPlayer.cpp">
       <Filter>jni\audio</Filter>
     </ClCompile>
@@ -175,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="jni\resources\TextureFactory.cpp">
       <Filter>jni\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\Texture.cpp">
+      <Filter>jni\scene\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -883,9 +883,6 @@
     <ClInclude Include="jni\graphics\SpriteBatch.h">
       <Filter>jni\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Texture.h">
-      <Filter>jni\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="jni\audio\AudioPlayer.h">
       <Filter>jni\audio</Filter>
     </ClInclude>
@@ -993,6 +990,9 @@
     </ClInclude>
     <ClInclude Include="jni\resources\TextureFactory.h">
       <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Texture.h">
+      <Filter>jni\scene\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
