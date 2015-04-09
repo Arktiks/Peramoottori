@@ -13,6 +13,11 @@ public:
 
 	void SetData(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
 		glm::mat4 transformMatrix, GLuint textureIndex);
+
+	std::vector<GLfloat> GetVertexData(){ return vertexData; };
+	std::vector<GLuint> GetIndexData(){ return indexData; };
+	glm::mat4 GetTransformMatrix(){ return transformMatrix; };
+	GLuint GetTextureIndex(){ return textureIndex; };
 private:
 	std::vector<GLfloat> vertexData;
 	std::vector<GLuint> indexData;

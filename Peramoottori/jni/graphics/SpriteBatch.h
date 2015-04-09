@@ -31,6 +31,8 @@ namespace pm
 		// Ker‰‰ componenteilta datan jotta se voidaan batchata.
 		Sprite GatherDataFromComponents(GameEntity *gameEntity);
 		// Lis‰‰ GameEntityn komponenteista koodun drawablen oikeaan batchiin.
+		std::vector<GLfloat> CreateVertexData(std::vector<GLfloat> vertexPos
+			GLfloat depth, glm::vec4 vertexTexPos, glm::vec4 vertexColor);
 		void AddSpriteToBatch(Sprite sprite);
 
 		std::vector<GameEntity*> gameEntityVector; 
