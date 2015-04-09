@@ -1,12 +1,8 @@
 #include "Texture.h"
 
 
-pm::Texture::Texture()
+pm::Texture::Texture() : Component()
 {	
-}
-
-pm::Texture::~Texture()
-{
 }
 
 void pm::Texture::SetId(GLuint ui)

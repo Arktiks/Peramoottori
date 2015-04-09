@@ -173,6 +173,9 @@
     <ClCompile Include="jni\resources\FontResource.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
+    <ClCompile Include="jni\resources\TextureFactory.cpp">
+      <Filter>jni\resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -986,6 +989,9 @@
       <Filter>jni\resources</Filter>
     </ClInclude>
     <ClInclude Include="AudioResource.h">
+      <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\TextureFactory.h">
       <Filter>jni\resources</Filter>
     </ClInclude>
   </ItemGroup>

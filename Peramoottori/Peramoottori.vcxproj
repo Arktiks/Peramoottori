@@ -76,6 +76,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\resources\TextResource.cpp" />
+    <ClCompile Include="jni\resources\TextureFactory.cpp" />
     <ClCompile Include="jni\scene\Component.cpp" />
     <ClCompile Include="jni\scene\GameEntity.cpp" />
     <ClCompile Include="jni\scene\Scene.cpp" />
@@ -147,6 +148,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\resources\TextResource.h" />
+    <ClInclude Include="jni\resources\TextureFactory.h" />
     <ClInclude Include="jni\scene\Component.h" />
     <ClInclude Include="jni\scene\GameEntity.h" />
     <ClInclude Include="jni\scene\Scene.h" />

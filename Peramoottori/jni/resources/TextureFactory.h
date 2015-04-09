@@ -1,5 +1,6 @@
 #ifndef TEXTUREFACTORY_H
 #define TEXTUREFACTORY_H
+
 #include <vector>
 #include <string>
 #include <GLES2\gl2.h>
