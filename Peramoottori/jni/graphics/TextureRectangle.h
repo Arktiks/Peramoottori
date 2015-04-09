@@ -14,8 +14,11 @@ namespace pm
 
 		void SetTextureRectangle(float newLeft, float newTop, float newRight, float newBottom);
 
+		glm::vec4 GetTextureRectangle();
+
 	private:
-		float left, top, right, bottom;
+		
+		glm::vec4 rectangle;
 	};
 
 }
