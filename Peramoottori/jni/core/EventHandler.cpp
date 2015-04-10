@@ -16,9 +16,12 @@ void EventHandler::Initialize(android_app* application)
 	accelerometerSensor = ASensorManager_getDefaultSensor(sensorManager, ASENSOR_TYPE_ACCELEROMETER);
 	if (accelerometerSensor != nullptr) // In case device doesn't have accelerometer.
 		hasAccelerometer = true;
+	else
+		hasAccelerometer = false;
 
 	// Create queue that handles sensor events as they come.
-	sensorEventQueue = ASensorManager_createEventQueue(sensorManager, application->looper, LOOPER_ID_USER, nullptr, nullptr);
+	if(sensorEventQueue == nullptr)
+		sensorEventQueue = ASensorManager_createEventQueue(sensorManager, application->looper, LOOPER_ID_USER, nullptr, nullptr);
 
 	application->onAppCmd = ProcessCommand; // What function is referred on application calls.
 	application->onInputEvent = HandleInput; // What function is referred on input calls.
@@ -26,13 +29,31 @@ void EventHandler::Initialize(android_app* application)
 
 void EventHandler::EnableSensors()
 {
+	if (hasAccelerometer) // If device has accelerometer.
+	{
+		int tempStatus = ASensorEventQueue_enableSensor(sensorEventQueue, accelerometerSensor);
 
+		if (tempStatus < 0)
+			DEBUG_WARNING(("Enabling accelerometer failed!"));
 
+		tempStatus = ASensorEventQueue_setEventRate(sensorEventQueue, accelerometerSensor, (1000L / 60) * 1000);
 
+		if (tempStatus < 0)
+			DEBUG_WARNING(("Setting accelerometer event rate failed!"));
+	}
+
+	// Add possible other sensor data.
 }
 
 void EventHandler::DisableSensors()
 {
+	if (hasAccelerometer) // Stop monitoring the accelerometer. This is to avoid consuming battery while not being used.
+	{
+		int tempStatus = ASensorEventQueue_disableSensor(sensorEventQueue, accelerometerSensor);
+
+		if (tempStatus < 0)
+			DEBUG_WARNING(("Disabling accelerometer failed!"));
+	}
 }
 
 EventHandler::~EventHandler()
@@ -64,6 +85,7 @@ void EventHandler::ProcessCommand(android_app* application, int32_t command)
 {
 	// Get reference to our Application class.
 	Application* tempApplication = static_cast<Application*>(application->userData);
+	bool testSucces = false;
 
 	switch (command)
 	{
@@ -103,22 +125,20 @@ void EventHandler::ProcessCommand(android_app* application, int32_t command)
 	case APP_CMD_DESTROY:
 		DEBUG_INFO(("ProcessCommand: APP_CMD_DESTROY"));
 		Memory::WriteLeaks(); // Write memory leaks to LogCat.
-		//ANativeActivity_finish(
 		DEBUG_INFO(("APP_CMD_DESTROY has finished cleaning application.")); // For some reason destroy is not called when application closes.
+		break;
 
-
-
-		/// Following commands are native_app_glue specific ///
 
 		// Called when ANativeWindow is ready for use.
 		// android_app->window will contain the new window surface.
 	case APP_CMD_INIT_WINDOW:
 		DEBUG_INFO(("ProcessCommand: INIT_WINDOW"));
-		if (application->window != nullptr) // The window is being shown, get it ready.
-		{
-			tempApplication->window.LoadDisplay(application); // WindowHandler creates display, surface and context.
-			// Other functions neccessary for drawing should be initialized here.
-		}
+
+		ASSERT_NEQUAL(application->window, nullptr); // Make sure INIT_WINDOW calls is legit.
+
+		testSucces = tempApplication->window.LoadDisplay(application); // WindowHandler creates display, surface and context.
+		ASSERT(testSucces);
+
 		break;
 
 
@@ -126,44 +146,22 @@ void EventHandler::ProcessCommand(android_app* application, int32_t command)
 		// contains existing window; after calling android_app_exec_cmd it will be set to NULL.
 	case APP_CMD_TERM_WINDOW:
 		DEBUG_INFO(("ProcessCommand: TERM_WINDOW"));
-		tempApplication->window.CloseDisplay(); // The window is being hidden or closed, clean it up.
+
+		testSucces = tempApplication->window.CloseDisplay(); // The window is being hidden or closed, clean it up.
+		ASSERT(testSucces);
+
 		break;
 
 
 	case APP_CMD_GAINED_FOCUS:
 		DEBUG_INFO(("ProcessCommand: APP_CMD_GAINED_FOCUS"));
-		/// When our app gains focus, we start monitoring the accelerometer.
-		if (tempApplication->events.hasAccelerometer) // If device has accelerometer.
-		{
-			int tempStatus = ASensorEventQueue_enableSensor
-				(tempApplication->events.sensorEventQueue,
-				tempApplication->events.accelerometerSensor);
-
-			if (tempStatus < 0)
-				DEBUG_WARNING(("Enabling accelerometer failed!"));
-
-			tempStatus = ASensorEventQueue_setEventRate
-				(tempApplication->events.sensorEventQueue,
-				tempApplication->events.accelerometerSensor, (1000L / 60) * 1000);
-
-			if (tempStatus < 0)
-				DEBUG_WARNING(("Setting accelerometer event rate failed!"));
-		}
+		tempApplication->events.EnableSensors(); // When application gains focus, start monitoring sensors.
 		break;
 
 
 	case APP_CMD_LOST_FOCUS:
 		DEBUG_INFO(("ProcessCommand: APP_CMD_LOST_FOCUS"));
-		// When app loses focus, stop monitoring the accelerometer. This is to avoid consuming battery while not being used.
-		if (tempApplication->events.hasAccelerometer)
-		{
-			int tempStatus = ASensorEventQueue_disableSensor
-				(tempApplication->events.sensorEventQueue,
-				tempApplication->events.accelerometerSensor);
-
-			if (tempStatus < 0)
-				DEBUG_WARNING(("Disabling accelerometer failed!"));
-		}
+		tempApplication->events.DisableSensors();
 		break;
 
 

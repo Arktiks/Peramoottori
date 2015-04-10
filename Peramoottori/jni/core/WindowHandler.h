@@ -30,11 +30,11 @@ namespace pm
 
 		/// Called when APP_CMD_INIT_WINDOW is received by ProcessCommand.
 		/// Initializes EGL surface, display and context.
-		void LoadDisplay(android_app* application);
+		bool LoadDisplay(android_app* application);
 
 		/// Called when APP_CMD_TERM_WINDOW is received by ProcessCommand.
 		///	Destroys EGL display, context and terminates the display when done.
-		void CloseDisplay();
+		bool CloseDisplay();
 
 		EGLSurface surface;
 		EGLDisplay display;

@@ -29,10 +29,6 @@ namespace pm
 
 		~EventHandler();
 
-		// ASensorManager* sensorManager; ///< Singleton that manages sensors. : Holding it here might not be neccessary.
-
-
-
 		// Pointer to const data does not allow modification of the data through the pointer.
 		const ASensor* accelerometerSensor; ///< Sensor that measures proper acceleration.
 		bool hasAccelerometer; ///< Does device have accelerometer.

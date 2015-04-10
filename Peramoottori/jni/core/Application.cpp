@@ -57,7 +57,8 @@ bool Application::Update()
 void Application::SwapBuffers()
 {
 	// Could be moved elsewhere.
-	eglSwapBuffers(window.display, window.surface);
+	bool testSucces = eglSwapBuffers(window.display, window.surface);
+	ASSERT(testSucces);
 }
 
 void Application::Clear()
