@@ -55,7 +55,7 @@ void Game::Clear()
 	if (!IsReady())
 		return;
 
-	Application::ClearScreen();
+	Application::Clear();
 }
 
 void Game::SetClearColor(float red, float green, float blue)

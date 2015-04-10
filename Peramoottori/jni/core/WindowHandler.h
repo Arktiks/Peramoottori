@@ -14,7 +14,7 @@ namespace pm
 
 	friend class Application; // Application can use this class freely.
 	friend class Game;
-	friend class EventHandler; // Creates dependency between handlers. Not sure if good idea.
+	friend class EventHandler; // Creates association between handlers. Not sure if good idea.
 
 	private:
 
