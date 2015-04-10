@@ -6,12 +6,14 @@
 #include <core\Passert.h>
 #include <core\Memory.h>
 #include <resources\ResourceManager.h>
+#include <audio\Audio.h>
 
 using namespace pm;
 
 void android_main(android_app* application)
 {
 	DEBUG_INFO(("Starting android_main."));
+	Audio audio("test1.ogg");
 
 	Game* game = Game::GetInstance();
 	game->Initialize(application);

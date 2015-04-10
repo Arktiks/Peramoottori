@@ -6,6 +6,7 @@
 #include <resources\TextResource.h>
 #include <resources\ImageResource.h>
 #include <resources\FontResource.h>
+#include <resources\AudioResource.h>
 #include <string>
 #include <map>
 #include <iostream>
@@ -55,8 +56,11 @@ namespace pm
 	private:
 
 		/// KOMMENTOI
-		std::string ReadFont(std::string filename);
+		std::string ReadFont(std::string fileName);
 
+
+		/// KOMMENTOI
+		AAsset* ReadAudio(std::string fileName);
 
 		///	Finds an asset from the assetMap.
 		///		\param fileName : string.
