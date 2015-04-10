@@ -28,8 +28,6 @@ namespace pm
 
 		bool Initialize(android_app* application); ///< Needs to be called to setup Perämoottori.
 
-		void InitializeGame();
-
 		bool IsReady(); ///< Return true if Game is ready to be updated and drawn.
 
 		Vector2<int> GetResolution(); ///< Return display resolution.
@@ -40,9 +38,15 @@ namespace pm
 
 		bool Update(); ///< Updates neccessary android calls.
 
+		void Draw(); // !!! Scene will remove this later.
+
+		// VESA FUNKTIOT //
+
 		void UpdateGame();
 
-		void Draw(); // !!! Scene will remove this later.
+		void InitializeGame();
+
+		// VESA PLS //
 
 	private:
 

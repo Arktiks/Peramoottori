@@ -82,6 +82,7 @@ void Game::Draw()
 	
 	SpriteBatch::GetInstance()->AddGameEntity(&gameEntity);
 	SpriteBatch::GetInstance()->Draw();
+
 	Application::SwapBuffers();
 }
 
@@ -100,7 +101,7 @@ void Game::InitializeGame()
 	gameEntity.AddComponent(TextureFactory::CreateTexture("test.png"));
 
 }
+
 void Game::UpdateGame()
 {
-
 }

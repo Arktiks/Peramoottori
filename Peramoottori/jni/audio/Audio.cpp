@@ -18,7 +18,7 @@ pm::Audio::Audio(std::string fileName)
 
 	int fileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
 
-	if (fileDescriptor <= 0)
+	//if (fileDescriptor <= 0)
 	//PMassert::AssertEquals(true, false, "Opening audio file descriptor failed!");
 	
 	AAsset_close(tempAudioAsset);
