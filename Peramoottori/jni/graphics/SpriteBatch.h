@@ -2,6 +2,8 @@
 #define SPRITEBATCH_H
 
 #include "../scene/GameEntity.h"
+#include "scene\Texture.h"
+#include "RenderSystem.h"
 #include "Sprite.h"
 #include "Shader.h"
 #include "Batch.h"
@@ -20,8 +22,8 @@ namespace pm
 	public:
 		static SpriteBatch* GetInstance();
 		void DestroyInstance();
-		void Update();
-		void AddGameEntityToVector(GameEntity *gameEntity);
+		void Draw();
+		void AddGameEntity(GameEntity *gameEntity);
 		virtual ~SpriteBatch() {};
 	
 	private:

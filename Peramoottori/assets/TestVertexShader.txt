@@ -4,6 +4,8 @@ attribute vec3 attrPosition;
 attribute vec3 attrColor;
 attribute vec2 texPosition;
 
+uniform mat4 transformable;
+uniform mat4 unifProjectionTransform;
 varying vec3 varyColor;
 varying vec2 varyPosition;
 
@@ -11,5 +13,5 @@ void main(void)
 {
 	varyColor = attrColor;
 	varyPosition = texPosition;
-	gl_Position = vec4(attrPosition, 1.0);
+	gl_Position = unifProjectionTransform * transformable * attrPosition;
 }

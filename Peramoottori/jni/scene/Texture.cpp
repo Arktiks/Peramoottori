@@ -1,4 +1,4 @@
-#include "Texture.h"
+#include "scene\Texture.h"
 
 
 pm::Texture::Texture() : Component()
@@ -39,11 +39,11 @@ void pm::Texture::SetTextureVertices(glm::vec2 leftTop, glm::vec2 rightBottom)
 	textureVertex.push_back(1 - (rightBottom.y / textureSize.y));
 }
 
-GLuint pm::Texture::getId()
+GLuint pm::Texture::GetId()
 {
 	return textureIndex;
 }
-glm::uvec2 pm::Texture::getTextureSize()
+glm::uvec2 pm::Texture::GetTextureSize()
 {
 	return textureSize;
 }

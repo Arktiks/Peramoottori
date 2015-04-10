@@ -2,7 +2,7 @@
 #include "Drawable.h"
 #include "Color.h"
 #include "Shape.h"
-#include "scene\Texture.h"
+
 #include "scene\Transformable.h"
 #include "glm\gtc\matrix_transform.hpp"
 #include "glm\gtx\transform.hpp"
@@ -37,7 +37,7 @@ void SpriteBatch::DestroyInstance()
 	instance = nullptr;
 }
 
-void SpriteBatch::Update()
+void SpriteBatch::Draw()
 {
 	for (int i = 0; i < gameEntityVector.size(); i++)
 	{
@@ -47,9 +47,15 @@ void SpriteBatch::Update()
 			AddSpriteToBatch(sprite);
 		}
 	}
+	for (int i = 0; i < batchVector.size(); i++)
+	{
+		RenderSystem::GetInstance()->Draw(batchVector[i]);
+	}
+	gameEntityVector.clear();
+	batchVector.clear();
 }
 
-void SpriteBatch::AddGameEntityToVector(GameEntity *gameEntity)
+void SpriteBatch::AddGameEntity(GameEntity *gameEntity)
 {
 	gameEntityVector.push_back(gameEntity);
 }
