@@ -5,7 +5,7 @@
 #include <string>
 #include <GLES2\gl2.h>
 #include <core\Log.h>
-#include <graphics\Texture.h>
+#include <scene\Texture.h>
 #include <resources\ResourceManager.h>
 #include <lodepng.h>
 #include <glm\common.hpp>

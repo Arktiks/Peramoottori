@@ -23,10 +23,10 @@ void RenderSystem::Draw(Batch batch)
 	BindBuffers(batch.totalVertexData, batch.totalIndexData);
 
 	if (shaderProgram.GetLinkStatus())
-	shaderProgram.RunProgram();
+	shaderProgram.UseProgram();
 
 	glActiveTexture(GL_TEXTURE0);	// MAY NOT BE NEEDED
-	glEnable(GL_TEXTURE_2D);		// MAY NOT BE NEEDED, DONE IN Initialize()
+	//glEnable(GL_TEXTURE_2D);		// MAY NOT BE NEEDED, DONE IN Initialize()
 
 	glUniform1i(shaderProgram.samplerLoc, 0);
 	glBindTexture(GL_TEXTURE_2D, batch.textureIndex);

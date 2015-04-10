@@ -41,7 +41,11 @@ void SpriteBatch::Update()
 {
 	for (int i = 0; i < gameEntityVector.size(); i++)
 	{
-
+		if (CheckIfDrawable(gameEntityVector[i]))
+		{
+			Sprite sprite = GatherDataFromComponents(gameEntityVector[i]);
+			AddSpriteToBatch(sprite);
+		}
 	}
 }
 
@@ -54,11 +58,13 @@ bool SpriteBatch::CheckIfDrawable(GameEntity *gameEntity)
 {
 	if (gameEntity->GetComponent<Drawable>() == nullptr)
 		return false;
+	else if (gameEntity->GetComponent<Shape>() == nullptr)
+		return false;
 	else
 		return gameEntity->GetComponent<Drawable>()->GetDrawState();
 }
 
-Sprite GatherDataFromComponents(GameEntity *gameEntity)
+Sprite SpriteBatch::GatherDataFromComponents(GameEntity *gameEntity)
 {
 
 	glm::mat4 translationMatrix;
@@ -73,8 +79,6 @@ Sprite GatherDataFromComponents(GameEntity *gameEntity)
 	if (gameEntity->GetComponent<Shape>() == nullptr)
 	{
 		//NO SHAPE
-		vertexPos = NULL;
-		indices = NULL;
 	}
 	else
 	{
@@ -85,7 +89,7 @@ Sprite GatherDataFromComponents(GameEntity *gameEntity)
 	if (gameEntity->GetComponent<Transformable>() == nullptr)
 	{
 		translationMatrix = glm::mat4();
-		depth = NULL;
+		depth = 0;
 	}
 	else
 	{
@@ -99,8 +103,11 @@ Sprite GatherDataFromComponents(GameEntity *gameEntity)
 
 	if (gameEntity->GetComponent<Texture>() == nullptr)
 	{
-		vertexTexPos = NULL;
-		textureID = NULL;
+		textureID = -1;
+		for (int i = 0; i < 8; i++)
+		{
+			vertexTexPos.push_back(0);
+		}
 	}
 	else
 	{
@@ -111,8 +118,8 @@ Sprite GatherDataFromComponents(GameEntity *gameEntity)
 	if (gameEntity->GetComponent<Color>() == nullptr)
 	{
 		//NO COLOR
-		vertexColor = glm::vec4(255, 50, 150, 1);
-	}
+		vertexColor = glm::vec4(0.5f, 0.6f, 1.0f, 1);
+	} 
 	else
 	{
 		vertexColor = gameEntity->GetComponent<Color>()->GetColor();
@@ -143,8 +150,8 @@ void SpriteBatch::AddSpriteToBatch(Sprite sprite)
 	batchVector.push_back(newBatch);
 }
 
-std::vector<GLfloat> SpriteBatch::CreateVertexData(std::vector<GLfloat> vertexPos
-	GLfloat depth, glm::vec4 vertexTexPos, glm::vec4 vertexColor)
+std::vector<GLfloat> SpriteBatch::CreateVertexData(std::vector<GLfloat> vertexPos,
+	GLfloat depth, std::vector<GLfloat> vertexTexPos, glm::vec4 vertexColor)
 {
 	std::vector<GLfloat> vertexData;
 	for (int i = 0; i < 4; i++)
@@ -157,7 +164,7 @@ std::vector<GLfloat> SpriteBatch::CreateVertexData(std::vector<GLfloat> vertexPo
 		vertexData.push_back(vertexColor.y);
 		vertexData.push_back(vertexColor.z);
 
-		vertexData.push_back(vertexTexPos[]);
-		vertexData.push_back(vertexTexPos[])
+		vertexData.push_back(vertexTexPos[i * 2]);
+		vertexData.push_back(vertexTexPos[i * 2 + 1]);
 	}
 }
