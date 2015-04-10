@@ -40,8 +40,8 @@ bool Application::Update()
 {
 	Input::Update();
 
-	int tempIdent; // See what looper is calling.
-	android_poll_source* tempEventSource; // Contains reference to executable command.
+	int tempIdent = 0; // See what looper is calling.
+	android_poll_source* tempEventSource = nullptr; // Contains reference to executable command.
 
 	while ((tempIdent = ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&tempEventSource))) >= 0)
 	{

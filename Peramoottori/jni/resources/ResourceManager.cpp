@@ -15,7 +15,7 @@ const std::string PNG = ".png";
 pm::ResourceManager* pm::ResourceManager::GetInstance()
 {
 	if (instance == nullptr) // If instance has not been initialized yet.
-		instance = new ResourceManager;
+		instance = NEW ResourceManager;
 	return instance;
 }
 

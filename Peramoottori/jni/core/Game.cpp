@@ -3,6 +3,7 @@
 #include <GLES2/gl2ext.h>
 #include <core/Log.h>
 #include <core/Passert.h>
+#include <core/Memory.h>
 
 using namespace pm;
 using namespace std;
@@ -12,7 +13,7 @@ Game* Game::instance = nullptr;
 Game* Game::GetInstance()
 {
 	if (instance == nullptr) // If instance has not been initialized yet.
-		instance = new Game;
+		instance = NEW Game;
 	return instance;
 }
 
