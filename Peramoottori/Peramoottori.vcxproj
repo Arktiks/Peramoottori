@@ -538,7 +538,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype;</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -550,7 +550,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype;</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
