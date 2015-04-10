@@ -33,6 +33,7 @@
     <ClCompile Include="jni\core\Application.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\core\EventHandler.cpp" />
     <ClCompile Include="jni\core\Game.cpp" />
     <ClCompile Include="jni\core\Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -59,8 +60,8 @@
     </ClCompile>
     <ClCompile Include="jni\graphics\Sprite.cpp" />
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\graphics\TextureRectangle.cpp" />
     <ClCompile Include="jni\Main.cpp">
@@ -73,13 +74,18 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\resources\TextResource.cpp" />
-    <ClCompile Include="jni\resources\TextureFactory.cpp" />
+    <ClCompile Include="jni\resources\TextureFactory.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="jni\scene\Component.cpp" />
     <ClCompile Include="jni\scene\GameEntity.cpp" />
     <ClCompile Include="jni\scene\Scene.cpp" />
-    <ClCompile Include="jni\scene\Texture.cpp" />
+    <ClCompile Include="jni\scene\Texture.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="jni\scene\Transformable.cpp" />
-    <ClCompile Include="jni\TestClass.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
     <ClCompile Include="libs\glm\detail\dummy.cpp" />
     <ClCompile Include="libs\glm\detail\glm.cpp" />
@@ -100,6 +106,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\core\Application.h" />
+    <ClInclude Include="jni\core\EventHandler.h" />
     <ClInclude Include="jni\core\Game.h" />
     <ClInclude Include="jni\core\Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -132,8 +139,8 @@
     </ClInclude>
     <ClInclude Include="jni\graphics\Sprite.h" />
     <ClInclude Include="jni\graphics\SpriteBatch.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\graphics\TextureRectangle.h" />
     <ClInclude Include="jni\resources\FontResource.h" />
@@ -143,14 +150,19 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\resources\TextResource.h" />
-    <ClInclude Include="jni\resources\TextureFactory.h" />
+    <ClInclude Include="jni\resources\TextureFactory.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="jni\scene\Component.h" />
     <ClInclude Include="jni\scene\GameEntity.h" />
     <ClInclude Include="jni\scene\Scene.h" />
-    <ClInclude Include="jni\scene\Texture.h" />
+    <ClInclude Include="jni\scene\Texture.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="jni\scene\Transformable.h" />
     <ClInclude Include="jni\structs\MemoryTrack.h" />
-    <ClInclude Include="jni\TestClass.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
     <ClInclude Include="libs\freetype\config\ftconfig.h" />
     <ClInclude Include="libs\freetype\config\ftheader.h" />
@@ -526,7 +538,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype;</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -538,7 +550,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype;</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

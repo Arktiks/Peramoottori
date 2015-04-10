@@ -6,34 +6,41 @@
 
 namespace pm
 {
-	class Game : private Application
+	class Game : public Application
 	{
 	public:
-		Game();
 
-		Game(android_app* application);
+		/// Return only instance of Game. 
+		/// Only one instance of Game should exist during runtime.
+		static Game* GetInstance();
 
-		bool Initialize(android_app* application);
+	public:
 
-		Vector2<int> GetResolution();
+		void DestroyInstance(); ///< Deletes Game instance.
 
-		void Clear();
+		bool Initialize(android_app* application); ///< Needs to be called to setup Perämoottori.
+
+		bool IsReady(); ///< Return true if Game is ready to be updated and drawn.
+
+		Vector2<int> GetResolution(); ///< Return display resolution.
+
+		void Clear(); ///< Clear display with clear color.
 
 		void SetClearColor(float red, float green, float blue);
 
-		bool IsReady();
+		bool Update(); ///< Updates neccessary android calls.
 
-		bool Update();
-
-		void Draw();
-
-		~Game();
+		void Draw(); // !!! Scene will remove this later.
 
 	private:
 
-		void AddInstance();
+		bool initialized; ///< Checks if Initialize has been called succesfully at least once.
 
-		static std::size_t instances;
+		Game() : Application(), initialized(false) {};
+
+		~Game() {};
+
+		static Game* instance; ///< Pointer to only instance of the class.
 
 	};
 }

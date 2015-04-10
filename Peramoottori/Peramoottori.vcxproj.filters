@@ -140,9 +140,6 @@
     <ClCompile Include="jni\graphics\ShaderProgram.cpp">
       <Filter>jni\graphics\shaders</Filter>
     </ClCompile>
-    <ClCompile Include="jni\TestClass.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
     <ClCompile Include="jni\scene\Scene.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
@@ -176,6 +173,13 @@
     <ClCompile Include="jni\scene\Texture.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="jni\core\EventHandler.cpp" />
+=======
+    <ClCompile Include="jni\core\EventHandler.cpp">
+      <Filter>jni\core\application</Filter>
+    </ClCompile>
+>>>>>>> a858e9e5c2d97ca6b932d08854fe1f5aecec9458
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -952,9 +956,6 @@
     <ClInclude Include="jni\graphics\ShaderProgram.h">
       <Filter>jni\graphics\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="jni\TestClass.h">
-      <Filter>jni</Filter>
-    </ClInclude>
     <ClInclude Include="jni\scene\Scene.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
@@ -994,6 +995,13 @@
     <ClInclude Include="jni\scene\Texture.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="jni\core\EventHandler.h" />
+=======
+    <ClInclude Include="jni\core\EventHandler.h">
+      <Filter>jni\core\application</Filter>
+    </ClInclude>
+>>>>>>> a858e9e5c2d97ca6b932d08854fe1f5aecec9458
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">

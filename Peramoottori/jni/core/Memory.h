@@ -48,7 +48,6 @@ extern void operator delete[](void* ptr);
 #endif // DEBUG_MEMORY
 #endif // _DEBUG
 
-
 // Disable memory tracking for release.
 #ifdef NDEBUG
 #define NEW new
