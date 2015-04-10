@@ -67,6 +67,7 @@
     <ClCompile Include="jni\Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\resources\AudioResource.cpp" />
     <ClCompile Include="jni\resources\FontResource.cpp" />
     <ClCompile Include="jni\resources\ImageResource.cpp" />
     <ClCompile Include="jni\resources\Resource.cpp" />
@@ -92,7 +93,6 @@
     <ClCompile Include="libs\lodepng.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AudioResource.h" />
     <ClInclude Include="jni\audio\Audio.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -539,7 +539,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
@@ -551,7 +551,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
