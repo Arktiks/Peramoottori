@@ -12,7 +12,7 @@ pm::Audio::Audio(std::string fileName)
 	AAsset* tempAudioAsset = pm::ResourceManager::GetInstance()->GetAAsset(fileName);
 	AAsset* tempNull = nullptr;
 	//PMassert::AssertNotEquals(tempAudioAsset, tempNull, "Reading an audio asset failed!");
-	ASSERT(tempAudioAsset);
+	ASSERT_NEQUAL(tempAudioAsset, nullptr);
 
 	off_t start, length;
 
