@@ -72,6 +72,10 @@ void Game::SetClearColor(float red, float green, float blue)
 
 bool Game::Update()
 {
+	/*if (IsReady())	POISTA JOS HALUAT DEBUGATA
+	{
+		InitializeGame();
+	}*/
 	return Application::Update();
 }
 
