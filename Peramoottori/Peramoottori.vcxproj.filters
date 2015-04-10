@@ -140,9 +140,6 @@
     <ClCompile Include="jni\graphics\ShaderProgram.cpp">
       <Filter>jni\graphics\shaders</Filter>
     </ClCompile>
-    <ClCompile Include="jni\TestClass.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
     <ClCompile Include="jni\scene\Scene.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
@@ -175,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="jni\scene\Texture.cpp">
       <Filter>jni\scene\components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\EventHandler.cpp">
+      <Filter>jni\core\application</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -952,9 +952,6 @@
     <ClInclude Include="jni\graphics\ShaderProgram.h">
       <Filter>jni\graphics\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="jni\TestClass.h">
-      <Filter>jni</Filter>
-    </ClInclude>
     <ClInclude Include="jni\scene\Scene.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
@@ -993,6 +990,9 @@
     </ClInclude>
     <ClInclude Include="jni\scene\Texture.h">
       <Filter>jni\scene\components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\EventHandler.h">
+      <Filter>jni\core\application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

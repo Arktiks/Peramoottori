@@ -7,27 +7,26 @@
 
 namespace pm
 {
-	/// Handles the display of android device.
+	/// Handles display of android device.
 
 	class WindowHandler
 	{
 
 	friend class Application; // Application can use this class freely.
 	friend class Game;
-
-	public:
-		WindowHandler() :
-			display(EGL_NO_DISPLAY),
-			surface(EGL_NO_SURFACE),
-			context(EGL_NO_CONTEXT),
-			width(0),
-			height(0) {};
+	friend class EventHandler; // Creates dependency between handlers. Not sure if good idea.
 
 	private:
 
-		bool HasContext();
+		/// Only Application should invoke constructor.
+		WindowHandler() : display(EGL_NO_DISPLAY),
+			surface(EGL_NO_SURFACE),
+			context(EGL_NO_CONTEXT),
+			width(0), height(0) {};
 
-		Vector2<int> GetResolution();
+		bool HasContext(); ///< Status of context.
+
+		Vector2<int> GetResolution(); ///< Return display resolution.
 
 		/// Called when APP_CMD_INIT_WINDOW is received by ProcessCommand.
 		/// Initializes EGL surface, display and context.
