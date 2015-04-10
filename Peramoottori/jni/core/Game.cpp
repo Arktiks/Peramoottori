@@ -72,12 +72,16 @@ void Game::Draw()
 {
 	if (!IsReady()) // Prematurely end function if everything is not prepared.
 		return;
-
+	
+	SpriteBatch::GetInstance()->AddGameEntity(&gameEntity);
+	SpriteBatch::GetInstance()->Draw();
 	Application::SwapBuffers();
 }
 
 void Game::InitializeGame()
 {
+	RenderSystem::GetInstance()->Initialize();
+
 	gameEntity.AddComponent(new Rectangle(100, 200));
 	
 	gameEntity.AddComponent(new Transformable());
@@ -87,6 +91,7 @@ void Game::InitializeGame()
 	gameEntity.GetComponent<Drawable>()->SetDrawState(true);
 
 	gameEntity.AddComponent(TextureFactory::CreateTexture("test.png"));
+
 }
 void Game::UpdateGame()
 {
