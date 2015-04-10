@@ -14,6 +14,7 @@ void android_main(android_app* application)
 	DEBUG_INFO(("Starting android_main."));
 
 	Game* game = Game::GetInstance();
+	game->Initialize(application);
 
 	ResourceManager::GetInstance()->LoadAsset("teksti.txt");
 	ResourceManager::GetInstance()->LoadAsset("test.png");
