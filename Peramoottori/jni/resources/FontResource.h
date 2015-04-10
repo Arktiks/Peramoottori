@@ -3,7 +3,7 @@
 
 #include <resources\Resource.h>
 #include <include\ft2build.h>
-#include FT_FREETYPE_H
+//#include FT_FREETYPE_H
 
 namespace pm
 {
@@ -20,7 +20,7 @@ namespace pm
 	private:
 	
 		
-		FT_Library library;
+	//	FT_Library library;
 		unsigned char fontData;
 	};
 }

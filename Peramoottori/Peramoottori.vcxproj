@@ -68,7 +68,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\resources\AudioResource.cpp" />
-    <ClCompile Include="jni\resources\FontResource.cpp" />
+    <ClCompile Include="jni\resources\FontResource.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="jni\resources\ImageResource.cpp" />
     <ClCompile Include="jni\resources\Resource.cpp" />
     <ClCompile Include="jni\resources\ResourceManager.cpp">
@@ -76,8 +79,8 @@
     </ClCompile>
     <ClCompile Include="jni\resources\TextResource.cpp" />
     <ClCompile Include="jni\resources\TextureFactory.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\scene\Component.cpp" />
     <ClCompile Include="jni\scene\GameEntity.cpp" />
@@ -143,7 +146,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\graphics\TextureRectangle.h" />
-    <ClInclude Include="jni\resources\FontResource.h" />
+    <ClInclude Include="jni\resources\FontResource.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="jni\resources\ImageResource.h" />
     <ClInclude Include="jni\resources\Resource.h" />
     <ClInclude Include="jni\resources\ResourceManager.h">
@@ -151,8 +157,8 @@
     </ClInclude>
     <ClInclude Include="jni\resources\TextResource.h" />
     <ClInclude Include="jni\resources\TextureFactory.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\scene\Component.h" />
     <ClInclude Include="jni\scene\GameEntity.h" />

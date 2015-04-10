@@ -13,7 +13,7 @@ namespace pm
 	{
 	public:
 
-		Texture();
+		Texture() : Component(){};
 
 		void SetId(GLuint textureId);
 		void SetTextureSize(glm::uvec2 textureSize);

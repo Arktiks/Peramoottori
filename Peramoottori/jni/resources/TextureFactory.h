@@ -7,7 +7,7 @@
 #include <core\Log.h>
 #include <scene\Texture.h>
 #include <resources\ResourceManager.h>
-#include <lodepng.h>
+
 #include <glm\common.hpp>
 
 class TextureFactory
@@ -15,7 +15,7 @@ class TextureFactory
 
 public:
 
-	static pm::Texture CreateTexture(std::string fileName);
+	static pm::Texture* CreateTexture(std::string fileName);
 
 };
 #endif

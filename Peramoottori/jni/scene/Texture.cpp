@@ -1,9 +1,10 @@
 #include "scene\Texture.h"
 
 
-pm::Texture::Texture() : Component()
-{	
-}
+//pm::Texture::Texture() : Component()
+//{	
+//
+//}
 
 void pm::Texture::SetId(GLuint textureId)
 {

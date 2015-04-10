@@ -1,4 +1,7 @@
 #include "RenderSystem.h"
+#include "glm\gtc\matrix_transform.hpp"
+
+using namespace pm;
 
 RenderSystem* RenderSystem::instance = nullptr;
 
@@ -78,5 +81,9 @@ void RenderSystem::CreateShaders()
 	shaderProgram.AddSamplerLocation("image");
 	shaderProgram.LinkProgram();
 
+	GLint projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
+	Vector2<int> resolution = Game::GetInstance()->GetResolution();
+	glm::mat4 projectionMatrix = glm::ortho(0, resolution.x, resolution.y, 0);
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projectionMatrix));
 	DEBUG_INFO(("Shaders done!."));
 }

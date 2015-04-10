@@ -1,4 +1,6 @@
-#pragma once
+#ifndef RENDERSYSTEM_H
+#define RENDERSYSTEM_H
+
 #include <glm\common.hpp>
 #include <glm\mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -11,24 +13,29 @@
 #include "Batch.h"
 #include "Shader.h"
 #include "Buffer.h"
+#include "core\Game.h"
 
-class RenderSystem
+namespace pm
 {
-public:
-	static RenderSystem* GetInstance();
-	void DestroyInstance();
 
-	
-	void Draw(Batch batch);	// DATA FOR ONE SPRITEBATCH "BATCH"
-	void Initialize();		// Initialize when context is ready
-private:
-	static RenderSystem* instance;
-	RenderSystem();
-	~RenderSystem();
-	void CreateShaders();	// Creating shaderprogram, may be changed
-	void BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData);
-	Shader shaderProgram;
-	Buffer vertexBuffer, indexBuffer;
-	
-};
+	class RenderSystem
+	{
+	public:
+		static RenderSystem* GetInstance();
+		void DestroyInstance();
 
+
+		void Draw(Batch batch);	// DATA FOR ONE SPRITEBATCH "BATCH"
+		void Initialize();		// Initialize when context is ready
+	private:
+		static RenderSystem* instance;
+		RenderSystem();
+		~RenderSystem();
+		void CreateShaders();	// Creating shaderprogram, may be changed
+		void BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData);
+		Shader shaderProgram;
+		Buffer vertexBuffer, indexBuffer;
+
+	};
+}
+#endif
