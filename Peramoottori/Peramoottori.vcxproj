@@ -539,7 +539,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
@@ -551,7 +551,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2;OpenSLES</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;$(SolutionDir)\libs\freetype\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
