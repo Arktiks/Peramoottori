@@ -2,6 +2,8 @@
 #define FONTRESOURCE_H
 
 #include <resources\Resource.h>
+#include <include\ft2build.h>
+//#include FT_FREETYPE_H
 
 namespace pm
 {
@@ -14,7 +16,11 @@ namespace pm
 		const unsigned char getFontData();
 
 		~FontResource();
+
 	private:
+	
+		
+	//	FT_Library library;
 		unsigned char fontData;
 	};
 }

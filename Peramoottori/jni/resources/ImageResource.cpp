@@ -1,18 +1,18 @@
 #include "ImageResource.h"
 
-using namespace pm;
 
-ImageResource::ImageResource()
+
+pm::ImageResource::ImageResource()
 {
 }
 
-ImageResource::ImageResource(std::vector<unsigned char> pixels) : imageData(pixels) {}
+pm::ImageResource::ImageResource(std::vector<unsigned char> pixels) : imageData(pixels) {}
 
-std::vector <unsigned char> ImageResource::getImageData()
+std::vector <unsigned char> pm::ImageResource::GetImageData()
 {
 	return imageData;
 }
 
-ImageResource::~ImageResource()
+pm::ImageResource::~ImageResource()
 {
 }

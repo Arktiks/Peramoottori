@@ -12,7 +12,7 @@ namespace pm
 		ImageResource();
 		ImageResource(std::vector<unsigned char> pixels);
 
-		std::vector <unsigned char> getImageData();
+		std::vector <unsigned char> GetImageData();
 
 		~ImageResource();
 	private:

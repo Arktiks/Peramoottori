@@ -1,11 +1,25 @@
 #include "AudioResource.h"
 
-
-AudioResource::AudioResource()
+pm::AudioResource::AudioResource()
 {
 }
 
+pm::AudioResource::AudioResource(int fileDescriptorData, AAsset *audioAssetData)
+{
+	fileDescriptor = fileDescriptorData;
+	AudioAsset = audioAssetData;
+}
+ 
+int pm::AudioResource::getFileDescriptor()
+{
+	return fileDescriptor;
+}
 
-AudioResource::~AudioResource()
+AAsset* pm::AudioResource::getAudioAsset()
+{
+	return AudioAsset;
+}
+
+pm::AudioResource::~AudioResource()
 {
 }

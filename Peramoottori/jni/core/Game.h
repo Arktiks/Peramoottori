@@ -3,6 +3,14 @@
 
 #include <core\Application.h>
 #include <core\Vector2.h>
+#include "scene\GameEntity.h"
+#include "graphics\SpriteBatch.h"
+
+#include "graphics\Rectangle.h"
+#include "scene\Texture.h"
+#include "graphics\Color.h"
+#include "scene\Transformable.h"
+#include "graphics\Drawable.h"
 
 namespace pm
 {
@@ -20,6 +28,8 @@ namespace pm
 
 		bool Initialize(android_app* application); ///< Needs to be called to setup Perämoottori.
 
+		void InitializeGame();
+
 		bool IsReady(); ///< Return true if Game is ready to be updated and drawn.
 
 		Vector2<int> GetResolution(); ///< Return display resolution.
@@ -30,9 +40,12 @@ namespace pm
 
 		bool Update(); ///< Updates neccessary android calls.
 
+		void UpdateGame();
+
 		void Draw(); // !!! Scene will remove this later.
 
 	private:
+
 
 		bool initialized; ///< Checks if Initialize has been called succesfully at least once.
 
@@ -42,6 +55,7 @@ namespace pm
 
 		static Game* instance; ///< Pointer to only instance of the class.
 
+		GameEntity gameEntity;
 	};
 }
 

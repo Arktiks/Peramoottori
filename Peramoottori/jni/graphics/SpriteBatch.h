@@ -2,6 +2,8 @@
 #define SPRITEBATCH_H
 
 #include "../scene/GameEntity.h"
+#include "scene\Texture.h"
+#include "RenderSystem.h"
 #include "Sprite.h"
 #include "Shader.h"
 #include "Batch.h"
@@ -20,8 +22,8 @@ namespace pm
 	public:
 		static SpriteBatch* GetInstance();
 		void DestroyInstance();
-		void Update();
-		void AddGameEntityToVector(GameEntity *gameEntity);
+		void Draw();
+		void AddGameEntity(GameEntity *gameEntity);
 		virtual ~SpriteBatch() {};
 	
 	private:
@@ -33,7 +35,7 @@ namespace pm
 		Sprite GatherDataFromComponents(GameEntity *gameEntity);
 		// Lis‰‰ GameEntityn komponenteista koodun drawablen oikeaan batchiin.
 		std::vector<GLfloat> CreateVertexData(std::vector<GLfloat> vertexPos,
-			GLfloat depth, glm::vec4 vertexTexPos, glm::vec4 vertexColor);
+			GLfloat depth, std::vector<GLfloat> vertexTexPos, glm::vec4 vertexColor);
 		void AddSpriteToBatch(Sprite sprite);
 
 		std::vector<GameEntity*> gameEntityVector; 

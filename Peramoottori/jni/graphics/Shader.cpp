@@ -63,6 +63,20 @@ bool Shader::LinkProgram()
 
 	ASSERT_EQUAL(linkCheck, GL_TRUE);
 
+	for (int i = 0; i < ShaderVertexAttribs.size(); i++)
+	{
+		GLint tempLocation = GetAttribLocation(ShaderVertexAttribs[i].attributeName);
+		glVertexAttribPointer(
+			tempLocation,
+			ShaderVertexAttribs[i].size,
+			GL_FLOAT,
+			GL_FALSE,
+			ShaderVertexAttribs[i].stride * sizeof(GLfloat),
+			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset)* sizeof(GLfloat))
+			);
+		glEnableVertexAttribArray(tempLocation);
+	}
+
 	return true;
 }
 
@@ -75,21 +89,9 @@ bool Shader::GetLinkStatus()
 	return false;
 }
 
-void Shader::RunProgram()
+void Shader::UseProgram()
 {
-	for (int i = 0; i < ShaderVertexAttribs.size(); i++)
-	{
-		GLint tempLocation = GetAttribLocation(ShaderVertexAttribs[i].attributeName);
-		glVertexAttribPointer(
-			tempLocation,
-			ShaderVertexAttribs[i].size, 
-			GL_FLOAT, 
-			GL_FALSE,
-			ShaderVertexAttribs[i].stride * sizeof(GLfloat),
-			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset)* sizeof(GLfloat))
-			);
-		glEnableVertexAttribArray(tempLocation);
-	}
+
 	glUseProgram(shaderProgram);
 }
 

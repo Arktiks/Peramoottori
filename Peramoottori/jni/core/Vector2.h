@@ -21,7 +21,7 @@ namespace pm
 			this->x = x;
 			this->y = y;
 		};
-		~Vector2();
+		~Vector2(){};
 
 		Vector2<T> operator + (const Vector2<T>& right)
 		{

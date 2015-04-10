@@ -4,7 +4,7 @@
 #include <core/Log.h>
 #include <core/Passert.h>
 #include <core/Memory.h>
-
+#include "resources\TextureFactory.h"
 using namespace pm;
 using namespace std;
 
@@ -81,4 +81,21 @@ void Game::Draw()
 		return;
 
 	Application::SwapBuffers();
+}
+
+void Game::InitializeGame()
+{
+	gameEntity.AddComponent(new Rectangle(100, 200));
+	
+	gameEntity.AddComponent(new Transformable());
+	gameEntity.GetComponent<Transformable>()->SetPosition(400, 200);
+
+	gameEntity.AddComponent(new Drawable());
+	gameEntity.GetComponent<Drawable>()->SetDrawState(true);
+
+	gameEntity.AddComponent(TextureFactory::CreateTexture("test.png"));
+}
+void Game::UpdateGame()
+{
+
 }
