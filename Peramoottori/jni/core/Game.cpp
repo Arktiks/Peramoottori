@@ -28,6 +28,8 @@ bool Game::Initialize(android_app* application)
 {
 	Application::Initialize(application);
 	
+	//SetClearColor(1.0f, 0.4f, 1.0f); // Set default clear color.
+
 	if (this->androidApplication != nullptr)
 	{
 		initialized = true;
@@ -55,7 +57,12 @@ void Game::Clear()
 	if (!IsReady())
 		return;
 
-	Application::ClearScreen();
+	GLfloat tempColors[4];
+	glGetFloatv(GL_COLOR_CLEAR_VALUE, tempColors);
+
+
+
+	Application::Clear();
 }
 
 void Game::SetClearColor(float red, float green, float blue)

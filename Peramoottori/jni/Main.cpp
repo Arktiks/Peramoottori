@@ -18,6 +18,11 @@ void android_main(android_app* application)
 	Game* game = Game::GetInstance();
 	game->Initialize(application);
 
+	while (!game->IsReady())
+		game->Update();
+
+	game->SetClearColor(1.0f, 0.4f, 1.0f);
+
 	ResourceManager::GetInstance()->LoadAsset("teksti.txt");
 	ResourceManager::GetInstance()->LoadAsset("test.png");
 
