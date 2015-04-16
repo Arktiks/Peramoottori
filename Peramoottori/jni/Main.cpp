@@ -16,7 +16,7 @@ void android_main(android_app* application)
 {
 	DEBUG_INFO(("Starting android_main."));
 	GLuint n = 1;
-	SHADER_GL_ERROR((n));
+	DEBUG_GL_SHADER_ERROR((n));
 	
 	Game* game = Game::GetInstance();
 	game->Initialize(application);

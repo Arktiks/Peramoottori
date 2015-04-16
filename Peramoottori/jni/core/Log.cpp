@@ -1,9 +1,13 @@
 #include "Log.h"
 #include <android/log.h>
+#include <core/Passert.h>
+
 #include <cstdarg>
 #include <cstdio>
+#include <string>
 
 using namespace pm;
+using namespace std;
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "DEBUG_INFO", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "DEBUG_WARNING", __VA_ARGS__))
@@ -12,52 +16,55 @@ void Log::PrintInfo(const char* text...)
 {
 	char* tempInfo = FormatMessage(text);
 	LOGI(tempInfo);
-	//delete tempInfo;
 }
 
 void Log::PrintWarning(const char* text...)
 {
 	char* tempWarning = FormatMessage(text);
 	LOGW(tempWarning);
-	//delete tempWarning;
 }
 
 void Log::PrintGLShaderError(GLuint shader)
 {
-	GLint compiled = 0;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+	GLint tempCompiled = 0;
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &tempCompiled);
 
-	if (!compiled)
+	if (tempCompiled == 0) // Shader does not compile.
 	{
-		GLint length = 0;
-		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
+		GLsizei tempLength = 0;
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &tempLength);
 
-		if (length > 0)
+		if (tempLength > 0)
 		{
-			GLint infoLength = 0;
-			char* infoBuf;
+			GLsizei tempInfoLength = 0;
+			string tempInfoLog(tempLength, ' ');
 
-			glGetShaderInfoLog(shader, length, &infoLength, infoBuf);
+			glGetShaderInfoLog(shader, tempLength, &tempInfoLength, &tempInfoLog[0]);
 
-			DEBUG_INFO(("%s", infoBuf));
+			DEBUG_WARNING(("Shader not created!"));
+			DEBUG_WARNING(("%s", tempInfoLog.c_str()));
 
+			ASSERT(false);
+
+			//GLchar* tempInfoBuffer;
 			//free(infoBuf);
-			delete infoBuf;
+			//delete infoBuf;
 		}
-		DEBUG_WARNING(("Shader not created!"));
 	}
-
-	
 }
 
 void Log::PrintGLError(const char* file, const unsigned int line)
 {
-	const GLenum error = glGetError();
+	GLenum tempError = GL_NO_ERROR;
 
-	if (error != GL_NO_ERROR)
+	do // Loop as long as there are error flags.
 	{
-		DEBUG_WARNING(("OpenGL assertion failed @ %s on line %s with error %s ", file, line, error));
-	}
+		tempError = glGetError(); // Get current error.
+
+		if (tempError != GL_NO_ERROR)
+			DEBUG_WARNING(("OpenGL error (%i) %s on line %s.", tempError, file, line));
+
+	} while (tempError != GL_NO_ERROR);
 }
 
 char* Log::FormatMessage(const char* text...)
