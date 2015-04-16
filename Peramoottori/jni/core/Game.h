@@ -46,6 +46,8 @@ namespace pm
 
 		void InitializeGame();
 
+		GameEntity gameEntity;
+
 		// VESA PLS //
 
 	private:
@@ -58,8 +60,6 @@ namespace pm
 		~Game() {};
 
 		static Game* instance; ///< Pointer to only instance of the class.
-
-		GameEntity gameEntity;
 	};
 }
 

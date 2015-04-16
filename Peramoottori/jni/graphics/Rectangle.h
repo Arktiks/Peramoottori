@@ -5,7 +5,7 @@
 
 namespace pm
 {
-	class Rectangle : public virtual Shape
+	class Rectangle : public Shape
 	{
 	public:
 

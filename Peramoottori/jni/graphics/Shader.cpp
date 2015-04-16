@@ -17,29 +17,35 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 	tempShader = glCreateShader(ShaderType); // määrittää shaderin tyypin
 
 	std::string loadedString = LoadShader(filePath);
-	const char* charArray = loadedString.c_str();
+
+	const GLchar* charArray = loadedString.c_str();
 
 	glShaderSource(tempShader, 1, &charArray, nullptr); // antaa shaderille ladatun shaderfilen
+
 	glCompileShader(tempShader);
 
-	GLint compiled = 0;
+	GLint errorEnum = 0;
+	errorEnum = glGetError();
+	DEBUG_WARNING(("glGetError: %i", errorEnum));
+
+	GLint compiled = 1;
 	glGetShaderiv(tempShader, GL_COMPILE_STATUS, &compiled);
 	
 	if (!compiled)
 	{
-		GLint length = 0;
+		GLsizei length = 0;
 		glGetShaderiv(tempShader, GL_INFO_LOG_LENGTH, &length);
 
 		if (length > 0)
 		{
-			GLint infoLength = 0;
-			char* infoBuf; // = (char*) malloc(sizeof(char) * length);	// Testaa joskus rikkoa shaderit
+			GLsizei infoLength = 0;
+			GLchar* infoBuf = (char*) malloc(sizeof(char) * length);	// Testaa joskus rikkoa shaderit
 
 			glGetShaderInfoLog(tempShader, length, &infoLength, infoBuf);
 
 			DEBUG_INFO(("%s", infoBuf));
 
-			 //free(infoBuf);
+			 free(infoBuf);
 			//delete infoBuf;
 		}
 

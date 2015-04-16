@@ -2,10 +2,11 @@
 #include "resources\ResourceManager.h"
 #include "ImageResource.h"
 #include <lodepng.h>
+#include <core\Memory.h>
 
 pm::Texture* TextureFactory::CreateTexture(std::string fileName)
 {
-	pm::Texture* tempTexture = new pm::Texture;
+	pm::Texture* tempTexture = NEW pm::Texture;
 
 	pm::ImageResource* decodedImage = (pm::ImageResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
 
@@ -29,11 +30,13 @@ pm::Texture* TextureFactory::CreateTexture(std::string fileName)
 		glGenTextures(1, &textureIndex);
 		glBindTexture(GL_TEXTURE_2D, textureIndex);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
 			sx, sy,
 			0, GL_RGBA, GL_UNSIGNED_BYTE,
 			img.data());
+
 		tempTexture->SetTextureSize(glm::uvec2(sx, sy));
 		tempTexture->SetId(textureIndex);
 		return tempTexture;
