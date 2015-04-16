@@ -1,7 +1,7 @@
 #include "Sprite.h"
 
 
-Sprite::Sprite(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
+Sprite::Sprite(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
 	glm::mat4 transformMatrix, GLuint textureIndex)
 {
 	this->vertexData = vertexData;
@@ -10,7 +10,7 @@ Sprite::Sprite(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
 	this->textureIndex = textureIndex;
 }
 
-void Sprite::SetData(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
+void Sprite::SetData(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
 	glm::mat4 transformMatrix, GLuint textureIndex)
 {
 	this->vertexData = vertexData;

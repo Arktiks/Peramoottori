@@ -20,6 +20,7 @@ namespace pm
 
 		bool LinkProgram();
 		bool GetLinkStatus();
+		void UseVertexAttribs();
 		void UseProgram();
 		GLuint GetAttribLocation(std::string attributeName);
 		void AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset);

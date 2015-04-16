@@ -6,21 +6,21 @@
 class Sprite
 {
 public:
-	Sprite(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
+	Sprite(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
 		glm::mat4 transformMatrix, GLuint textureIndex);
 	Sprite(){};
 	~Sprite();
 
-	void SetData(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData,
+	void SetData(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
 		glm::mat4 transformMatrix, GLuint textureIndex);
 
 	std::vector<GLfloat> GetVertexData(){ return vertexData; };
-	std::vector<GLuint> GetIndexData(){ return indexData; };
+	std::vector<GLushort> GetIndexData(){ return indexData; };
 	glm::mat4 GetTransformMatrix(){ return transformMatrix; };
 	GLuint GetTextureIndex(){ return textureIndex; };
 private:
 	std::vector<GLfloat> vertexData;
-	std::vector<GLuint> indexData;
+	std::vector<GLushort> indexData;
 	glm::mat4 transformMatrix;
 	GLuint textureIndex;
 };

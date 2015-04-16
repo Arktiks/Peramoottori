@@ -14,7 +14,7 @@ public:
 	Buffer();
 	void createBuffer(bufferType type);
 	void BindBufferData(unsigned size, void *data);
-
+	void BindBufferData();
 	bufferType getType(){ return type; };
 	GLuint getIndex(){return index; };
 	~Buffer();

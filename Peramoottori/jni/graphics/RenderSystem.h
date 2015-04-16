@@ -34,7 +34,7 @@ namespace pm
 		RenderSystem();
 		~RenderSystem();
 		void CreateShaders();	// Creating shaderprogram, may be changed
-		void BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData);
+		void BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData);
 		Shader shaderProgram;
 		Buffer vertexBuffer, indexBuffer;
 

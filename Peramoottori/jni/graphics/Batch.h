@@ -6,18 +6,18 @@
 class Batch
 {
 public:
-	Batch(std::vector<GLfloat> vertexData, std::vector<GLuint> IindexData,
+	Batch(std::vector<GLfloat> vertexData, std::vector<GLushort> IindexData,
 		glm::mat4 transformMatrix, GLuint textureIndex);
 	~Batch();
 
-	void AddData(std::vector <GLfloat> vertexDataToAdd, std::vector<GLuint>indexDataToAdd,
+	void AddData(std::vector <GLfloat> vertexDataToAdd, std::vector<GLushort>indexDataToAdd,
 		glm::mat4 transformMatrix);
 
 	std::vector<GLfloat> GetVertexData(){ return totalVertexData; }
-	std::vector<GLuint> GetIndexData(){ return totalIndexData; }
+	std::vector<GLushort> GetIndexData(){ return totalIndexData; }
 
 	std::vector<GLfloat> totalVertexData;
-	std::vector<GLuint> totalIndexData;
+	std::vector<GLushort> totalIndexData;
 	std::vector<glm::mat4> transformMatrixVector;
 	GLuint textureIndex;
 };

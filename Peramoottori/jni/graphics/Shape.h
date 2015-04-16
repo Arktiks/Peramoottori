@@ -32,7 +32,7 @@ namespace pm
 		{
 			return vertices;
 		}
-		std::vector<unsigned int> GetIndices()
+		std::vector<unsigned short> GetIndices()
 		{
 			return indices;
 		}
@@ -45,7 +45,7 @@ namespace pm
 	protected:
 
 		std::vector<float> vertices;
-		std::vector<unsigned int> indices;
+		std::vector<unsigned short> indices;
 
 		glm::vec2 origin;
 	};

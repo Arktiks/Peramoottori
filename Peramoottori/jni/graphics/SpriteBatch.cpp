@@ -73,12 +73,12 @@ bool SpriteBatch::CheckIfDrawable(GameEntity *gameEntity)
 Sprite SpriteBatch::GatherDataFromComponents(GameEntity *gameEntity)
 {
 
-	glm::mat4 translationMatrix;
+	glm::mat4 translationMatrix = glm::mat4();
 	std::vector<GLfloat> vertexPos;
 	GLfloat depth;
 	std::vector<GLfloat> vertexTexPos;
 	glm::vec4 vertexColor;
-	std::vector<GLuint> indices;
+	std::vector<GLushort> indices;
 
 	GLuint textureID;
 
@@ -94,16 +94,24 @@ Sprite SpriteBatch::GatherDataFromComponents(GameEntity *gameEntity)
 
 	if (gameEntity->GetComponent<Transformable>() == nullptr)
 	{
-		translationMatrix = glm::mat4(			);
+		translationMatrix = glm::mat4();
 		depth = 0;
 	}
 	else
 	{
 		Transformable* transform = gameEntity->GetComponent<Transformable>();
 		// !
-		translationMatrix = glm::translate(glm::vec3(transform->GetPosition(), 0.0f));
-		translationMatrix *= glm::rotate(transform->GetRotation(), glm::vec3(0, 0, 1));
-		translationMatrix *= glm::scale(glm::vec3(transform->GetScale(), 0.0f));
+		//translationMatrix = glm::translate(glm::vec3(transform->GetPosition(), 0.0f));
+		for (int i = 0; i < 4; i++)
+		{
+			for (int n = 0; n < 4; n++)
+				DEBUG_INFO(("%f", translationMatrix[i][n]));
+		}
+			
+		//translationMatrix *= glm::rotate(transform->GetRotation(), glm::vec3(0, 0, 1));
+		
+		//translationMatrix *= glm::scale(glm::vec3(transform->GetScale(), 0.0f));
+		
 		depth = transform->GetDepth();
 	}
 
@@ -124,7 +132,7 @@ Sprite SpriteBatch::GatherDataFromComponents(GameEntity *gameEntity)
 	if (gameEntity->GetComponent<Color>() == nullptr)
 	{
 		//NO COLOR
-		vertexColor = glm::vec4(0.5f, 0.6f, 1.0f, 1);
+		vertexColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 	} 
 	else
 	{

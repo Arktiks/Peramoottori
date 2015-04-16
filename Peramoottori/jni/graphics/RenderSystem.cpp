@@ -45,10 +45,10 @@ void RenderSystem::Initialize()
 
 void RenderSystem::Draw(Batch batch)
 {
-	BindBuffers(batch.GetVertexData(), batch.GetIndexData()); 
-
-	if (shaderProgram.GetLinkStatus())
 	shaderProgram.UseProgram();
+	BindBuffers(batch.GetVertexData(), batch.GetIndexData()); 
+	shaderProgram.UseVertexAttribs();
+//	if (shaderProgram.GetLinkStatus())
 
 	glActiveTexture(GL_TEXTURE0);	// MAY NOT BE NEEDED
 	//glEnable(GL_TEXTURE_2D);		// MAY NOT BE NEEDED, DONE IN Initialize()
@@ -66,7 +66,7 @@ void RenderSystem::Draw(Batch batch)
 	{
 		int tempInt = 6 * i;
 	
-		glUniformMatrix4fv(transformMatrixLocation, 1, GL_FALSE, value_ptr(batch.transformMatrixVector.at(i)));
+		glUniformMatrix4fv(transformMatrixLocation, 1, GL_FALSE, value_ptr(glm::mat4()));// batch.transformMatrixVector.at(i)));
 
 		DEBUG_WARNING(("glGetError RenderSystem line 71: %i", glGetError()));
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, reinterpret_cast<GLvoid*>(tempInt));
@@ -74,7 +74,7 @@ void RenderSystem::Draw(Batch batch)
 	glBindTexture(GL_TEXTURE_2D, 0u);
 }
 
-void RenderSystem::BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData)
+void RenderSystem::BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData)
 {
 	vertexBuffer.BindBufferData(vertexData.size(), vertexData.data());
 	indexBuffer.BindBufferData(indexData.size(), indexData.data());
@@ -98,7 +98,7 @@ void RenderSystem::CreateShaders()
 	shaderProgram.UseProgram();
 	DEBUG_WARNING(("glGetError RenderSystem line 98: %i", glGetError()));
 	GLint projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
-	//ASSERT(projectionLocation == -1);
+	//ASSERT(projectionLocation != -1);
 	DEBUG_WARNING(("glGetError RenderSystem line 101: %i", glGetError()));
 	Vector2<int> resolution = Game::GetInstance()->GetResolution();
 	glm::mat4 projectionMatrix = glm::ortho(0, resolution.x, resolution.y, 0);
