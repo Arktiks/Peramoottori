@@ -3,22 +3,40 @@
 #include <glm\mat4x4.hpp>
 #include <GLES2\gl2.h>
 #include <vector>
-class Batch
+
+// Needs more commentating!
+
+namespace pm
 {
-public:
+	class Batch
+	{
+	public:
 	Batch(std::vector<GLfloat> vertexData, std::vector<GLushort> IindexData,
-		glm::mat4 transformMatrix, GLuint textureIndex);
-	~Batch();
-
+		
 	void AddData(std::vector <GLfloat> vertexDataToAdd, std::vector<GLushort>indexDataToAdd,
-		glm::mat4 transformMatrix);
+		Batch() : textureIndex(0) {};
 
-	std::vector<GLfloat> GetVertexData(){ return totalVertexData; }
+		Batch(std::vector<GLfloat> vertexData,
+			std::vector<GLuint> indexData,
+			glm::mat4 transformMatrix,
+			GLuint textureIndex);
+
+		// In case default constructor was used?
+		void AddData(std::vector <GLfloat> vertexData,
+			std::vector<GLuint>indexData,
+			glm::mat4 transformMatrix);
+
+		~Batch() {};
+
+
+		/// Are these functions neccessary? ///
+		std::vector<GLfloat> GetVertexData() { return totalVertexData; }
 	std::vector<GLushort> GetIndexData(){ return totalIndexData; }
 
-	std::vector<GLfloat> totalVertexData;
-	std::vector<GLushort> totalIndexData;
-	std::vector<glm::mat4> transformMatrixVector;
-	GLuint textureIndex;
-};
 
+		std::vector<GLfloat> totalVertexData;
+	std::vector<GLushort> totalIndexData;
+		std::vector<glm::mat4> transformMatrixVector;
+		GLuint textureIndex;
+	};
+}

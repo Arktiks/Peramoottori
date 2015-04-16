@@ -137,9 +137,6 @@
     <ClCompile Include="jni\graphics\Shader.cpp">
       <Filter>jni\graphics\shaders</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\ShaderProgram.cpp">
-      <Filter>jni\graphics\shaders</Filter>
-    </ClCompile>
     <ClCompile Include="jni\scene\Scene.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
@@ -953,9 +950,6 @@
     <ClInclude Include="jni\graphics\Shader.h">
       <Filter>jni\graphics\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\ShaderProgram.h">
-      <Filter>jni\graphics\shaders</Filter>
-    </ClInclude>
     <ClInclude Include="jni\scene\Scene.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
@@ -997,6 +991,9 @@
     </ClInclude>
     <ClInclude Include="jni\graphics\Text.h">
       <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\structs\ShaderVertexAttrib.h">
+      <Filter>structs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
