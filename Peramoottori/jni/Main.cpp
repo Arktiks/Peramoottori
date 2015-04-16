@@ -20,13 +20,15 @@ void android_main(android_app* application)
 	while (!game->IsReady())
 		game->Update();
 
+	game->InitializeGame();
+
 	game->SetClearColor(1.0f, 0.4f, 1.0f);
 
 	Audio audio("test1.ogg");
 	audio.Play();
 
-	ResourceManager::GetInstance()->LoadAsset("teksti.txt");
-	ResourceManager::GetInstance()->LoadAsset("test.png");
+	//ResourceManager::GetInstance()->LoadAsset("teksti.txt");
+	//ResourceManager::GetInstance()->LoadAsset("test.png");
 
 	while (game->Update())
 	{

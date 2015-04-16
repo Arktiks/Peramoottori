@@ -13,11 +13,11 @@ void pm::Texture::SetId(GLuint textureId)
 
 void pm::Texture::SetTextureSize(glm::uvec2 textureSize)
 {
-
 	this->textureSize.x = textureSize.x;
 	this->textureSize.y = textureSize.y;
-
+	SetTextureVertices();
 }
+
 void pm::Texture::SetTextureVertices()
 {
 	SetTextureVertices(glm::vec2(0, 0), textureSize);

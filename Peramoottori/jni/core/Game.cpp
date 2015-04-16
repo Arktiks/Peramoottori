@@ -72,10 +72,6 @@ void Game::SetClearColor(float red, float green, float blue)
 
 bool Game::Update()
 {
-	/*if (IsReady())	POISTA JOS HALUAT DEBUGATA
-	{
-		InitializeGame();
-	}*/
 	return Application::Update();
 }
 
@@ -94,16 +90,15 @@ void Game::InitializeGame()
 {
 	RenderSystem::GetInstance()->Initialize();
 
-	gameEntity.AddComponent(new Rectangle(100, 200));
+	gameEntity.AddComponent(NEW Rectangle(100, 200));
 	
-	gameEntity.AddComponent(new Transformable());
+	gameEntity.AddComponent(NEW Transformable());
 	gameEntity.GetComponent<Transformable>()->SetPosition(400, 200);
 
-	gameEntity.AddComponent(new Drawable());
+	gameEntity.AddComponent(NEW Drawable());
 	gameEntity.GetComponent<Drawable>()->SetDrawState(true);
 
 	gameEntity.AddComponent(TextureFactory::CreateTexture("test.png"));
-
 }
 
 void Game::UpdateGame()

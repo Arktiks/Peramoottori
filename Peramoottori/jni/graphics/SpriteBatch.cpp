@@ -64,7 +64,7 @@ bool SpriteBatch::CheckIfDrawable(GameEntity *gameEntity)
 {
 	if (gameEntity->GetComponent<Drawable>() == nullptr)
 		return false;
-	else if (gameEntity->GetComponent<Shape>() == nullptr)
+	else if (gameEntity->GetComponent<Rectangle>() == nullptr)
 		return false;
 	else
 		return gameEntity->GetComponent<Drawable>()->GetDrawState();
@@ -82,14 +82,14 @@ Sprite SpriteBatch::GatherDataFromComponents(GameEntity *gameEntity)
 
 	GLuint textureID;
 
-	if (gameEntity->GetComponent<Shape>() == nullptr)
+	if (gameEntity->GetComponent<Rectangle>() == nullptr)
 	{
 		//NO SHAPE
 	}
 	else
 	{
-		vertexPos = gameEntity->GetComponent<Shape>()->GetVertices();
-		indices = gameEntity->GetComponent<Shape>()->GetIndices();
+		vertexPos = gameEntity->GetComponent<Rectangle>()->GetVertices();
+		indices = gameEntity->GetComponent<Rectangle>()->GetIndices();
 	}
 
 	if (gameEntity->GetComponent<Transformable>() == nullptr)
@@ -173,4 +173,5 @@ std::vector<GLfloat> SpriteBatch::CreateVertexData(std::vector<GLfloat> vertexPo
 		vertexData.push_back(vertexTexPos[i * 2]);
 		vertexData.push_back(vertexTexPos[i * 2 + 1]);
 	}
+	return vertexData;
 }
