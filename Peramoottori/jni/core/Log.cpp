@@ -22,7 +22,7 @@ void Log::PrintWarning(const char* text...)
 	//delete tempWarning;
 }
 
-void Log::PrintGLError(GLuint shader)
+void Log::PrintGLShaderError(GLuint shader)
 {
 	GLint compiled = 0;
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
@@ -45,6 +45,18 @@ void Log::PrintGLError(GLuint shader)
 			delete infoBuf;
 		}
 		DEBUG_WARNING(("Shader not created!"));
+	}
+
+	
+}
+
+void Log::PrintGLError(const char* file, const unsigned int line)
+{
+	const GLenum error = glGetError();
+
+	if (error != GL_NO_ERROR)
+	{
+		DEBUG_WARNING(("OpenGL assertion failed @ %s on line %s with error %s ", file, line, error));
 	}
 }
 
