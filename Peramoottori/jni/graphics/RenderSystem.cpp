@@ -25,10 +25,10 @@ RenderSystem::RenderSystem()
 {
 }
 
-
 RenderSystem::~RenderSystem()
 {
 }
+
 void RenderSystem::Initialize()
 {
 	glEnable(GL_TEXTURE_2D);

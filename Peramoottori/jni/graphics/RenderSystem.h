@@ -27,7 +27,9 @@ namespace pm
 
 		void Draw(Batch batch);	// DATA FOR ONE SPRITEBATCH "BATCH"
 		void Initialize();		// Initialize when context is ready
+
 	private:
+
 		static RenderSystem* instance;
 		RenderSystem();
 		~RenderSystem();
