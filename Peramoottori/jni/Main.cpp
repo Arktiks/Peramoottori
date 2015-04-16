@@ -15,8 +15,6 @@ using namespace pm;
 void android_main(android_app* application)
 {
 	DEBUG_INFO(("Starting android_main."));
-	GLuint n = 1;
-	DEBUG_GL_SHADER_ERROR((n));
 	
 	Game* game = Game::GetInstance();
 	game->Initialize(application);
@@ -28,17 +26,18 @@ void android_main(android_app* application)
 
 	game->SetClearColor(1.0f, 0.4f, 1.0f);
 
-	Audio audio("test1.ogg");
-	audio.Play();
+
 
 
 	
 
-	//TextResource* teksti = (TextResource*)ResourceManager::GetInstance()->LoadAsset("teksti.txt");
-	//FontResource* fontti = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
-	//
-	//Text* ntext = NEW Text(fontti, teksti);
+	TextResource* teksti = (TextResource*)ResourceManager::GetInstance()->LoadAsset("teksti.txt");
+	FontResource* fontti = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
+	
+	Text* ntext = NEW Text(fontti, teksti);
 
+	Audio audio("test1.ogg");
+	audio.Play();
 
 	//ResourceManager::GetInstance()->LoadAsset("test.png");
 
@@ -46,7 +45,7 @@ void android_main(android_app* application)
 	{
 		
 		game->Clear();
-		//ntext->show_image();
+		ntext->show_image();
 		game->Draw();
 	}
 	
