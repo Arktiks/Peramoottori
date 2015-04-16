@@ -97,6 +97,7 @@
     <ClCompile Include="libs\glm\detail\dummy.cpp" />
     <ClCompile Include="libs\glm\detail\glm.cpp" />
     <ClCompile Include="libs\lodepng.cpp" />
+    <ClCompile Include="jni\graphics\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\audio\Audio.h">
@@ -408,6 +409,7 @@
     <ClInclude Include="libs\glm\vector_relational.hpp" />
     <ClInclude Include="libs\lodepng.h" />
     <ClInclude Include="libs\stb_easy_font.h" />
+    <ClInclude Include="jni\graphics\Text.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl" />

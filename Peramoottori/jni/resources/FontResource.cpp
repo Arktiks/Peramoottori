@@ -5,14 +5,10 @@ pm::FontResource::FontResource()
 {
 }
 
-pm::FontResource::FontResource(const unsigned char data)
+pm::FontResource::FontResource(FT_Library lib, FT_Face fa)
 {
-	fontData = data;
-}
-
-const unsigned char pm::FontResource::getFontData()
-{
-	return fontData;
+	library = lib;
+	face = fa;
 }
 
 pm::FontResource::~FontResource()

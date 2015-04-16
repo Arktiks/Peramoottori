@@ -7,6 +7,8 @@
 #include <core\Memory.h>
 #include <resources\ResourceManager.h>
 #include <audio\Audio.h>
+#include <graphics\Text.h>
+
 
 using namespace pm;
 
@@ -29,12 +31,22 @@ void android_main(android_app* application)
 	Audio audio("test1.ogg");
 	audio.Play();
 
-	//ResourceManager::GetInstance()->LoadAsset("teksti.txt");
+
+	
+
+	//TextResource* teksti = (TextResource*)ResourceManager::GetInstance()->LoadAsset("teksti.txt");
+	//FontResource* fontti = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
+	//
+	//Text* ntext = NEW Text(fontti, teksti);
+
+
 	//ResourceManager::GetInstance()->LoadAsset("test.png");
 
 	while (game->Update())
 	{
+		
 		game->Clear();
+		//ntext->show_image();
 		game->Draw();
 	}
 	
