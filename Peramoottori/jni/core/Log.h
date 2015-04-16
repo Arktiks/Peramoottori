@@ -1,7 +1,9 @@
 #ifdef _DEBUG
 #ifndef DEBUG_LOG
 #define DEBUG_LOG
-#include "GLES2\gl2.h"
+
+#include <GLES2/gl2.h>
+
 namespace pm
 {
 	/// Logging functions that our macros use.
@@ -16,9 +18,7 @@ namespace pm
 		/// Writes messages into logcat under DEBUG_WARNING.
 		static void PrintWarning(const char* text...);
 
-
 		static void PrintGLShaderError(GLuint shader);
-
 
 		static void PrintGLError(const char* file, const unsigned int line);
 
@@ -31,8 +31,9 @@ namespace pm
 // Macros should be used instead of the direct functions.
 #define DEBUG_INFO(text) pm::Log::PrintInfo text ///< Macro to print info into logcat.
 #define DEBUG_WARNING(text) pm::Log::PrintWarning text ///< Macro to print warnings into logcat.
-#define SHADER_GL_ERROR(shader) pm::Log::PrintGLShaderError shader ///< Macro to print GL Shader errors into logcat.
-#define GL_ERROR() pm::Log::PrintGLError(__FILE__, __LINE__);
+#define DEBUG_GL_SHADER_ERROR(shader) pm::Log::PrintGLShaderError shader ///< Macro to print GL Shader errors into logcat.
+#define DEBUG_GL_ERROR() pm::Log::PrintGLError(__FILE__, __LINE__);
+
 #endif // DEBUG_LOG
 #endif // _DEBUG
 
@@ -41,4 +42,6 @@ namespace pm
 #ifdef NDEBUG
 #define DEBUG_INFO void(0)
 #define DEBUG_WARNING void(0)
+#define DEBUG_GL_SHADER_ERROR void(0)
+#define DEBUG_GL_ERROR void(0)
 #endif
