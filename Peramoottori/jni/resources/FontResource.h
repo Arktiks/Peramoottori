@@ -16,11 +16,11 @@ namespace pm
 		const unsigned char getFontData();
 
 		~FontResource();
-
+		
 	private:
 	
 		
-		FT_Library library;
+		//FT_Library library;
 		unsigned char fontData;
 	};
 }
