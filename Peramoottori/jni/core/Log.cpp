@@ -22,6 +22,32 @@ void Log::PrintWarning(const char* text...)
 	//delete tempWarning;
 }
 
+void Log::PrintGLError(GLuint shader)
+{
+	GLint compiled = 0;
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+
+	if (!compiled)
+	{
+		GLint length = 0;
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
+
+		if (length > 0)
+		{
+			GLint infoLength = 0;
+			char* infoBuf;
+
+			glGetShaderInfoLog(shader, length, &infoLength, infoBuf);
+
+			DEBUG_INFO(("%s", infoBuf));
+
+			//free(infoBuf);
+			delete infoBuf;
+		}
+		DEBUG_WARNING(("Shader not created!"));
+	}
+}
+
 char* Log::FormatMessage(const char* text...)
 {
 	char* tempBuffer = nullptr; // Buffer to hold our formatted string.
