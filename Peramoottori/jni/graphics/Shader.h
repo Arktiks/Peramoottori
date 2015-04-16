@@ -5,33 +5,36 @@
 #include <EGL/egl.h>
 #include <vector>
 #include <string>
-
-class Shader
+namespace pm
 {
-public:
 
-	Shader() : created(false), shaderProgram(0) {};
-	Shader(GLuint shader) : created(false), shaderProgram(shader) {};
-	~Shader() {};
+	class Shader
+	{
+	public:
 
-	bool AddShader(std::string filePath, GLenum shaderType);
+		Shader() : created(false), shaderProgram(0) {};
+		Shader(GLuint shader) : created(false), shaderProgram(shader) {};
+		~Shader() {};
 
-	bool LinkProgram();
-	bool GetLinkStatus();
-	void UseProgram();
-	GLuint GetAttribLocation(std::string attributeName);
-	void AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset);
-	void AddSamplerLocation(std::string samplerName);
-	GLuint GetShaderProgramLocation() { return shaderProgram; };
-	GLint samplerLoc;
-private:
+		bool AddShader(std::string filePath, GLenum shaderType);
 
-	std::string LoadShader(std::string filePath);
-	std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
-	GLuint shaderProgram;
-	bool created;
-	
+		bool LinkProgram();
+		bool GetLinkStatus();
+		void UseProgram();
+		GLuint GetAttribLocation(std::string attributeName);
+		void AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset);
+		void AddSamplerLocation(std::string samplerName);
+		GLuint GetShaderProgramLocation() { return shaderProgram; };
+		GLint samplerLoc;
+	private:
 
-};
+		std::string LoadShader(std::string filePath);
+		std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
+		GLuint shaderProgram;
+		bool created;
 
-#endif
+
+	};
+
+}
+#endif // SHADER_H

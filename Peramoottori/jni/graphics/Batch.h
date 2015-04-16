@@ -13,6 +13,9 @@ public:
 	void AddData(std::vector <GLfloat> vertexDataToAdd, std::vector<GLuint>indexDataToAdd,
 		glm::mat4 transformMatrix);
 
+	std::vector<GLfloat> GetVertexData(){ return totalVertexData; }
+	std::vector<GLuint> GetIndexData(){ return totalIndexData; }
+
 	std::vector<GLfloat> totalVertexData;
 	std::vector<GLuint> totalIndexData;
 	std::vector<glm::mat4> transformMatrixVector;

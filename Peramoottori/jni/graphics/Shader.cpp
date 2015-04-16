@@ -108,7 +108,9 @@ GLuint Shader::GetAttribLocation(std::string attributeName)
 
 void Shader::AddSamplerLocation(std::string samplerName)
 {
+	DEBUG_WARNING(("glGetError Shader line 111: %i", glGetError()));
 	samplerLoc = glGetUniformLocation(shaderProgram, samplerName.c_str());
+	DEBUG_WARNING(("glGetError Shader line 113: %i", glGetError()));
 }
 
 
