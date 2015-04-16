@@ -10,17 +10,13 @@ namespace pm
 	class Sprite
 	{
 	public:
-	Sprite(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
-
-	void SetData(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
-
 		Sprite(std::vector<GLfloat> vertexData,
-			std::vector<GLuint> indexData,
+			std::vector<GLushort> indexData,
 			glm::mat4 transformMatrix,
 			GLuint textureIndex);
 
 		void SetData(std::vector<GLfloat> vertexData,
-			std::vector<GLuint> indexData,
+			std::vector<GLushort> indexData,
 			glm::mat4 transformMatrix,
 			GLuint textureIndex);
 
@@ -29,11 +25,10 @@ namespace pm
 		~Sprite() {};
 
 		std::vector<GLfloat> GetVertexData() { return vertexData; }
-		std::vector<GLuint> GetIndexData() { return indexData; }
+		std::vector<GLushort> GetIndexData(){ return indexData; };
 		glm::mat4 GetTransformMatrix() { return transformMatrix; }
 		GLuint GetTextureIndex() { return textureIndex; }
 
-	std::vector<GLushort> GetIndexData(){ return indexData; };
 	private:
 
 		std::vector<GLfloat> vertexData;

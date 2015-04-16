@@ -11,19 +11,17 @@ namespace pm
 	class Batch
 	{
 	public:
-	Batch(std::vector<GLfloat> vertexData, std::vector<GLushort> IindexData,
 		
-	void AddData(std::vector <GLfloat> vertexDataToAdd, std::vector<GLushort>indexDataToAdd,
 		Batch() : textureIndex(0) {};
 
 		Batch(std::vector<GLfloat> vertexData,
-			std::vector<GLuint> indexData,
+			std::vector<GLushort> indexData,
 			glm::mat4 transformMatrix,
 			GLuint textureIndex);
 
 		// In case default constructor was used?
 		void AddData(std::vector <GLfloat> vertexData,
-			std::vector<GLuint>indexData,
+			std::vector<GLushort>indexData,
 			glm::mat4 transformMatrix);
 
 		~Batch() {};

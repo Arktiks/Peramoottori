@@ -5,7 +5,6 @@
 using namespace pm;
 
 Sprite::Sprite(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
-	std::vector<GLuint> indexData,
 	glm::mat4 transformMatrix,
 	GLuint textureIndex)
 {
@@ -18,7 +17,6 @@ Sprite::Sprite(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
 }
 
 void Sprite::SetData(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
-	std::vector<GLuint> indexData,
 	glm::mat4 transformMatrix,
 	GLuint textureIndex)
 {

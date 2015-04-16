@@ -118,15 +118,9 @@ void Shader::UseVertexAttribs()
 			ShaderVertexAttribs[i].stride * sizeof(GLfloat),
 			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset) * sizeof(GLfloat))
 			);
-		DEBUG_WARNING(("glGetError Shader line 112: %i", glGetError()));
 		glEnableVertexAttribArray(tempLocation); // Enables generic vertex attribute array specified by index.
-		DEBUG_WARNING(("glGetError Shader line 114: %i", glGetError()));
-
+		DEBUG_GL_ERROR();
 	}
-	DEBUG_GL_ERROR();
-
-	if (linkCheck == GL_TRUE)
-	else
 }
 
 void Shader::UseProgram()
