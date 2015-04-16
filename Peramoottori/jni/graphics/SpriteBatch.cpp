@@ -94,7 +94,7 @@ Sprite SpriteBatch::GatherDataFromComponents(GameEntity *gameEntity)
 
 	if (gameEntity->GetComponent<Transformable>() == nullptr)
 	{
-		translationMatrix = glm::mat4();
+		translationMatrix = glm::mat4(			);
 		depth = 0;
 	}
 	else

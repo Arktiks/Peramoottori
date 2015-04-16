@@ -79,7 +79,7 @@ void Game::Draw()
 {
 	if (!IsReady()) // Prematurely end function if everything is not prepared.
 		return;
-	
+
 	SpriteBatch::GetInstance()->AddGameEntity(&gameEntity);
 	SpriteBatch::GetInstance()->Draw();
 
@@ -88,17 +88,22 @@ void Game::Draw()
 
 void Game::InitializeGame()
 {
+	DEBUG_WARNING(("glGetError game line 91: %i", glGetError()));
 	RenderSystem::GetInstance()->Initialize();
 
+	DEBUG_WARNING(("glGetError game line 94: %i", glGetError()));
 	gameEntity.AddComponent(NEW Rectangle(100, 200));
-	
+
+	DEBUG_WARNING(("glGetError game line 97: %i", glGetError()));
 	gameEntity.AddComponent(NEW Transformable());
 	gameEntity.GetComponent<Transformable>()->SetPosition(400, 200);
 
+	DEBUG_WARNING(("glGetError game line 101: %i", glGetError()));
 	gameEntity.AddComponent(NEW Drawable());
 	gameEntity.GetComponent<Drawable>()->SetDrawState(true);
-
+	DEBUG_WARNING(("glGetError game line 104: %i", glGetError()));
 	gameEntity.AddComponent(TextureFactory::CreateTexture("test.png"));
+	DEBUG_WARNING(("glGetError game line 106: %i", glGetError()));
 }
 
 void Game::UpdateGame()

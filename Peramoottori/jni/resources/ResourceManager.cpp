@@ -46,9 +46,29 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 		else if (tempFileExtension.compare(TTF) == 0) // TTF FILE
 		{
 			DEBUG_INFO(("Loading TTF file."));
-			
-			const unsigned char* fontData = (const unsigned char*)ReadFont(fileName).c_str();
-			FontResource* tempFontData = NEW FontResource(*fontData);
+
+			FT_Library  library;
+			FT_Face     face;
+
+			int error = FT_Init_FreeType(&library);
+			if (error) 
+			{
+				DEBUG_INFO(("Failed to initialize freetype library"));
+			}
+			error = FT_New_Face(library,
+				fileName.c_str(),
+				0,
+				&face);
+			if (error == FT_Err_Unknown_File_Format)
+			{
+				DEBUG_INFO(("The font file could be opened and read, but it appears that its font format is unsupported"));
+			}
+			else if (error)
+			{
+				DEBUG_INFO(("Font file could not be opened or read, or that it is broken"));
+			}
+
+			FontResource* tempFontData = NEW FontResource(library, face);
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
 
 			return tempFontData; // Return created resource instantly.

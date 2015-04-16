@@ -27,6 +27,7 @@ namespace pm
 
 		~Batch() {};
 
+
 		std::vector<GLfloat> totalVertexData;
 		std::vector<GLuint> totalIndexData;
 		std::vector<glm::mat4> transformMatrixVector;

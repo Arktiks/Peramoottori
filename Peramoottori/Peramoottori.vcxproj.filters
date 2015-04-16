@@ -177,6 +177,9 @@
     <ClCompile Include="jni\resources\TextureFactory.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
+    <ClCompile Include="jni\graphics\Text.cpp">
+      <Filter>jni\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -991,6 +994,9 @@
     </ClInclude>
     <ClInclude Include="jni\core\EventHandler.h">
       <Filter>jni\core\application</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Text.h">
+      <Filter>jni\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
