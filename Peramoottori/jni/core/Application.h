@@ -9,35 +9,34 @@ namespace pm
 {
 	/// Core application system.
 	/// Handles most of communication with java side. 
+	/// Should be inherited from for more specific application needs.
 
 	class Application
 	{
 
 		friend class EventHandler; // Required for static android_native_app_glue functions.
 
-	protected: // User should only use Game class.
+	protected:
 
-		/// Default constructor: Initialize needs to be called for everything to work properly.
-		Application() : androidApplication(nullptr) {};
-
-		//Application(android_app* application); ///< Constructor that calls Initialize().
-
-		~Application(); ///< Protected destructor prevents delete through base class.
+		Application() : androidApplication(nullptr) {}; ///< Default constructor: Initialize needs to be called for everything to work properly.
 
 		/// Initializes Peramoottori modules.
 		///		\param application: pointer to android_application.
 		void Initialize(android_app* application);
 
-		bool Update(); ///< Core update loop, should be nested with while-statement.
+		bool Update(); ///< Core update loop, should be nested in while-statement.
 
 		void SwapBuffers(); ///< Handles swapping front and back buffers.
 
-		void ClearScreen(); ///< Clear display.
+		void Clear(); ///< Clear display.
 
 		android_app* androidApplication; ///< Pointer to android application.
+
 		WindowHandler window; ///< Handles display of android device.
+
 		EventHandler events; ///< Handles input and event processing.
 
+		~Application(); ///< Protected destructor prevents delete through base class.
 	};
 }
 

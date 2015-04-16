@@ -25,9 +25,11 @@ Vector2<int> WindowHandler::GetResolution()
 	}
 }
 
-void WindowHandler::LoadDisplay(android_app* application)
+bool WindowHandler::LoadDisplay(android_app* application)
 {
-	DEBUG_INFO(("WindowHandler::LoadDisplay() beginning."));
+	//DEBUG_INFO(("WindowHandler::LoadDisplay() beginning."));
+
+	EGLBoolean testSucces = false; // Test if calls are successful.
 
 	// Attributes are hard customised to work with OpenGL ES2.
 	const EGLint attribs[] =
@@ -51,53 +53,75 @@ void WindowHandler::LoadDisplay(android_app* application)
 	EGLConfig config;
 
 	EGLDisplay display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-	eglInitialize(display, 0, 0);
-	eglChooseConfig(display, attribs, &config, 1, &numConfigs);
-	eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format);
+
+	testSucces = eglInitialize(display, 0, 0);
+	ASSERT_NEQUAL(testSucces, EGL_FALSE);
+
+	testSucces = eglChooseConfig(display, attribs, &config, 1, &numConfigs);
+	ASSERT_NEQUAL(testSucces, EGL_FALSE);
+
+	testSucces = eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format);
+	ASSERT_NEQUAL(testSucces, EGL_FALSE);
+
 	ANativeWindow_setBuffersGeometry(application->window, 0, 0, format);
 
 	EGLSurface surface = eglCreateWindowSurface(display, config, application->window, nullptr);
-	EGLContext context = eglCreateContext(display, config, nullptr, attribList);
+	ASSERT_NEQUAL(surface, EGL_NO_SURFACE);
 
-	// Crash the program if we can't bind context to rendering thread.
-	EGLBoolean check = eglMakeCurrent(display, surface, surface, context);
-	ASSERT_NEQUAL(check, EGL_FALSE);
+	EGLContext context = eglCreateContext(display, config, nullptr, attribList);
+	ASSERT_NEQUAL(context, EGL_NO_CONTEXT);
+
+	testSucces = eglMakeCurrent(display, surface, surface, context); // Crash the program if we can't bind context to rendering thread.
+	ASSERT_NEQUAL(testSucces, EGL_FALSE);
 
 	eglQuerySurface(display, surface, EGL_WIDTH, &width);
-	eglQuerySurface(display, surface, EGL_HEIGHT, &height);
+	ASSERT_NEQUAL(width, 0);
 
-	// Hold this information in WindowHandle class.
+	eglQuerySurface(display, surface, EGL_HEIGHT, &height);
+	ASSERT_NEQUAL(height, 0);
+
+	// Hold this information in WindowHandler.
 	(this->surface) = surface;
 	(this->display) = display;
 	(this->context) = context;
 	(this->width) = width;
 	(this->height) = height;
 
-	glClearColor(1.0f, 0.4f, 1.0f, 1);
-
-	DEBUG_INFO(("WindowHandler::LoadDisplay() finished."));
+	return true;
+	//DEBUG_INFO(("WindowHandler::LoadDisplay() finished."));
 }
 
-void WindowHandler::CloseDisplay()
+bool WindowHandler::CloseDisplay()
 {
-	DEBUG_INFO(("WindowHandler::CloseDisplay() beginning."));
+	//DEBUG_INFO(("WindowHandler::CloseDisplay() beginning."));
+
+	EGLBoolean testSucces = false; // Test if calls are successful.
 
 	if (display != EGL_NO_DISPLAY)
 	{
-		eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+		testSucces = eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+		ASSERT_NEQUAL(testSucces, EGL_FALSE);
 
 		if (context != EGL_NO_CONTEXT)
-			eglDestroyContext(display, context);
+		{
+			testSucces = eglDestroyContext(display, context);
+			ASSERT_NEQUAL(testSucces, EGL_FALSE);
+		}
 
 		if (surface != EGL_NO_SURFACE)
-			eglDestroySurface(display, surface);
+		{
+			testSucces = eglDestroySurface(display, surface);
+			ASSERT_NEQUAL(testSucces, EGL_FALSE);
+		}
 
-		eglTerminate(display);
+		testSucces = eglTerminate(display);
+		ASSERT_NEQUAL(testSucces, EGL_FALSE);
 	}
 
 	display = EGL_NO_DISPLAY;
 	context = EGL_NO_CONTEXT;
 	surface = EGL_NO_SURFACE;
 
-	DEBUG_INFO(("WindowHandler::CloseDisplay() finished."));
+	return true;
+	//DEBUG_INFO(("WindowHandler::CloseDisplay() finished."));
 }

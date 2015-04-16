@@ -78,8 +78,9 @@ void pm::AudioManager::CreateEngine()
 
 void pm::AudioManager::CheckError(std::string errorText)
 {
-	DEBUG_INFO((errorText.c_str()));
-	//ASSERT_EQ(result, SL_RESULT_SUCCESS);
+	if(result != SL_RESULT_SUCCESS)
+		DEBUG_INFO((errorText.c_str()));
+	
 	(void)result;
 }
 

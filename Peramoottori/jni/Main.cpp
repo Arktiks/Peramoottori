@@ -13,10 +13,17 @@ using namespace pm;
 void android_main(android_app* application)
 {
 	DEBUG_INFO(("Starting android_main."));
-	Audio audio("test1.ogg");
-
+	
 	Game* game = Game::GetInstance();
 	game->Initialize(application);
+
+	while (!game->IsReady())
+		game->Update();
+
+	game->SetClearColor(1.0f, 0.4f, 1.0f);
+
+	Audio audio("test1.ogg");
+	audio.Play();
 
 	ResourceManager::GetInstance()->LoadAsset("teksti.txt");
 	ResourceManager::GetInstance()->LoadAsset("test.png");

@@ -3,6 +3,14 @@
 
 #include <core\Application.h>
 #include <core\Vector2.h>
+#include "scene\GameEntity.h"
+#include "graphics\SpriteBatch.h"
+
+#include "graphics\Rectangle.h"
+#include "scene\Texture.h"
+#include "graphics\Color.h"
+#include "scene\Transformable.h"
+#include "graphics\Drawable.h"
 
 namespace pm
 {
@@ -32,7 +40,16 @@ namespace pm
 
 		void Draw(); // !!! Scene will remove this later.
 
+		// VESA FUNKTIOT //
+
+		void UpdateGame();
+
+		void InitializeGame();
+
+		// VESA PLS //
+
 	private:
+
 
 		bool initialized; ///< Checks if Initialize has been called succesfully at least once.
 
@@ -42,6 +59,7 @@ namespace pm
 
 		static Game* instance; ///< Pointer to only instance of the class.
 
+		GameEntity gameEntity;
 	};
 }
 

@@ -4,7 +4,7 @@
 #include <core/Log.h>
 #include <core/Passert.h>
 #include <core/Memory.h>
-
+#include "resources\TextureFactory.h"
 using namespace pm;
 using namespace std;
 
@@ -28,6 +28,8 @@ bool Game::Initialize(android_app* application)
 {
 	Application::Initialize(application);
 	
+	//SetClearColor(1.0f, 0.4f, 1.0f); // Set default clear color.
+
 	if (this->androidApplication != nullptr)
 	{
 		initialized = true;
@@ -55,7 +57,12 @@ void Game::Clear()
 	if (!IsReady())
 		return;
 
-	Application::ClearScreen();
+	GLfloat tempColors[4];
+	glGetFloatv(GL_COLOR_CLEAR_VALUE, tempColors);
+
+
+
+	Application::Clear();
 }
 
 void Game::SetClearColor(float red, float green, float blue)
@@ -65,6 +72,10 @@ void Game::SetClearColor(float red, float green, float blue)
 
 bool Game::Update()
 {
+	/*if (IsReady())	POISTA JOS HALUAT DEBUGATA
+	{
+		InitializeGame();
+	}*/
 	return Application::Update();
 }
 
@@ -72,6 +83,29 @@ void Game::Draw()
 {
 	if (!IsReady()) // Prematurely end function if everything is not prepared.
 		return;
+	
+	SpriteBatch::GetInstance()->AddGameEntity(&gameEntity);
+	SpriteBatch::GetInstance()->Draw();
 
 	Application::SwapBuffers();
+}
+
+void Game::InitializeGame()
+{
+	RenderSystem::GetInstance()->Initialize();
+
+	gameEntity.AddComponent(new Rectangle(100, 200));
+	
+	gameEntity.AddComponent(new Transformable());
+	gameEntity.GetComponent<Transformable>()->SetPosition(400, 200);
+
+	gameEntity.AddComponent(new Drawable());
+	gameEntity.GetComponent<Drawable>()->SetDrawState(true);
+
+	gameEntity.AddComponent(TextureFactory::CreateTexture("test.png"));
+
+}
+
+void Game::UpdateGame()
+{
 }

@@ -9,17 +9,6 @@
 using namespace std;
 using namespace pm;
 
-/*Application::Application(android_app* application) : androidApplication(nullptr)
-{
-	Initialize(application);
-}*/
-
-Application::~Application()
-{
-	androidApplication->userData = nullptr; // Remove reference to this class.
-	DEBUG_INFO(("Application destructor called."));
-}
-
 void Application::Initialize(android_app* application)
 {
 	app_dummy(); // Ensures glue code isn't stripped.
@@ -68,10 +57,18 @@ bool Application::Update()
 void Application::SwapBuffers()
 {
 	// Could be moved elsewhere.
-	eglSwapBuffers(window.display, window.surface);
+	bool testSucces = eglSwapBuffers(window.display, window.surface);
+	ASSERT(testSucces);
 }
 
-void Application::ClearScreen()
+void Application::Clear()
 {
+	// Could be moved elsewhere.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+Application::~Application()
+{
+	androidApplication->userData = nullptr; // Remove reference to this class.
+	DEBUG_INFO(("Application destructor called."));
 }

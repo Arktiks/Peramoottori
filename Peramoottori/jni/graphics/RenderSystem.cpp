@@ -1,4 +1,24 @@
 #include "RenderSystem.h"
+#include "glm\gtc\matrix_transform.hpp"
+
+using namespace pm;
+
+RenderSystem* RenderSystem::instance = nullptr;
+
+RenderSystem* RenderSystem::GetInstance()
+{
+	if (instance == nullptr)
+	{
+		instance = NEW RenderSystem();
+	}
+	return instance;
+}
+
+void RenderSystem::DestroyInstance()
+{
+	delete instance;
+	instance = nullptr;
+}
 
 
 RenderSystem::RenderSystem()
@@ -30,9 +50,13 @@ void RenderSystem::Draw(Batch batch)
 
 	glUniform1i(shaderProgram.samplerLoc, 0);
 	glBindTexture(GL_TEXTURE_2D, batch.textureIndex);
-
-	glDrawElements(GL_TRIANGLES, batch.totalIndexData.size(), GL_UNSIGNED_INT,
-		reinterpret_cast<GLvoid*>(0));
+	GLint transformMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "transformable");
+	for (int i = 0; i < batch.transformMatrixVector.size(); i++)
+	{
+		glUniformMatrix4fv(transformMatrixLocation, 1, GL_FALSE, value_ptr(batch.transformMatrixVector.at(i)));
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,
+		reinterpret_cast<GLvoid*>(6 * i));
+	}
 	glBindTexture(GL_TEXTURE_2D, 0u);
 }
 
@@ -57,5 +81,9 @@ void RenderSystem::CreateShaders()
 	shaderProgram.AddSamplerLocation("image");
 	shaderProgram.LinkProgram();
 
+	GLint projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
+	Vector2<int> resolution = Game::GetInstance()->GetResolution();
+	glm::mat4 projectionMatrix = glm::ortho(0, resolution.x, resolution.y, 0);
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projectionMatrix));
 	DEBUG_INFO(("Shaders done!."));
 }

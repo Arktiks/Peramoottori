@@ -1,19 +1,23 @@
 #include "TextureFactory.h"
 #include "resources\ResourceManager.h"
+#include "ImageResource.h"
 #include <lodepng.h>
 
-pm::Texture TextureFactory::CreateTexture(std::string fileName)
+pm::Texture* TextureFactory::CreateTexture(std::string fileName)
 {
-	pm::Texture tempTexture;
+	pm::Texture* tempTexture = new pm::Texture;
 
 	pm::ImageResource* decodedImage = (pm::ImageResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
 
-	glm::vec2 asd;
 
-	std::vector<unsigned char> Image;
+	std::vector<unsigned char> img;
 	
-	unsigned error = lodepng::decode(Image, asd.x, asd.y, decodedImage->getImageData());
-	
+	unsigned int sx = 0;
+	unsigned int sy = 0;
+	unsigned char* data;
+	int dataSize;
+	lodepng::State pngState;
+	unsigned error = lodepng::decode(img, sx, sy, pngState, decodedImage->GetImageData().data(), decodedImage->GetImageData().size());
 
 	if (error) // display error to debugger;
 	{
@@ -27,10 +31,11 @@ pm::Texture TextureFactory::CreateTexture(std::string fileName)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-			asd.x, asd.y,
+			sx, sy,
 			0, GL_RGBA, GL_UNSIGNED_BYTE,
-			Image.data());
-
+			img.data());
+		tempTexture->SetTextureSize(glm::uvec2(sx, sy));
+		tempTexture->SetId(textureIndex);
 		return tempTexture;
 	}
 

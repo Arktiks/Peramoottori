@@ -15,7 +15,7 @@ class TextureFactory
 
 public:
 
-	static pm::Texture CreateTexture(std::string fileName);
+	static pm::Texture* CreateTexture(std::string fileName);
 
 };
 #endif
