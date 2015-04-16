@@ -55,10 +55,16 @@ void Log::PrintGLShaderError(GLuint shader)
 
 void Log::PrintGLError(const char* file, const unsigned int line)
 {
-	GLenum tempError = glGetError();
+	GLenum tempError = GL_NO_ERROR;
 
-	if (tempError != GL_NO_ERROR)
-		DEBUG_WARNING(("OpenGL error (%i) %s on line %s.", tempError, file, line));
+	do // Loop as long as there are error flags.
+	{
+		tempError = glGetError(); // Get current error.
+
+		if (tempError != GL_NO_ERROR)
+			DEBUG_WARNING(("OpenGL error (%i) %s on line %s.", tempError, file, line));
+
+	} while (tempError != GL_NO_ERROR);
 }
 
 char* Log::FormatMessage(const char* text...)
