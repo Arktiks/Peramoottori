@@ -55,9 +55,6 @@
     <ClCompile Include="jni\graphics\Shader.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\graphics\ShaderProgram.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Sprite.cpp" />
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -138,9 +135,6 @@
     <ClInclude Include="jni\graphics\Shader.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\graphics\ShaderProgram.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Shape.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
@@ -176,6 +170,7 @@
     </ClInclude>
     <ClInclude Include="jni\scene\Transformable.h" />
     <ClInclude Include="jni\structs\MemoryTrack.h" />
+    <ClInclude Include="jni\structs\ShaderVertexAttrib.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
     <ClInclude Include="libs\freetype\config\ftconfig.h" />
     <ClInclude Include="libs\freetype\config\ftheader.h" />

@@ -27,7 +27,7 @@ void Log::PrintWarning(const char* text...)
 void Log::PrintGLShaderError(GLuint shader)
 {
 	GLint tempCompiled = 0;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &tempCompiled);
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &tempCompiled); // Return parameter from shader object.
 
 	if (tempCompiled == 0) // Shader does not compile.
 	{

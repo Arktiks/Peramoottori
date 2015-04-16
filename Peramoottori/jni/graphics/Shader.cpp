@@ -4,33 +4,36 @@
 #include <core\Passert.h>
 
 using namespace pm;
+using namespace std;
 
-bool Shader::AddShader(std::string filePath, GLenum ShaderType)
+bool Shader::AddShader(string filePath, GLenum ShaderType)
 {
-	if (!created)
+	if (!created) // Shader program has not been created.
 	{
 		shaderProgram = glCreateProgram();
+		ASSERT_NEQUAL(shaderProgram, 0); // Function returns 0 if an error occurs creating the program object.
 		created = true;
 	}
 
-	GLuint tempShader = 0;
-	tempShader = glCreateShader(ShaderType); // m‰‰ritt‰‰ shaderin tyypin
+	GLuint tempShader = 0; // Empty shader object reference.
+	tempShader = glCreateShader(ShaderType); // Generate value it can be reference upon.
+	DEBUG_GL_ERROR();
+	ASSERT_NEQUAL(tempShader, 0);
 
-	std::string loadedString = LoadShader(filePath);
+	string loadedString = LoadShader(filePath); // LoadShader has error checking.
 
-	const GLchar* charArray = loadedString.c_str();
+	const GLchar* charArray = loadedString.c_str(); // NOTE: Couldn't you use string directly?
 
-	glShaderSource(tempShader, 1, &charArray, nullptr); // antaa shaderille ladatun shaderfilen
+	glShaderSource(tempShader, 1, &charArray, nullptr); // Replace source code in shader object.
+	DEBUG_GL_ERROR();
 
 	glCompileShader(tempShader);
+	DEBUG_GL_ERROR();
 
-	GLint errorEnum = 0;
-	errorEnum = glGetError();
-	DEBUG_WARNING(("glGetError: %i", errorEnum));
+	DEBUG_GL_SHADER_ERROR((tempShader)); // Test compile status and log possible errors.
 
-	GLint compiled = 1;
+	/*GLint compiled = 0;
 	glGetShaderiv(tempShader, GL_COMPILE_STATUS, &compiled);
-	
 	if (!compiled)
 	{
 		GLsizei length = 0;
@@ -54,9 +57,13 @@ bool Shader::AddShader(std::string filePath, GLenum ShaderType)
 		DEBUG_WARNING(("Shader not created!"));
 
 		return false;
-	}
+	}*/
 
-	glAttachShader(shaderProgram, tempShader);
+	glAttachShader(shaderProgram, tempShader); // Attach shader object to program object.
+
+	//glDetachShader(shaderProgram, tempShader); // Decrement reference.
+	//glDeleteShader(tempShader);
+
 	return true;
 }
 
@@ -65,22 +72,27 @@ bool Shader::LinkProgram()
 	GLint linkCheck = GL_FALSE;
 
 	glLinkProgram(shaderProgram);
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
+	DEBUG_GL_ERROR();
 
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
+	DEBUG_GL_ERROR();
 	ASSERT_EQUAL(linkCheck, GL_TRUE);
 
 	for (int i = 0; i < ShaderVertexAttribs.size(); i++)
 	{
-		GLint tempLocation = GetAttribLocation(ShaderVertexAttribs[i].attributeName);
-		glVertexAttribPointer(
+		GLint tempLocation = GetAttribLocation(ShaderVertexAttribs[i].attributeName); // Return location of attribute variable.
+
+		glVertexAttribPointer( // Define array of generic vertex attribute data.
 			tempLocation,
 			ShaderVertexAttribs[i].size,
 			GL_FLOAT,
 			GL_FALSE,
 			ShaderVertexAttribs[i].stride * sizeof(GLfloat),
-			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset)* sizeof(GLfloat))
+			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset) * sizeof(GLfloat))
 			);
-		glEnableVertexAttribArray(tempLocation);
+
+		glEnableVertexAttribArray(tempLocation); // Enables generic vertex attribute array specified by index.
+		DEBUG_GL_ERROR();
 	}
 
 	return true;
@@ -90,29 +102,32 @@ bool Shader::GetLinkStatus()
 {
 	GLint linkCheck = GL_FALSE;
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
-	if (linkCheck = GL_TRUE)
+
+	DEBUG_GL_ERROR();
+
+	if (linkCheck == GL_TRUE)
 		return true;
-	return false;
+	else
+		return false;
 }
 
 void Shader::UseProgram()
 {
-
 	glUseProgram(shaderProgram);
 }
 
 GLuint Shader::GetAttribLocation(std::string attributeName)
 {
-	return glGetAttribLocation(shaderProgram, attributeName.c_str());
-}
+	GLint tempCheck = glGetAttribLocation(shaderProgram, attributeName.c_str());
 
-void Shader::AddSamplerLocation(std::string samplerName)
-{
-	DEBUG_WARNING(("glGetError Shader line 111: %i", glGetError()));
-	samplerLoc = glGetUniformLocation(shaderProgram, samplerName.c_str());
-	DEBUG_WARNING(("glGetError Shader line 113: %i", glGetError()));
+	if (tempCheck < -1)
+	{
+		DEBUG_WARNING(("Couldn't find attribute location for %s.", attributeName.c_str()));
+		return 0;
+	}
+	else
+		return tempCheck;
 }
-
 
 void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset)
 {
@@ -126,10 +141,26 @@ void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsiz
 	ShaderVertexAttribs.push_back(tempAttrib);
 }
 
+Shader::~Shader()
+{
+	glDeleteProgram(shaderProgram);
+}
+
 std::string Shader::LoadShader(std::string filePath)
 {
 	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
+
+	if (tempString.empty())
+		DEBUG_WARNING(("LoadShader failed, could not open: (%s).", filePath.c_str()));
+
 	tempString.push_back('\0');
 
 	return tempString;
 }
+
+/*void Shader::AddSamplerLocation(std::string samplerName)
+{
+DEBUG_WARNING(("glGetError Shader line 111: %i", glGetError()));
+samplerLoc = glGetUniformLocation(shaderProgram, samplerName.c_str());
+DEBUG_WARNING(("glGetError Shader line 113: %i", glGetError()));
+}*/

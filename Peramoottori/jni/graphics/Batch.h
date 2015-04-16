@@ -28,6 +28,11 @@ namespace pm
 		~Batch() {};
 
 
+		/// Are these functions neccessary? ///
+		std::vector<GLfloat> GetVertexData() { return totalVertexData; }
+		std::vector<GLuint> GetIndexData() { return totalIndexData; }
+
+
 		std::vector<GLfloat> totalVertexData;
 		std::vector<GLuint> totalIndexData;
 		std::vector<glm::mat4> transformMatrixVector;
