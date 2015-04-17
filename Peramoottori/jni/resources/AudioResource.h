@@ -8,16 +8,21 @@ namespace pm
 	class AudioResource : public Resource
 	{
 	public:
-		AudioResource();
+
+		// Doesn't work because no functions to add them after initialization.
+		AudioResource() : AudioAsset(nullptr), fileDescriptor(0) {};
+
 		AudioResource(int fileDescriptorDAta, AAsset *audioAssetData);
 
-		AAsset* getAudioAsset();
-		int getFileDescriptor();
+		AAsset* GetAudioAsset();
+		int GetFileDescriptor();
 
 		~AudioResource();
+
 	private:
 		AAsset* AudioAsset;
 		int fileDescriptor;
+
 	};
 }
-#endif //!AUDIORESOURCE_H
+#endif // AUDIORESOURCE_H

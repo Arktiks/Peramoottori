@@ -2,10 +2,11 @@
 #define COMPONENT_H
 
 #include <typeinfo>
+//#include <scene\GameEntity.h>
 
 namespace pm
 {
-	class GameEntity;
+	class GameEntity; // ???
 
 	class Component
 	{
@@ -14,7 +15,7 @@ namespace pm
 		Component();
 		Component(Component& component);
 		Component(GameEntity* entity);
-		virtual ~Component();
+		virtual ~Component() {};
 
 		void SetParent(GameEntity* entity);
 		
