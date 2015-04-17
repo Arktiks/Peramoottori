@@ -20,20 +20,19 @@ namespace pm
 			GLuint textureIndex);
 
 		// In case default constructor was used?
+		// New data to add to batch. Texture cannot be changed.
 		void AddData(std::vector <GLfloat> vertexData,
 			std::vector<GLushort>indexData,
 			glm::mat4 transformMatrix);
 
-		~Batch() {};
 
-
-		/// Are these functions neccessary? ///
+		/// Are these functions neccessary?
 		std::vector<GLfloat> GetVertexData() { return totalVertexData; }
-	std::vector<GLushort> GetIndexData(){ return totalIndexData; }
+		std::vector<GLushort> GetIndexData(){ return totalIndexData; }
 
 
 		std::vector<GLfloat> totalVertexData;
-	std::vector<GLushort> totalIndexData;
+		std::vector<GLushort> totalIndexData;
 		std::vector<glm::mat4> transformMatrixVector;
 		GLuint textureIndex;
 	};

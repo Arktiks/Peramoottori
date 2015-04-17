@@ -20,19 +20,18 @@ namespace pm
 			glm::mat4 transformMatrix,
 			GLuint textureIndex);
 
-		bool ValidateData();
-
-		~Sprite() {};
-
 		std::vector<GLfloat> GetVertexData() { return vertexData; }
-		std::vector<GLushort> GetIndexData(){ return indexData; };
+		std::vector<GLushort> GetIndexData(){ return indexData; }
 		glm::mat4 GetTransformMatrix() { return transformMatrix; }
 		GLuint GetTextureIndex() { return textureIndex; }
 
 	private:
 
+		/// Error handling.
+		bool ValidateData();
+
 		std::vector<GLfloat> vertexData;
-	std::vector<GLushort> indexData;
+		std::vector<GLushort> indexData;
 		glm::mat4 transformMatrix;
 		GLuint textureIndex;
 	};

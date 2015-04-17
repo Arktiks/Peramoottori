@@ -4,7 +4,8 @@
 
 using namespace pm;
 
-Sprite::Sprite(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
+Sprite::Sprite(std::vector<GLfloat> vertexData,
+	std::vector<GLushort> indexData,
 	glm::mat4 transformMatrix,
 	GLuint textureIndex)
 {
@@ -16,7 +17,8 @@ Sprite::Sprite(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
 	ASSERT(ValidateData()); // Will be removed on release.
 }
 
-void Sprite::SetData(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData,
+void Sprite::SetData(std::vector<GLfloat> vertexData,
+	std::vector<GLushort> indexData,
 	glm::mat4 transformMatrix,
 	GLuint textureIndex)
 {
