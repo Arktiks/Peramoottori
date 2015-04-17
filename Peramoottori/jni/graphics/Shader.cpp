@@ -21,7 +21,6 @@ bool Shader::AddShader(string filePath, GLenum ShaderType)
 	ASSERT_NEQUAL(tempShader, 0);
 
 	string loadedString = LoadShader(filePath); // LoadShader has error checking.
-
 	const GLchar* charArray = loadedString.c_str(); // NOTE: Couldn't you use string directly?
 
 	glShaderSource(tempShader, 1, &charArray, nullptr); // Replace source code in shader object.
@@ -99,9 +98,11 @@ bool Shader::GetLinkStatus()
 {
 	GLint linkCheck = GL_FALSE;
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
-	if (linkCheck = GL_TRUE)
+
+	if (linkCheck == GL_TRUE)
 		return true;
-	return false;
+	else
+		return false;
 }
 
 void Shader::UseVertexAttribs()
@@ -109,15 +110,16 @@ void Shader::UseVertexAttribs()
 	for (int i = 0; i < ShaderVertexAttribs.size(); i++)
 	{
 		GLint tempLocation = GetAttribLocation(ShaderVertexAttribs[i].attributeName); // Return location of attribute variable.
-		ASSERT(tempLocation != -1);
+		ASSERT_NEQUAL(tempLocation, -1);
+
 		glVertexAttribPointer( // Define array of generic vertex attribute data.
 			tempLocation,
 			ShaderVertexAttribs[i].size,
 			GL_FLOAT,
 			GL_FALSE,
 			ShaderVertexAttribs[i].stride * sizeof(GLfloat),
-			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset) * sizeof(GLfloat))
-			);
+			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset) * sizeof(GLfloat)));
+
 		glEnableVertexAttribArray(tempLocation); // Enables generic vertex attribute array specified by index.
 		DEBUG_GL_ERROR();
 	}
