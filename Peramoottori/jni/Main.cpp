@@ -27,15 +27,6 @@ void android_main(android_app* application)
 	game->SetClearColor(1.0f, 0.4f, 1.0f);
 
 
-
-
-	
-
-	TextResource* teksti = (TextResource*)ResourceManager::GetInstance()->LoadAsset("teksti.txt");
-	FontResource* fontti = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
-	
-	Text* ntext = NEW Text(fontti, teksti);
-
 	Audio audio("test1.ogg");
 	audio.Play();
 
@@ -43,9 +34,7 @@ void android_main(android_app* application)
 
 	while (game->Update())
 	{
-		
 		game->Clear();
-		ntext->show_image();
 		game->Draw();
 	}
 	

@@ -1,7 +1,9 @@
 #include "SpriteBatch.h"
 #include "Drawable.h"
 #include "Color.h"
-#include "Shape.h"
+#include "Rectangle.h"
+#include "RenderSystem.h"
+#include "scene\Texture.h"
 
 #include "scene\Transformable.h"
 #include "glm\gtc\matrix_transform.hpp"
@@ -16,11 +18,6 @@ using namespace pm;
 
 
 SpriteBatch* SpriteBatch::instance = nullptr;
-
-SpriteBatch::SpriteBatch()
-{
-
-}
 
 SpriteBatch* SpriteBatch::GetInstance()
 {
