@@ -26,11 +26,11 @@ namespace pm
 		std::vector<GLfloat> GetTextureVertices() { return textureVertex; };
 
 
-		void SetId(GLuint textureId) { textureIndex = textureId; }
+		void SetId(GLuint textureId);
 
-		GLuint GetId() { return textureIndex; }
+		GLuint GetId();
 
-		glm::uvec2 GetTextureSize() { return textureSize; }
+		glm::uvec2 GetTextureSize();
 
 
 	private:
