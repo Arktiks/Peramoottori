@@ -33,8 +33,8 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::Initialize()
 {
-	vertexBuffer.createBuffer(VERTEX);
-	indexBuffer.createBuffer(INDEX);
+	vertexBuffer.CreateBuffer(VERTEX);
+	indexBuffer.CreateBuffer(INDEX);
 
 	CreateShaders();
 	
