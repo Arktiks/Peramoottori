@@ -12,8 +12,8 @@ Batch::Batch(std::vector<GLfloat> vertexData,
 	(this->textureIndex) = textureIndex;
 }
 
-// New data to add to batch. Texture cannot be changed.
-void Batch::AddData(std::vector <GLfloat> vertexData, std::vector<GLushort>indexData,
+void Batch::AddData(std::vector <GLfloat> vertexData,
+	std::vector<GLushort>indexData,
 	glm::mat4 transformMatrix)
 {
 	totalVertexData.insert(totalVertexData.end(), vertexData.begin(), vertexData.end());

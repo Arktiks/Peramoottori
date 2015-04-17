@@ -4,7 +4,9 @@
 #include <core/Log.h>
 #include <core/Passert.h>
 #include <core/Memory.h>
-#include "resources\TextureFactory.h"
+#include <resources/TextureFactory.h>
+#include <graphics/RenderSystem.h>
+
 using namespace pm;
 using namespace std;
 
