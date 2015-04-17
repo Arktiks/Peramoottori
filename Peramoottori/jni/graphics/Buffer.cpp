@@ -22,7 +22,7 @@ void Buffer::CreateBuffer(bufferType type)
 void Buffer::InitializeVertexData()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, index);
-	glBufferData(GL_ARRAY_BUFFER, 4096u, nullptr, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 20000u, nullptr, GL_STATIC_DRAW);
 
 	//DEBUG_WARNING(("glGetError Buffer line 28: %i", glGetError()));
 	DEBUG_GL_ERROR();
@@ -33,7 +33,7 @@ void Buffer::InitializeVertexData()
 void Buffer::InitializeIndexData()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4096u, nullptr, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 20000u, nullptr, GL_STATIC_DRAW);
 
 	//DEBUG_WARNING(("glGetError Buffer line 37: %i", glGetError()));
 	DEBUG_GL_ERROR();

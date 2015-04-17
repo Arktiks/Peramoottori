@@ -8,6 +8,7 @@
 #include <resources\ResourceManager.h>
 #include <audio\Audio.h>
 #include <graphics\Text.h>
+#include <core\Time.h>
 
 
 using namespace pm;
@@ -32,8 +33,13 @@ void android_main(android_app* application)
 
 	//ResourceManager::GetInstance()->LoadAsset("test.png");
 
+	Time time;
+	float fps = 0;
+
 	while (game->Update())
 	{
+		fps = (1 / (time.CalculateTimeInFrame() / 1000000000));
+		DEBUG_INFO(("Main.cpp sanoo: fps = %f", fps));
 		game->Clear();
 		game->Draw();
 	}

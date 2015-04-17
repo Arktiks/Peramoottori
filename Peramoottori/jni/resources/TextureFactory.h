@@ -2,6 +2,7 @@
 #define TEXTUREFACTORY_H
 
 #include <vector>
+#include <map>
 #include <string>
 #include <GLES2\gl2.h>
 #include <core\Log.h>
@@ -10,12 +11,20 @@
 
 #include <glm\common.hpp>
 
-class TextureFactory
+namespace pm
 {
+	class TextureFactory
+	{
 
-public:
+	public:
 
-	static pm::Texture* CreateTexture(std::string fileName);
+		static pm::Texture* CreateTexture(std::string fileName);
 
-};
+
+	private:
+		~TextureFactory();
+		static std::map<std::string, Texture*> generatedTextures;
+
+	};
+}
 #endif

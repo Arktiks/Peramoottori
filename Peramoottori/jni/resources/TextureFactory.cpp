@@ -4,8 +4,18 @@
 #include <lodepng.h>
 #include <core\Memory.h>
 
-pm::Texture* TextureFactory::CreateTexture(std::string fileName)
+std::map<std::string, pm::Texture*> pm::TextureFactory::generatedTextures = { { "MapInit", nullptr } };
+
+pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 {
+	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	{
+		if (it->first == fileName)
+		{
+			return it->second;
+		}
+	}
+
 
 	pm::ImageResource* decodedImage = (pm::ImageResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
 
@@ -41,8 +51,19 @@ pm::Texture* TextureFactory::CreateTexture(std::string fileName)
 
 		DEBUG_GL_ERROR();
 
+		generatedTextures[fileName] = tempTexture;
+
 		return tempTexture;
 	}
 
 	
+}
+
+pm::TextureFactory::~TextureFactory()
+{
+	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	{
+		delete it->second;
+	}
+	generatedTextures.clear();
 }
