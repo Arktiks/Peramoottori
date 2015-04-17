@@ -1,6 +1,5 @@
 #include "Log.h"
 #include <android/log.h>
-#include <core/Passert.h>
 
 #include <cstdarg>
 #include <cstdio>
@@ -24,47 +23,39 @@ void Log::PrintWarning(const char* text...)
 	LOGW(tempWarning);
 }
 
-void Log::PrintGLShaderError(GLuint shader)
-{
-	GLint tempCompiled = 0;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &tempCompiled); // Return parameter from shader object.
-
-	if (tempCompiled == 0) // Shader does not compile.
-	{
-		GLsizei tempLength = 0;
-		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &tempLength);
-
-		if (tempLength > 0)
-		{
-			GLsizei tempInfoLength = 0;
-			string tempInfoLog(tempLength, ' ');
-
-			glGetShaderInfoLog(shader, tempLength, &tempInfoLength, &tempInfoLog[0]);
-
-			DEBUG_WARNING(("Shader not created!"));
-			DEBUG_WARNING(("%s", tempInfoLog.c_str()));
-
-			ASSERT(false);
-
-			//GLchar* tempInfoBuffer;
-			//free(infoBuf);
-			//delete infoBuf;
-		}
-	}
-}
-
-void Log::PrintGLError(const char* file, const unsigned int line)
+bool Log::PrintGLError(const char* file, const unsigned int line)
 {
 	GLenum tempError = GL_NO_ERROR;
+	bool errors = false; // Make sure to get all errors before returning from function.
 
 	do // Loop as long as there are error flags.
 	{
 		tempError = glGetError(); // Get current error.
 
 		if (tempError != GL_NO_ERROR)
+		{
+			errors = true;
 			DEBUG_WARNING(("OpenGL error (%i) %s on line %s.", tempError, file, line));
+		}
 
 	} while (tempError != GL_NO_ERROR);
+
+	return errors;
+}
+
+void Log::ClearGLError()
+{
+	GLenum tempError = GL_NO_ERROR;
+
+	// Logic here is to clear error queue from earlier error messages that didn't crash the program,
+	// so we can be 100% sure of our error handling on more critical parts.
+
+	while (true)
+	{
+		GLenum tempError = glGetError();
+		if (tempError == GL_NO_ERROR)
+			return;
+	}
 }
 
 char* Log::FormatMessage(const char* text...)

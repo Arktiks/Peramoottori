@@ -20,7 +20,9 @@ namespace pm
 
 		static void PrintGLShaderError(GLuint shader);
 
-		static void PrintGLError(const char* file, const unsigned int line);
+		static bool PrintGLError(const char* file, const unsigned int line);
+
+		static void ClearGLError();
 
 	private:
 		/// Formats received text into printf format.
@@ -31,8 +33,9 @@ namespace pm
 // Macros should be used instead of the direct functions.
 #define DEBUG_INFO(text) pm::Log::PrintInfo text ///< Macro to print info into logcat.
 #define DEBUG_WARNING(text) pm::Log::PrintWarning text ///< Macro to print warnings into logcat.
-#define DEBUG_GL_SHADER_ERROR(shader) pm::Log::PrintGLShaderError shader ///< Macro to print GL Shader errors into logcat.
+
 #define DEBUG_GL_ERROR() pm::Log::PrintGLError(__FILE__, __LINE__);
+#define DEBUG_GL_ERROR_CLEAR() pm::Log::ClearGLError();
 
 #endif // DEBUG_LOG
 #endif // _DEBUG
@@ -42,6 +45,7 @@ namespace pm
 #ifdef NDEBUG
 #define DEBUG_INFO void(0)
 #define DEBUG_WARNING void(0)
-#define DEBUG_GL_SHADER_ERROR void(0)
+
 #define DEBUG_GL_ERROR void(0)
+#define DEBUG_GL_ERROR_CLEAR void(0)
 #endif

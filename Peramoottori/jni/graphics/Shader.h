@@ -47,6 +47,10 @@ namespace pm
 
 		std::string LoadShader(std::string filePath);
 
+		bool CheckShaderCompile(GLuint shader); // TODO
+
+		bool CheckProgramLink(GLuint program); // TODO
+
 		std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
 
 		GLuint shaderProgram; ///< Program object reference.

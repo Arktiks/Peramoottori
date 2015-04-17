@@ -8,10 +8,12 @@ using namespace std;
 
 bool Shader::AddShader(string filePath, GLenum ShaderType)
 {
+	DEBUG_GL_ERROR_CLEAR();
+
 	if (!created) // Shader program has not been created.
 	{
-		shaderProgram = glCreateProgram();
-		ASSERT_NEQUAL(shaderProgram, 0); // Function returns 0 if an error occurs creating the program object.
+		shaderProgram = glCreateProgram(); // Function returns 0 if an error occurs creating the program object.
+		ASSERT_NEQUAL(shaderProgram, 0); 
 		created = true;
 	}
 
@@ -29,35 +31,9 @@ bool Shader::AddShader(string filePath, GLenum ShaderType)
 	glCompileShader(tempShader);
 	DEBUG_GL_ERROR();
 
-	DEBUG_GL_SHADER_ERROR((tempShader)); // Test compile status and log possible errors.
-
-	/*GLint compiled = 0;
-	glGetShaderiv(tempShader, GL_COMPILE_STATUS, &compiled);
-	if (!compiled)
-	{
-		GLsizei length = 0;
-		glGetShaderiv(tempShader, GL_INFO_LOG_LENGTH, &length);
-
-		if (length > 0)
-		{
-			GLsizei infoLength = 0;
-			GLchar* infoBuf = (char*) malloc(sizeof(char) * length);	// Testaa joskus rikkoa shaderit
-
-			glGetShaderInfoLog(tempShader, length, &infoLength, infoBuf);
-
-			DEBUG_INFO(("%s", infoBuf));
-
-			 free(infoBuf);
-			//delete infoBuf;
-		}
-
-		glDeleteShader(tempShader);
-		//created = false;
-		DEBUG_WARNING(("Shader not created!"));
-
-		return false;
-	}*/
-
+	bool compileStatus = CheckShaderCompile(tempShader); // Test compile status and log possible errors.
+	ASSERT(compileStatus);
+	
 	glAttachShader(shaderProgram, tempShader); // Attach shader object to program object.
 
 	//glDetachShader(shaderProgram, tempShader); // Decrement reference.
@@ -68,33 +44,12 @@ bool Shader::AddShader(string filePath, GLenum ShaderType)
 
 bool Shader::LinkProgram()
 {
-	GLint linkCheck = GL_FALSE;
-
 	glLinkProgram(shaderProgram);
-	
-	char errorMsg[10000];
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
-	if(linkCheck == GL_FALSE)
-	{
-		glGetProgramInfoLog(shaderProgram, 10000, NULL, errorMsg);
-		DEBUG_WARNING(("%s", errorMsg));
-	}
-	DEBUG_WARNING(("glGetError Shader line 82: %i", glGetError()));
-	ASSERT_EQUAL(linkCheck, GL_TRUE);
 
-//	for (int i = 0; i < ShaderVertexAttribs.size(); i++)
-//	{
-//		GLint tempLocation = GetAttribLocation(ShaderVertexAttribs[i].attributeName);
-//		glVertexAttribPointer(
-//			tempLocation,
-//			ShaderVertexAttribs[i].size,
-//			GL_FLOAT,
-//			GL_FALSE,
-//			ShaderVertexAttribs[i].stride * sizeof(GLfloat),
-//			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset)* sizeof(GLfloat))
-//			);
-//		glEnableVertexAttribArray(tempLocation);
-//	}
+	CheckProgramLink(shaderProgram);
+
+	//DEBUG_WARNING(("glGetError Shader line 82: %i", glGetError()));
+	//ASSERT_EQUAL(linkCheck, GL_TRUE);
 
 	return true;
 }
@@ -175,6 +130,61 @@ std::string Shader::LoadShader(std::string filePath)
 	tempString.push_back('\0');
 
 	return tempString;
+}
+
+bool Shader::CheckShaderCompile(GLuint shader)
+{
+	GLint tempCompiled = GL_FALSE;
+
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &tempCompiled); // Return parameter from shader object.
+
+	if (tempCompiled == GL_FALSE) // Shader does not compile.
+	{
+		GLsizei tempLength = 0;
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &tempLength); // Get length of error message.
+
+		if (tempLength > 0)
+		{
+			string tempInfoLog;
+			tempInfoLog.reserve(tempLength); // Reserve space for the message.
+
+			glGetShaderInfoLog(shader, tempLength, nullptr, &tempInfoLog[0]); // Add message to string.
+
+			DEBUG_WARNING(("Shader could not compile!"));
+			DEBUG_WARNING(("%s", tempInfoLog.c_str()));
+
+			return false; // Leave asserting for user.
+		}
+	}
+	else
+		return true;
+}
+
+bool Shader::CheckProgramLink(GLuint program)
+{
+	GLint tempLink = GL_FALSE;
+
+	glGetProgramiv(program, GL_LINK_STATUS, &tempLink); // Check link status.
+
+	if (tempLink == GL_FALSE)
+	{
+		GLsizei tempLength = 0;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &tempLength);
+
+		if (tempLength > 0)
+		{
+			string tempInfoLog;
+			tempInfoLog.reserve(tempLength);
+
+			glGetProgramInfoLog(program, tempLength, nullptr, &tempInfoLog[0]);
+
+			DEBUG_WARNING(("Program could not link!"));
+			DEBUG_WARNING(("%s", tempInfoLog.c_str()));
+			return false;
+		}
+	}
+	else
+		return true;
 }
 
 //void Shader::AddSamplerLocation(std::string samplerName)

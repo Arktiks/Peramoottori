@@ -3,10 +3,8 @@
 
 #include <android\asset_manager.h>
 #include <resources\Resource.h>
-#include <resources\TextResource.h>
-#include <resources\ImageResource.h>
-#include <resources\FontResource.h>
-#include <resources\AudioResource.h>
+
+#include <vector>
 #include <string>
 #include <map>
 #include <iostream>

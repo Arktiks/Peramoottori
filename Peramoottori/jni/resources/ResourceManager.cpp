@@ -3,6 +3,11 @@
 #include <core\Passert.h>
 #include <core\Memory.h>
 
+#include <resources\TextResource.h>
+#include <resources\ImageResource.h>
+#include <resources\FontResource.h>
+#include <resources\AudioResource.h>
+
 pm::ResourceManager* pm::ResourceManager::instance = nullptr;
 
 const std::string TXT = ".txt";
