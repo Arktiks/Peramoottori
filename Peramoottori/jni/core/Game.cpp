@@ -92,17 +92,20 @@ void Game::InitializeGame()
 	RenderSystem::GetInstance()->Initialize();
 
 	DEBUG_WARNING(("glGetError game line 94: %i", glGetError()));
-	gameEntity.AddComponent(NEW Rectangle(100, 200));
+	gameEntity.AddComponent(NEW Rectangle(64, 64));
+	gameEntity.GetComponent<Rectangle>()->SetOrigin(32, 32);
 
 	DEBUG_WARNING(("glGetError game line 97: %i", glGetError()));
 	gameEntity.AddComponent(NEW Transformable());
-	gameEntity.GetComponent<Transformable>()->SetPosition(400, 200);
+	gameEntity.GetComponent<Transformable>()->SetPosition(32, 32);
+	gameEntity.GetComponent<Transformable>()->SetRotation(90);
+	gameEntity.GetComponent<Transformable>()->SetScale(1, 1);
 
 	DEBUG_WARNING(("glGetError game line 101: %i", glGetError()));
 	gameEntity.AddComponent(NEW Drawable());
 	gameEntity.GetComponent<Drawable>()->SetDrawState(true);
 	DEBUG_WARNING(("glGetError game line 104: %i", glGetError()));
-	gameEntity.AddComponent(TextureFactory::CreateTexture("test.png"));
+	gameEntity.AddComponent(TextureFactory::CreateTexture("test1.png"));
 	DEBUG_WARNING(("glGetError game line 106: %i", glGetError()));
 }
 

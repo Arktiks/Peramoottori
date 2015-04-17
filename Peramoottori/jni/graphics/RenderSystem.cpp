@@ -33,11 +33,22 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::Initialize()
 {
-	vertexBuffer.createBuffer(VERTEX);
-	indexBuffer.createBuffer(INDEX);
+	vertexBuffer.CreateBuffer(VERTEX);
+	indexBuffer.CreateBuffer(INDEX);
 
 	CreateShaders();
+
+	GLint projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
+	Vector2<int> resolution = Game::GetInstance()->GetResolution();
+	float right = resolution.x;
+	float top = resolution.y;
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f);
 	
+	for (int i = 0; i < 4; i++)
+		for (int n = 0; n < 4; n++)
+			DEBUG_INFO(("%f", projectionMatrix[i][n]));
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
 	//DEBUG_GL_ERROR();
 
 	DEBUG_INFO(("RenderSystem initialize finished."));
@@ -54,10 +65,10 @@ void RenderSystem::Draw(Batch batch)
 	//glEnable(GL_TEXTURE_2D);		// MAY NOT BE NEEDED, DONE IN Initialize()
 
 	//glUniform1i(shaderProgram.samplerLoc, 0);
-
 	glBindTexture(GL_TEXTURE_2D, batch.textureIndex);
-	
+
 	DEBUG_WARNING(("glGetError RenderSystem line 60: %i", glGetError()));
+	
 
 	GLint transformMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "transformable");
 
@@ -66,7 +77,7 @@ void RenderSystem::Draw(Batch batch)
 	{
 		int tempInt = 6 * i;
 	
-		glUniformMatrix4fv(transformMatrixLocation, 1, GL_FALSE, value_ptr(glm::mat4()));// batch.transformMatrixVector.at(i)));
+		glUniformMatrix4fv(transformMatrixLocation, 1, GL_FALSE, value_ptr(batch.transformMatrixVector.at(i)));
 
 		DEBUG_WARNING(("glGetError RenderSystem line 71: %i", glGetError()));
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, reinterpret_cast<GLvoid*>(tempInt));
@@ -96,14 +107,17 @@ void RenderSystem::CreateShaders()
 	//shaderProgram.AddSamplerLocation("image");
 	shaderProgram.LinkProgram();
 	shaderProgram.UseProgram();
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	GLint tempLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "image");
+	glUniform1i(tempLocation, 0);
+
 	DEBUG_WARNING(("glGetError RenderSystem line 98: %i", glGetError()));
-	GLint projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
-	//ASSERT(projectionLocation != -1);
+	
 	DEBUG_WARNING(("glGetError RenderSystem line 101: %i", glGetError()));
-	Vector2<int> resolution = Game::GetInstance()->GetResolution();
-	glm::mat4 projectionMatrix = glm::ortho(0, resolution.x, resolution.y, 0);
 	DEBUG_WARNING(("glGetError RenderSystem line 104: %i", glGetError()));
-	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 	DEBUG_WARNING(("glGetError RenderSystem line 107: %i", glGetError()));
 	DEBUG_INFO(("Shaders done!."));

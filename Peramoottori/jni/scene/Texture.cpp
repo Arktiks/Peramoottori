@@ -28,16 +28,16 @@ void pm::Texture::SetTextureVertices(glm::vec2 leftTop, glm::vec2 rightBottom)
 	textureVertex.clear();
 
 	textureVertex.push_back(leftTop.x / textureSize.x);
-	textureVertex.push_back(1 - (leftTop.y / textureSize.y));
+	textureVertex.push_back(1 - (rightBottom.y / textureSize.y));
 
 	textureVertex.push_back(leftTop.x / textureSize.x);
+	textureVertex.push_back(1 - (leftTop.y / textureSize.y));
+	
+	textureVertex.push_back(rightBottom.x / textureSize.x);
 	textureVertex.push_back(1 - (rightBottom.y / textureSize.y));
 
 	textureVertex.push_back(rightBottom.x / textureSize.x);
 	textureVertex.push_back(1 - (leftTop.y / textureSize.y));
-
-	textureVertex.push_back(rightBottom.x / textureSize.x);
-	textureVertex.push_back(1 - (rightBottom.y / textureSize.y));
 }
 
 GLuint pm::Texture::GetId()

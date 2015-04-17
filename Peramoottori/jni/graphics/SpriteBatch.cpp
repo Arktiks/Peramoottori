@@ -101,16 +101,9 @@ Sprite SpriteBatch::GatherDataFromComponents(GameEntity *gameEntity)
 	{
 		Transformable* transform = gameEntity->GetComponent<Transformable>();
 		// !
-		//translationMatrix = glm::translate(glm::vec3(transform->GetPosition(), 0.0f));
-		for (int i = 0; i < 4; i++)
-		{
-			for (int n = 0; n < 4; n++)
-				DEBUG_INFO(("%f", translationMatrix[i][n]));
-		}
-			
-		//translationMatrix *= glm::rotate(transform->GetRotation(), glm::vec3(0, 0, 1));
-		
-		//translationMatrix *= glm::scale(glm::vec3(transform->GetScale(), 0.0f));
+		translationMatrix = glm::scale(glm::vec3(transform->GetScale(), 0.0f)) * translationMatrix;
+		translationMatrix = glm::rotate(transform->GetRotation()*3.14f/180.0f, glm::vec3(0, 0, 1)) * translationMatrix;
+		translationMatrix = glm::translate(glm::vec3(transform->GetPosition(), 0.0f)) * translationMatrix;
 		
 		depth = transform->GetDepth();
 	}

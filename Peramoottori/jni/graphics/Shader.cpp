@@ -21,7 +21,6 @@ bool Shader::AddShader(string filePath, GLenum ShaderType)
 	ASSERT_NEQUAL(tempShader, 0);
 
 	string loadedString = LoadShader(filePath); // LoadShader has error checking.
-
 	const GLchar* charArray = loadedString.c_str(); // NOTE: Couldn't you use string directly?
 
 	glShaderSource(tempShader, 1, &charArray, nullptr); // Replace source code in shader object.
@@ -72,10 +71,15 @@ bool Shader::LinkProgram()
 	GLint linkCheck = GL_FALSE;
 
 	glLinkProgram(shaderProgram);
-	DEBUG_GL_ERROR();
-
+	
+	char errorMsg[10000];
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
-	DEBUG_GL_ERROR();
+	if(linkCheck == GL_FALSE)
+	{
+		glGetProgramInfoLog(shaderProgram, 10000, NULL, errorMsg);
+		DEBUG_WARNING(("%s", errorMsg));
+	}
+	DEBUG_WARNING(("glGetError Shader line 82: %i", glGetError()));
 	ASSERT_EQUAL(linkCheck, GL_TRUE);
 
 //	for (int i = 0; i < ShaderVertexAttribs.size(); i++)
@@ -99,9 +103,11 @@ bool Shader::GetLinkStatus()
 {
 	GLint linkCheck = GL_FALSE;
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkCheck);
-	if (linkCheck = GL_TRUE)
+
+	if (linkCheck == GL_TRUE)
 		return true;
-	return false;
+	else
+		return false;
 }
 
 void Shader::UseVertexAttribs()
@@ -109,15 +115,16 @@ void Shader::UseVertexAttribs()
 	for (int i = 0; i < ShaderVertexAttribs.size(); i++)
 	{
 		GLint tempLocation = GetAttribLocation(ShaderVertexAttribs[i].attributeName); // Return location of attribute variable.
-		ASSERT(tempLocation != -1);
+		ASSERT_NEQUAL(tempLocation, -1);
+
 		glVertexAttribPointer( // Define array of generic vertex attribute data.
 			tempLocation,
 			ShaderVertexAttribs[i].size,
 			GL_FLOAT,
 			GL_FALSE,
 			ShaderVertexAttribs[i].stride * sizeof(GLfloat),
-			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset) * sizeof(GLfloat))
-			);
+			reinterpret_cast<GLvoid*>((ShaderVertexAttribs[i].offset) * sizeof(GLfloat)));
+
 		glEnableVertexAttribArray(tempLocation); // Enables generic vertex attribute array specified by index.
 		DEBUG_GL_ERROR();
 	}
@@ -170,9 +177,9 @@ std::string Shader::LoadShader(std::string filePath)
 	return tempString;
 }
 
-/*void Shader::AddSamplerLocation(std::string samplerName)
-{
-DEBUG_WARNING(("glGetError Shader line 111: %i", glGetError()));
-samplerLoc = glGetUniformLocation(shaderProgram, samplerName.c_str());
-DEBUG_WARNING(("glGetError Shader line 113: %i", glGetError()));
-}*/
+//void Shader::AddSamplerLocation(std::string samplerName)
+//{
+//DEBUG_WARNING(("glGetError Shader line 111: %i", glGetError()));
+//samplerLoc = glGetUniformLocation(shaderProgram, samplerName.c_str());
+//DEBUG_WARNING(("glGetError Shader line 113: %i", glGetError()));
+//}
