@@ -11,7 +11,7 @@ namespace pm
 
 		Drawable() : Component(), drawState(true) {};
 
-		void SetDrawState(bool newDrawState) : drawState(newDrawState) {};
+		void SetDrawState(bool newDrawState) { drawState = newDrawState; }
 
 		bool GetDrawState() { return drawState; }
 

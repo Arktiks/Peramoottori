@@ -6,12 +6,12 @@ pm::AudioResource::AudioResource(int fileDescriptorData, AAsset *audioAssetData)
 	AudioAsset = audioAssetData;
 }
  
-int pm::AudioResource::getFileDescriptor()
+int pm::AudioResource::GetFileDescriptor()
 {
 	return fileDescriptor;
 }
 
-AAsset* pm::AudioResource::getAudioAsset()
+AAsset* pm::AudioResource::GetAudioAsset()
 {
 	return AudioAsset;
 }

@@ -170,12 +170,14 @@
     <ClCompile Include="jni\core\EventHandler.cpp">
       <Filter>jni\core\application</Filter>
     </ClCompile>
-    <ClCompile Include="jni\resources\AudioResource.cpp" />
     <ClCompile Include="jni\resources\TextureFactory.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Text.cpp">
       <Filter>jni\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\resources\AudioResource.cpp">
+      <Filter>jni\resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -994,6 +996,9 @@
     </ClInclude>
     <ClInclude Include="jni\structs\ShaderVertexAttrib.h">
       <Filter>structs</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\resources\AudioResource.h">
+      <Filter>jni\resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
