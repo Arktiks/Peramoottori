@@ -1,4 +1,4 @@
-#include <scene\Component.h>
+#include "Component.h"
 
 pm::Component::Component()
 {
@@ -13,10 +13,6 @@ pm::Component::Component(Component& component)
 pm::Component::Component(GameEntity* entity)
 {
 	parent = entity;
-}
-
-pm::Component::~Component()
-{
 }
 
 void pm::Component::SetParent(GameEntity* entity)

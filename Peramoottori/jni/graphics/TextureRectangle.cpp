@@ -1,4 +1,4 @@
-#include <graphics\TextureRectangle.h>
+#include "TextureRectangle.h"
 
 pm::TextureRectangle::TextureRectangle() : Component()
 {

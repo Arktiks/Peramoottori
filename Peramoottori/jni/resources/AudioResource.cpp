@@ -1,9 +1,5 @@
 #include "AudioResource.h"
 
-pm::AudioResource::AudioResource()
-{
-}
-
 pm::AudioResource::AudioResource(int fileDescriptorData, AAsset *audioAssetData)
 {
 	fileDescriptor = fileDescriptorData;
@@ -22,4 +18,5 @@ AAsset* pm::AudioResource::getAudioAsset()
 
 pm::AudioResource::~AudioResource()
 {
+	// AudioAsset should be closed perhaps?
 }

@@ -1,9 +1,5 @@
 #include <scene\GameEntity.h>
 
-pm::GameEntity::GameEntity()
-{
-}
-
 pm::GameEntity::~GameEntity()
 {
 	for (ComponentList::iterator it = components.begin(); it != components.end();it++)
