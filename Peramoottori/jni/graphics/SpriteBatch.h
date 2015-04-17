@@ -1,45 +1,55 @@
 #ifndef SPRITEBATCH_H
 #define SPRITEBATCH_H
 
-#include "../scene/GameEntity.h"
-#include "scene\Texture.h"
-#include "RenderSystem.h"
 #include "Sprite.h"
-#include "Shader.h"
 #include "Batch.h"
-#include <vector>
-#include <glm\common.hpp>
-#include <EGL\egl.h>
+
 #include <GLES2\gl2.h>
+#include <scene\GameEntity.h>
+#include <vector>
 
-// TODO: More pointers, and decision where data will be on one vector.
-
+// Needs commentating!
 
 namespace pm
 {
 	class SpriteBatch
 	{
 	public:
+
 		static SpriteBatch* GetInstance();
+
 		void DestroyInstance();
+
 		void Draw();
-		void AddGameEntity(GameEntity *gameEntity);
-		virtual ~SpriteBatch() {};
+
+		void AddGameEntity(GameEntity* gameEntity);
 	
+
 	private:
-		SpriteBatch();
+
 		static SpriteBatch* instance;
-		// Tarkastetaan piirret‰‰nkˆ GameEntity‰
-		bool CheckIfDrawable(GameEntity *gameEntity);
-		// Ker‰‰ componenteilta datan jotta se voidaan batchata.
-		Sprite GatherDataFromComponents(GameEntity *gameEntity);
-		// Lis‰‰ GameEntityn komponenteista koodun drawablen oikeaan batchiin.
-		std::vector<GLfloat> CreateVertexData(std::vector<GLfloat> vertexPos,
-			GLfloat depth, std::vector<GLfloat> vertexTexPos, glm::vec4 vertexColor);
+
+		SpriteBatch() {}; ///< Neccessary for singleton.
+
+		~SpriteBatch() {}; ///< Can't be deleted without calling DestroyInstance.
+
+		/// Check if GameEntity is drawable.
+		bool CheckIfDrawable(GameEntity* gameEntity);
+
+		/// Gather data from components so they can be batched.
+		Sprite GatherDataFromComponents(GameEntity* gameEntity);
+
 		void AddSpriteToBatch(Sprite sprite);
 
-		std::vector<GameEntity*> gameEntityVector; 
-		std::vector<Batch> batchVector;
+		/// Add data gathered from GameEntities to batch.
+		std::vector<GLfloat> CreateVertexData(std::vector<GLfloat> vertexPos,
+			GLfloat depth,
+			std::vector<GLfloat> vertexTexPos,
+			glm::vec4 vertexColor);
+
+		std::vector<GameEntity*> gameEntityVector;
+
+		std::vector<Batch> batchVector; ///< Contains all batched draw data?
 
 	};
 }

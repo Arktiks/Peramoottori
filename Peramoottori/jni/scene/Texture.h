@@ -4,7 +4,7 @@
 #include <vector>
 #include <GLES2\gl2.h>
 #include <scene\Component.h>
-#include <glm\common.hpp>
+#include <glm\vec2.hpp>
 
 
 namespace pm
@@ -13,25 +13,32 @@ namespace pm
 	{
 	public:
 
-		Texture() : Component(){};
+		Texture() : Component() {};
 
-		void SetId(GLuint textureId);
 		void SetTextureSize(glm::uvec2 textureSize);
-		//Set Texture Vertices for full size texture.
+
+		/// Set texture vertices for full size texture.
 		void SetTextureVertices();
-		//Take a specific part of the texture in pixels
+
+		/// Take specific part of the texture in pixels.
 		void SetTextureVertices(glm::vec2 leftTop, glm::vec2 rightBottom);
 
 		std::vector<GLfloat> GetTextureVertices() { return textureVertex; };
-	
-		GLuint GetId();
-		glm::uvec2 GetTextureSize();
+
+
+		void SetId(GLuint textureId) { textureIndex = textureId; }
+
+		GLuint GetId() { return textureIndex; }
+
+		glm::uvec2 GetTextureSize() { return textureSize; }
 
 
 	private:
 
 		GLuint textureIndex;
+
 		std::vector<GLfloat> textureVertex;
+
 		glm::uvec2 textureSize;
 
 	};

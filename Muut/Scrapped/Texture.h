@@ -5,7 +5,6 @@
 #include <scene\Component.h>
 #include <glm\common.hpp>
 
-
 namespace pm
 {
 	class Texture : public Component
@@ -17,8 +16,8 @@ namespace pm
 		void SetId(GLuint ui);
 		void SetTextureSize(glm::uvec2 v2);
 
-		GLuint getId();
-		glm::uvec2 getTextureSize();
+		GLuint GetId();
+		glm::uvec2 GetTextureSize();
 
 
 	private:
