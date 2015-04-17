@@ -143,7 +143,7 @@ void SpriteBatch::AddSpriteToBatch(Sprite sprite)
 	for (unsigned i = 0; i < batchVector.size(); i++)
 	{
 			// If there is a texture with same index as new one, add data to batch.
-		if (batchVector[i].textureIndex == sprite.GetTextureIndex());
+		if (batchVector[i].textureIndex == sprite.GetTextureIndex())
 		{
 			batchVector[i].AddData(sprite.GetVertexData(), sprite.GetIndexData(), sprite.GetTransformMatrix());
 			return;

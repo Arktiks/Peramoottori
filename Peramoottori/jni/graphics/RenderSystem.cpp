@@ -66,8 +66,6 @@ void RenderSystem::Draw(Batch batch)
 
 	//glUniform1i(shaderProgram.samplerLoc, 0);
 	glBindTexture(GL_TEXTURE_2D, batch.textureIndex);
-
-	DEBUG_WARNING(("glGetError RenderSystem line 60: %i", glGetError()));
 	
 
 	GLint transformMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "transformable");
@@ -79,7 +77,6 @@ void RenderSystem::Draw(Batch batch)
 	
 		glUniformMatrix4fv(transformMatrixLocation, 1, GL_FALSE, value_ptr(batch.transformMatrixVector.at(i)));
 
-		DEBUG_WARNING(("glGetError RenderSystem line 71: %i", glGetError()));
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, reinterpret_cast<GLvoid*>(tempInt));
 	}
 	glBindTexture(GL_TEXTURE_2D, 0u);

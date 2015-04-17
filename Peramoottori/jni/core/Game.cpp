@@ -81,8 +81,14 @@ void Game::Draw()
 {
 	if (!IsReady()) // Prematurely end function if everything is not prepared.
 		return;
+	rotation += 0.01;
+	for (int i = 0; i < entityVector.size(); i++)
+	{
+		entityVector[i]->GetComponent<Transformable>()->SetRotation(rotation * i);
+		SpriteBatch::GetInstance()->AddGameEntity(entityVector[i]);
 
-	SpriteBatch::GetInstance()->AddGameEntity(&gameEntity);
+	}
+
 	SpriteBatch::GetInstance()->Draw();
 
 	Application::SwapBuffers();
@@ -90,25 +96,46 @@ void Game::Draw()
 
 void Game::InitializeGame()
 {
-	DEBUG_WARNING(("glGetError game line 91: %i", glGetError()));
 	RenderSystem::GetInstance()->Initialize();
+	rotation = 0; 
 
-	DEBUG_WARNING(("glGetError game line 94: %i", glGetError()));
-	gameEntity.AddComponent(NEW Rectangle(64, 64));
-	gameEntity.GetComponent<Rectangle>()->SetOrigin(32, 32);
+	entityVector.push_back(NEW GameEntity());
+	entityVector[0]->AddComponent(NEW Rectangle(64, 64));
+	entityVector[0]->GetComponent<Rectangle>()->SetOrigin(32, 32);
+				 
+	entityVector[0]->AddComponent(NEW Transformable());
+	entityVector[0]->GetComponent<Transformable>()->SetPosition(200, 200);
+	entityVector[0]->GetComponent<Transformable>()->SetRotation(0);
+	entityVector[0]->GetComponent<Transformable>()->SetScale(1, 1);
+				 
+	entityVector[0]->AddComponent(NEW Drawable());
+	entityVector[0]->GetComponent<Drawable>()->SetDrawState(true);
+				 
+	entityVector[0]->AddComponent(TextureFactory::CreateTexture("test1.png"));
 
-	DEBUG_WARNING(("glGetError game line 97: %i", glGetError()));
-	gameEntity.AddComponent(NEW Transformable());
-	gameEntity.GetComponent<Transformable>()->SetPosition(32, 32);
-	gameEntity.GetComponent<Transformable>()->SetRotation(90);
-	gameEntity.GetComponent<Transformable>()->SetScale(1, 1);
 
-	DEBUG_WARNING(("glGetError game line 101: %i", glGetError()));
-	gameEntity.AddComponent(NEW Drawable());
-	gameEntity.GetComponent<Drawable>()->SetDrawState(true);
-	DEBUG_WARNING(("glGetError game line 104: %i", glGetError()));
-	gameEntity.AddComponent(TextureFactory::CreateTexture("test1.png"));
-	DEBUG_WARNING(("glGetError game line 106: %i", glGetError()));
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	for (int j = 0; j < 10; j++)
+	//	{
+	//		entityVector.push_back(NEW GameEntity());
+	//		entityVector[i*10 + j]->AddComponent(NEW Rectangle(64, 64));
+	//		entityVector[i*10 + j]->GetComponent<Rectangle>()->SetOrigin(32, 32);
+	//
+	//		entityVector[i*10 + j]->AddComponent(NEW Transformable());
+	//		entityVector[i*10 + j]->GetComponent<Transformable>()->SetPosition(120*i, 70*j);
+	//		entityVector[i*10 + j]->GetComponent<Transformable>()->SetRotation(rotation*(i*10+j));
+	//		entityVector[i*10 + j]->GetComponent<Transformable>()->SetScale(1, 1);
+	//
+	//		entityVector[i*10 + j]->AddComponent(NEW Drawable());
+	//		entityVector[i*10 + j]->GetComponent<Drawable>()->SetDrawState(true);
+	//		//if ((i*10 + j) % 2)
+	//		//	entityVector[i*10 + j]->AddComponent(TextureFactory::CreateTexture("test1.png"));
+	//		//else
+	//			entityVector[i * 10 + j]->AddComponent(TextureFactory::CreateTexture("test1.png"));
+	//	}
+	//}
+	/////////////////////////////////////////////////////////////
 }
 
 void Game::UpdateGame()

@@ -46,13 +46,13 @@ namespace pm
 
 		void InitializeGame();
 
-		GameEntity gameEntity;
+		std::vector<GameEntity*> entityVector;
 
 		// VESA PLS //
 
 	private:
 
-
+		float rotation;
 		bool initialized; ///< Checks if Initialize has been called succesfully at least once.
 
 		Game() : Application(), initialized(false) {};
