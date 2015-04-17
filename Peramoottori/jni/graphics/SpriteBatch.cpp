@@ -132,7 +132,7 @@ Sprite SpriteBatch::GatherDataFromComponents(GameEntity *gameEntity)
 	if (gameEntity->GetComponent<Color>() == nullptr)
 	{
 		//NO COLOR
-		vertexColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+		vertexColor = glm::vec4(0.65f, 0.65f, 0.65f, 1.0f);
 	} 
 	else
 	{

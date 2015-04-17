@@ -22,7 +22,7 @@ pm::Texture* TextureFactory::CreateTexture(std::string fileName)
 
 	if (error) // display error to debugger;
 	{
-		DEBUG_WARNING(("Texture Creation failed"));
+		DEBUG_WARNING(("Texture Creation failed lodepng error #%u", error));
 	}
 	else
 	{
