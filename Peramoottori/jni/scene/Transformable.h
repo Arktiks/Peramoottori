@@ -2,16 +2,22 @@
 #define TRANSFORMABLE_H
 
 #include <scene\Component.h>
-#include <glm\common.hpp>
+#include <glm\vec2.hpp>
 
 namespace pm
 {
 	class Transformable : public Component
 	{
 	public:
-		Transformable();
-		Transformable(glm::vec2 position, glm::vec2 scale, float rotation);
-		~Transformable();
+		Transformable() : position(glm::vec2(0.0f, 0.0f)),
+			scale(glm::vec2(1.0f, 1.0f)),
+			rotation(0.0f),
+			depthBuffer(0) {};
+
+		Transformable(glm::vec2 position, glm::vec2 scale, float rotation) :
+			position(position), scale(scale), rotation(rotation), depthBuffer(0) {};
+
+		~Transformable() {};
 
 		void SetPosition(glm::vec2 newPosition);
 		void SetPosition(float newPositionX, float newPositionY);
@@ -25,7 +31,6 @@ namespace pm
 		float GetRotation();
 		int GetDepth();
 
-		
 	private:
 		glm::vec2 position;
 		glm::vec2 scale;

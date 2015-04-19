@@ -1,23 +1,4 @@
-#include "scene\Transformable.h"
-
-pm::Transformable::Transformable() : 
-Transformable(	glm::vec2(0.0f, 0.0f), 
-				glm::vec2(1.0f, 1.0f), 
-				0.0f)
-{};
-
-pm::Transformable::Transformable(glm::vec2 position, glm::vec2 scale, float rotation) : Component()
-{
-	this->position = position;
-	this->scale = scale;
-	this->rotation = rotation;
-	depthBuffer = 0;
-}
-
-pm::Transformable::~Transformable()
-{
-
-}
+#include "Transformable.h"
 
 void pm::Transformable::SetPosition(glm::vec2 newPosition)
 {

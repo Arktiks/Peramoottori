@@ -10,19 +10,24 @@ namespace pm
 	public:
 
 		// Doesn't work because no functions to add them after initialization.
-		AudioResource() : AudioAsset(nullptr), fileDescriptor(0) {};
+		// AudioResource() : AudioAsset(nullptr), fileDescriptor(0) {};
 
-		AudioResource(int fileDescriptorDAta, AAsset *audioAssetData);
+		AudioResource(int fileDescriptorData, AAsset* audioAssetData) :
+			fileDescriptor(fileDescriptorData), AudioAsset(audioAssetData) {};
 
-		AAsset* GetAudioAsset();
-		int GetFileDescriptor();
+		AAsset* GetAudioAsset() { return AudioAsset; }
 
-		~AudioResource();
+		int GetFileDescriptor() { return fileDescriptor; }
+
+		~AudioResource() { /* AudioAsset should be closed perhaps? */ };
 
 	private:
+
 		AAsset* AudioAsset;
+
 		int fileDescriptor;
 
 	};
 }
+
 #endif // AUDIORESOURCE_H

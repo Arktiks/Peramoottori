@@ -1,10 +1,5 @@
 #include "Component.h"
 
-pm::Component::Component()
-{
-	parent = nullptr;
-}
-
 pm::Component::Component(Component& component)
 {
 	parent = component.parent;

@@ -17,6 +17,7 @@ namespace pm
 	class Buffer
 	{
 	public:
+
 		Buffer() : index(0), type(NONE) {};
 
 		void CreateBuffer(bufferType type);
@@ -41,8 +42,8 @@ namespace pm
 		void BindIndexData(unsigned size, void *data);
 
 		GLuint index;
-
 		bufferType type;
+
 	};
 }
 

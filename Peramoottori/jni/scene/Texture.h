@@ -6,7 +6,6 @@
 #include <scene\Component.h>
 #include <glm\vec2.hpp>
 
-
 namespace pm
 {
 	class Texture : public Component
@@ -25,13 +24,11 @@ namespace pm
 
 		std::vector<GLfloat> GetTextureVertices() { return textureVertex; };
 
-
 		void SetId(GLuint textureId);
 
 		GLuint GetId();
 
 		glm::uvec2 GetTextureSize();
-
 
 	private:
 

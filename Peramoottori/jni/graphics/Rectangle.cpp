@@ -40,7 +40,6 @@ void pm::Rectangle::SetVertices()
 void pm::Rectangle::SetIndices()
 {
 	indices.clear();
-
 	indices.push_back(0);
 	indices.push_back(1);
 	indices.push_back(2);

@@ -23,21 +23,16 @@ namespace pm
 		void Draw();
 
 		void AddGameEntity(GameEntity* gameEntity);
-	
 
 	private:
-
-		static SpriteBatch* instance;
 
 		SpriteBatch() {}; ///< Neccessary for singleton.
 
 		~SpriteBatch() {}; ///< Can't be deleted without calling DestroyInstance.
 
-		/// Check if GameEntity is drawable.
-		bool CheckIfDrawable(GameEntity* gameEntity);
-
-		/// Gather data from components so they can be batched.
-		Sprite GatherDataFromComponents(GameEntity* gameEntity);
+		bool IsDrawable(GameEntity* gameEntity); ///< Check if GameEntity is drawable.
+		
+		Sprite GatherDataFromComponents(GameEntity* gameEntity); ///< Gather data from components so they can be batched.
 
 		void AddSpriteToBatch(Sprite sprite);
 
@@ -50,6 +45,8 @@ namespace pm
 		std::vector<GameEntity*> gameEntityVector;
 
 		std::vector<Batch> batchVector; ///< Contains all batched draw data?
+
+		static SpriteBatch* instance;
 
 	};
 }

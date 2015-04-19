@@ -116,15 +116,6 @@
     <ClCompile Include="jni\core\WindowHandler.cpp">
       <Filter>jni\core\application</Filter>
     </ClCompile>
-    <ClCompile Include="jni\resources\Resource.cpp">
-      <Filter>jni\resources</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\resources\TextResource.cpp">
-      <Filter>jni\resources</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\resources\ImageResource.cpp">
-      <Filter>jni\resources</Filter>
-    </ClCompile>
     <ClCompile Include="jni\scene\GameEntity.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
@@ -136,9 +127,6 @@
     </ClCompile>
     <ClCompile Include="jni\graphics\Shader.cpp">
       <Filter>jni\graphics\shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\scene\Scene.cpp">
-      <Filter>jni\scene</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Color.cpp">
       <Filter>jni\scene\components</Filter>
@@ -161,9 +149,6 @@
     <ClCompile Include="jni\graphics\Sprite.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="jni\resources\FontResource.cpp">
-      <Filter>jni\resources</Filter>
-    </ClCompile>
     <ClCompile Include="jni\scene\Texture.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
@@ -175,9 +160,6 @@
     </ClCompile>
     <ClCompile Include="jni\graphics\Text.cpp">
       <Filter>jni\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\resources\AudioResource.cpp">
-      <Filter>jni\resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -951,9 +933,6 @@
     </ClInclude>
     <ClInclude Include="jni\graphics\Shader.h">
       <Filter>jni\graphics\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\scene\Scene.h">
-      <Filter>jni\scene</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Color.h">
       <Filter>jni\scene\components</Filter>

@@ -1,5 +1,4 @@
 #pragma once
-#include <glm\common.hpp>
 #include <glm\mat4x4.hpp>
 #include <GLES2\gl2.h>
 #include <vector>

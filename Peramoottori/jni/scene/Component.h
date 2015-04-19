@@ -12,12 +12,13 @@ namespace pm
 	{
 	public:
 		
-		Component();
+		Component() : parent(nullptr) {};
 		Component(Component& component);
 		Component(GameEntity* entity);
-		virtual ~Component() {};
-
+		
 		void SetParent(GameEntity* entity);
+
+		virtual ~Component() {};
 		
 	protected:
 

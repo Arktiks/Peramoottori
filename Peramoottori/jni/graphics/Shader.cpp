@@ -45,12 +45,8 @@ bool Shader::AddShader(string filePath, GLenum ShaderType)
 bool Shader::LinkProgram()
 {
 	glLinkProgram(shaderProgram);
-
-	CheckProgramLink(shaderProgram);
-
-	//DEBUG_WARNING(("glGetError Shader line 82: %i", glGetError()));
-	//ASSERT_EQUAL(linkCheck, GL_TRUE);
-
+	bool linkStatus = CheckProgramLink(shaderProgram);
+	ASSERT(linkStatus);
 	return true;
 }
 
@@ -67,9 +63,12 @@ bool Shader::GetLinkStatus()
 
 void Shader::UseVertexAttribs()
 {
+	DEBUG_GL_ERROR_CLEAR();
+
 	for (int i = 0; i < ShaderVertexAttribs.size(); i++)
 	{
 		GLint tempLocation = GetAttribLocation(ShaderVertexAttribs[i].attributeName); // Return location of attribute variable.
+		DEBUG_GL_ERROR();
 		ASSERT_NEQUAL(tempLocation, -1);
 
 		glVertexAttribPointer( // Define array of generic vertex attribute data.
@@ -87,23 +86,26 @@ void Shader::UseVertexAttribs()
 
 void Shader::UseProgram()
 {
+	DEBUG_GL_ERROR_CLEAR();
 	glUseProgram(shaderProgram);
+	DEBUG_GL_ERROR();
 }
 
-GLuint Shader::GetAttribLocation(std::string attributeName)
+GLuint Shader::GetAttribLocation(string attributeName)
 {
 	GLint tempCheck = glGetAttribLocation(shaderProgram, attributeName.c_str());
+	DEBUG_GL_ERROR();
 
-	if (tempCheck < -1)
+	if (tempCheck <= -1)
 	{
-		DEBUG_WARNING(("Couldn't find attribute location for %s.", attributeName.c_str()));
+		DEBUG_WARNING(("Could not find attribute location for %s.", attributeName.c_str()));
 		return 0;
 	}
 	else
 		return tempCheck;
 }
 
-void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset)
+void Shader::AddVertexAttribPointer(string attributeName, GLint size, GLsizei stride, GLint offset)
 {
 	ShaderVertexAttrib tempAttrib;
 
@@ -118,16 +120,17 @@ void Shader::AddVertexAttribPointer(std::string attributeName, GLint size, GLsiz
 Shader::~Shader()
 {
 	glDeleteProgram(shaderProgram);
+	DEBUG_GL_ERROR();
 }
 
-std::string Shader::LoadShader(std::string filePath)
+string Shader::LoadShader(string filePath)
 {
 	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
 
 	if (tempString.empty())
 		DEBUG_WARNING(("LoadShader failed, could not open: (%s).", filePath.c_str()));
-
-	tempString.push_back('\0');
+	else
+		tempString.push_back('\0');
 
 	return tempString;
 }
@@ -178,7 +181,7 @@ bool Shader::CheckProgramLink(GLuint program)
 
 			glGetProgramInfoLog(program, tempLength, nullptr, &tempInfoLog[0]);
 
-			DEBUG_WARNING(("Program could not link!"));
+			DEBUG_WARNING(("Shader program could not link!"));
 			DEBUG_WARNING(("%s", tempInfoLog.c_str()));
 			return false;
 		}
@@ -186,10 +189,3 @@ bool Shader::CheckProgramLink(GLuint program)
 	else
 		return true;
 }
-
-//void Shader::AddSamplerLocation(std::string samplerName)
-//{
-//DEBUG_WARNING(("glGetError Shader line 111: %i", glGetError()));
-//samplerLoc = glGetUniformLocation(shaderProgram, samplerName.c_str());
-//DEBUG_WARNING(("glGetError Shader line 113: %i", glGetError()));
-//}

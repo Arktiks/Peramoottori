@@ -13,7 +13,9 @@ namespace pm
 		friend class AudioManager;
 
 	public:
-		AudioPlayer(int fileDescriptor, off_t start, off_t length);
+		AudioPlayer(int fileDescriptor, off_t start, off_t length)
+			: fileDescriptor(fileDescriptor), start(start), length(length) {};
+
 		AudioPlayer(AudioPlayer* pointer);
 		~AudioPlayer();
 
@@ -42,4 +44,5 @@ namespace pm
 		off_t start, length;
 	};
 }
+
 #endif //AUDIOPLAYER_H

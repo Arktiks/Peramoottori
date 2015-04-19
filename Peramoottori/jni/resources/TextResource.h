@@ -8,16 +8,21 @@ namespace pm
 	class TextResource : public Resource
 	{
 	public:
-		TextResource();
-		TextResource(std::string data);
 
-		std::string getTextData();
+		//TextResource();
 
+		TextResource(std::string data) :
+			textData(data) {};
 
-		~TextResource();
+		std::string GetTextData() { return textData; }
+
+		~TextResource() {};
+
 	private:
+
 		std::string textData;
+
 	};
 }
-#endif //!TEXTRESOURCE_H
 
+#endif //!TEXTRESOURCE_H

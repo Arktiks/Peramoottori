@@ -1,9 +1,8 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-
 #include <string>
-#include <android\asset_manager.h>
+//#include <android\asset_manager.h>
 
 namespace pm
 {
@@ -11,15 +10,19 @@ namespace pm
 	{
 	public:
 
-		Resource();
-		void SetName(std::string name);
-		std::string GetName();
+		Resource() {};
 
-		~Resource();
+		void SetName(std::string name) { fileName = name; }
+
+		std::string GetName() { return fileName; }
+
+		~Resource() {};
 
 	private:
 
 		std::string fileName;
+
 	};
 }
+
 #endif //!RESOURCE_H

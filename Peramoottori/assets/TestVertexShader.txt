@@ -18,5 +18,4 @@ void main(void)
 	varyPosition = texPosition;
 
 	gl_Position = unifProjectionTransform * transformable * vec4(attrPosition, 1.0);
-
 }

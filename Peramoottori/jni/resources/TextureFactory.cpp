@@ -1,8 +1,12 @@
 #include "TextureFactory.h"
-#include "resources\ResourceManager.h"
-#include "ImageResource.h"
-#include <lodepng.h>
+#include <resources\ResourceManager.h>
+#include <resources\ImageResource.h>
+
+#include <core\Log.h>
 #include <core\Memory.h>
+#include <GLES2\gl2.h>
+
+#include <lodepng.h>
 
 std::map<std::string, pm::Texture*> pm::TextureFactory::generatedTextures = { { "MapInit", nullptr } };
 
@@ -55,15 +59,12 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 
 		return tempTexture;
 	}
-
-	
 }
 
 pm::TextureFactory::~TextureFactory()
 {
 	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
-	{
 		delete it->second;
-	}
+
 	generatedTextures.clear();
 }

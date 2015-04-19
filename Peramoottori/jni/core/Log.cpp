@@ -35,7 +35,22 @@ bool Log::PrintGLError(const char* file, const unsigned int line)
 		if (tempError != GL_NO_ERROR)
 		{
 			errors = true;
-			DEBUG_WARNING(("OpenGL error (%i) %s on line %s.", tempError, file, line));
+			string tempString;
+
+			if(tempError == GL_INVALID_ENUM)
+				tempString = "GL_INVALID_ENUM";
+			else if(tempError == GL_INVALID_VALUE)
+				tempString = "GL_INVALID_VALUE";
+			else if(tempError == GL_INVALID_OPERATION)
+				tempString = "GL_INVALID_OPERATION";
+			else if(tempError == GL_INVALID_FRAMEBUFFER_OPERATION)
+				tempString = "GL_INVALID_FRAMEBUFFER_OPERATION";
+			else if(tempError == GL_OUT_OF_MEMORY)
+				tempString = "GL_OUT_OF_MEMORY";
+			else
+				tempString = "???";
+
+			DEBUG_WARNING(("OpenGL error (%i : %s) %s on line %s.", tempError, tempString.c_str(), file, line));
 		}
 
 	} while (tempError != GL_NO_ERROR);
