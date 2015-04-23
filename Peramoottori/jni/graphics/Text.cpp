@@ -1,13 +1,16 @@
 #include "Text.h"
+#include "core\Log.h"
 
 
 Text::Text(pm::FontResource* font, pm::TextResource* text)
 {
-	FT_GlyphSlot  slot = font->GetFace()->glyph;  /* a small shortcut */
-	int           pen_x, pen_y, n;
-
+	DEBUG_INFO(("Huomioikaa minut!!!!____________________________"));
 	FT_Library lib = font->GetLibrary();//... initialize library ...
 	FT_Face face = font->GetFace();//... create face object ...
+
+	FT_GlyphSlot  slot = face->glyph;
+	int           pen_x, pen_y, n;
+
 
 	int error = FT_Set_Char_Size(
 		face,						/* handle to face object           */
@@ -17,7 +20,7 @@ Text::Text(pm::FontResource* font, pm::TextResource* text)
 		300);						/* vertical device resolution      */
 
 	
-	
+	DEBUG_INFO(("Huomioikaa minut!!!!____________________________"));
 	int num_chars = text->getTextData().size();
 
 	pen_x = 300;
@@ -34,12 +37,17 @@ Text::Text(pm::FontResource* font, pm::TextResource* text)
 		/* load glyph image into the slot (erase previous one) */
 		error = FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT);
 		if (error)
-			continue;  /* ignore errors */
+		{
+			DEBUG_INFO(("Glyph not loaded"));
+		}
+
 
 		/* convert to an anti-aliased bitmap */
 		error = FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
 		if (error)
-			continue;
+		{
+			DEBUG_INFO(("Glyph not rendered"));
+		}
 
 		/* now, draw to our target surface */
 		draw_bitmap(&slot->bitmap,
@@ -50,7 +58,7 @@ Text::Text(pm::FontResource* font, pm::TextResource* text)
 		pen_x += slot->advance.x >> 6;
 		pen_y += slot->advance.y >> 6; /* not useful for now */
 	}
-
+	DEBUG_INFO(("Huomioikaa minut!!!!____________________________"));
 }
 
 void Text::draw_bitmap(FT_Bitmap* bitmap, FT_Int x, FT_Int y)
@@ -59,6 +67,7 @@ void Text::draw_bitmap(FT_Bitmap* bitmap, FT_Int x, FT_Int y)
 	FT_Int  x_max = x + bitmap->width;
 	FT_Int  y_max = y + bitmap->rows;
 
+	DEBUG_INFO(("Huomioikaa minut!!!!____________________________"));
 
 	for (i = x, p = 0; i < x_max; i++, p++)
 	{
@@ -77,7 +86,7 @@ Text::~Text()
 {
 }
 
-void Text::show_image(void)
+void Text::show_image()
 {
 	int  i, j;
 	HEIGHT = 600;

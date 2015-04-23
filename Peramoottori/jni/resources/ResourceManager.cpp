@@ -55,8 +55,12 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 			{
 				DEBUG_INFO(("Failed to initialize freetype library"));
 			}
-			error = FT_New_Face(library,
-				fileName.c_str(),
+
+			std::vector<FT_Byte> asd = ReadUnsignedChar(OpenAAsset(fileName));
+
+			error = FT_New_Memory_Face(library,
+				&asd[0],
+				asd.size(),
 				0,
 				&face);
 			if (error == FT_Err_Unknown_File_Format)
@@ -65,13 +69,16 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 			}
 			else if (error)
 			{
-				DEBUG_INFO(("Font file could not be opened or read, or that it is broken"));
+				DEBUG_INFO(("Font file could not be opened or read, or it is broken"));
 			}
+			else
+			{
+				DEBUG_INFO(("Font loaded"));
+				FontResource* tempFontData = NEW FontResource(library, face);
+				assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
 
-			FontResource* tempFontData = NEW FontResource(library, face);
-			assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
-
-			return tempFontData; // Return created resource instantly.
+				return tempFontData; // Return created resource instantly.
+			}
 		}
 
 		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE
