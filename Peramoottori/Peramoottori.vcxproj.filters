@@ -52,6 +52,9 @@
     <Filter Include="jni\scene\components\shapes">
       <UniqueIdentifier>{165bcdb1-6867-4137-bfdd-47483eb79bf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{21342bb5-3a88-44f1-b554-55c8a9f94cb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -1323,6 +1326,12 @@
     </None>
     <None Include="libs\glm\gtx\wrap.inl">
       <Filter>libs\glm</Filter>
+    </None>
+    <None Include="assets\TestFragmentShader.txt">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\TestVertexShader.txt">
+      <Filter>assets</Filter>
     </None>
   </ItemGroup>
 </Project>

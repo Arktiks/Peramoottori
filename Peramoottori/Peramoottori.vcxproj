@@ -407,6 +407,8 @@
     <ClInclude Include="jni\graphics\Text.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\TestFragmentShader.txt" />
+    <None Include="assets\TestVertexShader.txt" />
     <None Include="libs\glm\detail\func_common.inl" />
     <None Include="libs\glm\detail\func_exponential.inl" />
     <None Include="libs\glm\detail\func_geometric.inl" />
