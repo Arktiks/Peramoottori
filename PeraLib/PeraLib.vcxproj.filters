@@ -85,7 +85,6 @@
     <ClCompile Include="..\Peramoottori\jni\core\WindowHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Peramoottori\libs\android_native_app_glue.c" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -216,6 +215,5 @@
     <ClInclude Include="..\Peramoottori\jni\core\WindowHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Peramoottori\libs\android_native_app_glue.h" />
   </ItemGroup>
 </Project>
