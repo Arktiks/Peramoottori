@@ -63,6 +63,7 @@ void android_main(android_app* application)
 	//InitializeGame();
 	InitializeDemo();
 
+
 	Audio audio("test1.ogg");
 	audio.Play();
 
