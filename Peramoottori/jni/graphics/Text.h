@@ -2,23 +2,32 @@
 #define TEXT_H
 #include <resources\FontResource.h>
 #include <resources\TextResource.h>
+#include <scene\Texture.h>
+#include <GLES2\gl2.h>
+#include <scene\GameEntity.h>
+#include <core\Memory.h>
+#include <graphics/Rectangle.h>
+#include <vector>
+#include <graphics\Drawable.h>
 
-class Text
+
+namespace pm
 {
-public:
+	class Text : public GameEntity
+	{
+	public:
 
-	Text(pm::FontResource* font, pm::TextResource* text);
-	~Text();
+		Text(FontResource* font, TextResource* text, float x, float y, float w, float h);
+		~Text();
 
-	void show_image();
-	void draw_bitmap(FT_Bitmap* bitmap, FT_Int x, FT_Int y);
+	private:
 
-private:
+		int HEIGHT;
+		int WIDTH;
+		std::vector<float> vertexData;
+		std::vector<uint> indexData;
 
-	int HEIGHT;
-	int WIDTH;
-
-	unsigned char* image[];
-
-};
+		GLuint textId;
+	};
+}
 #endif

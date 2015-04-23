@@ -38,7 +38,7 @@ void RenderSystem::Initialize()
 	Vector2<int> resolution = Game::GetInstance()->GetResolution(); // Get resolution of display.
 	float right = resolution.x; // Calculate limits.
 	float top = resolution.y;
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f);
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, 1.0f, -1.0f);
 
 	vertexBuffer.CreateBuffer(VERTEX); // Already contain GL error handling.
 	indexBuffer.CreateBuffer(INDEX);
@@ -59,11 +59,11 @@ void RenderSystem::Initialize()
 	DEBUG_INFO(("RenderSystem initialize finished."));
 }
 
-void RenderSystem::Draw(Batch batch)
+void RenderSystem::Draw(Batch* batch)
 {
 	shaderProgram.UseProgram();
 
-	BindBuffers(batch.GetVertexData(), batch.GetIndexData());
+	BindBuffers(batch);
 
 	shaderProgram.UseVertexAttribs();
 
@@ -73,17 +73,17 @@ void RenderSystem::Draw(Batch batch)
 	//glEnable(GL_TEXTURE_2D); // Not neccessary, maybe.
 	//glUniform1i(shaderProgram.samplerLoc, 0);
 
-	glBindTexture(GL_TEXTURE_2D, batch.textureIndex);
+	glBindTexture(GL_TEXTURE_2D, batch->textureIndex);
 	DEBUG_GL_ERROR();
 	
 	GLint transformMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "transformable");
 	DEBUG_GL_ERROR();
-
-	for (int i = 0; i < batch.transformMatrixVector.size(); i++)
+	
+	for (int i = 0; i < batch->GetTransformMatrixPointer()->size(); i++)
 	{
 		int tempInt = 6 * i;
 	
-		glUniformMatrix4fv(transformMatrixLocation, 1, GL_FALSE, value_ptr(batch.transformMatrixVector.at(i)));
+		glUniformMatrix4fv(transformMatrixLocation, 1, GL_FALSE, value_ptr(batch->GetTransformMatrixPointer()->at(i)));
 		DEBUG_GL_ERROR();
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, reinterpret_cast<GLvoid*>(tempInt));
@@ -94,10 +94,10 @@ void RenderSystem::Draw(Batch batch)
 	DEBUG_GL_ERROR();
 }
 
-void RenderSystem::BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData)
+void RenderSystem::BindBuffers(Batch* batch)
 {
-	vertexBuffer.BindBufferData(vertexData.size(), vertexData.data());
-	indexBuffer.BindBufferData(indexData.size(), indexData.data());
+	vertexBuffer.BindBufferData(batch->GetVertexDataPointer()->size(), batch->GetVertexDataPointer()->data());
+	indexBuffer.BindBufferData(batch->GetIndexDataPointer()->size(), batch->GetIndexDataPointer()->data());
 }
 
 void RenderSystem::CreateShaders()
@@ -123,6 +123,10 @@ void RenderSystem::CreateShaders()
 	DEBUG_GL_ERROR();
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	DEBUG_GL_ERROR();
+	
+	glEnable(GL_DEPTH_TEST);
+	glClearDepthf(1.0);
 	DEBUG_GL_ERROR();
 
 	GLint tempLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "image");

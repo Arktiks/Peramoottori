@@ -29,6 +29,9 @@ namespace pm
 		std::vector<GLfloat> GetVertexData() { return totalVertexData; }
 		std::vector<GLushort> GetIndexData(){ return totalIndexData; }
 
+		std::vector<GLfloat>* GetVertexDataPointer(){ return &totalVertexData; }
+		std::vector<GLushort>* GetIndexDataPointer(){ return &totalIndexData; }
+		std::vector<glm::mat4>* GetTransformMatrixPointer(){ return &transformMatrixVector; }
 
 		std::vector<GLfloat> totalVertexData;
 		std::vector<GLushort> totalIndexData;

@@ -32,15 +32,14 @@ namespace pm
 
 		bool IsDrawable(GameEntity* gameEntity); ///< Check if GameEntity is drawable.
 		
-		Sprite GatherDataFromComponents(GameEntity* gameEntity); ///< Gather data from components so they can be batched.
+		void BatchComponents();
+		void ParseData(GameEntity* gameEntity,
+			std::vector<GLfloat>* vertexData, 
+			std::vector<GLushort>* indexData,
+			glm::mat4* transformMatrix,
+			GLuint* textureIndex);
 
-		void AddSpriteToBatch(Sprite sprite);
 
-		/// Add data gathered from GameEntities to batch.
-		std::vector<GLfloat> CreateVertexData(std::vector<GLfloat> vertexPos,
-			GLfloat depth,
-			std::vector<GLfloat> vertexTexPos,
-			glm::vec4 vertexColor);
 
 		std::vector<GameEntity*> gameEntityVector;
 

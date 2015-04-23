@@ -1,103 +1,64 @@
 #include "Text.h"
 #include "core\Log.h"
-
-
-Text::Text(pm::FontResource* font, pm::TextResource* text)
+#include <GLES2/gl2.h>
+#include <string>
+namespace pm
 {
-	DEBUG_INFO(("Huomioikaa minut!!!!____________________________"));
-	FT_Library lib = font->GetLibrary();//... initialize library ...
-	FT_Face face = font->GetFace();//... create face object ...
-
-	FT_GlyphSlot  slot = face->glyph;
-	int           pen_x, pen_y, n;
-
-
-	int error = FT_Set_Char_Size(
-		face,						/* handle to face object           */
-		0,							/* char_width in 1/64th of points  */
-		16 * 64,					/* char_height in 1/64th of points */
-		300,						/* horizontal device resolution    */
-		300);						/* vertical device resolution      */
-
-	
-	DEBUG_INFO(("Huomioikaa minut!!!!____________________________"));
-	int num_chars = text->GetTextData().size();
-
-	pen_x = 300;
-	pen_y = 200;
-
-	for (n = 0; n < num_chars; n++)
+	Text::Text(FontResource* font, TextResource* text, float x, float y, float w, float h)
 	{
-		FT_UInt  glyph_index;
+		FT_Library lib = font->GetLibrary();	//... initialize library ...
+		FT_Face face = font->GetFace();			//... create face object ...
+
+		FT_GlyphSlot  slot = face->glyph;
+		int           pen_x, pen_y, n;
 
 
-		/* retrieve glyph index from character code */
-		glyph_index = FT_Get_Char_Index(face, text->GetTextData()[n]);
+		FT_Error error = FT_Set_Char_Size(
+			face,						/* handle to face object           */
+			0,							/* char_width in 1/64th of points  */
+			16 * 64,					/* char_height in 1/64th of points */
+			300,						/* horizontal device resolution    */
+			300);						/* vertical device resolution      */
 
-		/* load glyph image into the slot (erase previous one) */
-		error = FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT);
-		if (error)
-		{
-			DEBUG_INFO(("Glyph not loaded"));
-		}
+		int num_chars = 1; //text->GetTextData().size();
+		//std::string asd = { "asd" };
+		char* asd = "asd";
+		FT_UInt   glyph_index = 12;
+		error = FT_Load_Char(face, asd[0] , FT_LOAD_RENDER);
+		//error = FT_Load_Glyph(face, FT_Get_Char_Index( face, 'S' ), FT_LOAD_DEFAULT);
+
+		glm::vec2 position(x, y);
+		glm::vec2 rightBottom(w, h);
+		glGenTextures(1, &textId);
+		glActiveTexture(textId);
+		glBindTexture(GL_TEXTURE_2D, textId);
 
 
-		/* convert to an anti-aliased bitmap */
-		error = FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
-		if (error)
-		{
-			DEBUG_INFO(("Glyph not rendered"));
-		}
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, slot->bitmap.width, slot->bitmap.rows, 0, GL_RGBA, GL_UNSIGNED_BYTE, slot->bitmap.buffer);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-		/* now, draw to our target surface */
-		draw_bitmap(&slot->bitmap,
-			pen_x + slot->bitmap_left,
-			pen_y - slot->bitmap_top);
+		AddComponent(NEW Rectangle(w, h));
+		AddComponent(NEW Transformable());
+		GetComponent<Transformable>()->SetPosition(position);
+		GetComponent<Transformable>()->SetRotation(0);
+		GetComponent<Transformable>()->SetScale(1, 1);
 
-		/* increment pen position */
-		pen_x += slot->advance.x >> 6;
-		pen_y += slot->advance.y >> 6; /* not useful for now */
+		AddComponent(NEW Drawable());
+		GetComponent<Drawable>()->SetDrawState(true);
+
+		AddComponent(NEW Texture());
+		GetComponent<Texture>()->SetId(textId);
+		GetComponent<Texture>()->SetTextureVertices(position, rightBottom);
+		glActiveTexture(0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
 	}
-	DEBUG_INFO(("Huomioikaa minut!!!!____________________________"));
-}
-
-void Text::draw_bitmap(FT_Bitmap* bitmap, FT_Int x, FT_Int y)
-{
-	FT_Int  i, j, p, q;
-	FT_Int  x_max = x + bitmap->width;
-	FT_Int  y_max = y + bitmap->rows;
-
-	DEBUG_INFO(("Huomioikaa minut!!!!____________________________"));
-
-	for (i = x, p = 0; i < x_max; i++, p++)
+	Text::~Text()
 	{
-		for (j = y, q = 0; j < y_max; j++, q++)
-		{
-			if (i < 0 || j < 0 ||
-				i >= WIDTH || j >= HEIGHT)
-				continue;
 
-			image[j][i] |= bitmap->buffer[q * bitmap->width + p];
-		}
-	}
-}
-
-Text::~Text()
-{
-}
-
-void Text::show_image()
-{
-	int  i, j;
-	HEIGHT = 600;
-	WIDTH = 400;
-
-	for (i = 0; i < HEIGHT; i++)
-	{
-		for (j = 0; j < WIDTH; j++)
-			putchar(image[i][j] == 0 ? ' '
-			: image[i][j] < 128 ? '+'
-			: '*');
-		putchar('\n');
 	}
 }
