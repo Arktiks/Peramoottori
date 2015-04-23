@@ -23,12 +23,7 @@ namespace pm
 		/// Only one instance of ResourceManager will exist during runtime.
 		///		\return pointer to only instance of this class.
 		static ResourceManager* GetInstance();
-
-
-		///*** JOTKUT MUUT LUOKAT KÄYTTÄÄ NÄITÄ VIELÄ; ***\\\
-		///*** PITÄÄ SUMPLIA NIITTEN TOIMINNALLISUUS;  ***\\\
-		///*** ESIM SHADER JA AUDIO;				   ***\\\					
-
+				
 		/// Main resource management function for user.
 		/// Checks that there won't be duplicate files.
 		/// Determines type of file and calls proper function to decrypt it.
@@ -42,7 +37,16 @@ namespace pm
 		///		\return content of AAsset as string.
 		AAsset* GetAAsset(std::string fileName);
 
-		/// KOMMENTOI
+		/// Simple public function to empty the asset std::map.
+		/// Should be used when deleting previous scene.
+		void ClearAssetMap();
+
+	private:
+
+
+		/// Return content of a text file as std::string.
+		///		\param fileName : string name of text file.
+		///		\return content of text file.
 		std::string ReadText(std::string fileName);
 
 		/// Returns vector that contains pixel data.
@@ -50,8 +54,6 @@ namespace pm
 		///		\param fileName : string name of AAsset.
 		///		\return content of AAsset as unsigned char vector.
 		std::vector<unsigned char> ReadImage(std::string fileName);
-
-	private:
 
 		/// KOMMENTOI
 		std::string ReadFont(std::string fileName);

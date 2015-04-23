@@ -125,6 +125,11 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 	}
 }
 
+void pm::ResourceManager::ClearAssetMap()
+{
+	assets.clear();
+}
+
 
 /// Private Functions ///
 
