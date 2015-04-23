@@ -16,7 +16,7 @@ void android_main(struct android_app* state)
 		else
 			red = 0.0f;
 
-		Game::GetInstance()->SetClearColor(12, 15, 60);
+		Game::GetInstance()->SetClearColor(red, 0.f, 1.f);
 
 		Game::GetInstance()->Clear();
 		Game::GetInstance()->Draw();

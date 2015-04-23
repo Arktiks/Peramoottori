@@ -2,28 +2,24 @@
 #define PROFILER_H
 
 #include <string>
-#include "core\Time.h"
-#include "core\Log.h"
-
-#define PROFILE pm::Profiler(__FUNCTION__)
+#include <core\Time.h>
 
 namespace pm
 {
 	class Profiler
 	{
 	public:
-		Profiler(std::string funcName)
-			:name(funcName)
-		{
-			clock.CalculateTimeInFrame();
-		};
 
-		~Profiler(){
-			DEBUG_INFO(("Time spend in %c is: %f", name, clock.CalculateTimeInFrame());
-		};
+		Profiler(std::string functionName);
+
+		~Profiler();
+
 	private:
 		Time clock;
 		std::string name;
 	};
 }
+
+#define PROFILE pm::Profiler(__FUNCTION__)
+
 #endif

@@ -4,10 +4,8 @@
 #include <core/Log.h>
 #include <core/Passert.h>
 #include <core/Memory.h>
-
 #include <graphics/RenderSystem.h>
 #include <graphics/SpriteBatch.h>
-
 
 using namespace pm;
 using namespace std;

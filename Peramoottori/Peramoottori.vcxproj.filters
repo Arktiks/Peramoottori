@@ -164,6 +164,9 @@
     <ClCompile Include="jni\graphics\Text.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="jni\core\Profiler.cpp">
+      <Filter>jni\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -981,6 +984,9 @@
     </ClInclude>
     <ClInclude Include="jni\resources\AudioResource.h">
       <Filter>jni\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Profiler.h">
+      <Filter>jni\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
