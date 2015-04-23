@@ -35,8 +35,8 @@ namespace pm
 
 // Disable custom assert for release.
 #ifdef NDEBUG 
-#define ASSERT void(0)
-#define ASSERT_EQUAL void(0)
-#define ASSERT_NEQUAL void(0)
-#define ASSERT_MINMAX void(0)
+#define ASSERT
+#define ASSERT_EQUAL
+#define ASSERT_NEQUAL
+#define ASSERT_MINMAX
 #endif

@@ -48,7 +48,20 @@ extern void operator delete[](void* ptr);
 #endif // DEBUG_MEMORY
 #endif // _DEBUG
 
+
 // Disable memory tracking for release.
 #ifdef NDEBUG
+
+namespace pm
+{
+	class Memory
+	{
+	public:
+
+		static void WriteLeaks() {}; // Temporary fix to compiler errors.
+
+	};
+}
+
 #define NEW new
 #endif

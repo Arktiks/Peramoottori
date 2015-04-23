@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="jni">
+      <UniqueIdentifier>c4bb2457-acd7-4c33-bc3d-50d21a46ef7f</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>1ba8e0cd-6017-4b7d-a8c7-6de0209421fa</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\values">
+      <UniqueIdentifier>d79f4fa2-2483-4d70-afbd-a58df1e1310d</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PeraPeli">
+      <UniqueIdentifier>{af1c0c43-3ef5-4917-ad21-1ff78010c52a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PeraPeli\native_app_glue">
+      <UniqueIdentifier>{710df038-a067-469f-892b-b74a94986eae}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml" />
+    <AndroidBuild Include="res\values\strings.xml">
+      <Filter>res\values</Filter>
+    </AndroidBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="jni\main.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="native_app_glue\android_native_app_glue.c">
+      <Filter>PeraPeli\native_app_glue</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="native_app_glue\android_native_app_glue.h">
+      <Filter>PeraPeli\native_app_glue</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

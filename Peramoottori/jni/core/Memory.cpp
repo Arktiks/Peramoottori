@@ -1,3 +1,5 @@
+#ifdef _DEBUG // Prevent compiler errors.
+
 #include "Memory.h"
 #include "Log.h"
 
@@ -74,3 +76,5 @@ void operator delete[](void* ptr)
 {
 	operator delete(ptr);
 }
+
+#endif

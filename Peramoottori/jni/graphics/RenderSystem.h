@@ -19,7 +19,7 @@ namespace pm
 
 		void Initialize(); ///< RenderSystem should be initialized when context is ready.
 
-		void Draw(Batch batch);
+		void Draw(Batch* batch);
 
 	private:
 
@@ -27,7 +27,7 @@ namespace pm
 
 		~RenderSystem() {};
 
-		void BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData);
+		void BindBuffers(Batch* batch);
 
 		void CreateShaders(); // May be changed.
 
