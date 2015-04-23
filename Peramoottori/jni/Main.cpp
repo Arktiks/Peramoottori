@@ -62,10 +62,13 @@ void android_main(android_app* application)
 
 	//InitializeGame();
 	InitializeDemo();
+
 	Audio audio("test1.ogg");
 	audio.Play();
 
 	//ResourceManager::GetInstance()->LoadAsset("test.png");
+
+
 
 	Time time;
 	float fps = 0;
@@ -76,7 +79,6 @@ void android_main(android_app* application)
 		//DEBUG_INFO(("Main.cpp sanoo: fps = %f", fps));
 
 		game->Clear();
-
 		//UpdateGame();
 		UpdateDemo();
 
@@ -94,7 +96,7 @@ void InitializeGame()
 
 		GameEntity* entity = NEW GameEntity;
 
-		entity->AddComponent(NEW Rectangle(64, 64));
+		entity->AddComponent(NEW Rectangle(128, 128));
 		entity->GetComponent<Rectangle>()->SetOrigin(32, 32);
 	
 		entity->AddComponent(NEW Transformable());
@@ -109,6 +111,10 @@ void InitializeGame()
 
 		entityVector.push_back(entity);
 	}
+	TextResource* txt = (TextResource*)ResourceManager::GetInstance()->LoadAsset("teksti.txt");
+	FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
+	
+	Text* teksti = new Text(font, txt, 50, 50, 100, 100);
 }
 
 void UpdateGame()
@@ -117,11 +123,11 @@ void UpdateGame()
 
 	for(int i = 0; i < entityVector.size(); i++)
 	{
-		entityVector[i]->GetComponent<Transformable>()->SetRotation(rotation * i);
+		entityVector[i]->GetComponent<Transformable>()->SetRotation(rotation * 1);
 
 		glm::vec2 oldPosition = entityVector[i]->GetComponent<Transformable>()->GetPosition();
 
-		entityVector[i]->GetComponent<Transformable>()->SetPosition(oldPosition + 1.0f);
+		entityVector[i]->GetComponent<Transformable>()->SetPosition(oldPosition.x, oldPosition.y + 1);
 
 		SpriteBatch::GetInstance()->AddGameEntity(entityVector[i]);
 	}

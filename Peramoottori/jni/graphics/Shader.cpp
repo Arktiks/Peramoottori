@@ -125,7 +125,10 @@ Shader::~Shader()
 
 string Shader::LoadShader(string filePath)
 {
-	std::string tempString = ResourceManager::GetInstance()->ReadText(filePath);
+
+	TextResource* decodedText = (TextResource*) ResourceManager::GetInstance()->LoadAsset(filePath);
+
+	std::string tempString = decodedText->GetTextData();
 
 	if (tempString.empty())
 		DEBUG_WARNING(("LoadShader failed, could not open: (%s).", filePath.c_str()));

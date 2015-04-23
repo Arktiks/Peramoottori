@@ -58,6 +58,7 @@ void pm::AudioPlayer::SetVolume(float volPercentage)
 
 void pm::AudioPlayer::CheckError(std::string errorText)
 {
-	DEBUG_INFO((errorText.c_str()));
+	if (result != SL_RESULT_SUCCESS)
+		DEBUG_WARNING((errorText.c_str()));
 	(void)result;
 }

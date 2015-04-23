@@ -5,6 +5,8 @@
 #include <EGL/egl.h>
 #include <vector>
 #include <string>
+#include <resources\TextResource.h>
+#include <resources\ResourceManager.h>
 
 namespace pm
 {
