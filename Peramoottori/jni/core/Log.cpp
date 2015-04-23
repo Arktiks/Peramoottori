@@ -1,3 +1,5 @@
+#ifdef _DEBUG // Prevent compiler errors.
+
 #include "Log.h"
 #include <android/log.h>
 
@@ -85,3 +87,5 @@ char* Log::FormatMessage(const char* text...)
 	va_end(arguments); // End using variable argument list.
 	return tempBuffer;
 }
+
+#endif

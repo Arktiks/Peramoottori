@@ -43,9 +43,9 @@ namespace pm
 
 // Disable logging for release version. 
 #ifdef NDEBUG
-#define DEBUG_INFO void(0)
-#define DEBUG_WARNING void(0)
+#define DEBUG_INFO(text)
+#define DEBUG_WARNING(text)
 
-#define DEBUG_GL_ERROR void(0)
-#define DEBUG_GL_ERROR_CLEAR void(0)
+#define DEBUG_GL_ERROR(text)
+#define DEBUG_GL_ERROR_CLEAR(text)
 #endif
