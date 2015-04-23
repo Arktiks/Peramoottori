@@ -5,8 +5,8 @@
 #include <cstdio>
 #include <string>
 
-using namespace pm;
 using namespace std;
+using namespace pm;
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "DEBUG_INFO", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "DEBUG_WARNING", __VA_ARGS__))
@@ -37,15 +37,15 @@ bool Log::PrintGLError(const char* file, const unsigned int line)
 			errors = true;
 			string tempString;
 
-			if(tempError == GL_INVALID_ENUM)
+			if (tempError == GL_INVALID_ENUM)
 				tempString = "GL_INVALID_ENUM";
-			else if(tempError == GL_INVALID_VALUE)
+			else if (tempError == GL_INVALID_VALUE)
 				tempString = "GL_INVALID_VALUE";
-			else if(tempError == GL_INVALID_OPERATION)
+			else if (tempError == GL_INVALID_OPERATION)
 				tempString = "GL_INVALID_OPERATION";
-			else if(tempError == GL_INVALID_FRAMEBUFFER_OPERATION)
+			else if (tempError == GL_INVALID_FRAMEBUFFER_OPERATION)
 				tempString = "GL_INVALID_FRAMEBUFFER_OPERATION";
-			else if(tempError == GL_OUT_OF_MEMORY)
+			else if (tempError == GL_OUT_OF_MEMORY)
 				tempString = "GL_OUT_OF_MEMORY";
 			else
 				tempString = "???";
