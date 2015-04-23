@@ -1,8 +1,4 @@
-#include <scene\GameEntity.h>
-
-pm::GameEntity::GameEntity()
-{
-}
+#include "GameEntity.h"
 
 pm::GameEntity::~GameEntity()
 {

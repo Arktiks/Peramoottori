@@ -1,42 +1,41 @@
 #ifndef RENDERSYSTEM_H
 #define RENDERSYSTEM_H
 
-#include <glm\common.hpp>
-#include <glm\mat4x4.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <EGL\egl.h>
-#include <GLES2\gl2.h>
 #include <vector>
-#include <core\Passert.h>
-#include <core\Log.h>
-#include <core\Memory.h>
+#include <GLES2\gl2.h>
+
 #include "Batch.h"
 #include "Shader.h"
 #include "Buffer.h"
-#include "core\Game.h"
 
 namespace pm
 {
-
 	class RenderSystem
 	{
 	public:
 		static RenderSystem* GetInstance();
+
 		void DestroyInstance();
 
+		void Initialize(); ///< RenderSystem should be initialized when context is ready.
 
-		void Draw(Batch batch);	// DATA FOR ONE SPRITEBATCH "BATCH"
-		void Initialize();		// Initialize when context is ready
+		void Draw(Batch batch);
 
 	private:
 
-		static RenderSystem* instance;
-		RenderSystem();
-		~RenderSystem();
-		void CreateShaders();	// Creating shaderprogram, may be changed
+		RenderSystem() : shaderProgram(), vertexBuffer(), indexBuffer() {};
+
+		~RenderSystem() {};
+
 		void BindBuffers(std::vector<GLfloat> vertexData, std::vector<GLushort> indexData);
+
+		void CreateShaders(); // May be changed.
+
 		Shader shaderProgram;
+
 		Buffer vertexBuffer, indexBuffer;
+
+		static RenderSystem* instance;
 
 	};
 }

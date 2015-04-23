@@ -9,11 +9,11 @@ namespace pm
 {
 	class GameEntity
 	{
-		using ComponentList = std::unordered_map < const std::type_info *, Component* >;
+		using ComponentList = std::unordered_map < const std::type_info*, Component* >;
 
 	public:
 
-		GameEntity();
+		GameEntity() {};
 		~GameEntity();
 
 		void AddComponent(Component* newComponent);
@@ -22,7 +22,7 @@ namespace pm
 	private:
 		ComponentList components;
 	};
-} //namespace pm
+} // end namespace
 
 template<typename T>
 T* pm::GameEntity::GetComponent()
@@ -33,4 +33,4 @@ T* pm::GameEntity::GetComponent()
 		return nullptr;
 }
 
-#endif //GAMEENTITY_H
+#endif // GAMEENTITY_H

@@ -24,7 +24,10 @@ namespace pm
 
 		/// Confirm if program has been linked successfully.
 		bool GetLinkStatus();
+
+		// ...
 		void UseVertexAttribs();
+
 		/// Use program as part of current rendering state.
 		void UseProgram();
 
@@ -43,6 +46,10 @@ namespace pm
 	private:
 
 		std::string LoadShader(std::string filePath);
+
+		bool CheckShaderCompile(GLuint shader); // TODO
+
+		bool CheckProgramLink(GLuint program); // TODO
 
 		std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
 

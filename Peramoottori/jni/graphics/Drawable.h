@@ -8,21 +8,15 @@ namespace pm
 	class Drawable : public Component
 	{
 	public:
-		Drawable() : Component()
-		{
-			drawState = true;
-		};
 
-		void SetDrawState(bool newDrawState)
-		{
-			drawState = newDrawState;
-		};
-		bool GetDrawState()
-		{
-			return drawState;
-		};
+		Drawable() : Component(), drawState(true) {};
+
+		void SetDrawState(bool newDrawState) { drawState = newDrawState; }
+
+		bool GetDrawState() { return drawState; }
 
 	private:
+
 		bool drawState;
 
 	};

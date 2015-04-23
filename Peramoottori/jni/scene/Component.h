@@ -2,21 +2,23 @@
 #define COMPONENT_H
 
 #include <typeinfo>
+//#include <scene\GameEntity.h>
 
 namespace pm
 {
-	class GameEntity;
+	class GameEntity; // ???
 
 	class Component
 	{
 	public:
 		
-		Component();
+		Component() : parent(nullptr) {};
 		Component(Component& component);
 		Component(GameEntity* entity);
-		virtual ~Component();
-
+		
 		void SetParent(GameEntity* entity);
+
+		virtual ~Component() {};
 		
 	protected:
 

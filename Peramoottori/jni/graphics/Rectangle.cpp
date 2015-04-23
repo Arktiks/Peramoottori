@@ -1,19 +1,13 @@
 #include "Rectangle.h"
 
-pm::Rectangle::Rectangle(float width, float height) : Shape()
+pm::Rectangle::Rectangle(float width, float height) : Shape(), width(width), height(height)
 {
-	this->width = width;
-	this->height = height;
-
 	SetVertices();
 	SetIndices();
 }
 
-pm::Rectangle::Rectangle(glm::vec2 size) : Shape()
+pm::Rectangle::Rectangle(glm::vec2 size) : Shape(), width(size.x), height(size.y)
 {
-	width = size.x;
-	height = size.y;
-
 	SetVertices();
 	SetIndices();
 }
@@ -21,17 +15,12 @@ pm::Rectangle::Rectangle(glm::vec2 size) : Shape()
 void pm::Rectangle::SetOrigin(glm::vec2 newOrigin)
 {
 	origin = newOrigin;
-
 	SetVertices();
 }
 
 void pm::Rectangle::SetOrigin(float newOriginX, float newOriginY)
 {
 	SetOrigin(glm::vec2(newOriginX, newOriginY));
-}
-
-pm::Rectangle::~Rectangle()
-{
 }
 
 void pm::Rectangle::SetVertices()
@@ -42,8 +31,8 @@ void pm::Rectangle::SetVertices()
 	{
 		for (int k = 0; k < 2; k++)
 		{
-			vertices.push_back(-origin.x + width * i); //1 xpos
-			vertices.push_back(-origin.y + height * k); //2 ypos
+			vertices.push_back(-origin.x + width * i); // 1 xpos
+			vertices.push_back(-origin.y + height * k); // 2 ypos
 		}
 	}
 }
@@ -51,7 +40,6 @@ void pm::Rectangle::SetVertices()
 void pm::Rectangle::SetIndices()
 {
 	indices.clear();
-
 	indices.push_back(0);
 	indices.push_back(1);
 	indices.push_back(2);

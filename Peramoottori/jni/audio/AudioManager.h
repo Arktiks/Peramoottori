@@ -3,7 +3,6 @@
 
 #include "AudioPlayer.h"
 
-
 namespace pm
 {
 	class AudioManager
@@ -18,7 +17,6 @@ namespace pm
 		void CheckError(std::string errorText);
 
 		AudioManager();
-		AudioManager(AudioManager* pointer);
 		~AudioManager();		
 
 		SLresult result;

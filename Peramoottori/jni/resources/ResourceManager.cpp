@@ -3,6 +3,11 @@
 #include <core\Passert.h>
 #include <core\Memory.h>
 
+#include <resources\TextResource.h>
+#include <resources\ImageResource.h>
+#include <resources\FontResource.h>
+#include <resources\AudioResource.h>
+
 pm::ResourceManager* pm::ResourceManager::instance = nullptr;
 
 const std::string TXT = ".txt";
@@ -131,7 +136,9 @@ std::string pm::ResourceManager::ReadText(std::string fileName)
 	{
 		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
 		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
+
+		//DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
+
 		return tempString;
 	}
 	else

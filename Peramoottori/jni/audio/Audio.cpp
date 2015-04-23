@@ -4,25 +4,21 @@
 #include <core\Memory.h>
 #include <resources\ResourceManager.h>
 
-pm::Audio::Audio(std::string fileName)
+pm::Audio::Audio(std::string fileName) : maxPlayerCount(3), playerCount(1)
 {
-	maxPlayerCount = 3;
-	playerCount = 1;
-
 	AAsset* tempAudioAsset = pm::ResourceManager::GetInstance()->GetAAsset(fileName);
-	AAsset* tempNull = nullptr;
-	//PMassert::AssertNotEquals(tempAudioAsset, tempNull, "Reading an audio asset failed!");
 	ASSERT_NEQUAL(tempAudioAsset, nullptr);
 
 	off_t start, length;
-
 	int fileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
 
-	//if (fileDescriptor <= 0)
-	//PMassert::AssertEquals(true, false, "Opening audio file descriptor failed!");
-	
-	AAsset_close(tempAudioAsset);
-	
+	if(fileDescriptor < 0)
+	{
+		DEBUG_WARNING(("Opening audio file %s failed!", fileName.c_str()));
+		ASSERT(true);
+	}
+
+	AAsset_close(tempAudioAsset); // Free resources.
 	player.push_back(NEW AudioPlayer(fileDescriptor, start, length));
 	AudioManager::GetInstance()->InitAudioPlayer(player[0]);
 }
@@ -85,8 +81,8 @@ void pm::Audio::SetMaxPlayerCount(unsigned newMaxCount)
 		playerCount = newMaxCount;
 		player.resize(maxPlayerCount);
 	}
+
 	maxPlayerCount = newMaxCount;
-	
 }
 
 pm::AudioPlayer* pm::Audio::GetAvailable()
@@ -97,6 +93,7 @@ pm::AudioPlayer* pm::Audio::GetAvailable()
 		if ( temp == SL_PLAYSTATE_STOPPED )
 			return player[i];
 	}
+
 	if (playerCount < maxPlayerCount)
 	{
 		playerCount++;

@@ -3,7 +3,7 @@
 
 #include <scene\Component.h>
 #include <scene\Transformable.h>
-#include <glm\common.hpp>
+#include <glm\vec2.hpp>
 #include <vector>
 
 static const double PI = 3.141;
@@ -23,6 +23,7 @@ namespace pm
 		{
 			origin = newOrigin;
 		}
+
 		virtual void SetOrigin(float newOriginX, float newOriginY)
 		{
 			origin = { newOriginX, newOriginY };
@@ -32,22 +33,23 @@ namespace pm
 		{
 			return vertices;
 		}
+
 		std::vector<unsigned short> GetIndices()
 		{
 			return indices;
 		}
+
 		glm::vec2 GetOrigin()
 		{
 			return origin;
 		}
 
-
 	protected:
 
 		std::vector<float> vertices;
 		std::vector<unsigned short> indices;
-
 		glm::vec2 origin;
+
 	};
 }
 

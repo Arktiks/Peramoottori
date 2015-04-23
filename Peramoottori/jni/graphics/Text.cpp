@@ -21,7 +21,7 @@ Text::Text(pm::FontResource* font, pm::TextResource* text)
 
 	
 	DEBUG_INFO(("Huomioikaa minut!!!!____________________________"));
-	int num_chars = text->getTextData().size();
+	int num_chars = text->GetTextData().size();
 
 	pen_x = 300;
 	pen_y = 200;
@@ -32,7 +32,7 @@ Text::Text(pm::FontResource* font, pm::TextResource* text)
 
 
 		/* retrieve glyph index from character code */
-		glyph_index = FT_Get_Char_Index(face, text->getTextData()[n]);
+		glyph_index = FT_Get_Char_Index(face, text->GetTextData()[n]);
 
 		/* load glyph image into the slot (erase previous one) */
 		error = FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT);
