@@ -38,7 +38,7 @@ void RenderSystem::Initialize()
 	Vector2<int> resolution = Game::GetInstance()->GetResolution(); // Get resolution of display.
 	float right = resolution.x; // Calculate limits.
 	float top = resolution.y;
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f);
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, 1.0f, -1.0f);
 
 	vertexBuffer.CreateBuffer(VERTEX); // Already contain GL error handling.
 	indexBuffer.CreateBuffer(INDEX);
@@ -119,8 +119,13 @@ void RenderSystem::CreateShaders()
 	shaderProgram.LinkProgram();
 	shaderProgram.UseProgram();
 
-	glEnable(GL_BLEND);
+	glEnable(GL_BLEND);	
 	DEBUG_GL_ERROR();
+
+	glEnable(GL_DEPTH_TEST);
+	glClearDepthf(1.0);
+	DEBUG_GL_ERROR();
+
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	DEBUG_GL_ERROR();

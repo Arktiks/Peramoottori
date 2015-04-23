@@ -22,13 +22,30 @@ using namespace pm;
 #include <graphics\SpriteBatch.h>
 #include <resources\TextureFactory.h>
 #include <graphics\Drawable.h>
+#include <graphics\Color.h>
+#include <core\Input.h>
+#include <core\Time.h>
 
-static std::vector<GameEntity*> entityVector; // For testing purposes
+
+// For testing purposes
+static std::vector<GameEntity*> entityVector; 
+static std::vector<GameEntity*> demoEntityVector;
 static float rotation = 0.0f;
 static glm::vec2 position = {10.0f, 20.0f};
+static glm::vec4 touchArea1 = { 0.0f, 512.0f, 256.0f, 256.0f };
+static glm::vec4 touchArea2 = { 1024.0f, 512.0f, 256.0f, 256.0f };
+
+Input input;
+Time deltaTime;
+
+
+int touch(glm::vec2 touchPosition);
 
 void InitializeGame();
 void UpdateGame();
+
+void InitializeDemo();
+void UpdateDemo();
 
 ////////////////////////////
 
@@ -43,8 +60,8 @@ void android_main(android_app* application)
 
 	game->SetClearColor(1.0f, 0.4f, 1.0f);
 
-	InitializeGame();
-
+	//InitializeGame();
+	InitializeDemo();
 	Audio audio("test1.ogg");
 	audio.Play();
 
@@ -60,7 +77,8 @@ void android_main(android_app* application)
 
 		game->Clear();
 
-		UpdateGame();
+		//UpdateGame();
+		UpdateDemo();
 
 		game->Draw();
 	}
@@ -107,4 +125,115 @@ void UpdateGame()
 
 		SpriteBatch::GetInstance()->AddGameEntity(entityVector[i]);
 	}
+}
+
+void InitializeDemo()
+{
+
+	GameEntity* point = NEW GameEntity;
+
+	point->AddComponent(NEW Rectangle(40, 80));
+
+	point->AddComponent(NEW Transformable());
+	point->GetComponent<Transformable>()->SetPosition(position);
+	point->GetComponent<Transformable>()->SetScale(3, 3);
+	point->GetComponent<Transformable>()->SetDepth(0.2f);
+
+	point->AddComponent(NEW Drawable());
+	point->GetComponent<Drawable>()->SetDrawState(true);
+
+	point->AddComponent(TextureFactory::CreateTexture("point.png"));
+	demoEntityVector.push_back(point);
+
+	glm::vec2 position = glm::vec2(50, 50);
+
+	GameEntity* ground = NEW GameEntity;
+
+	ground->AddComponent(NEW Rectangle(1000, 100));
+
+	ground->AddComponent(NEW Transformable());
+	ground->GetComponent<Transformable>()->SetPosition(position);
+	ground->GetComponent<Transformable>()->SetRotation(25);
+
+
+	ground->AddComponent(NEW Drawable());
+	ground->GetComponent<Drawable>()->SetDrawState(true);
+	ground->GetComponent<Transformable>()->SetDepth(-0.3);
+	ground->AddComponent(TextureFactory::CreateTexture("groundTexture.png"));
+	demoEntityVector.push_back(ground);
+
+
+	//initialize areas
+	GameEntity* area = NEW GameEntity;
+
+	area->AddComponent(NEW Rectangle(touchArea1[2], touchArea1[3]));
+
+	area->AddComponent(NEW Transformable());
+	area->GetComponent<Transformable>()->SetPosition(touchArea1[0], touchArea1[1]);
+	area->GetComponent<Transformable>()->SetDepth(-0.3);
+
+	area->AddComponent(NEW Drawable());
+	area->GetComponent<Drawable>()->SetDrawState(true);
+
+	area->AddComponent(NEW Color(glm::vec4(0, 0, 1, 0)));
+	demoEntityVector.push_back(area);
+	
+
+	GameEntity* area2 = NEW GameEntity;
+
+	area2->AddComponent(NEW Rectangle(touchArea2[2], touchArea2[3]));
+
+	area2->AddComponent(NEW Transformable());
+	area2->GetComponent<Transformable>()->SetPosition(touchArea2[0], touchArea2[1]);
+	area2->GetComponent<Transformable>()->SetDepth(0.6);
+
+	area2->AddComponent(NEW Drawable());
+	area2->GetComponent<Drawable>()->SetDrawState(true);
+
+	area2->AddComponent(NEW Color(glm::vec4(0, 0, 1, 0)));
+	demoEntityVector.push_back(area2);
+	//
+
+
+	
+}
+
+void UpdateDemo()
+{	
+glm::vec2 touchPosition = input.GetTouchCoordinates();
+
+demoEntityVector[0]->GetComponent<Transformable>()->SetPosition(touchPosition);
+
+int touchArea = touch(touchPosition);
+
+if (touchArea == 1)
+{
+	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 0, 0));
+	demoEntityVector[3]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));
+}
+else if (touchArea == 2)
+{
+	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));
+	demoEntityVector[3]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 1, 0));
+}
+
+for (int i = 0; i < demoEntityVector.size(); i++)
+{
+	SpriteBatch::GetInstance()->AddGameEntity(demoEntityVector[i]);
+}
+
+}
+
+int touch(glm::vec2 touchPosition)
+{
+
+	if (touchPosition[0] > touchArea1[0] && touchPosition[0] < touchArea1[0] + touchArea1[2] &&
+		touchPosition[1] > touchArea1[1] && touchPosition[1] < touchArea1[1] + touchArea1[3])
+		return 1;
+
+	else if (touchPosition[0] > touchArea2[0] && touchPosition[0] < touchArea2[0] + touchArea2[2] &&
+		touchPosition[1] > touchArea2[1] && touchPosition[1] < touchArea2[1] + touchArea2[3])
+		return 2;
+	else
+		return 0;
 }
