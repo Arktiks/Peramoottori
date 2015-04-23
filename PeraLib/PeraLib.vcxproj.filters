@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="PeraLib.cpp" />
     <ClCompile Include="..\Peramoottori\jni\core\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,9 +38,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Peramoottori\jni\core\Log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Peramoottori\jni\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Peramoottori\jni\core\Memory.cpp">
@@ -89,6 +85,7 @@
     <ClCompile Include="..\Peramoottori\jni\core\WindowHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Peramoottori\libs\android_native_app_glue.c" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -219,5 +216,6 @@
     <ClInclude Include="..\Peramoottori\jni\core\WindowHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Peramoottori\libs\android_native_app_glue.h" />
   </ItemGroup>
 </Project>

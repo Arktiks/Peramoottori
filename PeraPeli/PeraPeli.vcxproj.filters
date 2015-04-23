@@ -16,6 +16,9 @@
     <Filter Include="PeraPeli\native_app_glue">
       <UniqueIdentifier>{710df038-a067-469f-892b-b74a94986eae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{73b96635-d2f4-48e2-9131-36960e20f4d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="AndroidManifest.xml" />
@@ -35,5 +38,13 @@
     <ClInclude Include="native_app_glue\android_native_app_glue.h">
       <Filter>PeraPeli\native_app_glue</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\TestFragmentShader.txt">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\TestVertexShader.txt">
+      <Filter>assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

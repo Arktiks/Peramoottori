@@ -12,6 +12,7 @@ using namespace pm;
 void Application::Initialize(android_app* application)
 {
 	app_dummy(); // Ensures glue code isn't stripped.
+
 	(this->androidApplication) = application; // Save application pointer for later use.
 
 	ASSERT_NEQUAL(androidApplication, nullptr);
