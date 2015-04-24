@@ -72,20 +72,17 @@ void pm::Audio::SetMaxPlayerCount(unsigned newMaxCount)
 	{
 		for (int i = 0; i < playerCount; i++)
 		{
-			player[i]->SetPlayState(SL_PLAYSTATE_PAUSED);
+			player[i]->SetPlayState(SL_PLAYSTATE_STOPPED);
 		}
 
 		DEBUG_WARNING(("Removing AudioPlayers. Possible loss of data!"));
 
-		for (int i = newMaxCount-1; i < playerCount; i++)
+		for (int i = newMaxCount - 1; i < playerCount; i++)
 		{
 			delete player[i];
 			player.erase(player.begin() + i);
 			playerCount--;
-		}		
-
-
-		player.resize(newMaxCount);
+		}
 	}
 
 	maxPlayerCount = newMaxCount;
@@ -103,8 +100,8 @@ pm::AudioPlayer* pm::Audio::GetAvailable()
 	if (playerCount < maxPlayerCount)
 	{
 		playerCount++;
-		player[playerCount] = NEW AudioPlayer(player[0]);
-		AudioManager::GetInstance()->InitAudioPlayer(player[playerCount]);
+		player.push_back(NEW AudioPlayer(player[0]));
+		AudioManager::GetInstance()->InitAudioPlayer(player[playerCount-1]);
 
 		return player[playerCount-1];
 	}

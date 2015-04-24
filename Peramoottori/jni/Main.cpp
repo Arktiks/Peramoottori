@@ -143,6 +143,7 @@ void InitializeDemo()
 {
 	bestAudio = NEW Audio("0477.ogg");
 	bestAudio->SetMaxPlayerCount(2);
+
 	GameEntity* point = NEW GameEntity;
 
 	point->AddComponent(NEW Rectangle(40, 80));
@@ -227,7 +228,7 @@ if (touchArea == 1 && dontTouch)
 	bestAudio->Play();
 	dontTouch = false;
 }
-else if (touchArea == 2 && dontTouch == false)
+else if (touchArea == 2 && !dontTouch)
 {
 	demoEntityVector[1]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 0, 0));
 	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));

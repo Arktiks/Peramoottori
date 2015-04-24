@@ -79,7 +79,7 @@ void pm::AudioManager::CreateEngine()
 void pm::AudioManager::CheckError(std::string errorText)
 {
 	if(result != SL_RESULT_SUCCESS)
-		DEBUG_WARNING((errorText.c_str()));
+		DEBUG_WARNING(("%s SL_RESULT #%u", errorText.c_str(), result));
 	
 	(void)result;
 }
