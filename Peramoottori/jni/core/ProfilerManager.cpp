@@ -1,5 +1,6 @@
 #include "ProfilerManager.h"
 #include "core\Profiler.h"
+#include "core\Log.h"
 
 
 using namespace pm;
