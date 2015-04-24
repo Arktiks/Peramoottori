@@ -26,7 +26,7 @@ pm::Audio::Audio(std::string fileName) : maxPlayerCount(3), playerCount(1)
 pm::Audio::~Audio()
 {
 	for (int i = 0; i < playerCount; i++)
-		delete &player[i];
+		delete player[i];
 }
 
 bool pm::Audio::Play()
@@ -72,9 +72,9 @@ void pm::Audio::SetMaxPlayerCount(unsigned newMaxCount)
 	{
 		DEBUG_WARNING(("Removing AudioPlayers. Possible loss of data!"));
 
-		for (int i = maxPlayerCount; i > newMaxCount; i--)
+		for (int i = newMaxCount; i == maxPlayerCount; i++)
 		{
-			delete &(player.at(i));
+			delete player[i];
 			player.erase(player.begin() + i);
 		}		
 
