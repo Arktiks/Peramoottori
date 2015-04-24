@@ -70,16 +70,21 @@ void pm::Audio::SetMaxPlayerCount(unsigned newMaxCount)
 {
 	if (newMaxCount < maxPlayerCount)
 	{
+		for (int i = 0; i < maxPlayerCount; i++)
+		{
+			player[i]->SetPlayState(SL_PLAYSTATE_PAUSED);
+		}
+
 		DEBUG_WARNING(("Removing AudioPlayers. Possible loss of data!"));
 
-		for (int i = newMaxCount; i == maxPlayerCount; i++)
+		for (int i = newMaxCount-1; i < maxPlayerCount; i++)
 		{
 			delete player[i];
 			player.erase(player.begin() + i);
 		}		
 
 		playerCount = newMaxCount;
-		player.resize(maxPlayerCount);
+		player.resize(newMaxCount);
 	}
 
 	maxPlayerCount = newMaxCount;
