@@ -2,74 +2,115 @@
 #include <core/Log.h>
 #include <core/Passert.h>
 #include <core/Memory.h>
-#include <resources/ResourceManager.h>
+
+#include <core/CommandCenter.h>
 #include <core/Input.h>
-#include <GLES2/gl2.h> // Should be removed once there are no OpenGL-calls.
+
+#include <resources/ResourceManager.h>
+#include <graphics/RenderSystem.h>
+#include <graphics/SpriteBatch.h>
 
 using namespace std;
 using namespace pm;
 
+Application* Application::instance = nullptr;
+
+Application* Application::GetInstance()
+{
+	if(instance == nullptr) // If instance has not been initialized yet.
+		instance = NEW Application;
+	return instance;
+}
+
+void Application::DestroyInstance()
+{
+	application->userData = nullptr; // Remove reference to this class.
+
+	ResourceManager::GetInstance()->DestroyInstance();
+	CommandCenter::Clean();
+	RenderSystem::GetInstance()->DestroyInstance();
+
+	delete instance;
+	instance = nullptr;
+	DEBUG_INFO(("Application instance deleted."));
+}
+
 void Application::Initialize(android_app* application)
 {
+	DEBUG_INFO(("Starting Application initialization."));
+	ASSERT_NEQUAL(application, nullptr); // Make sure application pointer is legit.
 	app_dummy(); // Ensures glue code isn't stripped.
-
-	(this->androidApplication) = application; // Save application pointer for later use.
-
-	ASSERT_NEQUAL(androidApplication, nullptr);
-
+	(this->application) = application; // Save application pointer for later use.
 	application->userData = static_cast<void*>(this); // Store our Application class to native glue.
 
-	events.Initialize(application);
+	DEBUG_INFO(("Starting CommandCenter initialization."));
+	CommandCenter::Initialize(application);
+	application->onAppCmd = CommandCenter::ProcessCommand; // What function is referred on application calls.
+	application->onInputEvent = CommandCenter::HandleInput; // What function is referred on input calls.
+	DEBUG_INFO(("CommandCenter done."));
 
+	DEBUG_INFO(("Looping until device context is done."));
+	Wait();
+	DEBUG_INFO(("Device context constructed."));
+
+	DEBUG_INFO(("Initializing other Peramoottori modules."));
 	ResourceManager::GetInstance()->Initialize(application->activity->assetManager); // Initialize ResourceManager with AAssetManager.
+	DEBUG_INFO(("ResourceManager done."));
 
+	RenderSystem::GetInstance()->Initialize();
+	DEBUG_INFO(("RenderSystem done."));
 	DEBUG_INFO(("Application has been initialized."));
 }
 
 bool Application::Update()
 {
-	Input::Update();
-
 	int tempIdent = 0; // See what looper is calling.
 	android_poll_source* tempEventSource = nullptr; // Contains reference to executable command.
 
-	while ((tempIdent = ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&tempEventSource))) >= 0)
+	while((tempIdent = ALooper_pollAll(0, nullptr, nullptr, reinterpret_cast<void**>(&tempEventSource))) >= 0)
 	{
-		if (tempEventSource != nullptr)
-			tempEventSource->process(androidApplication, tempEventSource);
+		CommandCenter::UpdateSensors(tempIdent);
 
-		if (tempIdent == LOOPER_ID_USER)
-		{
-			if (events.hasAccelerometer) // Update accelerometer paremeters.
-			{
-				ASensorEvent tempEvent; // Holds event details.
-				while (ASensorEventQueue_getEvents(events.sensorEventQueue, &tempEvent, 1) > 0) // Loop through all accelerometer calls.
-					Input::InputEventAccelerometer(tempEvent.acceleration.x, tempEvent.acceleration.y, tempEvent.acceleration.z);
-			}
-		}
+		if(tempEventSource != nullptr)
+			tempEventSource->process(application, tempEventSource);
 
-		if (androidApplication->destroyRequested != 0) // When application is losing focus or being destroyed.
+		if(application->destroyRequested != 0) // When application is losing focus or being destroyed.
 			return false;
 	}
 
 	return true;
 }
 
-void Application::SwapBuffers()
+void Application::Draw()
 {
-	// Could be moved elsewhere.
-	bool testSucces = eglSwapBuffers(window.display, window.surface);
-	ASSERT(testSucces);
+	if(Warning(__func__))
+		return;
+
+	SpriteBatch::GetInstance()->Draw();
+	window.SwapBuffers();
 }
 
-void Application::Clear()
+bool Application::IsReady()
 {
-	// Could be moved elsewhere.
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if(application != nullptr && window.HasContext()) // Application has been initialized and device context is ready.
+		return true;
+	else
+		return false;
 }
 
-Application::~Application()
+void Application::Wait()
 {
-	androidApplication->userData = nullptr; // Remove reference to this class.
-	DEBUG_INFO(("Application destructor called."));
+	while(!IsReady()) // Could be useful in game loops when Application is resumed.
+		Update();
+}
+
+bool Application::Warning(string function)
+{
+	if(!IsReady())
+	{
+		DEBUG_WARNING(("Application has not been initialized or device context is not ready - ending %s prematurely.", function.c_str()));
+		return true;
+	}
+	else
+		return false;
 }

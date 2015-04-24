@@ -303,6 +303,5 @@ void pm::ResourceManager::DeleteResource(std::string fileName)
 }
 
 pm::ResourceManager::~ResourceManager()
-{
-	
+{	
 }
