@@ -13,6 +13,7 @@ namespace pm
 	public:
 		
 		Audio(std::string fileName);
+		Audio(){};
 		~Audio();
 
 		/**

@@ -24,7 +24,7 @@ using namespace pm;
 #include <graphics\Drawable.h>
 #include <graphics\Color.h>
 #include <core\Input.h>
-#include <core\Time.h>
+
 
 
 // For testing purposes
@@ -36,6 +36,7 @@ static glm::vec2 position = {10.0f, 20.0f};
 static glm::vec4 touchArea1 = { 0.0f, 512.0f, 256.0f, 256.0f };
 static glm::vec4 touchArea2 = { 1024.0f, 512.0f, 256.0f, 256.0f };
 
+bool dontTouch = true;
 Input input;
 Time deltaTime;
 
@@ -47,7 +48,7 @@ void UpdateGame();
 
 void InitializeDemo();
 void UpdateDemo();
-
+Audio* bestAudio;
 ////////////////////////////
 
 
@@ -61,8 +62,8 @@ void android_main(android_app* application)
 
 	game->SetClearColor(1.0f, 0.4f, 1.0f);
 
-	InitializeGame();
-	//InitializeDemo();
+	//InitializeGame();
+	InitializeDemo();
 
 
 	Audio audio("test1.ogg");
@@ -81,12 +82,15 @@ void android_main(android_app* application)
 		DEBUG_INFO(("Main.cpp sanoo: fps = %f", fps));
 
 		game->Clear();
-		UpdateGame();
-	//	UpdateDemo();
+	//	UpdateGame();
+		UpdateDemo();
 
 		game->Draw();
 	}
 	
+	// ONLY ON DEMO
+	delete bestAudio;
+	//
 	DEBUG_INFO(("Exiting android_main."));
 }
 
@@ -137,7 +141,8 @@ void UpdateGame()
 
 void InitializeDemo()
 {
-
+	bestAudio = NEW Audio("0477.ogg");
+	bestAudio->SetMaxPlayerCount(5);
 	GameEntity* point = NEW GameEntity;
 
 	point->AddComponent(NEW Rectangle(40, 80));
@@ -215,15 +220,19 @@ opaqueDemoEntityVector[0]->GetComponent<Transformable>()->SetPosition(touchPosit
 
 int touchArea = touch(touchPosition);
 
-if (touchArea == 1)
-{
-	demoEntityVector[1]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 0, 0));
-	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));
-}
-else if (touchArea == 2)
+if (touchArea == 1 && dontTouch)
 {
 	demoEntityVector[1]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));
 	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 0, 0));
+	bestAudio->Play();
+	dontTouch = false;
+}
+else if (touchArea == 2 && dontTouch == false)
+{
+	demoEntityVector[1]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 0, 0));
+	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));
+	bestAudio->Play();
+	dontTouch = true;
 }
 
 for (int i = 0; i < demoEntityVector.size(); i++)
