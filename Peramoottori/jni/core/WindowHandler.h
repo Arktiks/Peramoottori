@@ -4,6 +4,7 @@
 #include <EGL/egl.h>
 #include <android_native_app_glue.h>
 #include <core/Vector2.h>
+#include <string>
 
 namespace pm
 {
@@ -12,29 +13,40 @@ namespace pm
 	class WindowHandler
 	{
 
-	friend class Application; // Application can use this class freely.
-	friend class Game;
-	friend class EventHandler; // Creates association between handlers. Not sure if good idea.
+	friend class CommandCenter; // CommandCenter handles window loading and closing.
+	friend class Application;
+
+	public:
+
+		/// Return display resolution.
+		Vector2<int> GetResolution();
+
+		/// Clears display with set color.
+		void Clear();
+
+		void SetClearColor(float red, float green, float blue);
+
+		void SwapBuffers();
+
+		/// Status of context.
+		bool HasContext();
 
 	private:
 
 		/// Only Application should invoke constructor.
-		WindowHandler() : display(EGL_NO_DISPLAY),
+		WindowHandler() :
+			display(EGL_NO_DISPLAY),
 			surface(EGL_NO_SURFACE),
 			context(EGL_NO_CONTEXT),
 			width(0), height(0) {};
 
-		bool HasContext(); ///< Status of context.
-
-		Vector2<int> GetResolution(); ///< Return display resolution.
-
-		/// Called when APP_CMD_INIT_WINDOW is received by ProcessCommand.
 		/// Initializes EGL surface, display and context.
 		bool LoadDisplay(android_app* application);
 
-		/// Called when APP_CMD_TERM_WINDOW is received by ProcessCommand.
-		///	Destroys EGL display, context and terminates the display when done.
+		///	Destroys EGL display, context and terminates display when done.
 		bool CloseDisplay();
+
+		bool Warning(std::string function);
 
 		EGLSurface surface;
 		EGLDisplay display;

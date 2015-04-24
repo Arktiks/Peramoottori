@@ -5,7 +5,8 @@
 #include <core\Passert.h>
 #include <core\Vector2.h>
 
-#include <core\Game.h> // Only needed for resolution at the moment.
+//#include <core\Game.h> // Only needed for resolution at the moment.
+#include <core\Application.h>
 
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
@@ -35,7 +36,7 @@ void RenderSystem::Initialize()
 {
 	DEBUG_GL_ERROR_CLEAR();
 
-	Vector2<int> resolution = Game::GetInstance()->GetResolution(); // Get resolution of display.
+	Vector2<int> resolution = Application::GetInstance()->window.GetResolution(); // Get resolution of display.
 	float right = resolution.x; // Calculate limits.
 	float top = resolution.y;
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, 1.0f, -1.0f);

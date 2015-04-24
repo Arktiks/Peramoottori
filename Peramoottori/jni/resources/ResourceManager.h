@@ -15,7 +15,6 @@ namespace pm
 	{
 
 		friend class Application;
-		friend class Game;
 
 	public:
 

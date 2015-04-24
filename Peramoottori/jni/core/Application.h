@@ -2,41 +2,63 @@
 #define APPLICATION_H
 
 #include <core/WindowHandler.h>
-#include <core/EventHandler.h>
+#include <core/CommandCenter.h>
 #include <android_native_app_glue.h>
+#include <core/Vector2.h>
 
 namespace pm
 {
 	/// Core application system.
 	/// Handles most of communication with java side. 
-	/// Should be inherited from for more specific application needs.
 
 	class Application
 	{
 
 		friend class EventHandler; // Required for static android_native_app_glue functions.
 
-	protected:
+	public:
 
-		Application() : androidApplication(nullptr) {}; ///< Default constructor: Initialize needs to be called for everything to work properly.
+		/// Return only instance of Application. 
+		/// Only one instance of Application should exist during runtime.
+		static Application* GetInstance();
 
-		/// Initializes Peramoottori modules.
+		/// Deletes Application.
+		void DestroyInstance();
+
+		/// Initializes Perämoottori and its modules.
 		///		\param application: pointer to android_application.
 		void Initialize(android_app* application);
 
-		bool Update(); ///< Core update loop, should be nested in while-statement.
+		/// Core update loop, should be nested in while-statement.
+		bool Update(); 
 
-		void SwapBuffers(); ///< Handles swapping front and back buffers.
+		void Draw();
 
-		void Clear(); ///< Clear display.
+		/// Return true if Application is ready to be updated and drawn.
+		bool IsReady();
 
-		android_app* androidApplication; ///< Pointer to android application.
+		/// Loops infinitely until Application is ready to be updated and drawn.
+		void Wait();
 
 		WindowHandler window; ///< Handles display of android device.
 
-		EventHandler events; ///< Handles input and event processing.
+	private:
 
-		~Application(); ///< Protected destructor prevents delete through base class.
+		/// Print warning messages if trying to use Application without initializing.
+		bool Warning(std::string function);
+
+		/// Default constructor.
+		/// Initialize needs to be called for Application to work properly.
+		Application() : application(nullptr) {}; 
+
+		/// Private destructor prevents delete.
+		/// Class needs to be cleaned up with DestroyInstance.
+		~Application() {};
+
+		android_app* application; ///< Pointer to android application.
+
+		static Application* instance; ///< Pointer to only instance of the class.
+
 	};
 }
 
