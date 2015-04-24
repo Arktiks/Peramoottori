@@ -27,6 +27,24 @@ namespace pm
 
 		void DisableSensors();
 
+		void Start();
+
+		void Resume();
+
+		void Pause();
+
+		void Stop();
+
+		void Destroy();
+
+		void ReadyWindow();
+
+		void TerminateWindow();
+
+		void GainedFocus();
+
+		void LostFocus();
+
 		~EventHandler();
 
 		// Pointer to const data does not allow modification of the data through the pointer.

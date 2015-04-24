@@ -119,8 +119,13 @@ void RenderSystem::CreateShaders()
 	shaderProgram.LinkProgram();
 	shaderProgram.UseProgram();
 
-	glEnable(GL_BLEND);
+	glEnable(GL_BLEND);	
 	DEBUG_GL_ERROR();
+
+	glEnable(GL_DEPTH_TEST);
+	glClearDepthf(1.0);
+	DEBUG_GL_ERROR();
+
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	DEBUG_GL_ERROR();

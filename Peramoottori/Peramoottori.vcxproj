@@ -41,6 +41,7 @@
     <ClCompile Include="jni\core\Log.cpp" />
     <ClCompile Include="jni\core\Memory.cpp" />
     <ClCompile Include="jni\core\Passert.cpp" />
+    <ClCompile Include="jni\core\Profiler.cpp" />
     <ClCompile Include="jni\core\Time.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
@@ -106,6 +107,7 @@
     <ClInclude Include="jni\core\Log.h" />
     <ClInclude Include="jni\core\Memory.h" />
     <ClInclude Include="jni\core\Passert.h" />
+    <ClInclude Include="jni\core\Profiler.h" />
     <ClInclude Include="jni\core\Time.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
@@ -544,7 +546,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\freetype</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
@@ -556,7 +558,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\freetype</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

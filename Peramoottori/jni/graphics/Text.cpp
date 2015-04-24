@@ -22,7 +22,7 @@ namespace pm
 
 		int num_chars = 1; //text->GetTextData().size();
 		//std::string asd = { "asd" };
-		char* asd = "X";
+		//char* asd = "asd";
 		FT_UInt   glyph_index = 12;
 		//error = FT_Load_Char(face, asd[0] , FT_LOAD_RENDER);
 		error = FT_Load_Glyph(face, FT_Get_Char_Index( face, 'S' ), FT_LOAD_DEFAULT);

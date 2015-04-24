@@ -42,7 +42,6 @@
     <ClCompile Include="..\Peramoottori\jni\scene\GameEntity.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Texture.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Transformable.cpp" />
-    <ClCompile Include="..\Peramoottori\libs\android_native_app_glue.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Peramoottori\jni\audio\Audio.h" />
@@ -85,7 +84,6 @@
     <ClInclude Include="..\Peramoottori\jni\scene\Transformable.h" />
     <ClInclude Include="..\Peramoottori\jni\structs\MemoryTrack.h" />
     <ClInclude Include="..\Peramoottori\jni\structs\ShaderVertexAttrib.h" />
-    <ClInclude Include="..\Peramoottori\libs\android_native_app_glue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{88740431-0C37-4AF2-8E0E-7C22B9404337}</ProjectGuid>
@@ -110,14 +108,14 @@
   <PropertyGroup Label="UserMacros">
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <TargetName>lib$(ProjectName)</TargetName>
-    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <TargetName>lib$(ProjectName)</TargetName>
-    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>

@@ -11,8 +11,9 @@ void EventHandler::Initialize(android_app* application)
 {
 	// ASensorManager is singleton class that handles device sensors.
 	ASensorManager* sensorManager = ASensorManager_getInstance();
+	ASSERT_NEQUAL(sensorManager, nullptr); // Something wrong with device perhaps.
 
-	// Get handle to possible accelerometer.
+	// Get handle to possible accelerometer, no danger on reassigning pointer.
 	accelerometerSensor = ASensorManager_getDefaultSensor(sensorManager, ASENSOR_TYPE_ACCELEROMETER);
 	if (accelerometerSensor != nullptr) // In case device doesn't have accelerometer.
 		hasAccelerometer = true;
@@ -56,16 +57,57 @@ void EventHandler::DisableSensors()
 	}
 }
 
+void EventHandler::Start()
+{
+}
+
+void EventHandler::Resume()
+{
+}
+
+void EventHandler::Pause()
+{
+}
+
+void EventHandler::Stop()
+{
+}
+
+void EventHandler::Destroy()
+{
+}
+
+void EventHandler::ReadyWindow()
+{
+}
+
+void EventHandler::TerminateWindow()
+{
+}
+
+void EventHandler::GainedFocus()
+{
+}
+
+void EventHandler::LostFocus()
+{
+}
+
 EventHandler::~EventHandler()
 {
 	ASensorManager* sensorManager = ASensorManager_getInstance();
 	ASensorManager_destroyEventQueue(sensorManager, sensorEventQueue); // Free all resources associated with event queue.
 }
 
+////////////////////////////////////////
+//
+//	Below static functions given to android_native_app_glue.
+//
+////////////////////////////////////////
+
 int EventHandler::HandleInput(android_app* application, AInputEvent* event)
 {
-	// AInputEvent contains properties of input events.
-	if (AInputEvent_getSource(event) == AINPUT_SOURCE_TOUCHSCREEN)
+	if (AInputEvent_getSource(event) == AINPUT_SOURCE_TOUCHSCREEN) // AInputEvent contains properties of input events.
 	{
 		if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) // Input event is motion.
 			Input::InputEventMovement(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
@@ -92,6 +134,7 @@ void EventHandler::ProcessCommand(android_app* application, int32_t command)
 		// When activity is becoming visible to user.
 		// Followed by APP_CMD_RESUME if the activity comes to the foreground
 	case APP_CMD_START:
+		//Start();
 		DEBUG_INFO(("ProcessCommand: START"));
 		break;
 
