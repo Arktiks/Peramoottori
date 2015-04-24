@@ -18,8 +18,7 @@
     <ClCompile Include="..\Peramoottori\jni\audio\AudioManager.cpp" />
     <ClCompile Include="..\Peramoottori\jni\audio\AudioPlayer.cpp" />
     <ClCompile Include="..\Peramoottori\jni\core\Application.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\EventHandler.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\Game.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\CommandCenter.cpp" />
     <ClCompile Include="..\Peramoottori\jni\core\Input.cpp" />
     <ClCompile Include="..\Peramoottori\jni\core\Log.cpp" />
     <ClCompile Include="..\Peramoottori\jni\core\Memory.cpp" />
@@ -48,8 +47,7 @@
     <ClInclude Include="..\Peramoottori\jni\audio\AudioManager.h" />
     <ClInclude Include="..\Peramoottori\jni\audio\AudioPlayer.h" />
     <ClInclude Include="..\Peramoottori\jni\core\Application.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\EventHandler.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\Game.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\CommandCenter.h" />
     <ClInclude Include="..\Peramoottori\jni\core\Input.h" />
     <ClInclude Include="..\Peramoottori\jni\core\Log.h" />
     <ClInclude Include="..\Peramoottori\jni\core\Memory.h" />

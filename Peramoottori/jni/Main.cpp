@@ -78,7 +78,7 @@ void android_main(android_app* application)
 
 	while (game->Update())
 	{
-		fps = (1 / (time.CalculateTimeInFrame() / 1000000000));
+		//fps = (1 / (time.CalculateTimeInFrame() / 1000000000));
 		DEBUG_INFO(("Main.cpp sanoo: fps = %f", fps));
 
 		game->window.Clear();

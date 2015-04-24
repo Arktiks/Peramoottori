@@ -33,8 +33,7 @@
     <ClCompile Include="jni\core\Application.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\core\EventHandler.cpp" />
-    <ClCompile Include="jni\core\Game.cpp" />
+    <ClCompile Include="jni\core\CommandCenter.cpp" />
     <ClCompile Include="jni\core\Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
@@ -101,8 +100,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\core\Application.h" />
-    <ClInclude Include="jni\core\EventHandler.h" />
-    <ClInclude Include="jni\core\Game.h" />
+    <ClInclude Include="jni\core\CommandCenter.h" />
     <ClInclude Include="jni\core\Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
