@@ -1,4 +1,4 @@
-#include <core\Game.h>
+#include <core\Application.h>
 #include <core\Log.h>
 #include <core\Passert.h>
 #include <core\Memory.h>
@@ -56,11 +56,11 @@ void android_main(android_app* application)
 {
 	DEBUG_INFO(("Starting android_main."));
 	
-	Game* game = Game::GetInstance(); // For ease of use.
-	bool check = game->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
-	ASSERT(check);
+	Application* game = Application::GetInstance(); // For ease of use.
+	game->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
+	//ASSERT(check);
 
-	game->SetClearColor(1.0f, 0.4f, 1.0f);
+	game->window.SetClearColor(1.0f, 0.4f, 1.0f);
 
 	//InitializeGame();
 	InitializeDemo();
@@ -81,7 +81,7 @@ void android_main(android_app* application)
 		fps = (1 / (time.CalculateTimeInFrame() / 1000000000));
 		DEBUG_INFO(("Main.cpp sanoo: fps = %f", fps));
 
-		game->Clear();
+		game->window.Clear();
 	//	UpdateGame();
 		UpdateDemo();
 
