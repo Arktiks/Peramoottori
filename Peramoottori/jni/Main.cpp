@@ -142,7 +142,7 @@ void UpdateGame()
 void InitializeDemo()
 {
 	bestAudio = NEW Audio("0477.ogg");
-	bestAudio->SetMaxPlayerCount(5);
+	bestAudio->SetMaxPlayerCount(2);
 	GameEntity* point = NEW GameEntity;
 
 	point->AddComponent(NEW Rectangle(40, 80));
