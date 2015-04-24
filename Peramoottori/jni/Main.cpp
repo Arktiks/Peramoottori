@@ -30,6 +30,7 @@ using namespace pm;
 // For testing purposes
 static std::vector<GameEntity*> entityVector; 
 static std::vector<GameEntity*> demoEntityVector;
+static std::vector<GameEntity*> opaqueDemoEntityVector;
 static float rotation = 0.0f;
 static glm::vec2 position = {10.0f, 20.0f};
 static glm::vec4 touchArea1 = { 0.0f, 512.0f, 256.0f, 256.0f };
@@ -60,8 +61,8 @@ void android_main(android_app* application)
 
 	game->SetClearColor(1.0f, 0.4f, 1.0f);
 
-	//InitializeGame();
-	InitializeDemo();
+	InitializeGame();
+	//InitializeDemo();
 
 
 	Audio audio("test1.ogg");
@@ -77,11 +78,11 @@ void android_main(android_app* application)
 	while (game->Update())
 	{
 		fps = (1 / (time.CalculateTimeInFrame() / 1000000000));
-		//DEBUG_INFO(("Main.cpp sanoo: fps = %f", fps));
+		DEBUG_INFO(("Main.cpp sanoo: fps = %f", fps));
 
 		game->Clear();
-		//UpdateGame();
-		UpdateDemo();
+		UpdateGame();
+	//	UpdateDemo();
 
 		game->Draw();
 	}
@@ -91,7 +92,7 @@ void android_main(android_app* application)
 
 void InitializeGame()
 {
-	for(int i = 0; i < 10; ++i)
+	for(int i = 0; i < 100; ++i)
 	{
 		position += glm::vec2(80.0f, 0.0f);
 
@@ -144,15 +145,17 @@ void InitializeDemo()
 	point->AddComponent(NEW Transformable());
 	point->GetComponent<Transformable>()->SetPosition(position);
 	point->GetComponent<Transformable>()->SetScale(3, 3);
-	point->GetComponent<Transformable>()->SetDepth(0.2f);
+	point->GetComponent<Transformable>()->SetDepth(0.0f);
 
 	point->AddComponent(NEW Drawable());
 	point->GetComponent<Drawable>()->SetDrawState(true);
 
-	point->AddComponent(TextureFactory::CreateTexture("point.png"));
-	demoEntityVector.push_back(point);
+	point->AddComponent(NEW Color(glm::vec4(0, 0, 0, 0)));
 
-	glm::vec2 position = glm::vec2(50, 50);
+	point->AddComponent(TextureFactory::CreateTexture("point.png"));
+	opaqueDemoEntityVector.push_back(point);
+
+	glm::vec2 position = glm::vec2(500, 50);
 
 	GameEntity* ground = NEW GameEntity;
 
@@ -165,7 +168,7 @@ void InitializeDemo()
 
 	ground->AddComponent(NEW Drawable());
 	ground->GetComponent<Drawable>()->SetDrawState(true);
-	ground->GetComponent<Transformable>()->SetDepth(-0.3);
+	ground->GetComponent<Transformable>()->SetDepth(-0.5);
 	ground->AddComponent(TextureFactory::CreateTexture("groundTexture.png"));
 	demoEntityVector.push_back(ground);
 
@@ -181,8 +184,9 @@ void InitializeDemo()
 
 	area->AddComponent(NEW Drawable());
 	area->GetComponent<Drawable>()->SetDrawState(true);
+	area->AddComponent(TextureFactory::CreateTexture("iiro.png"));
 
-	area->AddComponent(NEW Color(glm::vec4(0, 0, 1, 0)));
+	area->AddComponent(NEW Color(glm::vec4(0.4, 0.5, 0.6, 0)));
 	demoEntityVector.push_back(area);
 	
 
@@ -196,12 +200,10 @@ void InitializeDemo()
 
 	area2->AddComponent(NEW Drawable());
 	area2->GetComponent<Drawable>()->SetDrawState(true);
+	area2->AddComponent(TextureFactory::CreateTexture("iiro.png"));
 
-	area2->AddComponent(NEW Color(glm::vec4(0, 0, 1, 0)));
+	area2->AddComponent(NEW Color(glm::vec4(0.1, 0.2, 0.3, 0)));
 	demoEntityVector.push_back(area2);
-	//
-
-
 	
 }
 
@@ -209,24 +211,28 @@ void UpdateDemo()
 {	
 glm::vec2 touchPosition = input.GetTouchCoordinates();
 
-demoEntityVector[0]->GetComponent<Transformable>()->SetPosition(touchPosition);
+opaqueDemoEntityVector[0]->GetComponent<Transformable>()->SetPosition(touchPosition);
 
 int touchArea = touch(touchPosition);
 
 if (touchArea == 1)
 {
-	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 0, 0));
-	demoEntityVector[3]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));
+	demoEntityVector[1]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 0, 0));
+	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));
 }
 else if (touchArea == 2)
 {
-	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));
-	demoEntityVector[3]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 1, 0));
+	demoEntityVector[1]->GetComponent<Color>()->SetColor(glm::vec4(1, 0, 0, 0));
+	demoEntityVector[2]->GetComponent<Color>()->SetColor(glm::vec4(0, 1, 0, 0));
 }
 
 for (int i = 0; i < demoEntityVector.size(); i++)
 {
 	SpriteBatch::GetInstance()->AddGameEntity(demoEntityVector[i]);
+}
+for (int i = 0; i < opaqueDemoEntityVector.size(); i++)
+{
+	SpriteBatch::GetInstance()->AddGameEntity(opaqueDemoEntityVector[i]);
 }
 
 }

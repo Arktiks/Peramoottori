@@ -38,7 +38,7 @@ void RenderSystem::Initialize()
 	Vector2<int> resolution = Game::GetInstance()->GetResolution(); // Get resolution of display.
 	float right = resolution.x; // Calculate limits.
 	float top = resolution.y;
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, 1.0f, -1.0f);
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, -1.0f, 1.0f);
 
 	vertexBuffer.CreateBuffer(VERTEX); // Already contain GL error handling.
 	indexBuffer.CreateBuffer(INDEX);
@@ -81,13 +81,14 @@ void RenderSystem::Draw(Batch* batch)
 	
 	for (int i = 0; i < batch->GetTransformMatrixPointer()->size(); i++)
 	{
-		int tempInt = 6 * i;
+		int tempInt = 6 * i * sizeof(GLushort);
 	
 		glUniformMatrix4fv(transformMatrixLocation, 1, GL_FALSE, value_ptr(batch->GetTransformMatrixPointer()->at(i)));
 		DEBUG_GL_ERROR();
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, reinterpret_cast<GLvoid*>(tempInt));
 		DEBUG_GL_ERROR();
+		
 	}
 
 	glBindTexture(GL_TEXTURE_2D, 0u);
@@ -112,9 +113,9 @@ void RenderSystem::CreateShaders()
 	DEBUG_GL_ERROR();
 	ASSERT(tempCheck);
 
-	shaderProgram.AddVertexAttribPointer("attrPosition", 3, 8, 0); // Vertex attributes defined by default shaders.
-	shaderProgram.AddVertexAttribPointer("attrColor", 3, 8, 3);
-	shaderProgram.AddVertexAttribPointer("texPosition", 2, 8, 6);
+	shaderProgram.AddVertexAttribPointer("attrPosition", 3, 9, 0); // Vertex attributes defined by default shaders.
+	shaderProgram.AddVertexAttribPointer("attrColor", 4, 9, 3);
+	shaderProgram.AddVertexAttribPointer("texPosition", 2, 9, 7);
 
 	shaderProgram.LinkProgram();
 	shaderProgram.UseProgram();
@@ -122,17 +123,16 @@ void RenderSystem::CreateShaders()
 	glEnable(GL_BLEND);	
 	DEBUG_GL_ERROR();
 
-	glEnable(GL_DEPTH_TEST);
-	glClearDepthf(1.0);
-	DEBUG_GL_ERROR();
-
-
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	DEBUG_GL_ERROR();
 	
 	glEnable(GL_DEPTH_TEST);
 	glClearDepthf(1.0);
+	glDepthFunc(GL_LEQUAL);
 	DEBUG_GL_ERROR();
+
+	//glDisable(GL_DEPTH_TEST);
+	//DEBUG_GL_ERROR();
 
 	GLint tempLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "image");
 	DEBUG_GL_ERROR();
