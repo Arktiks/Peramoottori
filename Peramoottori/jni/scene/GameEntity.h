@@ -19,6 +19,9 @@ namespace pm
 		void AddComponent(Component* newComponent);
 		template<typename T> T* GetComponent();
 
+		template<typename T> 
+		void RemoveComponent();
+
 	private:
 		ComponentList components;
 	};
@@ -31,6 +34,12 @@ T* pm::GameEntity::GetComponent()
 		return static_cast<T*>(components[&typeid(T)]);
 	else
 		return nullptr;
+}
+template<typename T>
+void pm::GameEntity::RemoveComponent()
+{
+	// What happens if there is no component to be erased?
+	components.erase(&typeid(T));
 }
 
 #endif // GAMEENTITY_H

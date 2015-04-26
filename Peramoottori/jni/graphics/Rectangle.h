@@ -15,6 +15,8 @@ namespace pm
 
 		void SetOrigin(glm::vec2 newOrigin);
 		void SetOrigin(float newOriginX, float newOriginY);
+		void SetSize(glm::vec2 newSize);
+		void SetSize(float newSizeX, float newSizeY);
 		
 	private:
 		

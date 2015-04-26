@@ -1,5 +1,6 @@
 #include <android_native_app_glue.h>
 #include <core\Application.h>
+#include "GameDemo.h"
 
 using namespace pm;
 
@@ -9,14 +10,12 @@ void android_main(struct android_app* state)
 {
 	Application::GetInstance()->Initialize(state);
 
+	GameDemo gameDemo;
+	gameDemo.Initialize();
+
 	while(Application::GetInstance()->Update())
 	{
-		if (red < 255.0f)
-			red += 1.0f;
-		else
-			red = 0.0f;
-
-		Application::GetInstance()->window.SetClearColor(red, 0.f, 1.f);
+		gameDemo.Update();
 
 		Application::GetInstance()->window.Clear();
 		Application::GetInstance()->Draw();
