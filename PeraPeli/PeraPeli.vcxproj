@@ -18,6 +18,7 @@
     <AndroidBuild Include="res\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Peramoottori\libs\lodepng.cpp" />
     <ClCompile Include="jni\GameDemo.cpp" />
     <ClCompile Include="jni\main.cpp" />
     <ClCompile Include="jni\Sprite.cpp" />
@@ -27,6 +28,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Peramoottori\libs\lodepng.h" />
     <ClInclude Include="jni\GameDemo.h" />
     <ClInclude Include="jni\Sprite.h" />
     <ClInclude Include="native_app_glue\android_native_app_glue.h">

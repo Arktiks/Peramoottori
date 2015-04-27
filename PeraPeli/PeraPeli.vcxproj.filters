@@ -39,6 +39,9 @@
     <ClCompile Include="jni\Sprite.cpp">
       <Filter>jni</Filter>
     </ClCompile>
+    <ClCompile Include="..\Peramoottori\libs\lodepng.cpp">
+      <Filter>PeraPeli</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="native_app_glue\android_native_app_glue.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="jni\Sprite.h">
       <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Peramoottori\libs\lodepng.h">
+      <Filter>PeraPeli</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
