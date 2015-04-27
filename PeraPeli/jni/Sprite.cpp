@@ -28,14 +28,26 @@ void Sprite::SetPosition(glm::vec2 position)
 {
 	gameEntity.GetComponent<pm::Transformable>()->SetPosition(position);
 }
+void Sprite::SetPosition(float positionX, float positionY)
+{
+	SetPosition(glm::vec2(positionX, positionY));
+}
 void Sprite::SetSize(glm::vec2 size)
 {
 	gameEntity.GetComponent<pm::Rectangle>()->SetSize(size);
+}
+void Sprite::SetSize(float width, float height)
+{
+	SetSize(glm::vec2(width, height));
 }
 
 void Sprite::SetOrigin(glm::vec2 origin)
 {
 	gameEntity.GetComponent<pm::Rectangle>()->SetOrigin(origin);
+}
+void Sprite::SetOrigin(float originX, float originY)
+{
+	SetOrigin(glm::vec2(originX, originY));
 }
 
 void Sprite::SetRotation(GLfloat rotation)
@@ -45,6 +57,10 @@ void Sprite::SetRotation(GLfloat rotation)
 void Sprite::SetScale(glm::vec2 scale)
 {
 	gameEntity.GetComponent<pm::Transformable>()->SetScale(scale);
+}
+void Sprite::SetScale(float scaleX, float scaleY)
+{
+	SetScale(glm::vec2(scaleX, scaleY));
 }
 
 void Sprite::SetDepth(GLfloat depth)

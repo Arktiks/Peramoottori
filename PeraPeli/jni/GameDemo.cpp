@@ -57,6 +57,7 @@ void GameDemo::Draw()
 {
 	for (int i = 0; i < opaqueSpriteVector.size(); i++)
 	{
+
 		pm::SpriteBatch::GetInstance()->AddGameEntity(opaqueSpriteVector[i]->GetGameEntity());
 	}
 
