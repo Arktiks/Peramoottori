@@ -7,25 +7,19 @@ namespace pm
 {
 	class AudioResource : public Resource
 	{
+		friend class Audio;
 	public:
 
-		// Doesn't work because no functions to add them after initialization.
-		// AudioResource() : AudioAsset(nullptr), fileDescriptor(0) {};
-
-		AudioResource(int fileDescriptorData, AAsset* audioAssetData) :
-			fileDescriptor(fileDescriptorData), AudioAsset(audioAssetData) {};
-
-		AAsset* GetAudioAsset() { return AudioAsset; }
+		AudioResource(int fileDescriptorData, off_t aLength, off_t aStart)
+		: fileDescriptor(fileDescriptorData), length(aLength), start(aStart) {};
 
 		int GetFileDescriptor() { return fileDescriptor; }
 
 		~AudioResource() { /* AudioAsset should be closed perhaps? */ };
 
 	private:
-
-		AAsset* AudioAsset;
-
 		int fileDescriptor;
+		off_t length, start;
 
 	};
 }

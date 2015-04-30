@@ -8,6 +8,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <memory>
 
 namespace pm
 {
@@ -29,7 +30,7 @@ namespace pm
 		/// Every file is converted to Resource type.
 		///		\param fileName : string name of the file.
 		///		\return created or loaded Resource.
-		Resource* LoadAsset(std::string fileName);
+		std::shared_ptr<Resource*> LoadAsset(std::string fileName);
 
 		/// Returns content of AAsset as std::string.
 		///		\param fileName : string name of AAsset.
@@ -54,11 +55,10 @@ namespace pm
 		///		\return content of AAsset as unsigned char vector.
 		std::vector<unsigned char> ReadImage(std::string fileName);
 
-		/// KOMMENTOI
+		/// EI VIELÄ KÄYTÖSSÄ SIIRRÄ FONTIN LATAUS TÄNNE
 		std::string ReadFont(std::string fileName);
 
-
-		/// KOMMENTOI
+		/// KORJAA
 		AAsset* ReadAudio(std::string fileName);
 
 		///	Finds an asset from the assetMap.

@@ -29,7 +29,7 @@ pm::ResourceManager* pm::ResourceManager::GetInstance()
 	return instance;
 }
 
-pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
+std::shared_ptr<pm::Resource*> pm::ResourceManager::LoadAsset(std::string fileName)
 {
 	assetMap::iterator check = assets.find(fileName); // Iterate through loaded Resources.
 
@@ -39,19 +39,15 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 		if (tempFileExtension.compare(TXT) == 0) // TXT FILE
 		{
-			//DEBUG_INFO(("Loading TXT file."));
-
 			std::string textData = ReadText(fileName);
 			TextResource* tempTextData = NEW TextResource(textData);
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempTextData));
 
-			return tempTextData; // Return created resource instantly.
+			return std::make_shared(tempTextData); // Return created resource instantly.
 		}
 
 		else if (tempFileExtension.compare(TTF) == 0) // TTF FILE
 		{
-			//DEBUG_INFO(("Loading TTF file."));
-
 			FT_Library  library;
 			FT_Face     face;
 
@@ -61,11 +57,12 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 				DEBUG_INFO(("Failed to initialize freetype library"));
 			}
 
-			std::vector<FT_Byte> asd = ReadUnsignedChar(OpenAAsset(fileName));
+			AAsset *tempFontAsset = OpenAAsset(fileName);
+			std::vector<FT_Byte> tempFontData = ReadUnsignedChar(tempFontAsset);
 
 			error = FT_New_Memory_Face(library,
-				&asd[0],
-				asd.size(),
+				&tempFontData[0],
+				tempFontData.size(),
 				0,
 				&face);
 			if (error == FT_Err_Unknown_File_Format)
@@ -82,33 +79,33 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 				FontResource* tempFontData = NEW FontResource(library, face);
 				assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
 
-				return tempFontData; // Return created resource instantly.
+				AAsset_close(tempFontAsset);
+
+				return std::make_shared(tempFontData); // Return created resource instantly.
 			}
 		}
 
 		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE
 		{
-			//DEBUG_INFO(("Loading OGG file."));
-			AAsset* tempAudioAsset = ReadAudio(fileName);
+			AAsset *tempAudioAsset = ReadAudio(fileName);
 			off_t start, length;
 
 			int	tempFileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
-			AudioResource* tempFileData = NEW AudioResource(tempFileDescriptor, tempAudioAsset);
+			AudioResource* tempAudioResource = NEW AudioResource(tempFileDescriptor, length, start);
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempFileData));
 
-			return tempFileData;
+			AAsset_close(tempAudioAsset);
+
+			return std::make_shared(tempAudioResource);
 
 		}
 
 		else if (tempFileExtension.compare(PNG) == 0) // PNG FILE
 		{
-			//DEBUG_INFO(("Loading PNG file."));
-
-
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempImageResource));
 
-			return tempImageResource;
+			return std::make_shared(tempImageResource);
 		}
 
 		else
@@ -141,30 +138,33 @@ std::string pm::ResourceManager::ReadText(std::string fileName)
 	{
 		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
 		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-
+		AAsset_close(tempAsset);
 		//DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
 
 		return tempString;
 	}
 	else
+		AAsset_close(tempAsset);
 		return std::string(); // Returns empty string if there is an error.
 }
 
-std::string pm::ResourceManager::ReadFont(std::string fileName)
-{
-	AAsset* tempAsset = OpenAAsset(fileName);
 
-	if (tempAsset)
-	{
-		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
-		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
-		return tempString;
-	}
-	else
-		return std::string();
-
-}
+//SIIRRÄ FONTIN LATAUS TÄNNE
+//std::string pm::ResourceManager::ReadFont(std::string fileName)
+//{
+//	AAsset* tempAsset = OpenAAsset(fileName);
+//
+//	if (tempAsset)
+//	{
+//		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
+//		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
+//		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
+//		return tempString;
+//	}
+//	else
+//		return std::string();
+//
+//}
 
 AAsset* pm::ResourceManager::ReadAudio(std::string fileName)
 {
@@ -187,9 +187,11 @@ std::vector<unsigned char> pm::ResourceManager::ReadImage(std::string fileName)
 	if (tempAsset)
 	{
 		tempBuffer = ReadUnsignedChar(tempAsset);
+		AAsset_close(tempAsset);
 		return tempBuffer;
 	}
 	else
+		AAsset_close(tempAsset);
 		return tempBuffer; // Returns empty Image if there is an error.
 }
 

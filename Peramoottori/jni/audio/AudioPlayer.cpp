@@ -3,9 +3,7 @@
 
 pm::AudioPlayer::AudioPlayer(AudioPlayer* pointer)
 {
-	fileDescriptor = pointer->fileDescriptor;
-	start = pointer->start;
-	length = pointer->length;
+	audioResource = pointer->audioResource;
 }
 
 pm::AudioPlayer::~AudioPlayer()
