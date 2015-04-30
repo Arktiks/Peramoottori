@@ -11,7 +11,6 @@ using namespace std;
 const ASensor* CommandCenter::accelerometerSensor = nullptr;
 ASensorEventQueue* CommandCenter::sensorEventQueue = nullptr;
 android_app* CommandCenter::android_application = nullptr;
-//Application* CommandCenter::application = nullptr;
 
 void CommandCenter::Initialize(android_app* application)
 {
@@ -26,7 +25,10 @@ void CommandCenter::Initialize(android_app* application)
 	if(sensorEventQueue == nullptr) // Create queue that handles sensor events as they come.
 		sensorEventQueue = ASensorManager_createEventQueue(sensorManager, application->looper, LOOPER_ID_USER, nullptr, nullptr);
 
-	CommandCenter::android_application = application; // Save application reference for later use.
+	if (application != nullptr)
+		CommandCenter::android_application = application; // Save application reference for later use.
+	else
+		DEBUG_WARNING(("Command Center initialize called with null application pointer."));
 }
 
 void CommandCenter::Clean()
@@ -36,7 +38,6 @@ void CommandCenter::Clean()
 	accelerometerSensor = nullptr;
 	sensorEventQueue = nullptr;
 	android_application = nullptr;
-	//application = nullptr;
 }
 
 void CommandCenter::EnableSensors()
@@ -83,6 +84,7 @@ void CommandCenter::UpdateSensors(int identity)
 
 void CommandCenter::Start()
 {
+	// Initialize(nullptr); // Confirm sensors.
 }
 
 void CommandCenter::Resume()
@@ -95,13 +97,14 @@ void CommandCenter::Pause()
 
 void CommandCenter::Stop()
 {
+	// Clean(); // Free resources.
 }
 
 void CommandCenter::Destroy()
 {
 	Application::GetInstance()->DestroyInstance(); // Application takes care of cleaning up rest of modules.
 	Memory::WriteLeaks(); // Write memory leaks to LogCat.
-	DEBUG_INFO(("DESTROY has finished cleaning application."));
+	DEBUG_INFO(("Application has been destroyed!"));
 }
 
 void CommandCenter::ReadyWindow()
@@ -154,7 +157,7 @@ void CommandCenter::ProcessCommand(android_app* application, int32_t command)
 {
 	// Application reference is assigned each Command loop.
 	// Shouldn't be harmful or particularly taxing but makes this class easier to use.
-	//Application* ourApplication = static_cast<Application*>(application->userData);
+	// Application* ourApplication = static_cast<Application*>(application->userData);
 
 	if(application != nullptr)
 	{
