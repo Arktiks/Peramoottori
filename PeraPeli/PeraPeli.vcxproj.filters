@@ -27,16 +27,34 @@
     </AndroidBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="native_app_glue\android_native_app_glue.c">
+      <Filter>PeraPeli\native_app_glue</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\GameDemo.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
     <ClCompile Include="jni\main.cpp">
       <Filter>jni</Filter>
     </ClCompile>
-    <ClCompile Include="native_app_glue\android_native_app_glue.c">
-      <Filter>PeraPeli\native_app_glue</Filter>
+    <ClCompile Include="jni\Sprite.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Peramoottori\libs\lodepng.cpp">
+      <Filter>PeraPeli</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="native_app_glue\android_native_app_glue.h">
       <Filter>PeraPeli\native_app_glue</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\GameDemo.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\Sprite.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Peramoottori\libs\lodepng.h">
+      <Filter>PeraPeli</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

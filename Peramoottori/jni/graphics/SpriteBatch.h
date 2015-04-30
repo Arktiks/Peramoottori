@@ -24,6 +24,8 @@ namespace pm
 
 		void AddGameEntity(GameEntity* gameEntity);
 
+		void AddOpaqueGameEntity(GameEntity* gameEntity);
+
 	private:
 
 		SpriteBatch() {}; ///< Neccessary for singleton.
@@ -42,7 +44,7 @@ namespace pm
 
 
 		std::vector<GameEntity*> gameEntityVector;
-
+		std::vector<GameEntity*> opaqueGameEntityVector;
 		std::vector<Batch> batchVector; ///< Contains all batched draw data?
 
 		static SpriteBatch* instance;

@@ -125,9 +125,6 @@
     <ClCompile Include="jni\scene\Transformable.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
-    <ClCompile Include="jni\core\Game.cpp">
-      <Filter>jni\core</Filter>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Shader.cpp">
       <Filter>jni\graphics\shaders</Filter>
     </ClCompile>
@@ -155,9 +152,6 @@
     <ClCompile Include="jni\scene\Texture.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
-    <ClCompile Include="jni\core\EventHandler.cpp">
-      <Filter>jni\core\application</Filter>
-    </ClCompile>
     <ClCompile Include="jni\resources\TextureFactory.cpp">
       <Filter>jni\resources</Filter>
     </ClCompile>
@@ -166,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="jni\core\Profiler.cpp">
       <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\CommandCenter.cpp">
+      <Filter>jni\core\application</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -934,9 +931,6 @@
     <ClInclude Include="jni\scene\Transformable.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
-    <ClInclude Include="jni\core\Game.h">
-      <Filter>jni\core</Filter>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Shader.h">
       <Filter>jni\graphics\shaders</Filter>
     </ClInclude>
@@ -973,9 +967,6 @@
     <ClInclude Include="jni\scene\Texture.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
-    <ClInclude Include="jni\core\EventHandler.h">
-      <Filter>jni\core\application</Filter>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Text.h">
       <Filter>jni\graphics</Filter>
     </ClInclude>
@@ -987,6 +978,9 @@
     </ClInclude>
     <ClInclude Include="jni\core\Profiler.h">
       <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\CommandCenter.h">
+      <Filter>jni\core\application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

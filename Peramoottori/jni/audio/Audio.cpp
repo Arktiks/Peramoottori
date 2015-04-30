@@ -26,7 +26,7 @@ pm::Audio::Audio(std::string fileName) : maxPlayerCount(3), playerCount(1)
 pm::Audio::~Audio()
 {
 	for (int i = 0; i < playerCount; i++)
-		delete &player[i];
+		delete player[i];
 }
 
 bool pm::Audio::Play()
@@ -70,16 +70,19 @@ void pm::Audio::SetMaxPlayerCount(unsigned newMaxCount)
 {
 	if (newMaxCount < maxPlayerCount)
 	{
+		for (int i = 0; i < playerCount; i++)
+		{
+			player[i]->SetPlayState(SL_PLAYSTATE_STOPPED);
+		}
+
 		DEBUG_WARNING(("Removing AudioPlayers. Possible loss of data!"));
 
-		for (int i = maxPlayerCount; i > newMaxCount; i--)
+		for (int i = newMaxCount - 1; i < playerCount; i++)
 		{
-			delete &(player.at(i));
+			delete player[i];
 			player.erase(player.begin() + i);
-		}		
-
-		playerCount = newMaxCount;
-		player.resize(maxPlayerCount);
+			playerCount--;
+		}
 	}
 
 	maxPlayerCount = newMaxCount;
@@ -87,7 +90,7 @@ void pm::Audio::SetMaxPlayerCount(unsigned newMaxCount)
 
 pm::AudioPlayer* pm::Audio::GetAvailable()
 {
-	for (int i = 0; i < player.size(); i++)
+	for (int i = 0; i < playerCount; i++)
 	{
 		SLuint32 temp = player.at(i)->GetPlayState();
 		if ( temp == SL_PLAYSTATE_STOPPED )
@@ -97,10 +100,10 @@ pm::AudioPlayer* pm::Audio::GetAvailable()
 	if (playerCount < maxPlayerCount)
 	{
 		playerCount++;
-		player[playerCount] = NEW AudioPlayer(player[0]);
-		AudioManager::GetInstance()->InitAudioPlayer(player[playerCount]);
+		player.push_back(NEW AudioPlayer(player[0]));
+		AudioManager::GetInstance()->InitAudioPlayer(player[playerCount-1]);
 
-		return player[playerCount];
+		return player[playerCount-1];
 	}
 	else
 		return nullptr;

@@ -1,16 +1,16 @@
 #include "Profiler.h"
-#include <core\Log.h>
+#include "core\ProfilerManager.h"
 
-using namespace std;
 using namespace pm;
 
-Profiler::Profiler(string functionName) : name(functionName)
+Profiler::Profiler(std::string functionName) : name(functionName)
 {
 	clock.CalculateTimeInFrame();
 }
 
 Profiler::~Profiler()
 {
-	float time = clock.CalculateTimeInFrame();
-	DEBUG_INFO(("Time spent in %s is: %f", name.c_str(), time));
+	long double time = clock.CalculateTimeInFrame();
+//	ProfilerManager::GatherData(name, time);
+	//DEBUG_INFO(("Time spent in %s is: %f", name.c_str(), time));
 }

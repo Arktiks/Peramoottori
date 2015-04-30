@@ -39,7 +39,7 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 		if (tempFileExtension.compare(TXT) == 0) // TXT FILE
 		{
-			DEBUG_INFO(("Loading TXT file."));
+			//DEBUG_INFO(("Loading TXT file."));
 
 			std::string textData = ReadText(fileName);
 			TextResource* tempTextData = NEW TextResource(textData);
@@ -50,7 +50,7 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 		else if (tempFileExtension.compare(TTF) == 0) // TTF FILE
 		{
-			DEBUG_INFO(("Loading TTF file."));
+			//DEBUG_INFO(("Loading TTF file."));
 
 			FT_Library  library;
 			FT_Face     face;
@@ -88,7 +88,7 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE
 		{
-			DEBUG_INFO(("Loading OGG file."));
+			//DEBUG_INFO(("Loading OGG file."));
 			AAsset* tempAudioAsset = ReadAudio(fileName);
 			off_t start, length;
 
@@ -102,7 +102,7 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 		else if (tempFileExtension.compare(PNG) == 0) // PNG FILE
 		{
-			DEBUG_INFO(("Loading PNG file."));
+			//DEBUG_INFO(("Loading PNG file."));
 
 
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
@@ -278,8 +278,6 @@ void pm::ResourceManager::Initialize(AAssetManager* manager)
 		DEBUG_WARNING(("ResourceManager has already been initialized!"));
 		//ASSERT(false);
 	}
-	else
-		DEBUG_INFO(("ResourceManager assigned!"));
 
 	(this->manager) = manager;
 }
@@ -303,6 +301,5 @@ void pm::ResourceManager::DeleteResource(std::string fileName)
 }
 
 pm::ResourceManager::~ResourceManager()
-{
-	
+{	
 }

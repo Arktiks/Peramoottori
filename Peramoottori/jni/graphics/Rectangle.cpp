@@ -20,9 +20,21 @@ void pm::Rectangle::SetOrigin(glm::vec2 newOrigin)
 
 void pm::Rectangle::SetOrigin(float newOriginX, float newOriginY)
 {
-	SetOrigin(glm::vec2(newOriginX, newOriginY));
+	origin = glm::vec2(newOriginX, newOriginY);
+	SetVertices();
 }
-
+void pm::Rectangle::SetSize(glm::vec2 newSize)
+{
+	width = newSize.x;
+	height = newSize.y;
+	SetVertices();
+}
+void pm::Rectangle::SetSize(float newWidth, float newHeight)
+{
+	width = newWidth;
+	height = newHeight;
+	SetVertices();
+}
 void pm::Rectangle::SetVertices()
 {
 	vertices.clear();

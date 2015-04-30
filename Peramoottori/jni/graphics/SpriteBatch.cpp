@@ -43,6 +43,7 @@ void SpriteBatch::Draw()
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
 
 	gameEntityVector.clear();
+	opaqueGameEntityVector.clear();
 	batchVector.clear();
 }
 
@@ -50,6 +51,12 @@ void SpriteBatch::AddGameEntity(GameEntity* gameEntity)
 {
 	gameEntityVector.push_back(gameEntity);
 }
+
+void SpriteBatch::AddOpaqueGameEntity(GameEntity* gameEntity)
+{
+	opaqueGameEntityVector.push_back(gameEntity); 
+}
+
 
 bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
 {
@@ -69,6 +76,7 @@ void SpriteBatch::BatchComponents()
 		std::vector<GLushort> tempIndexData;
 		glm::mat4 tempTransformMatrix = glm::mat4();
 		GLuint tempTextureIndex;
+		bool newBatch = true;
 
 		if (IsDrawable(gameEntityVector[i]))
 		{
@@ -80,12 +88,42 @@ void SpriteBatch::BatchComponents()
 				if (batchVector[k].textureIndex == tempTextureIndex)
 				{
 					batchVector[k].AddData(tempVertexData, tempIndexData, tempTransformMatrix);
+					newBatch = false;
 					break;
 				}
 			}
-	
 			// If no batches with same texture were found, create new batch and add data to it.
-			batchVector.push_back(Batch(tempVertexData, tempIndexData, tempTransformMatrix, tempTextureIndex));
+			if (newBatch)
+				batchVector.push_back(Batch(tempVertexData, tempIndexData, tempTransformMatrix, tempTextureIndex));
+		}
+	}
+
+	// Somebody has to make this good
+	for (int i = 0; i < opaqueGameEntityVector.size(); i++)
+	{
+		std::vector<GLfloat> tempVertexData;
+		std::vector<GLushort> tempIndexData;
+		glm::mat4 tempTransformMatrix = glm::mat4();
+		GLuint tempTextureIndex;
+		bool newBatch = true;
+
+		if (IsDrawable(opaqueGameEntityVector[i]))
+		{
+			ParseData(opaqueGameEntityVector[i], &tempVertexData, &tempIndexData, &tempTransformMatrix, &tempTextureIndex);
+
+			for (unsigned k = 0; k < batchVector.size(); k++)
+			{
+				// If there is texture with same index as new one, add data to batch.
+				if (batchVector[k].textureIndex == tempTextureIndex)
+				{
+					batchVector[k].AddData(tempVertexData, tempIndexData, tempTransformMatrix);
+					newBatch = false;
+					break;
+				}
+			}
+			// If no batches with same texture were found, create new batch and add data to it.
+			if (newBatch)
+				batchVector.push_back(Batch(tempVertexData, tempIndexData, tempTransformMatrix, tempTextureIndex));
 		}
 	}
 }
@@ -171,6 +209,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 		vertexData->push_back(vertexColor.x);
 		vertexData->push_back(vertexColor.y);
 		vertexData->push_back(vertexColor.z);
+		vertexData->push_back(vertexColor.w);
 				  
 		vertexData->push_back(vertexTexPos[i * 2]);
 		vertexData->push_back(vertexTexPos[i * 2 + 1]);

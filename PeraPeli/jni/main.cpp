@@ -1,5 +1,6 @@
 #include <android_native_app_glue.h>
-#include <core\Game.h>
+#include <core\Application.h>
+#include "GameDemo.h"
 
 using namespace pm;
 
@@ -7,19 +8,17 @@ static float red = 0.0f;
 
 void android_main(struct android_app* state)
 {
-	Game::GetInstance()->Initialize(state);
+	Application::GetInstance()->Initialize(state);
 
-	while (Game::GetInstance()->Update())///
+	GameDemo gameDemo;
+	gameDemo.Initialize();
+
+	while(Application::GetInstance()->Update())
 	{
-		if (red < 255.0f)
-			red += 1.0f;
-		else
-			red = 0.0f;
+		gameDemo.Update();
 
-		Game::GetInstance()->SetClearColor(red/255.0f, 1.f, 1.f);
-
-		Game::GetInstance()->Clear();
-		Game::GetInstance()->Draw();
+		Application::GetInstance()->window.Clear();
+		Application::GetInstance()->Draw();
 	}
 
 }

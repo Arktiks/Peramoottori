@@ -33,15 +33,16 @@
     <ClCompile Include="jni\core\Application.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\core\EventHandler.cpp" />
-    <ClCompile Include="jni\core\Game.cpp" />
+    <ClCompile Include="jni\core\CommandCenter.cpp" />
     <ClCompile Include="jni\core\Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\core\Log.cpp" />
     <ClCompile Include="jni\core\Memory.cpp" />
     <ClCompile Include="jni\core\Passert.cpp" />
-    <ClCompile Include="jni\core\Profiler.cpp" />
+    <ClCompile Include="jni\core\Profiler.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="jni\core\Time.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
@@ -99,15 +100,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\core\Application.h" />
-    <ClInclude Include="jni\core\EventHandler.h" />
-    <ClInclude Include="jni\core\Game.h" />
+    <ClInclude Include="jni\core\CommandCenter.h" />
     <ClInclude Include="jni\core\Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\core\Log.h" />
     <ClInclude Include="jni\core\Memory.h" />
     <ClInclude Include="jni\core\Passert.h" />
-    <ClInclude Include="jni\core\Profiler.h" />
+    <ClInclude Include="jni\core\Profiler.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="jni\core\Time.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
