@@ -1,10 +1,8 @@
 #pragma once
 
-// Sprite -> periytym‰‰n gameObjectista ja uudellenime‰minen SpriteObject
 // GameDemo poistetaan ja tehd‰‰n uudestaan mainiin
-// Vektorit mapeiksi, jotta voidaan k‰ytt‰‰ helpommin
 
-#include "Sprite.h"
+#include "SpriteObject.h"
 
 #include <core\Log.h>
 #include <core\Passert.h>
@@ -22,7 +20,7 @@
 #include <graphics\Color.h>
 #include <scene\GameEntity.h>
 
-#include <vector>
+#include <map>
 class GameDemo
 {
 public:
@@ -33,10 +31,13 @@ public:
 	pm::Time time;
 	pm::Audio* touchAudio;
 	pm::Input input;
+	pm::Texture FindTexture(std::string name);
+	SpriteObject FindSpriteObject(std::string name);
 private:
+	int CheckTouch(glm::vec2 touch);
 	void Draw();
-	std::vector<pm::Texture*> textureVector;
-	std::vector<Sprite*> spriteVector;
-	std::vector<Sprite*> opaqueSpriteVector;
+	std::map<std::string, pm::Texture*> textureMap;
+	std::map<std::string, SpriteObject*> spriteMap;
+	std::map<std::string, SpriteObject*> opaqueSpriteMap;
 };
 
