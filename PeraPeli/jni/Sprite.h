@@ -35,6 +35,7 @@ public:
 	void SetTexture(pm::Texture* texture);
 	pm::GameEntity* GetGameEntity(){ return &gameEntity; }
 	glm::vec2 GetPosition();
+
 private:
 	pm::GameEntity gameEntity;
 };
