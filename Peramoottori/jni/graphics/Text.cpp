@@ -6,6 +6,7 @@ namespace pm
 {
 	Text::Text(FontResource* font, TextResource* text, float x, float y, float w, float h)
 	{
+		GE = new GameEntity();
 		FT_Library lib = font->GetLibrary();	//... initialize library ...
 		FT_Face face = font->GetFace();			//... create face object ...
 
@@ -21,18 +22,16 @@ namespace pm
 			300);						/* vertical device resolution      */
 
 		int num_chars = 1; //text->GetTextData().size();
-		//std::string asd = { "asd" };
-		//char* asd = "asd";
+
 		FT_UInt   glyph_index = 12;
-		//error = FT_Load_Char(face, asd[0] , FT_LOAD_RENDER);
-		error = FT_Load_Glyph(face, FT_Get_Char_Index( face, 'S' ), FT_LOAD_DEFAULT);
+		error = FT_Load_Glyph(face, FT_Get_Char_Index( face, 'B' ), FT_LOAD_DEFAULT);
 
 		glm::vec2 position(x, y);
 		glm::vec2 rightBottom(w, h);
+
 		glGenTextures(1, &textId);
 		glActiveTexture(textId);
 		glBindTexture(GL_TEXTURE_2D, textId);
-
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, slot->bitmap.width, slot->bitmap.rows, 0, GL_RGBA, GL_UNSIGNED_BYTE, slot->bitmap.buffer);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -41,18 +40,24 @@ namespace pm
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-		AddComponent(NEW Rectangle(w, h));
-		AddComponent(NEW Transformable());
-		GetComponent<Transformable>()->SetPosition(position);
-		GetComponent<Transformable>()->SetRotation(0);
-		GetComponent<Transformable>()->SetScale(1, 1);
+		GE->AddComponent(NEW Rectangle(w, h));
+		GE->AddComponent(NEW Transformable());
+		
+		GE->GetComponent<Transformable>()->SetPosition(position);
+		GE->GetComponent<Transformable>()->SetRotation(0);
+		GE->GetComponent<Transformable>()->SetScale(1, 1);
+		
 
-		AddComponent(NEW Drawable());
-		GetComponent<Drawable>()->SetDrawState(true);
+		GE->AddComponent(NEW Drawable());
+		GE->GetComponent<Drawable>()->SetDrawState(true);
 
-		AddComponent(NEW Texture());
-		GetComponent<Texture>()->SetId(textId);
-		GetComponent<Texture>()->SetTextureVertices(position, rightBottom);
+		GE->AddComponent(NEW Texture());
+		GE->GetComponent<Texture>()->SetId(textId);
+		//GE->GetComponent<Texture>()->SetTextureVertices(glm::vec2(0, 0), glm::vec2(1, 1));
+
+
+		GE->AddComponent(NEW Color(glm::vec4(0.2f, 0.7f, 0.7f, 0.0f)));
+
 		glActiveTexture(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 

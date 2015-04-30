@@ -58,7 +58,7 @@ void android_main(android_app* application)
 	bool check = game->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
 	ASSERT(check);
 
-	game->SetClearColor(1.0f, 0.4f, 1.0f);
+	game->SetClearColor(189.0f/255, 32.0f/255, 49.0f/255);
 
 	//InitializeGame();
 	InitializeDemo();
@@ -115,7 +115,8 @@ void InitializeGame()
 	TextResource* txt = (TextResource*)ResourceManager::GetInstance()->LoadAsset("teksti.txt");
 	FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
 	
-	Text* teksti = new Text(font, txt, 50, 50, 100, 100);
+	Text* teksti = new Text(font, txt, 0, 0, 500, 500);
+	entityVector.push_back(teksti->GetGameEntity());
 }
 
 void UpdateGame()

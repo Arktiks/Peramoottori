@@ -132,7 +132,6 @@ Global
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Mixed Platforms.Build.0 = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
-		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Tegra-Android.Build.0 = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Win32.ActiveCfg = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|x64.ActiveCfg = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Release Multithreaded|Mixed Platforms.ActiveCfg = Release|Tegra-Android
