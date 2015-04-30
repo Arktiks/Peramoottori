@@ -9,7 +9,10 @@ namespace pm
 	{
 	public:
 
-		Rectangle() : width(0), height(0) {};
+		Rectangle() : width(0), height(0) { 
+		SetIndices();
+		SetVertices();
+		};
 		Rectangle(float width, float height);
 		Rectangle(glm::vec2 size);
 
