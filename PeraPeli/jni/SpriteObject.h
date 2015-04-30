@@ -1,6 +1,6 @@
 #pragma once
-#include "scene\GameEntity.h"
-#include "scene\Texture.h"
+#include <scene\GameEntity.h>
+#include <scene\Texture.h>
 #include <glm\common.hpp>
 
 // For debugging
@@ -9,12 +9,12 @@
 #include <core\Memory.h>
 //
 
-class Sprite
+class SpriteObject:public pm::GameEntity
 {
 public:
-	Sprite();
-	Sprite(pm::Texture* texture);
-	~Sprite();
+	SpriteObject();
+	SpriteObject(pm::Texture* texture);
+	~SpriteObject();
 
 	void SetPosition(glm::vec2 position);
 	void SetPosition(float positionX, float positionY);
@@ -33,10 +33,9 @@ public:
 	void SetDrawState(bool state);
 	void SetColor(glm::vec4 color);
 	void SetTexture(pm::Texture* texture);
-	pm::GameEntity* GetGameEntity(){ return &gameEntity; }
-	glm::vec2 GetPosition();
 
-private:
-	pm::GameEntity gameEntity;
+	glm::vec2 GetPosition();
+	glm::vec2 GetSize();
+
 };
 

@@ -35,6 +35,11 @@ void pm::Rectangle::SetSize(float newWidth, float newHeight)
 	height = newHeight;
 	SetVertices();
 }
+
+glm::vec2 pm::Rectangle::GetSize()
+{
+	return glm::vec2(width, height);
+}
 void pm::Rectangle::SetVertices()
 {
 	vertices.clear();

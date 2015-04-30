@@ -36,11 +36,11 @@
     <ClCompile Include="jni\main.cpp">
       <Filter>jni</Filter>
     </ClCompile>
-    <ClCompile Include="jni\Sprite.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
     <ClCompile Include="..\Peramoottori\libs\lodepng.cpp">
       <Filter>PeraPeli</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\SpriteObject.cpp">
+      <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,11 +50,11 @@
     <ClInclude Include="jni\GameDemo.h">
       <Filter>jni</Filter>
     </ClInclude>
-    <ClInclude Include="jni\Sprite.h">
-      <Filter>jni</Filter>
-    </ClInclude>
     <ClInclude Include="..\Peramoottori\libs\lodepng.h">
       <Filter>PeraPeli</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\SpriteObject.h">
+      <Filter>jni</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
