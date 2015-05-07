@@ -2,7 +2,7 @@
 #define FONTRESOURCE_H
 
 #include <resources\Resource.h>
-//#include <GLES2\gl2.h>
+#include <vector>
 
 #include <include\ft2build.h>
 #include FT_FREETYPE_H
@@ -15,20 +15,16 @@ namespace pm
 
 		//FontResource();
 
-		FontResource(FT_Library lib, FT_Face face) :
-			library(lib), face(face) {};
+		FontResource(std::vector<FT_Byte> ttfData) :
+			ttfData(ttfData) {};
 
-		FT_Library GetLibrary() { return library; }
-
-		FT_Face GetFace() { return face; }
+		std::vector<FT_Byte> GetTTFData() { return ttfData; }
 
 		~FontResource() {};
 		
 	private:
 	
-		FT_Library library;
-
-		FT_Face face;
+		std::vector<FT_Byte> ttfData;
 
 	};
 }

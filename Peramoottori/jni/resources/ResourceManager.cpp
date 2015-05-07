@@ -48,41 +48,20 @@ std::shared_ptr<pm::Resource*> pm::ResourceManager::LoadAsset(std::string fileNa
 
 		else if (tempFileExtension.compare(TTF) == 0) // TTF FILE
 		{
-			FT_Library  library;
-			FT_Face     face;
-
-			int error = FT_Init_FreeType(&library);
-			if (error) 
-			{
-				DEBUG_INFO(("Failed to initialize freetype library"));
-			}
-
+			AAsset* ttfAsset = OpenAAsset(fileName);
+			std::vector<FT_Byte> ttf = ReadUnsignedChar(ttfAsset);
+			//AAsset_close(ttfAsset);
 			AAsset *tempFontAsset = OpenAAsset(fileName);
 			std::vector<FT_Byte> tempFontData = ReadUnsignedChar(tempFontAsset);
 
-			error = FT_New_Memory_Face(library,
+			FontResource* tempFontData = NEW FontResource(ttf);
 				&tempFontData[0],
 				tempFontData.size(),
-				0,
-				&face);
-			if (error == FT_Err_Unknown_File_Format)
-			{
-				DEBUG_INFO(("The font file could be opened and read, but it appears that its font format is unsupported"));
-			}
-			else if (error)
-			{
-				DEBUG_INFO(("Font file could not be opened or read, or it is broken"));
-			}
-			else
-			{
-				DEBUG_INFO(("Font loaded"));
-				FontResource* tempFontData = NEW FontResource(library, face);
-				assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
+			assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
 
 				AAsset_close(tempFontAsset);
 
 				return std::make_shared(tempFontData); // Return created resource instantly.
-			}
 		}
 
 		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE

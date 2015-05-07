@@ -18,7 +18,7 @@ void pm::GameEntity::AddComponent(Component* newComponent)
 	if (componentIt != components.end())
 	{
 		delete componentIt->first;
-		delete componentIt->second;
+		delete componentIt->second;//
 	}
 	newComponent->SetParent(this);
 	components[&typeid(*newComponent)] = newComponent;
