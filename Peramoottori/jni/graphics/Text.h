@@ -18,9 +18,10 @@ namespace pm
 	public:
 
 		Text(FontResource* font, TextResource* text, float x, float y, float w, float h);
+		void Textasd(FontResource* font, char c, float x, float y, float w, float h);
 		~Text();
 		GameEntity* GetGameEntity(){ return GE; };
-
+		std::vector<GameEntity*> GetTextVector() { return textVector; };
 	private:
 
 		int HEIGHT;
@@ -29,8 +30,11 @@ namespace pm
 		std::vector<uint> indexData;
 
 		GLuint textId;
+		FT_GlyphSlot  slot;
 
 		GameEntity* GE;
+
+		std::vector<GameEntity*> textVector;
 	};
 }
 #endif
