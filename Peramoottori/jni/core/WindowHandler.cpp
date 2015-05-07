@@ -167,7 +167,7 @@ bool WindowHandler::Warning(string function)
 {
 	if(!HasContext())
 	{
-		DEBUG_WARNING(("Device context is not ready - ending %s prematurely.", function.c_str()));
+		DEBUG_WARNING(("Device context not ready - ending %s prematurely.", function.c_str()));
 		return true;
 	}
 	else

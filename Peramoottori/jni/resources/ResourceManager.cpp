@@ -85,14 +85,14 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 		else
 		{
-			DEBUG_WARNING(("Filetype not recognized."));
+			DEBUG_WARNING(("ResourceManager could not recognize (%s) filetype!", fileName.c_str()));
 			return nullptr;
 		}
 	}
 
 	else // If there is a file with the same name already.
 	{
-		DEBUG_INFO(("File was already in memory."));
+		DEBUG_INFO(("(%s) has already been loaded.", fileName.c_str()));
 		return GetAsset(fileName);
 	}
 }
@@ -102,14 +102,13 @@ void pm::ResourceManager::ClearAssetMap()
 	assets.clear();
 }
 
-
 /// Private Functions ///
 
 std::string pm::ResourceManager::ReadText(std::string fileName)
 {
 	AAsset* tempAsset = OpenAAsset(fileName);
 	
-	if (tempAsset)
+	if (tempAsset != nullptr)
 	{
 		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
 		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
@@ -122,7 +121,6 @@ std::string pm::ResourceManager::ReadText(std::string fileName)
 		AAsset_close(tempAsset);
 		return std::string(); // Returns empty string if there is an error.
 }
-
 
 //SIIRRÄ FONTIN LATAUS TÄNNE
 //std::string pm::ResourceManager::ReadFont(std::string fileName)
@@ -176,7 +174,7 @@ pm::Resource* pm::ResourceManager::GetAsset(std::string fileName)
 
 	if (it == assets.end()) // Couldn't find Resource.
 	{
-		DEBUG_WARNING(("Couldn't find Resource %s!", fileName.c_str()));
+		DEBUG_WARNING(("ResourceManger couldn't find Resource %s!", fileName.c_str()));
 		return nullptr;
 		//DEBUG_INFO(("File was already in memory"));
 		//return new Resource;
@@ -201,7 +199,7 @@ AAsset* pm::ResourceManager::OpenAAsset(std::string fileName)
 			}
 			else
 			{
-				DEBUG_INFO(("Reading file failed: %s, filelenght zero", fileName.c_str()));
+				DEBUG_INFO(("Reading file failed: %s, filelength zero", fileName.c_str()));
 			}
 		}
 		else // There was an error opening the AAsset.
@@ -244,7 +242,6 @@ bool pm::ResourceManager::ManagerCheck()
 		return false;
 	}
 }
-
 
 /// Engine Functions ///
 

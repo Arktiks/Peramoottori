@@ -1,10 +1,12 @@
 #include "CommandCenter.h"
-#include <core\Input.h>
 #include <core\Log.h>
-#include <core\Memory.h>
 #include <core\Passert.h>
+#include <core\Memory.h>
+
+#include <core\Input.h>
 #include <core\Application.h>
 #include <resources\TextureFactory.h>
+#include <graphics\RenderSystem.h>
 
 using namespace pm;
 using namespace std;
@@ -85,7 +87,6 @@ void CommandCenter::UpdateSensors(int identity)
 
 void CommandCenter::Start()
 {
-	// Initialize(nullptr); // Confirm sensors.
 }
 
 void CommandCenter::Resume()
@@ -98,7 +99,6 @@ void CommandCenter::Pause()
 
 void CommandCenter::Stop()
 {
-	// Clean(); // Free resources.
 }
 
 void CommandCenter::Destroy()
@@ -113,12 +113,14 @@ void CommandCenter::ReadyWindow()
 	ASSERT_NEQUAL(android_application->window, nullptr); // Make sure INIT_WINDOW call is legit.
 	bool testSucces = Application::GetInstance()->window.LoadDisplay(android_application); // WindowHandler creates display, surface and context.
 	ASSERT(testSucces);
-	TextureFactory::RecreateOGLTextures(); // Currently no confirmation everything was successful.
+	//Application::GetInstance()->Wait();
+	//TextureFactory::RecreateOGLTextures(); // Currently no confirmation everything was successful.
 }
 
 void CommandCenter::TerminateWindow()
 {
-	
+	TextureFactory::DestroyOGLTextures();
+	RenderSystem::GetInstance()->DestroyInstance(); // Destroy our rendering system, it will be reconstructed once we have our context back.
 	bool testSucces = Application::GetInstance()->window.CloseDisplay(); // The window is being hidden or closed, clean it up.
 	ASSERT(testSucces);
 }
@@ -132,12 +134,6 @@ void CommandCenter::LostFocus()
 {
 	DisableSensors();
 }
-
-////////////////////////////////////////
-//
-//	Below static functions given to android_native_app_glue.
-//
-////////////////////////////////////////
 
 int CommandCenter::HandleInput(android_app* application, AInputEvent* event)
 {
@@ -158,10 +154,6 @@ int CommandCenter::HandleInput(android_app* application, AInputEvent* event)
 
 void CommandCenter::ProcessCommand(android_app* application, int32_t command)
 {
-	// Application reference is assigned each Command loop.
-	// Shouldn't be harmful or particularly taxing but makes this class easier to use.
-	// Application* ourApplication = static_cast<Application*>(application->userData);
-
 	if(application != nullptr)
 	{
 		switch(command)

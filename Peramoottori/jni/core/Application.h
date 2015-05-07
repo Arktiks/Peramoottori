@@ -2,9 +2,7 @@
 #define APPLICATION_H
 
 #include <core/WindowHandler.h>
-#include <core/CommandCenter.h>
 #include <android_native_app_glue.h>
-#include <core/Vector2.h>
 
 namespace pm
 {
@@ -26,12 +24,13 @@ namespace pm
 		void DestroyInstance();
 
 		/// Initializes Perämoottori and its modules.
-		///		\param application: pointer to android_application.
+		///		\param application: pointer to android_application struct.
 		void Initialize(android_app* application);
 
 		/// Core update loop, should be nested in while-statement.
 		bool Update(); 
 
+		/// Draw GameObjects contained in SpriteBatch.
 		void Draw();
 
 		/// Return true if Application is ready to be updated and drawn.
