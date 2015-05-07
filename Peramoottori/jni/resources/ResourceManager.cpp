@@ -51,15 +51,11 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 			AAsset* ttfAsset = OpenAAsset(fileName);
 			std::vector<FT_Byte> ttf = ReadUnsignedChar(ttfAsset);
 			//AAsset_close(ttfAsset);
-			AAsset *tempFontAsset = OpenAAsset(fileName);
-			std::vector<FT_Byte> tempFontData = ReadUnsignedChar(tempFontAsset);
-
+		
 			FontResource* tempFontData = NEW FontResource(ttf);
-				&tempFontData[0],
-				tempFontData.size(),
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
 
-				AAsset_close(tempFontAsset);
+				AAsset_close(ttfAsset);
 
 				return tempFontData; // Return created resource instantly.
 		}
