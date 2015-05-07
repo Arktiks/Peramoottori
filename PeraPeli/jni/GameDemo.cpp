@@ -30,19 +30,25 @@ void GameDemo::Initialize()
 
 	SpriteObject* groundSprite = new SpriteObject(groundTexture);
 	spriteMap["ground"] = groundSprite;
+	groundSprite->SetDepth(2);
 	groundSprite->SetPosition(500, 500);
 	groundSprite->SetSize(1000, 100);
 	groundSprite->SetRotation(5.0f);
 
 
+	pointSprite->SetDepth(5);
 	SpriteObject* touchSprite1 = new SpriteObject();
 	spriteMap["touchArea1"] = touchSprite1;
+	touchSprite1->SetColor(glm::vec4(0, 0, 1, 0));
+	touchSprite1->SetDepth(5);
 	touchSprite1->SetPosition(0, 500);
 	touchSprite1->SetSize(200, 200);
 
 	SpriteObject* touchSprite2 = new SpriteObject();
 	spriteMap["touchArea2"] = touchSprite2;
-	touchSprite2->SetPosition(700, 500);
+	touchSprite2->SetColor(glm::vec4(0, 0, 1, 0));
+	touchSprite2->SetDepth(10);
+	touchSprite2->SetPosition(900, 500);
 	touchSprite2->SetSize(200, 200);
 }
 void GameDemo::Update()
@@ -72,11 +78,13 @@ void GameDemo::Draw()
 {
 	std::map<std::string, SpriteObject*>::iterator it;
 
+	for (it = spriteMap.begin(); it != spriteMap.end(); it++)
+		pm::SpriteBatch::GetInstance()->AddGameEntity(it->second);
+
 	for (it = opaqueSpriteMap.begin(); it != opaqueSpriteMap.end(); it++)
 		pm::SpriteBatch::GetInstance()->AddGameEntity(it->second);
 
-	for (it = spriteMap.begin(); it != spriteMap.end(); it++)
-		pm::SpriteBatch::GetInstance()->AddGameEntity(it->second);
+
 }
 
 int GameDemo::CheckTouch(glm::vec2 touch)

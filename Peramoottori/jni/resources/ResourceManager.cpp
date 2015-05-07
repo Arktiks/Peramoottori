@@ -113,7 +113,7 @@ void pm::ResourceManager::ClearAssetMap()
 std::string pm::ResourceManager::ReadText(std::string fileName)
 {
 	AAsset* tempAsset = OpenAAsset(fileName);
-
+	
 	if (tempAsset)
 	{
 		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.

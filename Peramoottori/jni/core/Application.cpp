@@ -26,9 +26,10 @@ void Application::DestroyInstance()
 {
 	application->userData = nullptr; // Remove reference to this class.
 
-	ResourceManager::GetInstance()->DestroyInstance();
 	CommandCenter::Clean();
 	RenderSystem::GetInstance()->DestroyInstance();
+	SpriteBatch::GetInstance()->DestroyInstance();
+	ResourceManager::GetInstance()->DestroyInstance();
 
 	delete instance;
 	instance = nullptr;
