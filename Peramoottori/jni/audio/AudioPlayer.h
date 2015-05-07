@@ -15,7 +15,7 @@ namespace pm
 		friend class AudioManager;
 
 	public:
-		AudioPlayer(std::shared_ptr<AudioResource> audioResourcePointer)
+		AudioPlayer(AudioResource* audioResourcePointer)
 			: audioResource(audioResourcePointer) {};
 
 		AudioPlayer(AudioPlayer* pointer);
@@ -31,7 +31,7 @@ namespace pm
 		void SetPlayState(SLuint32 state);
 		void SetLooping(bool isEnabled); 
 		void SetVolume(float volPercentage);
-		std::shared_ptr<AudioResource> getAudioResource(){return audioResource;};
+		AudioResource* getAudioResource(){return audioResource;};
 
 	private:
 		void CheckError(std::string errorText);
@@ -43,7 +43,7 @@ namespace pm
 
 		SLresult result;
 
-		std::shared_ptr<AudioResource> audioResource;
+		AudioResource* audioResource;
 
 		int fileDescriptor;
 		off_t start, length;

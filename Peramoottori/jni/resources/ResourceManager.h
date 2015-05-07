@@ -30,7 +30,7 @@ namespace pm
 		/// Every file is converted to Resource type.
 		///		\param fileName : string name of the file.
 		///		\return created or loaded Resource.
-		std::shared_ptr<Resource*> LoadAsset(std::string fileName);
+		Resource* LoadAsset(std::string fileName);
 
 		/// Returns content of AAsset as std::string.
 		///		\param fileName : string name of AAsset.

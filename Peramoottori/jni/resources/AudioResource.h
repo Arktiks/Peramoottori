@@ -13,7 +13,9 @@ namespace pm
 		AudioResource(int fileDescriptorData, off_t aLength, off_t aStart)
 		: fileDescriptor(fileDescriptorData), length(aLength), start(aStart) {};
 
-		int GetFileDescriptor() { return fileDescriptor; }
+		int GetFileDescriptor() { return fileDescriptor; };
+		off_t GetLength() { return length; };
+		off_t GetStart(){ return start; };
 
 		~AudioResource() { /* AudioAsset should be closed perhaps? */ };
 

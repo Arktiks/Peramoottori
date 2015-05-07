@@ -25,7 +25,7 @@ pm::AudioManager* pm::AudioManager::GetInstance()
 
 void pm::AudioManager::InitAudioPlayer(AudioPlayer* player)
 {
-	SLDataLocator_AndroidFD locator = { SL_DATALOCATOR_ANDROIDFD, player->getAudioResource()->fileDescriptor, player->getAudioResource()->start, player->getAudioResource()->length };
+	SLDataLocator_AndroidFD locator = { SL_DATALOCATOR_ANDROIDFD, player->getAudioResource()->GetFileDescriptor(), player->getAudioResource()->GetStart(), player->getAudioResource()->GetLength() };
 	SLDataFormat_MIME format = { SL_DATAFORMAT_MIME, nullptr, SL_CONTAINERTYPE_UNSPECIFIED };
 	SLDataSource audioSrc = { &locator, &format };
 

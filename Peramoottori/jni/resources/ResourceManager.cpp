@@ -29,7 +29,7 @@ pm::ResourceManager* pm::ResourceManager::GetInstance()
 	return instance;
 }
 
-std::shared_ptr<pm::Resource*> pm::ResourceManager::LoadAsset(std::string fileName)
+pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 {
 	assetMap::iterator check = assets.find(fileName); // Iterate through loaded Resources.
 
@@ -43,7 +43,7 @@ std::shared_ptr<pm::Resource*> pm::ResourceManager::LoadAsset(std::string fileNa
 			TextResource* tempTextData = NEW TextResource(textData);
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempTextData));
 
-			return std::make_shared(tempTextData); // Return created resource instantly.
+			return tempTextData; // Return created resource instantly.
 		}
 
 		else if (tempFileExtension.compare(TTF) == 0) // TTF FILE
@@ -61,7 +61,7 @@ std::shared_ptr<pm::Resource*> pm::ResourceManager::LoadAsset(std::string fileNa
 
 				AAsset_close(tempFontAsset);
 
-				return std::make_shared(tempFontData); // Return created resource instantly.
+				return tempFontData; // Return created resource instantly.
 		}
 
 		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE
@@ -71,11 +71,11 @@ std::shared_ptr<pm::Resource*> pm::ResourceManager::LoadAsset(std::string fileNa
 
 			int	tempFileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
 			AudioResource* tempAudioResource = NEW AudioResource(tempFileDescriptor, length, start);
-			assets.insert(std::pair<std::string, Resource*>(fileName, tempFileData));
+			assets.insert(std::pair<std::string, Resource*>(fileName, tempAudioResource));
 
 			AAsset_close(tempAudioAsset);
 
-			return std::make_shared(tempAudioResource);
+			return tempAudioResource;
 
 		}
 
@@ -84,7 +84,7 @@ std::shared_ptr<pm::Resource*> pm::ResourceManager::LoadAsset(std::string fileNa
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempImageResource));
 
-			return std::make_shared(tempImageResource);
+			return tempImageResource;
 		}
 
 		else
