@@ -10,6 +10,8 @@ namespace pm
 	class TextureFactory
 	{
 
+		friend class CommandCenter;
+
 	public:
 
 		static Texture* CreateTexture(std::string fileName);

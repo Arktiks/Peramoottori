@@ -3,7 +3,12 @@
 
 using namespace pm;
 
-void Buffer::CreateBuffer(bufferType type)
+Buffer::Buffer(BUFFER_TYPE type) : index(0), type(BUFFER_TYPE::NONE)
+{
+	CreateBuffer(type);
+}
+
+void Buffer::CreateBuffer(BUFFER_TYPE type)
 {
 	DEBUG_GL_ERROR_CLEAR();
 
@@ -31,7 +36,6 @@ void Buffer::BindBufferData(unsigned size, void *data)
 
 // glBufferData creates new data store for the buffer object currently bound to target.
 // Any pre-existing data store is DELETED.
-
 // Need to modify hardcoded buffer sizes.
 
 void Buffer::InitializeVertexData()
@@ -41,7 +45,7 @@ void Buffer::InitializeVertexData()
 	glBindBuffer(GL_ARRAY_BUFFER, index);
 	DEBUG_GL_ERROR();
 
-	glBufferData(GL_ARRAY_BUFFER, 20000u, nullptr, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 20000u, nullptr, GL_DYNAMIC_DRAW);
 	DEBUG_GL_ERROR();
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0u);
@@ -55,7 +59,7 @@ void Buffer::InitializeIndexData()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
 	DEBUG_GL_ERROR();
 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 20000u, nullptr, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 20000u, nullptr, GL_DYNAMIC_DRAW);
 	DEBUG_GL_ERROR();
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);

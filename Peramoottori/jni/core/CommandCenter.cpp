@@ -4,6 +4,7 @@
 #include <core\Memory.h>
 #include <core\Passert.h>
 #include <core\Application.h>
+#include <resources\TextureFactory.h>
 
 using namespace pm;
 using namespace std;
@@ -112,10 +113,12 @@ void CommandCenter::ReadyWindow()
 	ASSERT_NEQUAL(android_application->window, nullptr); // Make sure INIT_WINDOW call is legit.
 	bool testSucces = Application::GetInstance()->window.LoadDisplay(android_application); // WindowHandler creates display, surface and context.
 	ASSERT(testSucces);
+	TextureFactory::RecreateOGLTextures(); // Currently no confirmation everything was successful.
 }
 
 void CommandCenter::TerminateWindow()
 {
+	
 	bool testSucces = Application::GetInstance()->window.CloseDisplay(); // The window is being hidden or closed, clean it up.
 	ASSERT(testSucces);
 }
