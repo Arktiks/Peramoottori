@@ -1,13 +1,19 @@
 #include "GameEntity.h"
 
+
 pm::GameEntity::~GameEntity()
 {
-	for (ComponentList::iterator it = components.begin(); it != components.end();it++)
+	for (ComponentList::iterator it = components.begin(); it != components.end();)
 	{
-		delete it->second;
-		delete it->first;
+		if (it->first->name() != "Texture")
+		{
+			delete it->second;
+			delete it->first;
+			it->second = nullptr;
+		}
+
+		it = components.erase(it);
 	}
-	components.clear();
 }
 
 void pm::GameEntity::AddComponent(Component* newComponent)
@@ -18,7 +24,8 @@ void pm::GameEntity::AddComponent(Component* newComponent)
 	if (componentIt != components.end())
 	{
 		delete componentIt->first;
-		delete componentIt->second;
+		delete componentIt->second;//
+		componentIt->second = nullptr;
 	}
 	newComponent->SetParent(this);
 	components[&typeid(*newComponent)] = newComponent;

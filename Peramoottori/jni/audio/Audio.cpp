@@ -6,20 +6,9 @@
 
 pm::Audio::Audio(std::string fileName) : maxPlayerCount(3), playerCount(1)
 {
-	AAsset* tempAudioAsset = pm::ResourceManager::GetInstance()->GetAAsset(fileName);
+	AudioResource* tempAudioAsset = (pm::AudioResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
 	ASSERT_NEQUAL(tempAudioAsset, nullptr);
-
-	off_t start, length;
-	int fileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
-
-	if(fileDescriptor < 0)
-	{
-		DEBUG_WARNING(("Opening audio file %s failed!", fileName.c_str()));
-		ASSERT(true);
-	}
-
-	AAsset_close(tempAudioAsset); // Free resources.
-	player.push_back(NEW AudioPlayer(fileDescriptor, start, length));
+	player.push_back(NEW AudioPlayer(tempAudioAsset));
 	AudioManager::GetInstance()->InitAudioPlayer(player[0]);
 }
 

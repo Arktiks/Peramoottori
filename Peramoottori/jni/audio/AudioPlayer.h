@@ -1,10 +1,12 @@
 #ifndef AUDIOPLAYER_H
 #define AUDIOPLAYER_H
 
+#include "resources\AudioResource.h"
 #include <sys/types.h>
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
 #include <string>
+#include <memory>
 
 namespace pm
 { 
@@ -13,8 +15,8 @@ namespace pm
 		friend class AudioManager;
 
 	public:
-		AudioPlayer(int fileDescriptor, off_t start, off_t length)
-			: fileDescriptor(fileDescriptor), start(start), length(length) {};
+		AudioPlayer(AudioResource* audioResourcePointer)
+			: audioResource(audioResourcePointer) {};
 
 		AudioPlayer(AudioPlayer* pointer);
 		~AudioPlayer();
@@ -29,6 +31,7 @@ namespace pm
 		void SetPlayState(SLuint32 state);
 		void SetLooping(bool isEnabled); 
 		void SetVolume(float volPercentage);
+		AudioResource* getAudioResource(){return audioResource;};
 
 	private:
 		void CheckError(std::string errorText);
@@ -39,6 +42,8 @@ namespace pm
 		SLVolumeItf audioPlayerVol;
 
 		SLresult result;
+
+		AudioResource* audioResource;
 
 		int fileDescriptor;
 		off_t start, length;

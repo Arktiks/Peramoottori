@@ -25,8 +25,6 @@ namespace pm
 
 		RenderSystem() : shaderProgram(), vertexBuffer(), indexBuffer() {};
 
-		~RenderSystem() {};
-
 		void BindBuffers(Batch* batch);
 
 		void CreateShaders(); // May be changed.
@@ -37,6 +35,9 @@ namespace pm
 
 		static RenderSystem* instance;
 
+		~RenderSystem();
+
 	};
 }
+
 #endif

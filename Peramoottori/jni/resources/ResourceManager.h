@@ -8,6 +8,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <memory>
 
 namespace pm
 {
@@ -54,11 +55,10 @@ namespace pm
 		///		\return content of AAsset as unsigned char vector.
 		std::vector<unsigned char> ReadImage(std::string fileName);
 
-		/// KOMMENTOI
+		/// EI VIELÄ KÄYTÖSSÄ SIIRRÄ FONTIN LATAUS TÄNNE
 		std::string ReadFont(std::string fileName);
 
-
-		/// KOMMENTOI
+		/// KORJAA
 		AAsset* ReadAudio(std::string fileName);
 
 		///	Finds an asset from the assetMap.

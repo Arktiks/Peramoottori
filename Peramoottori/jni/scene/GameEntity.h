@@ -4,6 +4,7 @@
 #include <scene\Component.h>
 #include <unordered_map>
 #include <typeinfo>
+#include <scene\Texture.h>
 
 namespace pm
 {
@@ -19,8 +20,7 @@ namespace pm
 		void AddComponent(Component* newComponent);
 		template<typename T> T* GetComponent();
 
-		template<typename T> 
-		void RemoveComponent();
+		template<typename T> void RemoveComponent();
 
 	private:
 		ComponentList components;
@@ -35,6 +35,7 @@ T* pm::GameEntity::GetComponent()
 	else
 		return nullptr;
 }
+
 template<typename T>
 void pm::GameEntity::RemoveComponent()
 {

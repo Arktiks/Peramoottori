@@ -3,11 +3,10 @@
 
 #include <android_native_app_glue.h>
 #include <android/sensor.h>
-//#include <core/Application.h>
 
 namespace pm
 {
-	/// Handles input and event processing.
+	/// Handles input and lifeline of application.
 
 	class CommandCenter
 	{
@@ -17,14 +16,18 @@ namespace pm
 
 	private:
 
+		/// Application handles initializing.
 		static void Initialize(android_app* application);
 
 		static void Clean(); ///< Destructor.
 
+		/// Enable touch and accelerometer sensors.
 		static void EnableSensors();
 
+		/// Disable touch and accelerometer sensors.
 		static void DisableSensors();
 
+		/// Poll sensor events and update Input accordingly.
 		static void UpdateSensors(int identity);
 
 		static void Start(); ///< When activity is becoming visible to user.
@@ -37,7 +40,7 @@ namespace pm
 	
 		static void Destroy(); ///< Final call before activity is destroyed.
 	
-		static void ReadyWindow(); ///< Called when ANativeWindow is ready for use.
+		static void ReadyWindow(); ///< ANativeWindow is ready for use.
 	
 		static void TerminateWindow(); ///< ANativeWindow needs to be terminated.
 		
@@ -53,8 +56,6 @@ namespace pm
 		static ASensorEventQueue* sensorEventQueue; ///< Sensor event queue.
 
 		static android_app* android_application; ///< Reference to android application.
-
-		//static Application* application; ///< Reference to our Application.
 
 	protected:
 
