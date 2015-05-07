@@ -5,11 +5,11 @@
 
 namespace pm
 {
-	enum bufferType
+	enum BUFFER_TYPE
 	{
-		NONE,
-		VERTEX,
-		INDEX
+		NONE = 0,
+		VERTEX = 36,
+		INDEX = 6
 	};
 
 	// Needs commentating!
@@ -18,13 +18,15 @@ namespace pm
 	{
 	public:
 
-		Buffer() : index(0), type(NONE) {};
+		Buffer() : index(0), type(BUFFER_TYPE::NONE) {};
 
-		void CreateBuffer(bufferType type);
+		Buffer(BUFFER_TYPE type);
+
+		void CreateBuffer();
 
 		void BindBufferData(unsigned size, void *data);
 
-		bufferType GetType() { return type; }
+		BUFFER_TYPE GetType() { return type; }
 
 		GLuint GetIndex() { return index; }
 
@@ -33,16 +35,18 @@ namespace pm
 	private:
 
 		/// Used to initialize data storage for buffers.
+		static unsigned bufferSize;
+		
 		void InitializeVertexData();
-
 		void InitializeIndexData();
-
+		
 		void BindVertexData(unsigned size, void *data);
-
 		void BindIndexData(unsigned size, void *data);
 
+		void ResizeBuffer(unsigned size);
+		void DeleteBuffer();
 		GLuint index;
-		bufferType type;
+		BUFFER_TYPE type;
 
 	};
 }

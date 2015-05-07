@@ -4,8 +4,6 @@
 #include <core/Memory.h>
 
 #include <core/CommandCenter.h>
-#include <core/Input.h>
-
 #include <resources/ResourceManager.h>
 #include <graphics/RenderSystem.h>
 #include <graphics/SpriteBatch.h>
@@ -26,6 +24,7 @@ void Application::DestroyInstance()
 {
 	application->userData = nullptr; // Remove reference to this class.
 
+	// Destroy all modules.
 	CommandCenter::Clean();
 	RenderSystem::GetInstance()->DestroyInstance();
 	SpriteBatch::GetInstance()->DestroyInstance();
@@ -40,6 +39,7 @@ void Application::Initialize(android_app* application)
 {
 	DEBUG_INFO(("Starting Application initialization."));
 	ASSERT_NEQUAL(application, nullptr); // Make sure application pointer is legit.
+
 	app_dummy(); // Ensures glue code isn't stripped.
 	(this->application) = application; // Save application pointer for later use.
 	application->userData = static_cast<void*>(this); // Store our Application class to native glue.
@@ -50,14 +50,16 @@ void Application::Initialize(android_app* application)
 	application->onInputEvent = CommandCenter::HandleInput; // What function is referred on input calls.
 	DEBUG_INFO(("CommandCenter done."));
 
-	DEBUG_INFO(("Looping until device context is done."));
+	DEBUG_INFO(("Looping until device context has been initialized."));
 	Wait();
-	DEBUG_INFO(("Device context constructed."));
+	DEBUG_INFO(("Device context done."));
 
 	DEBUG_INFO(("Initializing other Peramoottori modules."));
+	DEBUG_INFO(("Starting ResourceManager initialization."));
 	ResourceManager::GetInstance()->Initialize(application->activity->assetManager); // Initialize ResourceManager with AAssetManager.
 	DEBUG_INFO(("ResourceManager done."));
 
+	DEBUG_INFO(("Starting RenderSystem initialization."));
 	RenderSystem::GetInstance()->Initialize();
 	DEBUG_INFO(("RenderSystem done."));
 	DEBUG_INFO(("Application has been initialized."));

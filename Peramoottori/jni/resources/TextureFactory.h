@@ -10,11 +10,17 @@ namespace pm
 	class TextureFactory
 	{
 
+		friend class CommandCenter;
+
 	public:
 
 		static Texture* CreateTexture(std::string fileName);
 
 	private:
+
+		static void CreateOGLTexture(std::string fileName, Texture* pointer);
+		static void RecreateOGLTextures();
+		static void DestroyOGLTextures();
 
 		TextureFactory() {};
 

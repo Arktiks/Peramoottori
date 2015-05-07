@@ -14,7 +14,7 @@ namespace pm
 	{
 	public:
 
-		Shader() : created(false), shaderProgram(0) {};
+		Shader() : created(false), shaderProgram(0), vertex(0), fragment(0) {};
 
 		Shader(GLuint shader) : created(true), shaderProgram(shader) {};
 
@@ -42,9 +42,6 @@ namespace pm
 
 		~Shader();
 
-		// void AddSamplerLocation(std::string samplerName); ???
-		//GLint samplerLoc; ???
-
 	private:
 
 		std::string LoadShader(std::string filePath);
@@ -57,7 +54,11 @@ namespace pm
 
 		GLuint shaderProgram; ///< Program object reference.
 
-		bool created; ///< If shaderProgram reference has been set.
+		GLuint vertex; ///< Vertex shader reference.
+
+		GLuint fragment; ///< Fragment shader reference.
+
+		bool created; ///< If shader program reference has been set.
 	};
 }
 

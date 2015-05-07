@@ -1,4 +1,6 @@
 #pragma once
+#include <PhysicComponent.h>
+
 #include <scene\GameEntity.h>
 #include <scene\Texture.h>
 #include <glm\common.hpp>
@@ -15,6 +17,11 @@ public:
 	SpriteObject();
 	SpriteObject(pm::Texture* texture);
 	~SpriteObject();
+
+
+	void AddPhysics();
+	void SetVelocity(glm::vec2 velocity);
+	glm::vec2 GetVelocity();
 
 	void SetPosition(glm::vec2 position);
 	void SetPosition(float positionX, float positionY);
@@ -34,8 +41,12 @@ public:
 	void SetColor(glm::vec4 color);
 	void SetTexture(pm::Texture* texture);
 
+	
 	glm::vec2 GetPosition();
 	glm::vec2 GetSize();
+
+	GLfloat GetRotation();
+
 
 };
 

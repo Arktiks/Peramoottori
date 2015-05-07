@@ -39,8 +39,6 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 		if (tempFileExtension.compare(TXT) == 0) // TXT FILE
 		{
-			//DEBUG_INFO(("Loading TXT file."));
-
 			std::string textData = ReadText(fileName);
 			TextResource* tempTextData = NEW TextResource(textData);
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempTextData));
@@ -50,38 +48,35 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 		else if (tempFileExtension.compare(TTF) == 0) // TTF FILE
 		{
-			//DEBUG_INFO(("Loading TTF file."));
-
 			AAsset* ttfAsset = OpenAAsset(fileName);
 			std::vector<FT_Byte> ttf = ReadUnsignedChar(ttfAsset);
 			//AAsset_close(ttfAsset);
-
+		
 			FontResource* tempFontData = NEW FontResource(ttf);
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
 
-			return tempFontData; // Return created resource instantly.
-		
+				AAsset_close(ttfAsset);
+
+				return tempFontData; // Return created resource instantly.
 		}
 
 		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE
 		{
-			//DEBUG_INFO(("Loading OGG file."));
-			AAsset* tempAudioAsset = ReadAudio(fileName);
+			AAsset *tempAudioAsset = ReadAudio(fileName);
 			off_t start, length;
 
 			int	tempFileDescriptor = AAsset_openFileDescriptor(tempAudioAsset, &start, &length);
-			AudioResource* tempFileData = NEW AudioResource(tempFileDescriptor, tempAudioAsset);
-			assets.insert(std::pair<std::string, Resource*>(fileName, tempFileData));
+			AudioResource* tempAudioResource = NEW AudioResource(tempFileDescriptor, length, start);
+			assets.insert(std::pair<std::string, Resource*>(fileName, tempAudioResource));
 
-			return tempFileData;
+			AAsset_close(tempAudioAsset);
+
+			return tempAudioResource;
 
 		}
 
 		else if (tempFileExtension.compare(PNG) == 0) // PNG FILE
 		{
-			//DEBUG_INFO(("Loading PNG file."));
-
-
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempImageResource));
 
@@ -90,14 +85,14 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 		else
 		{
-			DEBUG_WARNING(("Filetype not recognized."));
+			DEBUG_WARNING(("ResourceManager could not recognize (%s) filetype!", fileName.c_str()));
 			return nullptr;
 		}
 	}
 
 	else // If there is a file with the same name already.
 	{
-		DEBUG_INFO(("File was already in memory."));
+		DEBUG_INFO(("(%s) has already been loaded.", fileName.c_str()));
 		return GetAsset(fileName);
 	}
 }
@@ -107,41 +102,42 @@ void pm::ResourceManager::ClearAssetMap()
 	assets.clear();
 }
 
-
 /// Private Functions ///
 
 std::string pm::ResourceManager::ReadText(std::string fileName)
 {
 	AAsset* tempAsset = OpenAAsset(fileName);
 	
-	if (tempAsset)
+	if (tempAsset != nullptr)
 	{
 		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
 		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-
+		AAsset_close(tempAsset);
 		//DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
 
 		return tempString;
 	}
 	else
+		AAsset_close(tempAsset);
 		return std::string(); // Returns empty string if there is an error.
 }
 
-std::string pm::ResourceManager::ReadFont(std::string fileName)
-{
-	AAsset* tempAsset = OpenAAsset(fileName);
-
-	if (tempAsset)
-	{
-		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
-		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
-		return tempString;
-	}
-	else
-		return std::string();
-
-}
+//SIIRRÄ FONTIN LATAUS TÄNNE
+//std::string pm::ResourceManager::ReadFont(std::string fileName)
+//{
+//	AAsset* tempAsset = OpenAAsset(fileName);
+//
+//	if (tempAsset)
+//	{
+//		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
+//		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
+//		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
+//		return tempString;
+//	}
+//	else
+//		return std::string();
+//
+//}
 
 AAsset* pm::ResourceManager::ReadAudio(std::string fileName)
 {
@@ -164,9 +160,11 @@ std::vector<unsigned char> pm::ResourceManager::ReadImage(std::string fileName)
 	if (tempAsset)
 	{
 		tempBuffer = ReadUnsignedChar(tempAsset);
+		AAsset_close(tempAsset);
 		return tempBuffer;
 	}
 	else
+		AAsset_close(tempAsset);
 		return tempBuffer; // Returns empty Image if there is an error.
 }
 
@@ -176,7 +174,7 @@ pm::Resource* pm::ResourceManager::GetAsset(std::string fileName)
 
 	if (it == assets.end()) // Couldn't find Resource.
 	{
-		DEBUG_WARNING(("Couldn't find Resource %s!", fileName.c_str()));
+		DEBUG_WARNING(("ResourceManger couldn't find Resource %s!", fileName.c_str()));
 		return nullptr;
 		//DEBUG_INFO(("File was already in memory"));
 		//return new Resource;
@@ -201,7 +199,7 @@ AAsset* pm::ResourceManager::OpenAAsset(std::string fileName)
 			}
 			else
 			{
-				DEBUG_INFO(("Reading file failed: %s, filelenght zero", fileName.c_str()));
+				DEBUG_INFO(("Reading file failed: %s, filelength zero", fileName.c_str()));
 			}
 		}
 		else // There was an error opening the AAsset.
@@ -244,7 +242,6 @@ bool pm::ResourceManager::ManagerCheck()
 		return false;
 	}
 }
-
 
 /// Engine Functions ///
 

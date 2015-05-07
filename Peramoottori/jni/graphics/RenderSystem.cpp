@@ -5,8 +5,7 @@
 #include <core\Passert.h>
 #include <core\Vector2.h>
 
-//#include <core\Game.h> // Only needed for resolution at the moment.
-#include <core\Application.h>
+#include <core\Application.h> // Only needed for resolution at the moment.
 
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
@@ -41,8 +40,8 @@ void RenderSystem::Initialize()
 	float top = resolution.y;
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, -1.0f, 1.0f);
 
-	vertexBuffer.CreateBuffer(VERTEX); // Already contain GL error handling.
-	indexBuffer.CreateBuffer(INDEX);
+	vertexBuffer = Buffer(VERTEX); // Already contain GL error handling.
+	indexBuffer = Buffer(INDEX);
 
 	CreateShaders();
 
@@ -142,4 +141,9 @@ void RenderSystem::CreateShaders()
 	DEBUG_GL_ERROR();
 
 	DEBUG_INFO(("Default shaders done!"));
+}
+
+RenderSystem::~RenderSystem()
+{
+	//glDeleteShader(
 }

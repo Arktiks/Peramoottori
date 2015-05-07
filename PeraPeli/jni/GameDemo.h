@@ -34,7 +34,9 @@ public:
 	pm::Texture FindTexture(std::string name);
 	SpriteObject FindSpriteObject(std::string name);
 private:
-	int CheckTouch(glm::vec2 touch);
+	void BallPhysics(SpriteObject* target);
+	bool CheckTouch(glm::vec2 touch, SpriteObject* target);
+	bool holdingBall;
 	void Draw();
 	std::map<std::string, pm::Texture*> textureMap;
 	std::map<std::string, SpriteObject*> spriteMap;

@@ -15,7 +15,9 @@ namespace pm
 		~Profiler();
 
 	private:
+
 		Time clock;
+
 		std::string name;
 	};
 }

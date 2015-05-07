@@ -42,6 +42,9 @@
     <ClCompile Include="jni\SpriteObject.cpp">
       <Filter>jni</Filter>
     </ClCompile>
+    <ClCompile Include="jni\PhysicComponent.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="native_app_glue\android_native_app_glue.h">
@@ -54,6 +57,9 @@
       <Filter>PeraPeli</Filter>
     </ClInclude>
     <ClInclude Include="jni\SpriteObject.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\PhysicComponent.h">
       <Filter>jni</Filter>
     </ClInclude>
   </ItemGroup>

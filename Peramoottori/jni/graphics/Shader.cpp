@@ -17,13 +17,24 @@ bool Shader::AddShader(string filePath, GLenum ShaderType)
 		created = true;
 	}
 
+	if (vertex != 0)
+	{
+		DEBUG_WARNING(("ShaderProgram (%i) already has vertex shader!", shaderProgram));
+		return false;
+	}
+	else if (fragment != 0)
+	{
+		DEBUG_WARNING(("ShaderProgram (%i) already has fragment shader!", shaderProgram));
+		return false;
+	}
+
 	GLuint tempShader = 0; // Empty shader object reference.
 	tempShader = glCreateShader(ShaderType); // Generate value it can be reference upon.
 	DEBUG_GL_ERROR();
 	ASSERT_NEQUAL(tempShader, 0);
 
 	string loadedString = LoadShader(filePath); // LoadShader has error checking.
-	const GLchar* charArray = loadedString.c_str(); // NOTE: Couldn't you use string directly?
+	const GLchar* charArray = loadedString.c_str(); // ...
 
 	glShaderSource(tempShader, 1, &charArray, nullptr); // Replace source code in shader object.
 	DEBUG_GL_ERROR();
@@ -36,8 +47,10 @@ bool Shader::AddShader(string filePath, GLenum ShaderType)
 	
 	glAttachShader(shaderProgram, tempShader); // Attach shader object to program object.
 
-	//glDetachShader(shaderProgram, tempShader); // Decrement reference.
-	//glDeleteShader(tempShader);
+	if (ShaderType == GL_VERTEX_SHADER)
+		vertex = tempShader;
+	else if (ShaderType == GL_FRAGMENT_SHADER)
+		fragment = tempShader;
 
 	return true;
 }
@@ -93,6 +106,7 @@ void Shader::UseProgram()
 
 GLuint Shader::GetAttribLocation(string attributeName)
 {
+	DEBUG_GL_ERROR_CLEAR();
 	GLint tempCheck = glGetAttribLocation(shaderProgram, attributeName.c_str());
 	DEBUG_GL_ERROR();
 
@@ -108,26 +122,40 @@ GLuint Shader::GetAttribLocation(string attributeName)
 void Shader::AddVertexAttribPointer(string attributeName, GLint size, GLsizei stride, GLint offset)
 {
 	ShaderVertexAttrib tempAttrib;
-
 	tempAttrib.attributeName = attributeName;
 	tempAttrib.size = size;
 	tempAttrib.stride = stride;
 	tempAttrib.offset = offset;
-
 	ShaderVertexAttribs.push_back(tempAttrib);
 }
 
 Shader::~Shader()
 {
+	DEBUG_GL_ERROR_CLEAR();
+
+	if (vertex != 0)
+	{
+		glDetachShader(shaderProgram, vertex);
+		DEBUG_GL_ERROR();
+		glDeleteShader(vertex);
+		DEBUG_GL_ERROR();
+	}
+
+	if (fragment != 0)
+	{
+		glDetachShader(shaderProgram, fragment);
+		DEBUG_GL_ERROR();
+		glDeleteShader(fragment);
+		DEBUG_GL_ERROR();
+	}
+
 	glDeleteProgram(shaderProgram);
 	DEBUG_GL_ERROR();
 }
 
 string Shader::LoadShader(string filePath)
 {
-
 	TextResource* decodedText = (TextResource*) ResourceManager::GetInstance()->LoadAsset(filePath);
-
 	std::string tempString = decodedText->GetTextData();
 
 	if (tempString.empty())
@@ -140,14 +168,16 @@ string Shader::LoadShader(string filePath)
 
 bool Shader::CheckShaderCompile(GLuint shader)
 {
+	DEBUG_GL_ERROR_CLEAR();
 	GLint tempCompiled = GL_FALSE;
-
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &tempCompiled); // Return parameter from shader object.
+	DEBUG_GL_ERROR();
 
 	if (tempCompiled == GL_FALSE) // Shader does not compile.
 	{
 		GLsizei tempLength = 0;
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &tempLength); // Get length of error message.
+		DEBUG_GL_ERROR();
 
 		if (tempLength > 0)
 		{
@@ -168,14 +198,16 @@ bool Shader::CheckShaderCompile(GLuint shader)
 
 bool Shader::CheckProgramLink(GLuint program)
 {
+	DEBUG_GL_ERROR_CLEAR();
 	GLint tempLink = GL_FALSE;
-
 	glGetProgramiv(program, GL_LINK_STATUS, &tempLink); // Check link status.
+	DEBUG_GL_ERROR();
 
 	if (tempLink == GL_FALSE)
 	{
 		GLsizei tempLength = 0;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &tempLength);
+		DEBUG_GL_ERROR();
 
 		if (tempLength > 0)
 		{
