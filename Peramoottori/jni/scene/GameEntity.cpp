@@ -14,7 +14,7 @@ void pm::GameEntity::AddComponent(Component* newComponent)
 {
 	// If this component exists, delete it and add new one.
 	// Check RemoveComponent and test later for simpler implementation
-	ComponentList::const_iterator componentIt  = components.find(&typeid(*newComponent));
+	ComponentList::iterator componentIt  = components.find(&typeid(*newComponent));
 	if (componentIt != components.end())
 	{
 		delete componentIt->first;

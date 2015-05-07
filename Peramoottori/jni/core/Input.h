@@ -29,6 +29,7 @@ namespace pm
 		/**
 			\return Returns accelerometer data as glm vec3.
 		*/
+
 		glm::vec3 GetAccelerometerData();
 
 		/// Checks if its the first time calling GetSingleTouch during touch.

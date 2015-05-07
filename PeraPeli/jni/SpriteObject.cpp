@@ -24,8 +24,39 @@ SpriteObject::~SpriteObject()
 {
 }
 
+
+void SpriteObject::AddPhysics()
+{
+	AddComponent(NEW PhysicComponent);
+	GetComponent<PhysicComponent>()->SetPosition(GetComponent<pm::Transformable>()->GetPosition());
+}
+
+void SpriteObject::SetVelocity(glm::vec2 velocity)
+{
+	if (GetComponent<PhysicComponent>() == nullptr)
+	{
+		return;
+	}
+	else
+		GetComponent<PhysicComponent>()->SetVelocity(velocity);
+}
+
+glm::vec2 SpriteObject::GetVelocity()
+{
+	if (GetComponent<PhysicComponent>() == nullptr)
+	{
+		return glm::vec2(0, 0);
+	}
+	else
+		return GetComponent<PhysicComponent>()->GetVelocity();
+}
+
 void SpriteObject::SetPosition(glm::vec2 position)
 {
+	if (GetComponent<PhysicComponent>() == nullptr)
+	{}
+	else
+		GetComponent<PhysicComponent>()->SetPosition(position);
 	GetComponent<pm::Transformable>()->SetPosition(position);
 }
 void SpriteObject::SetPosition(float positionX, float positionY)
@@ -87,4 +118,9 @@ glm::vec2 SpriteObject::GetPosition()
 glm::vec2 SpriteObject::GetSize()
 {
 	return GetComponent<pm::Rectangle>()->GetSize();
+}
+
+GLfloat SpriteObject::GetRotation()
+{
+ 	return GetComponent<pm::Transformable>()->GetRotation();
 }
