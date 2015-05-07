@@ -42,6 +42,8 @@ namespace pm
 
 		WindowHandler window; ///< Handles display of android device.
 
+		void* saveData; ///< Pointer to hold saved data.
+
 	private:
 
 		/// Print warning messages if trying to use Application without initializing.

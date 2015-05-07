@@ -4,8 +4,8 @@ pm::GameEntity::~GameEntity()
 {
 	for (ComponentList::iterator it = components.begin(); it != components.end();it++)
 	{
-		delete it->first;
 		delete it->second;
+		delete it->first;
 	}
 	components.clear();
 }

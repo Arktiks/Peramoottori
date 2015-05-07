@@ -3,19 +3,14 @@
 #include <core\Passert.h>
 #include <core\Memory.h>
 
-#include <EGL\egl.h>
-#include <GLES2\gl2.h>
 #include <resources\ResourceManager.h>
-#include <audio\Audio.h>
-#include <graphics\Text.h>
-
+#include <core\Time.h>
 
 using namespace pm;
-
+using namespace std;
 
 /// FOR TESTING PURPOSES ///
-
-#include <core\Time.h>
+/*#include <core\Time.h>
 #include <scene\GameEntity.h>
 #include <graphics\RenderSystem.h>
 #include <graphics\Rectangle.h>
@@ -24,9 +19,6 @@ using namespace pm;
 #include <graphics\Drawable.h>
 #include <graphics\Color.h>
 #include <core\Input.h>
-
-
-
 // For testing purposes
 static std::vector<GameEntity*> entityVector; 
 static std::vector<GameEntity*> demoEntityVector;
@@ -40,17 +32,58 @@ bool dontTouch = true;
 Input input;
 Time deltaTime;
 
-
 int touch(glm::vec2 touchPosition);
-
 void InitializeGame();
 void UpdateGame();
 
 void InitializeDemo();
 void UpdateDemo();
-Audio* bestAudio;
+Audio* bestAudio;*/
 ////////////////////////////
 
+
+/////////////////////// Tuukka ///////////////////////
+#include <scene\GameEntity.h>
+#include <scene\Transformable.h>
+#include <resources\TextureFactory.h>
+#include <graphics\Rectangle.h>
+#include <graphics\Drawable.h>
+#include <graphics\SpriteBatch.h>
+
+namespace pm
+{
+	class GameClass // Test holding game information.
+	{
+	public:
+		GameClass() : rotation(0.0f)
+		{
+			objects.push_back(GameEntity());
+			objects[0].AddComponent(NEW Transformable(glm::vec2(100.0f, 100.0f), glm::vec2(1.0f, 1.0f), 0.0f));
+			objects[0].AddComponent(TextureFactory::CreateTexture("iiro.png"));
+			objects[0].AddComponent(NEW Rectangle(50.0f, 50.0f));
+			objects[0].AddComponent(NEW Drawable);
+		};
+
+		void Update()
+		{
+			rotation += 0.1f;
+			objects[0].GetComponent<Transformable>()->SetRotation(rotation);
+			SpriteBatch::GetInstance()->AddGameEntity(&objects[0]);
+		};
+
+		void Draw()
+		{
+		};
+
+		std::vector<GameEntity> objects;
+		float rotation;
+
+		static bool first;
+	};
+
+	bool GameClass::first = false;
+}
+//////////////////////////////////////////////////////
 
 void android_main(android_app* application)
 {
@@ -58,43 +91,39 @@ void android_main(android_app* application)
 	
 	Application* game = Application::GetInstance(); // For ease of use.
 	game->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
-	//ASSERT(check);
 
-	game->window.SetClearColor(1.0f, 0.4f, 1.0f);
+	game->Wait();
 
+	//game->window.SetClearColor(1.0f, 0.4f, 1.0f);
 	//InitializeGame();
-	InitializeDemo();
-
-
-	Audio audio("test1.ogg");
-	audio.Play();
-
+	//InitializeDemo();
+	//Audio audio("test1.ogg");
+	//audio.Play();
 	//ResourceManager::GetInstance()->LoadAsset("test.png");
 
-
+	if (GameClass::first == false)
+	{
+		GameClass* g = NEW GameClass;
+		game->saveData = (void*)g;
+		GameClass::first = true;
+	}
 
 	Time time;
 	float fps = 0;
 
 	while (game->Update())
 	{
-		//fps = (1 / (time.CalculateTimeInFrame() / 1000000000));
-		DEBUG_INFO(("Main.cpp sanoo: fps = %f", fps));
+		GameClass* access = (GameClass*)game->saveData;
+		access->Update();
 
 		game->window.Clear();
-	//	UpdateGame();
-		UpdateDemo();
-
 		game->Draw();
 	}
 	
-	// ONLY ON DEMO
-	delete bestAudio;
-	//
 	DEBUG_INFO(("Exiting android_main."));
 }
 
-void InitializeGame()
+/*void InitializeGame()
 {
 	for(int i = 0; i < 100; ++i)
 	{
@@ -259,4 +288,4 @@ int touch(glm::vec2 touchPosition)
 		return 2;
 	else
 		return 0;
-}
+}*/

@@ -21,7 +21,7 @@
     <ClCompile Include="..\Peramoottori\libs\lodepng.cpp" />
     <ClCompile Include="jni\GameDemo.cpp" />
     <ClCompile Include="jni\main.cpp" />
-    <ClCompile Include="jni\Sprite.cpp" />
+    <ClCompile Include="jni\SpriteObject.cpp" />
     <ClCompile Include="native_app_glue\android_native_app_glue.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
@@ -30,7 +30,7 @@
   <ItemGroup>
     <ClInclude Include="..\Peramoottori\libs\lodepng.h" />
     <ClInclude Include="jni\GameDemo.h" />
-    <ClInclude Include="jni\Sprite.h" />
+    <ClInclude Include="jni\SpriteObject.h" />
     <ClInclude Include="native_app_glue\android_native_app_glue.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
