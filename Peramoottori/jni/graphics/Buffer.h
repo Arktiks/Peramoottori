@@ -8,8 +8,8 @@ namespace pm
 	enum BUFFER_TYPE
 	{
 		NONE = 0,
-		VERTEX,
-		INDEX
+		VERTEX = 36,
+		INDEX = 6
 	};
 
 	// Needs commentating!
@@ -22,7 +22,7 @@ namespace pm
 
 		Buffer(BUFFER_TYPE type);
 
-		void CreateBuffer(BUFFER_TYPE type);
+		void CreateBuffer();
 
 		void BindBufferData(unsigned size, void *data);
 
@@ -35,14 +35,16 @@ namespace pm
 	private:
 
 		/// Used to initialize data storage for buffers.
+		static unsigned bufferSize;
+		
 		void InitializeVertexData();
-
 		void InitializeIndexData();
-
+		
 		void BindVertexData(unsigned size, void *data);
-
 		void BindIndexData(unsigned size, void *data);
 
+		void ResizeBuffer(unsigned size);
+		void DeleteBuffer();
 		GLuint index;
 		BUFFER_TYPE type;
 
