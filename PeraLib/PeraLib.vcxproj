@@ -31,10 +31,8 @@
     <ClCompile Include="..\Peramoottori\jni\graphics\Rectangle.cpp" />
     <ClCompile Include="..\Peramoottori\jni\graphics\RenderSystem.cpp" />
     <ClCompile Include="..\Peramoottori\jni\graphics\Shader.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\Sprite.cpp" />
     <ClCompile Include="..\Peramoottori\jni\graphics\SpriteBatch.cpp" />
     <ClCompile Include="..\Peramoottori\jni\graphics\Text.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\TextureRectangle.cpp" />
     <ClCompile Include="..\Peramoottori\jni\resources\ResourceManager.cpp" />
     <ClCompile Include="..\Peramoottori\jni\resources\TextureFactory.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Component.cpp" />

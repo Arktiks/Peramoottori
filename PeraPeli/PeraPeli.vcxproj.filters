@@ -45,6 +45,9 @@
     <ClCompile Include="jni\PhysicComponent.cpp">
       <Filter>jni</Filter>
     </ClCompile>
+    <ClCompile Include="jni\RNG.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="native_app_glue\android_native_app_glue.h">
@@ -60,6 +63,9 @@
       <Filter>jni</Filter>
     </ClInclude>
     <ClInclude Include="jni\PhysicComponent.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\RNG.h">
       <Filter>jni</Filter>
     </ClInclude>
   </ItemGroup>

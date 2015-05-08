@@ -1,5 +1,5 @@
 #include "GameDemo.h"
-
+#include "RNG.h"
 
 GameDemo::GameDemo()
 {
@@ -13,14 +13,25 @@ GameDemo::~GameDemo()
 
 void GameDemo::Initialize()
 {
+	pm::Vector2<int> pmLimits = Application::GetInstance()->window.GetResolution();
+	limits.x = pmLimits.x;
+	limits.y = pmLimits.y;
+
 	holdingBall = false;
 
 	touchAudio = NEW pm::Audio("0477.ogg");
 	touchAudio->SetMaxPlayerCount(10);
+	touchAudio->SetVolume(1);
+
+	music = NEW pm::Audio("LGMThePortal.ogg");
+	music->SetLooping(true);
+	music->SetVolume(100);
+	music->Play();
 
 	pm::Texture* pointTexture = pm::TextureFactory::CreateTexture("point.png");
 	pm::Texture* groundTexture = pm::TextureFactory::CreateTexture("groundTexture.png");
 	pm::Texture* footBallTexture = pm::TextureFactory::CreateTexture("Football.png");
+	pm::Texture* spiralTexture = pm::TextureFactory::CreateTexture("spiral.png");
 	textureMap["point"] = pointTexture;
 	textureMap["ground"] = groundTexture;
 
@@ -61,13 +72,48 @@ void GameDemo::Initialize()
 	touchSprite2->SetDepth(10);
 	touchSprite2->SetPosition(900, 500);
 	touchSprite2->SetSize(200, 200);
+
+	SpriteObject* spiral = new SpriteObject(spiralTexture);
+	spiral->SetOrigin(701, 701);
+	spiral->SetPosition(640, 360);
+	spiral->SetSize(1400, 1400);
+	spiral->SetDepth(5);
+	opaqueSpriteMap["spiral"] = spiral;
+	
+
+	time.CalculateTimeInFrame();
 }
 void GameDemo::Update()
 {
-	BallPhysics(opaqueSpriteMap["ball"]);
+	SpriteObject* obj = opaqueSpriteMap["spiral"];
+	assert( obj != 0);
+	obj->SetRotation(obj->GetRotation() - 1);
+	ColorRNG(obj);
+
+	// Update physics every two seconds
+	if (time.CalculateTimeInFrame() > 2.0f)
+		BallPhysics(opaqueSpriteMap["ball"]);
+	
+	InputUpdate();
+	Draw();
+}
+
+void GameDemo::Draw()
+{
+	std::map<std::string, SpriteObject*>::iterator it;
+
+	for (it = spriteMap.begin(); it != spriteMap.end(); it++)
+		pm::SpriteBatch::GetInstance()->AddGameEntity(it->second);
+
+	for (it = opaqueSpriteMap.begin(); it != opaqueSpriteMap.end(); it++)
+		pm::SpriteBatch::GetInstance()->AddOpaqueGameEntity(it->second);
+}
+
+void GameDemo::InputUpdate()
+{
 	if (input.IsTouching())
 	{
-		glm::vec2 touchPosition = input.GetTouchCoordinates();
+		glm::vec2 touchPosition = glm::vec2(input.GetTouchCoordinates().x - 40, input.GetTouchCoordinates().y);
 
 		opaqueSpriteMap["point"]->SetDrawState(true);
 		opaqueSpriteMap["point"]->SetPosition(touchPosition);
@@ -85,7 +131,7 @@ void GameDemo::Update()
 			spriteMap["touchArea2"]->SetColor(glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 			touchAudio->Play();
 		}
-		if (CheckTouch(touchPosition, opaqueSpriteMap["ball"]))
+		if (CheckTouch((touchPosition + opaqueSpriteMap["ball"]->GetOrigin()), opaqueSpriteMap["ball"]))
 		{
 			holdingBall = true;
 		}
@@ -104,19 +150,7 @@ void GameDemo::Update()
 		opaqueSpriteMap["point"]->SetDrawState(false);
 		holdingBall = false;
 	}
-	
-	Draw();
-}
 
-void GameDemo::Draw()
-{
-	std::map<std::string, SpriteObject*>::iterator it;
-
-	for (it = spriteMap.begin(); it != spriteMap.end(); it++)
-		pm::SpriteBatch::GetInstance()->AddGameEntity(it->second);
-
-	for (it = opaqueSpriteMap.begin(); it != opaqueSpriteMap.end(); it++)
-		pm::SpriteBatch::GetInstance()->AddGameEntity(it->second);
 }
 
 bool GameDemo::CheckTouch(glm::vec2 touch, SpriteObject *target)
@@ -139,26 +173,57 @@ void GameDemo::BallPhysics(SpriteObject* target)
 	target->SetPosition(target->GetPosition() + target->GetVelocity());
 }
 
-void CheckLimits(SpriteObject* target)
+void GameDemo::CheckLimits(SpriteObject* target)
 {
-	if (target->GetPosition().x < 0)
+	if (target->GetPosition().x - target->GetSize().x/2 < 0)
 	{
-		target->SetPosition(0.0f, target->GetPosition().y);
-		target->SetVelocity(glm::vec2(target->GetVelocity().x * -0.8, target->GetVelocity.y));
+		target->SetPosition(target->GetSize().x / 2, target->GetPosition().y);
+		target->SetVelocity(glm::vec2(target->GetVelocity().x * -0.8f, target->GetVelocity().y));
 	}
-	else if (target->GetPosition.x > 900)
+	else if (target->GetPosition().x > limits.x - target->GetSize().x/2)
 	{
-		target->SetPosition(900.0f, target->GetPosition().y);
-		target->SetVelocity(glm::vec2(target->GetVelocity().x * -0.8, target->GetVelocity.y));
+		target->SetPosition(limits.x - target->GetSize().x / 2, target->GetPosition().y);
+		target->SetVelocity(glm::vec2(target->GetVelocity().x * -0.8f, target->GetVelocity().y));
 	}
 
-	if (target->GetPosition().y > 680)
+	if (target->GetPosition().y > limits.y - target->GetSize().y/2)
 	{
-		target->SetVelocity(glm::vec2(target->GetVelocity().x, 0));
-		target->SetPosition(glm::vec2(target->GetPosition().x, 680));
+		target->SetVelocity(glm::vec2(target->GetVelocity().x, target->GetVelocity().y * -0.8f));
+		target->SetPosition(glm::vec2(target->GetPosition().x, limits.y - target->GetSize().y / 2));
 	}
 	else
 	{
 		target->SetVelocity(glm::vec2(target->GetVelocity().x, target->GetVelocity().y + 0.1f));
 	}
+}
+
+float CheckMinMax(float color)
+{
+	if (color < 0.00f)
+		return 0.01f;
+	else if (color > 1.00f)
+		return 0.99f;
+	else
+		return color;
+}
+
+void GameDemo::ColorRNG(SpriteObject* target)
+{
+	glm::vec4 newColor = target->GetColor();
+
+	int plusOrMinus = 1;
+	if (RNG::Random(1))
+		plusOrMinus = -1;
+	
+	newColor.r += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
+	newColor.b += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
+	newColor.g += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
+	newColor.w += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
+
+	newColor.r = CheckMinMax(newColor.r);
+	newColor.b = CheckMinMax(newColor.b);
+	newColor.g = CheckMinMax(newColor.g);
+	newColor.w = CheckMinMax(newColor.w);
+
+	target->SetColor(newColor);
 }

@@ -131,9 +131,6 @@
     <ClCompile Include="jni\graphics\Color.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\TextureRectangle.cpp">
-      <Filter>jni\scene\components</Filter>
-    </ClCompile>
     <ClCompile Include="jni\scene\Component.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
@@ -144,9 +141,6 @@
       <Filter>jni\graphics</Filter>
     </ClCompile>
     <ClCompile Include="jni\graphics\Buffer.cpp">
-      <Filter>jni\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\graphics\Sprite.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
     <ClCompile Include="jni\scene\Texture.cpp">
@@ -940,9 +934,6 @@
     <ClInclude Include="jni\graphics\Drawable.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\TextureRectangle.h">
-      <Filter>jni\scene\components</Filter>
-    </ClInclude>
     <ClInclude Include="jni\scene\Component.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
@@ -953,9 +944,6 @@
       <Filter>jni\graphics</Filter>
     </ClInclude>
     <ClInclude Include="jni\graphics\Buffer.h">
-      <Filter>jni\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\graphics\Sprite.h">
       <Filter>jni\graphics</Filter>
     </ClInclude>
     <ClInclude Include="jni\resources\FontResource.h">

@@ -6,6 +6,7 @@
 
 namespace pm
 {
+	/// Mother class of all Resources
 	class Resource
 	{
 	public:

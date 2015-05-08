@@ -13,13 +13,14 @@ namespace pm
 	class RenderSystem
 	{
 	public:
-		static RenderSystem* GetInstance();
 
-		void DestroyInstance();
+		static RenderSystem* GetInstance();///< Returns RenderSystem instance, that can be only one at once.
+
+		void DestroyInstance(); /// Removes current instance.
 
 		void Initialize(); ///< RenderSystem should be initialized when context is ready.
-
-		void Draw(Batch* batch);
+		
+		void Draw(Batch* batch); ///< renders one patch.
 
 		bool IsInitialized();
 
@@ -27,7 +28,7 @@ namespace pm
 
 		RenderSystem() : shaderProgram(), vertexBuffer(), indexBuffer() {};
 
-		void BindBuffers(Batch* batch);
+		void BindBuffers(Batch* batch); ///< Binds buffers before rendering patch.
 
 		void CreateShaders(); // May be changed.
 

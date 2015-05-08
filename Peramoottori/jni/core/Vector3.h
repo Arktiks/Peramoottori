@@ -6,17 +6,19 @@
 
 namespace pm
 {
+	/**
+	*Engines own Vector3 that can be used to make fast 2 place vectors
+	*/
 	template<typename T>
 	class Vector3
 	{
-		friend std::ostream operator<<(std::ostream& os, const Vector3<T>& v)
+		Vector3<T> operator<<(const Vector2<T>& v)
 		{
-			os << v.x << " , " << v.y, << " , " << v.z;
-			return os;
+			DEBUG_INFO(("&f, &f, &f", v.x, v.y, v.z));
 		}
 
 	public:
-
+		/// constructor for Vector 
 		Vector3(T x, T y, T z)
 		{
 			this.x = x;
@@ -24,7 +26,7 @@ namespace pm
 			this.z = z;
 		};
 		~Vector3();
-
+		/// overloading operator +
 		Vector3<T> operator + (const Vector3<T>& right)
 		{
 			x = x + right.x;
@@ -32,6 +34,7 @@ namespace pm
 			z = z + right.z;
 			return *this;
 		}
+		/// overloading operator -
 		Vector3<T> operator - (const Vector3<T>& right)
 		{
 			x = x - right.x;
@@ -39,6 +42,7 @@ namespace pm
 			z = z - right.z;
 			return *this;
 		}
+		/// overloading operator *=
 		Vector3<T> operator *= (Vector3<T>& left)
 		{
 			x *= left.x;
@@ -46,6 +50,7 @@ namespace pm
 			z *= left.z;
 			return *this;
 		}
+		/// overloading operator /=
 		Vector3<T> operator /= (Vector3<T>& left)
 		{
 			x /= left.x;
@@ -53,6 +58,7 @@ namespace pm
 			z /= left.z;
 			return *this;
 		}
+		/// overloading operator +=
 		Vector3<T> operator += (Vector3<T>& left)
 		{
 			x += left.x;
@@ -60,6 +66,7 @@ namespace pm
 			z += left.z;
 			return *this;
 		}
+		/// overloading operator -=
 		Vector3<T> operator -= (Vector3<T>& left)
 		{
 			x -= left.x;

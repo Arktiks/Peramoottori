@@ -10,10 +10,10 @@ namespace pm
 	{
 	public:
 		ImageResource();
-
+		///constructor
 		ImageResource(std::vector<unsigned char> pixels) :
 			imageData(pixels) {};
-
+		/// returns image data 
 		std::vector <unsigned char> GetImageData() { return imageData; }
 
 		~ImageResource() {};
