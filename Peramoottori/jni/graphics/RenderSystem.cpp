@@ -15,6 +15,7 @@ using namespace pm;
 using namespace std;
 
 RenderSystem* RenderSystem::instance = nullptr;
+bool RenderSystem::initialized = false;
 
 RenderSystem* RenderSystem::GetInstance()
 {
@@ -27,7 +28,7 @@ void RenderSystem::DestroyInstance()
 {
 	delete instance;
 	instance = nullptr;
-
+	initialized = false;
 	// Clean up RenderSystem.
 }
 
@@ -59,6 +60,7 @@ void RenderSystem::Initialize()
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	DEBUG_GL_ERROR();
 
+	initialized = true;
 	DEBUG_INFO(("RenderSystem initialize finished."));
 }
 
@@ -98,6 +100,11 @@ void RenderSystem::Draw(Batch* batch)
 	DEBUG_GL_ERROR();
 }
 
+bool RenderSystem::IsInitialized()
+{
+	return initialized;
+}
+
 void RenderSystem::BindBuffers(Batch* batch)
 {
 	vertexBuffer.BindBufferData(batch->GetVertexDataPointer()->size(), batch->GetVertexDataPointer()->data());
@@ -110,11 +117,11 @@ void RenderSystem::CreateShaders()
 
 	bool tempCheck = shaderProgram.AddShader("TestVertexShader.txt", GL_VERTEX_SHADER); // Create default vertex shader.
 	DEBUG_GL_ERROR();
-	ASSERT(tempCheck);
+	//ASSERT(tempCheck);
 
 	tempCheck = shaderProgram.AddShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER); // Create default fragment shader.
 	DEBUG_GL_ERROR();
-	ASSERT(tempCheck);
+	//ASSERT(tempCheck);
 
 	shaderProgram.AddVertexAttribPointer("attrPosition", 3, 9, 0); // Vertex attributes defined by default shaders.
 	shaderProgram.AddVertexAttribPointer("attrColor", 4, 9, 3);
