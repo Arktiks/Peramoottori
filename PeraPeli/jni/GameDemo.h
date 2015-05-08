@@ -29,14 +29,17 @@ public:
 	void Initialize();
 	void Update();
 	pm::Time time;
-	pm::Audio* touchAudio;
+	pm::Audio* touchAudio, *music;
 	pm::Input input;
 	pm::Texture FindTexture(std::string name);
 	SpriteObject FindSpriteObject(std::string name);
 private:
+	glm::vec2 limits;
 	void BallPhysics(SpriteObject* target);
 	void CheckLimits(SpriteObject* target);
+	void ColorRNG(SpriteObject* target);
 	bool CheckTouch(glm::vec2 touch, SpriteObject* target);
+	void InputUpdate();
 	bool holdingBall;
 	void Draw();
 	std::map<std::string, pm::Texture*> textureMap;
