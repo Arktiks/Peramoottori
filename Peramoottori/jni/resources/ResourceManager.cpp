@@ -55,7 +55,7 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 			FontResource* tempFontData = NEW FontResource(ttf);
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
 
-				AAsset_close(ttfAsset);
+				//AAsset_close(ttfAsset);
 
 				return tempFontData; // Return created resource instantly.
 		}
@@ -112,7 +112,8 @@ std::string pm::ResourceManager::ReadText(std::string fileName)
 	{
 		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
 		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-		AAsset_close(tempAsset);
+
+		//AAsset_close(tempAsset);
 		//DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
 
 		return tempString;
@@ -160,7 +161,7 @@ std::vector<unsigned char> pm::ResourceManager::ReadImage(std::string fileName)
 	if (tempAsset)
 	{
 		tempBuffer = ReadUnsignedChar(tempAsset);
-		AAsset_close(tempAsset);
+		//AAsset_close(tempAsset);
 		return tempBuffer;
 	}
 	else

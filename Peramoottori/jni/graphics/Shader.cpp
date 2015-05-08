@@ -17,12 +17,12 @@ bool Shader::AddShader(string filePath, GLenum ShaderType)
 		created = true;
 	}
 
-	if (vertex != 0)
+	if (vertex != 0 && ShaderType == GL_VERTEX_SHADER)
 	{
 		DEBUG_WARNING(("ShaderProgram (%i) already has vertex shader!", shaderProgram));
 		return false;
 	}
-	else if (fragment != 0)
+	else if (fragment != 0 && ShaderType == GL_FRAGMENT_SHADER)
 	{
 		DEBUG_WARNING(("ShaderProgram (%i) already has fragment shader!", shaderProgram));
 		return false;
