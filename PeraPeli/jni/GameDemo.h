@@ -14,12 +14,6 @@
 #include <resources\TextureFactory.h>
 #include <audio\Audio.h>
 
-//#include <graphics\Rectangle.h>
-#include <graphics\SpriteBatch.h>
-#include <graphics\Drawable.h>
-#include <graphics\Color.h>
-#include <scene\GameEntity.h>
-
 #include <map>
 class GameDemo
 {
@@ -38,6 +32,7 @@ private:
 	void BallPhysics(SpriteObject* target);
 	void CheckLimits(SpriteObject* target);
 	void ColorRNG(SpriteObject* target);
+	void TailFunction(SpriteObject* target);
 	bool CheckTouch(glm::vec2 touch, SpriteObject* target);
 	void InputUpdate();
 	bool holdingBall;
