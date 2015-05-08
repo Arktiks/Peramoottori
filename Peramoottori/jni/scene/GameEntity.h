@@ -23,7 +23,7 @@ namespace pm
 		void AddComponent(Component* newComponent);
 
 		/**
-		* Returns desired component from GameEntity.
+		* "return desired component from GameEntity.
 		* For example:
 		* Color* ColorComponent =  <Color>GetComponent();
 		*/

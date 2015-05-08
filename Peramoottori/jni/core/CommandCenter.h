@@ -40,7 +40,7 @@ namespace pm
 	
 		static void Destroy(); ///< Final call before activity is destroyed.
 	
-		static void ReadyWindow(); ///< ANativeWindow is ready for use.
+		static void ReadyWindow(android_app* application); ///< ANativeWindow is ready for use.
 	
 		static void TerminateWindow(); ///< ANativeWindow needs to be terminated.
 		
@@ -56,6 +56,8 @@ namespace pm
 		static ASensorEventQueue* sensorEventQueue; ///< Sensor event queue.
 
 		static android_app* android_application; ///< Reference to android application.
+
+		static bool focus;
 
 	protected:
 

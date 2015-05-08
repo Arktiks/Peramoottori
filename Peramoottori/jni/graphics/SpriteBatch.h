@@ -2,7 +2,6 @@
 #define SPRITEBATCH_H
 
 #include "Batch.h"
-
 #include <GLES2\gl2.h>
 #include <scene\GameEntity.h>
 #include <vector>
