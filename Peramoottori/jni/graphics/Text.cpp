@@ -60,13 +60,13 @@ namespace pm
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-		float ux = slot->bitmap_left;// / sx;
-		float uy = slot->bitmap_top;// / sy;
+		float ux = slot->bitmap_left;
+		float uy = slot->bitmap_top;
 				  
-		float uw = slot->bitmap.width ; //*/ / sx;
-		float uh = slot->bitmap.rows ; //*/ / sy;
+		float uw = slot->bitmap.width;
+		float uh = slot->bitmap.rows;
 
-		FT_UInt glyph_index;// = FT_Get_Char_Index(face, 'A');
+		FT_UInt glyph_index;
 
 
 		glyph_index = FT_Get_Char_Index(face, c);

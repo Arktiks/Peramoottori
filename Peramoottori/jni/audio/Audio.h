@@ -52,7 +52,9 @@ namespace pm
 		void SetMaxPlayerCount(unsigned newMaxCount);
 		
 	private:
-
+		/**
+		*Returns Available AudioPlayer.
+		*/
 		AudioPlayer* GetAvailable();
 
 		std::vector<AudioPlayer*> player;
