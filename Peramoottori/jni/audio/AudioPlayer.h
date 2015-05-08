@@ -15,6 +15,9 @@ namespace pm
 		friend class AudioManager;
 
 	public:
+		/**
+		*Constructor for AudioPlayer.
+		*/
 		AudioPlayer(AudioResource* audioResourcePointer)
 			: audioResource(audioResourcePointer) {};
 
@@ -22,6 +25,8 @@ namespace pm
 		~AudioPlayer();
 
 		/**
+		* Get current playstate from AudioPlayer,
+		* that can be:
 		* 1 = SL_PLAYSTATE_STOPPED
 		* 2 = SL_PLAYSTATE_PAUSED
 		* 3 = SL_PLAYSTATE_PLAYING
@@ -29,8 +34,20 @@ namespace pm
 		SLuint32 GetPlayState();
 
 		void SetPlayState(SLuint32 state);
+
+		/**
+		*Sets the player to loop sfx.
+		*/
 		void SetLooping(bool isEnabled); 
+
+		/**
+		*Sets the players volume.
+		*/
 		void SetVolume(float volPercentage);
+
+		/**
+		*Returns handle to an AudioResource.
+		*/
 		AudioResource* getAudioResource(){return audioResource;};
 
 	private:

@@ -9,11 +9,10 @@ namespace pm
 	{
 	public:
 
-		//TextResource();
-
+		///Constructor
 		TextResource(std::string data) :
 			textData(data) {};
-
+		/// returns test data as a string
 		std::string GetTextData() { return textData; }
 
 		~TextResource() {};

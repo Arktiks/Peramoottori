@@ -8,6 +8,7 @@ namespace pm
 	class Time
 	{
 	public:
+		/// Constructor for Time
 		Time() : inFrame(false), timeInFrame(0), rawTime(0) {};
 
 
@@ -19,6 +20,7 @@ namespace pm
 		double CalculateTimeInFrame();
 
 	private:
+
 		time_t rawTime;
 		double timeInFrame;
 		struct timespec start;
