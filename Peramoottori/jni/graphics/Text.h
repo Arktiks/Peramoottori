@@ -1,5 +1,6 @@
 #ifndef TEXT_H
 #define TEXT_H
+#include <resources\TextureFactory.h>
 #include <resources\FontResource.h>
 #include <resources\TextResource.h>
 #include <scene\Texture.h>
@@ -9,6 +10,7 @@
 #include <graphics\Rectangle.h>
 #include <graphics\Color.h>
 #include <graphics\Drawable.h>
+
 #include <vector>
 
 namespace pm
