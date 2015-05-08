@@ -35,6 +35,7 @@ public:
 	SpriteObject FindSpriteObject(std::string name);
 private:
 	void BallPhysics(SpriteObject* target);
+	void CheckLimits(SpriteObject* target);
 	bool CheckTouch(glm::vec2 touch, SpriteObject* target);
 	bool holdingBall;
 	void Draw();

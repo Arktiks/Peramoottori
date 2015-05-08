@@ -93,8 +93,8 @@ void GameDemo::Update()
 		if (holdingBall)
 		{
 			glm::vec2 dragVector = input.GetDragVector();
-			dragVector.x = dragVector.x / 5;
-			dragVector.y = dragVector.y / 5;
+			dragVector.x = dragVector.x / 3;
+			dragVector.y = dragVector.y / 3;
 			opaqueSpriteMap["ball"]->SetVelocity(dragVector);
 			opaqueSpriteMap["ball"]->SetPosition(touchPosition.x, touchPosition.y);
 		}
@@ -133,6 +133,25 @@ bool GameDemo::CheckTouch(glm::vec2 touch, SpriteObject *target)
 
 void GameDemo::BallPhysics(SpriteObject* target)
 {
+	CheckLimits(target);
+
+	target->SetRotation(target->GetRotation() + target->GetVelocity().x);
+	target->SetPosition(target->GetPosition() + target->GetVelocity());
+}
+
+void CheckLimits(SpriteObject* target)
+{
+	if (target->GetPosition().x < 0)
+	{
+		target->SetPosition(0.0f, target->GetPosition().y);
+		target->SetVelocity(glm::vec2(target->GetVelocity().x * -0.8, target->GetVelocity.y));
+	}
+	else if (target->GetPosition.x > 900)
+	{
+		target->SetPosition(900.0f, target->GetPosition().y);
+		target->SetVelocity(glm::vec2(target->GetVelocity().x * -0.8, target->GetVelocity.y));
+	}
+
 	if (target->GetPosition().y > 680)
 	{
 		target->SetVelocity(glm::vec2(target->GetVelocity().x, 0));
@@ -142,6 +161,4 @@ void GameDemo::BallPhysics(SpriteObject* target)
 	{
 		target->SetVelocity(glm::vec2(target->GetVelocity().x, target->GetVelocity().y + 0.1f));
 	}
-	target->SetRotation(target->GetRotation() + target->GetVelocity().x);
-	target->SetPosition(target->GetPosition() + target->GetVelocity());
 }
