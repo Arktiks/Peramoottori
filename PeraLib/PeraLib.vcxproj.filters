@@ -52,9 +52,6 @@
     <ClCompile Include="..\Peramoottori\jni\graphics\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Peramoottori\jni\graphics\Sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Peramoottori\jni\graphics\SpriteBatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,9 +62,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Peramoottori\jni\resources\TextureFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Peramoottori\jni\graphics\TextureRectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Peramoottori\jni\core\Time.cpp">

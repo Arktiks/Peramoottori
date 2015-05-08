@@ -14,6 +14,7 @@ namespace pm
 	{
 	public:
 
+		/// Constructor for Shader.
 		Shader() : created(false), shaderProgram(0), vertex(0), fragment(0) {};
 
 		Shader(GLuint shader) : created(true), shaderProgram(shader) {};
@@ -36,19 +37,21 @@ namespace pm
 		/// Return value of attribute within program.
 		GLuint GetAttribLocation(std::string attributeName);
 
+		/// Makes a new VertexAttribPointer that is placed in shaderVertexAtribute vector
 		void AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset);
 
-		GLuint GetShaderProgramLocation() { return shaderProgram; }
+		/// Return program
+		GLuint GetShaderProgramLocation() { return shaderProgram; };
 
 		~Shader();
 
 	private:
 
-		std::string LoadShader(std::string filePath);
+		std::string LoadShader(std::string filePath); ///< loads shader from txt file
 
-		bool CheckShaderCompile(GLuint shader); // TODO
+		bool CheckShaderCompile(GLuint shader); ///< Check shader compilation status
 
-		bool CheckProgramLink(GLuint program); // TODO
+		bool CheckProgramLink(GLuint program); ///< Check program linking status
 
 		std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
 

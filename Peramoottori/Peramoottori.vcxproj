@@ -57,12 +57,10 @@
     <ClCompile Include="jni\graphics\Shader.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Sprite.cpp" />
     <ClCompile Include="jni\graphics\SpriteBatch.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="jni\graphics\TextureRectangle.cpp" />
     <ClCompile Include="jni\Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
@@ -130,12 +128,10 @@
     <ClInclude Include="jni\graphics\Shape.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Sprite.h" />
     <ClInclude Include="jni\graphics\SpriteBatch.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="jni\graphics\TextureRectangle.h" />
     <ClInclude Include="jni\resources\AudioResource.h" />
     <ClInclude Include="jni\resources\FontResource.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>

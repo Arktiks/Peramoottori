@@ -12,20 +12,20 @@ namespace pm
 	public:
 		
 		Batch() : textureIndex(0) {};
-
+		/// Batch constructor.
 		Batch(std::vector<GLfloat> vertexData,
 			std::vector<GLushort> indexData,
 			glm::mat4 transformMatrix,
 			GLuint textureIndex);
 
 		// In case default constructor was used?
-		// New data to add to batch. Texture cannot be changed.
+		/// New data to add to batch. Texture cannot be changed.
 		void AddData(std::vector <GLfloat> vertexData,
 			std::vector<GLushort>indexData,
 			glm::mat4 transformMatrix);
 
 
-		/// Are these functions neccessary?
+		// Are these functions neccessary? I don't know...
 		std::vector<GLfloat> GetVertexData() { return totalVertexData; }
 		std::vector<GLushort> GetIndexData(){ return totalIndexData; }
 

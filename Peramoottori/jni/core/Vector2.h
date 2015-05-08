@@ -12,7 +12,7 @@ namespace pm
 	{
 		Vector2<T> operator<<(const Vector2<T>& v)
 		{
-			DEBUG_INFO("&f, &")
+			DEBUG_INFO(("&f, &f", v.x, v.y));
 		}
 
 	public:
