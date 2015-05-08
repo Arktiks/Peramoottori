@@ -31,7 +31,6 @@ void Buffer::BindBufferData(unsigned size, void *data)
 
 // glBufferData creates new data store for the buffer object currently bound to target.
 // Any pre-existing data store is DELETED.
-
 // Need to modify hardcoded buffer sizes.
 
 void Buffer::InitializeVertexData()
@@ -41,7 +40,7 @@ void Buffer::InitializeVertexData()
 	glBindBuffer(GL_ARRAY_BUFFER, index);
 	DEBUG_GL_ERROR();
 
-	glBufferData(GL_ARRAY_BUFFER, 20000u, nullptr, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 2000u, nullptr, GL_DYNAMIC_DRAW);
 	DEBUG_GL_ERROR();
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0u);
@@ -55,7 +54,7 @@ void Buffer::InitializeIndexData()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
 	DEBUG_GL_ERROR();
 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 20000u, nullptr, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 1000u, nullptr, GL_DYNAMIC_DRAW);
 	DEBUG_GL_ERROR();
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);
@@ -80,7 +79,7 @@ void Buffer::BindIndexData(unsigned size, void *data)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
 	DEBUG_GL_ERROR();
 
-	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0u, size*sizeof(GLushort), data);
+	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0u, size * sizeof(GLushort), data);
 	DEBUG_GL_ERROR();
 }
 

@@ -21,6 +21,8 @@ namespace pm
 
 		void Draw(Batch* batch);
 
+		bool IsInitialized();
+
 	private:
 
 		RenderSystem() : shaderProgram(), vertexBuffer(), indexBuffer() {};
@@ -34,6 +36,8 @@ namespace pm
 		Buffer vertexBuffer, indexBuffer;
 
 		static RenderSystem* instance;
+
+		static bool initialized;
 
 		~RenderSystem();
 

@@ -14,6 +14,7 @@ using namespace std;
 const ASensor* CommandCenter::accelerometerSensor = nullptr;
 ASensorEventQueue* CommandCenter::sensorEventQueue = nullptr;
 android_app* CommandCenter::android_application = nullptr;
+bool CommandCenter::focus = false;
 
 void CommandCenter::Initialize(android_app* application)
 {
@@ -108,13 +109,13 @@ void CommandCenter::Destroy()
 	DEBUG_INFO(("Application has been destroyed!"));
 }
 
-void CommandCenter::ReadyWindow()
+void CommandCenter::ReadyWindow(android_app* application)
 {
 	ASSERT_NEQUAL(android_application->window, nullptr); // Make sure INIT_WINDOW call is legit.
 	bool testSucces = Application::GetInstance()->window.LoadDisplay(android_application); // WindowHandler creates display, surface and context.
 	ASSERT(testSucces);
-	//Application::GetInstance()->Wait();
-	//TextureFactory::RecreateOGLTextures(); // Currently no confirmation everything was successful.
+	Application::GetInstance()->Initialize(application);
+	TextureFactory::RecreateOGLTextures(); // Currently no confirmation everything was successful.
 }
 
 void CommandCenter::TerminateWindow()
@@ -127,11 +128,13 @@ void CommandCenter::TerminateWindow()
 
 void CommandCenter::GainedFocus()
 {
+	focus = true;
 	EnableSensors();
 }
 
 void CommandCenter::LostFocus()
 {
+	focus = false;
 	DisableSensors();
 }
 
@@ -185,7 +188,7 @@ void CommandCenter::ProcessCommand(android_app* application, int32_t command)
 
 		case APP_CMD_INIT_WINDOW:
 			DEBUG_INFO(("ProcessCommand: INIT_WINDOW"));
-			ReadyWindow();
+			ReadyWindow(application);
 			break;
 
 		case APP_CMD_TERM_WINDOW:

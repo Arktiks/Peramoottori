@@ -68,8 +68,6 @@ namespace pm
 			rotation += 0.1f;
 			objects[0].GetComponent<Transformable>()->SetRotation(rotation);
 			SpriteBatch::GetInstance()->AddGameEntity(&objects[0]);
-			//DEBUG_INFO(("Position: %f, %f", objects[0].GetComponent<Transformable>()->GetPosition().y,
-				//objects[0].GetComponent<Transformable>()->GetPosition().y));
 		};
 
 		void Draw()
@@ -92,7 +90,6 @@ void android_main(android_app* application)
 
 	Application* game = Application::GetInstance(); // For ease of use.
 	game->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
-
 	game->Wait();
 
 	if (GameClass::first == false)
@@ -107,13 +104,18 @@ void android_main(android_app* application)
 
 	while (game->Update())
 	{
-		GameClass* access = (GameClass*)game->saveData;
-		access->Update();
+		if (game->IsFocused())
+		{
+			GameClass* access = (GameClass*)game->saveData;
+			access->Update();
 
-		//glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
-
-		game->window.Clear();
-		game->Draw();
+			game->window.Clear();
+			game->Draw();
+		}
+		else
+		{
+			DEBUG_INFO(("Game is not focused."));
+		}
 	}
 
 	DEBUG_INFO(("Exiting android_main."));
