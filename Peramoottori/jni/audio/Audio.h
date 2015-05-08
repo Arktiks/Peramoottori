@@ -56,9 +56,9 @@ namespace pm
 		*Returns Available AudioPlayer.
 		*/
 		AudioPlayer* GetAvailable();
-
 		std::vector<AudioPlayer*> player;
 
+		float volume;
 		unsigned playerCount;
 		unsigned maxPlayerCount;
 	};

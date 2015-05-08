@@ -13,13 +13,6 @@
 #include <resources\ResourceManager.h>
 #include <resources\TextureFactory.h>
 #include <audio\Audio.h>
-
-//#include <graphics\Rectangle.h>
-#include <graphics\SpriteBatch.h>
-#include <graphics\Drawable.h>
-#include <graphics\Color.h>
-#include <scene\GameEntity.h>
-
 #include <map>
 class GameDemo
 {
@@ -34,13 +27,15 @@ public:
 	pm::Texture FindTexture(std::string name);
 	SpriteObject FindSpriteObject(std::string name);
 private:
+	bool soundBool;
+	bool holdingBall;
 	glm::vec2 limits;
 	void BallPhysics(SpriteObject* target);
 	void CheckLimits(SpriteObject* target);
 	void ColorRNG(SpriteObject* target);
+	void TailFunction(SpriteObject* target);
 	bool CheckTouch(glm::vec2 touch, SpriteObject* target);
 	void InputUpdate();
-	bool holdingBall;
 	void Draw();
 	std::map<std::string, pm::Texture*> textureMap;
 	std::map<std::string, SpriteObject*> spriteMap;

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PHYSICCOMPONENT_H
+#define PHYSICCOMPONENT_H
 #include <scene\Component.h>
 #include <glm\vec2.hpp>
 using namespace pm;
@@ -18,3 +19,4 @@ private:
 	glm::vec2 position;
 };
 
+#endif

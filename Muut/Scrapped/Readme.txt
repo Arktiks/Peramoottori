@@ -1,1 +1,0 @@
-Mahdollista myöhempää käyttöä varten.

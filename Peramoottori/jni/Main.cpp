@@ -10,10 +10,13 @@
 #include <graphics\Text.h>
 #include <graphics\SpriteBatch.h>
 
+#include <chrono>
+#include <thread>
+
 using namespace pm;
 using namespace std;
 
-void android_main(android_app* application)
+/*void android_main(android_app* application)
 {
 	DEBUG_INFO(("Starting android_main."));
 
@@ -41,8 +44,8 @@ void android_main(android_app* application)
 	}
 
 	DEBUG_INFO(("Exiting android_main."));
-}
-/*
+}*/
+
 /////////////////////// Tuukka ///////////////////////
 #include <scene\GameEntity.h>
 #include <scene\Transformable.h>
@@ -62,9 +65,13 @@ namespace pm
 			objects.push_back(GameEntity());
 			objects[0].AddComponent(NEW Transformable(glm::vec2(500.0f, 500.0f), glm::vec2(1.0f, 1.0f), 0.0f));
 			objects[0].AddComponent(NEW Color(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
-			objects[0].AddComponent(TextureFactory::CreateTexture("iiro.png"));
+			objects[0].AddComponent(TextureFactory::CreateTexture("PM_TEXTURE.png"));
 			objects[0].AddComponent(NEW Rectangle(150.0f, 150.0f));
 			objects[0].AddComponent(NEW Drawable);
+
+			TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("PM_TEXT.txt");
+			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("Arial.ttf");
+			texts.push_back(Text(font, file, 100, 100, 32, 32));
 		};
 
 		void Update()
@@ -72,6 +79,9 @@ namespace pm
 			rotation += 0.1f;
 			objects[0].GetComponent<Transformable>()->SetRotation(rotation);
 			SpriteBatch::GetInstance()->AddGameEntity(&objects[0]);
+			
+			for (int i = 0; i < texts[0].GetTextVector().size(); i++)
+				SpriteBatch::GetInstance()->AddGameEntity(texts[0].GetTextVector()[i]);
 		};
 
 		void Draw()
@@ -79,6 +89,7 @@ namespace pm
 		};
 
 		std::vector<GameEntity> objects;
+		std::vector<Text> texts;
 		float rotation;
 
 		static bool first;
@@ -118,10 +129,10 @@ void android_main(android_app* application)
 		}
 		else
 		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 			DEBUG_INFO(("Game is not focused."));
 		}
 	}
 
 	DEBUG_INFO(("Exiting android_main."));
 }
-*/
