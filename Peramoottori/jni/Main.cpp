@@ -5,23 +5,27 @@
 
 #include <resources\ResourceManager.h>
 #include <core\Time.h>
+#include <resources\FontResource.h>
+#include <resources\TextResource.h>
+#include <graphics\Text.h>
+#include <graphics\SpriteBatch.h>
 
 using namespace pm;
 using namespace std;
 
-/*void android_main(android_app* application)
+void android_main(android_app* application)
 {
 	DEBUG_INFO(("Starting android_main."));
 
-	Application* game = Application::GetInstance(); // For ease of use.
+	Application* game = Application::GetInstance(); // For ease of use.//
 	game->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
 
 	game->Wait();
 
 	TextResource* txt = (TextResource*)ResourceManager::GetInstance()->LoadAsset("teksti.txt");
-	FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
+	FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("ASCII.ttf");
 
-	Text* teksti = new Text(font, txt, 50, 50, 100, 100);
+	Text* teksti = new Text(font, txt, 0, 50, 20, 20);
 
 	//SpriteBatch::GetInstance()->AddGameEntity(teksti->GetGameEntity());
 	int i = 0;
@@ -29,7 +33,7 @@ using namespace std;
 	{
 		//i++;
 		game->window.Clear();
-		teksti->GetGameEntity()->GetComponent<Transformable>()->SetRotation(i);
+		//teksti->GetGameEntity()->GetComponent<Transformable>()->SetRotation(i);
 		for (int i = 0; i < teksti->GetTextVector().size(); i++)
 			SpriteBatch::GetInstance()->AddGameEntity(teksti->GetTextVector()[i]);
 
@@ -37,8 +41,8 @@ using namespace std;
 	}
 
 	DEBUG_INFO(("Exiting android_main."));
-}*/
-
+}
+/*
 /////////////////////// Tuukka ///////////////////////
 #include <scene\GameEntity.h>
 #include <scene\Transformable.h>
@@ -118,3 +122,4 @@ void android_main(android_app* application)
 
 	DEBUG_INFO(("Exiting android_main."));
 }
+*/
