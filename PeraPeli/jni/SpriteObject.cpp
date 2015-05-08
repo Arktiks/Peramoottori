@@ -6,18 +6,19 @@
 
 SpriteObject::SpriteObject()
 {
-	AddComponent(NEW pm::Rectangle);
-	AddComponent(NEW pm::Transformable);
-	AddComponent(NEW pm::Drawable);
-	AddComponent(NEW pm::Color);
+	AddComponent(NEW pm::Rectangle());
+	AddComponent(NEW pm::Transformable());
+	AddComponent(NEW pm::Drawable());
+	AddComponent(NEW pm::Color());
 }
 SpriteObject::SpriteObject(pm::Texture* texture)
 {
-	AddComponent(NEW pm::Rectangle);
-	AddComponent(NEW pm::Transformable);
-	AddComponent(NEW pm::Drawable);
-	AddComponent(NEW pm::Color);
+	AddComponent(NEW pm::Rectangle(texture->GetTextureSize()));
+	AddComponent(NEW pm::Transformable());
+	AddComponent(NEW pm::Drawable());
+	AddComponent(NEW pm::Color());
 	AddComponent(texture);
+
 }
 
 SpriteObject::~SpriteObject()
@@ -106,6 +107,11 @@ void SpriteObject::SetColor(glm::vec4 color)
 {
 	GetComponent<pm::Color>()->SetColor(color);
 }
+glm::vec4 SpriteObject::GetColor()
+{
+	return GetComponent<pm::Color>()->GetColor();
+}
+
 void SpriteObject::SetTexture(pm::Texture* texture)
 {
 	AddComponent(texture);
@@ -123,4 +129,9 @@ glm::vec2 SpriteObject::GetSize()
 GLfloat SpriteObject::GetRotation()
 {
  	return GetComponent<pm::Transformable>()->GetRotation();
+}
+
+glm::vec2 SpriteObject::GetOrigin()
+{
+	return GetComponent<pm::Rectangle>()->GetOrigin();
 }

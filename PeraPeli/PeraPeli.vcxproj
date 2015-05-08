@@ -22,6 +22,7 @@
     <ClCompile Include="jni\GameDemo.cpp" />
     <ClCompile Include="jni\main.cpp" />
     <ClCompile Include="jni\PhysicComponent.cpp" />
+    <ClCompile Include="jni\RNG.cpp" />
     <ClCompile Include="jni\SpriteObject.cpp" />
     <ClCompile Include="native_app_glue\android_native_app_glue.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -32,6 +33,7 @@
     <ClInclude Include="..\Peramoottori\libs\lodepng.h" />
     <ClInclude Include="jni\GameDemo.h" />
     <ClInclude Include="jni\PhysicComponent.h" />
+    <ClInclude Include="jni\RNG.h" />
     <ClInclude Include="jni\SpriteObject.h" />
     <ClInclude Include="native_app_glue\android_native_app_glue.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
