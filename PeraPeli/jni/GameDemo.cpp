@@ -19,7 +19,8 @@ GameDemo::~GameDemo()
 
 void GameDemo::Initialize()
 {
-	pm::Vector2<int> pmLimits = Application::GetInstance()->window.GetResolution();
+	soundBool = false;
+	pm::Vector2<int> pmLimits = pm::Application::GetInstance()->window.GetResolution();
 	limits.x = pmLimits.x;
 	limits.y = pmLimits.y;
 
@@ -27,11 +28,11 @@ void GameDemo::Initialize()
 
 	touchAudio = NEW pm::Audio("0477.ogg");
 	touchAudio->SetMaxPlayerCount(10);
-	touchAudio->SetVolume(-10000);
+	touchAudio->SetVolume(1);
 
 	music = NEW pm::Audio("LGMThePortal.ogg");
 	music->SetLooping(true);
-	music->SetVolume(-1000);
+	music->SetVolume(50);
 	music->Play();
 
 	pm::Texture* pointTexture = pm::TextureFactory::CreateTexture("point.png");
@@ -129,14 +130,22 @@ void GameDemo::InputUpdate()
 		{
 			spriteMap["touchArea1"]->SetColor(glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 			spriteMap["touchArea2"]->SetColor(glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-			touchAudio->Play();
+			if (soundBool)
+			{
+				touchAudio->Play();
+				soundBool = false;
+			}
 		}
 
 		if (CheckTouch(touchPosition, spriteMap["touchArea2"]))
 		{
 			spriteMap["touchArea1"]->SetColor(glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
 			spriteMap["touchArea2"]->SetColor(glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
-			touchAudio->Play();
+			if (!soundBool)
+			{
+				touchAudio->Play();
+				soundBool = true;
+			}
 		}
 		if (CheckTouch((touchPosition + opaqueSpriteMap["ball"]->GetOrigin()), opaqueSpriteMap["ball"]))
 		{
