@@ -70,7 +70,7 @@ void pm::AudioManager::CreateEngine()
 	CheckError("Getting OpenSL engine interface failed!");
 
 	const SLInterfaceID tempIds[1] = { SL_IID_VOLUME };
-	const SLboolean tempReq[1] = { SL_BOOLEAN_TRUE };
+	const SLboolean tempReq[1] = { SL_BOOLEAN_FALSE };
 
 	result = (*engine)->CreateOutputMix(engine, &outputMixObj, 1, tempIds, tempReq);
 	CheckError("Creating OpenSL outputMix object failed!");

@@ -1,6 +1,12 @@
 #include "GameDemo.h"
 #include "RNG.h"
 
+#include "TailEntity.h"
+#include <graphics\SpriteBatch.h>
+#include <graphics\Drawable.h>
+#include <graphics\Color.h>
+#include <scene\GameEntity.h>
+
 GameDemo::GameDemo()
 {
 	
@@ -21,11 +27,11 @@ void GameDemo::Initialize()
 
 	touchAudio = NEW pm::Audio("0477.ogg");
 	touchAudio->SetMaxPlayerCount(10);
-	touchAudio->SetVolume(1);
+	touchAudio->SetVolume(-10000);
 
 	music = NEW pm::Audio("LGMThePortal.ogg");
 	music->SetLooping(true);
-	music->SetVolume(100);
+	music->SetVolume(-1000);
 	music->Play();
 
 	pm::Texture* pointTexture = pm::TextureFactory::CreateTexture("point.png");
@@ -43,6 +49,7 @@ void GameDemo::Initialize()
 
 	SpriteObject* rotationBall = new SpriteObject(footBallTexture);
 	rotationBall->AddPhysics();
+
 	opaqueSpriteMap["ball"] = rotationBall;
 	rotationBall->SetDepth(2);
 	rotationBall->SetSize(128.0f, 128.0f);
@@ -74,9 +81,9 @@ void GameDemo::Initialize()
 	touchSprite2->SetSize(200, 200);
 
 	SpriteObject* spiral = new SpriteObject(spiralTexture);
-	spiral->SetOrigin(701, 701);
-	spiral->SetPosition(640, 360);
-	spiral->SetSize(1400, 1400);
+	spiral->SetOrigin(400, 400);
+	spiral->SetPosition(256, 256);
+	spiral->SetSize(128, 128);
 	spiral->SetDepth(5);
 	opaqueSpriteMap["spiral"] = spiral;
 	
@@ -218,12 +225,17 @@ void GameDemo::ColorRNG(SpriteObject* target)
 	newColor.r += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
 	newColor.b += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
 	newColor.g += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
-	newColor.w += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
+
 
 	newColor.r = CheckMinMax(newColor.r);
 	newColor.b = CheckMinMax(newColor.b);
 	newColor.g = CheckMinMax(newColor.g);
-	newColor.w = CheckMinMax(newColor.w);
+
 
 	target->SetColor(newColor);
+}
+
+void GameDemo::TailFunction(SpriteObject* target)
+{
+
 }

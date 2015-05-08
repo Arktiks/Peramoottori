@@ -1,5 +1,6 @@
 #include "SpriteObject.h"
 #include <scene\Transformable.h>
+#include <PhysicComponent.h>
 #include <graphics\Rectangle.h>
 #include <graphics\Drawable.h>
 #include <graphics\Color.h>
@@ -31,6 +32,7 @@ void SpriteObject::AddPhysics()
 	AddComponent(NEW PhysicComponent);
 	GetComponent<PhysicComponent>()->SetPosition(GetComponent<pm::Transformable>()->GetPosition());
 }
+
 
 void SpriteObject::SetVelocity(glm::vec2 velocity)
 {
