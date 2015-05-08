@@ -18,10 +18,13 @@ namespace pm
 		/// Writes messages into logcat under DEBUG_WARNING.
 		static void PrintWarning(const char* text...);
 
+		/// Writes shader errors into logcat.
 		static void PrintGLShaderError(GLuint shader);
 
+		/// Writes OPENGL errors into logcat.
 		static bool PrintGLError(const char* file, const unsigned int line);
 
+		/// Clears GL errors from memory.
 		static void ClearGLError();
 
 	private:
@@ -34,8 +37,8 @@ namespace pm
 #define DEBUG_INFO(text) pm::Log::PrintInfo text ///< Macro to print info into logcat.
 #define DEBUG_WARNING(text) pm::Log::PrintWarning text ///< Macro to print warnings into logcat.
 
-#define DEBUG_GL_ERROR() pm::Log::PrintGLError(__FILE__, __LINE__);
-#define DEBUG_GL_ERROR_CLEAR() pm::Log::ClearGLError();
+#define DEBUG_GL_ERROR() pm::Log::PrintGLError(__FILE__, __LINE__);///< Macro to print shader errors into logcat.
+#define DEBUG_GL_ERROR_CLEAR() pm::Log::ClearGLError();///< Macro to print GL errors into logcat.
 
 #endif // DEBUG_LOG
 #endif // _DEBUG

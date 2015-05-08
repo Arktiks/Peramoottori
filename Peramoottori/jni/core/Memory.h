@@ -31,7 +31,8 @@ namespace pm
 		static void WriteLeaks();
 
 	private:
-		static std::vector<MemoryTrack> memory; ///< Vector keeping track of called new and delete operator.
+		/// Vector keeping track of called new and delete operator.
+		static std::vector<MemoryTrack> memory; 
 	};
 }
 
