@@ -1,4 +1,5 @@
 #include "AudioPlayer.h"
+#include <math.h>
 #include <core/Log.h>
 
 pm::AudioPlayer::AudioPlayer(AudioPlayer* pointer)
@@ -45,13 +46,16 @@ void pm::AudioPlayer::SetLooping(bool isEnabled)
 
 void pm::AudioPlayer::SetVolume(float volPercentage)
 {
-	SLmillibel tempVol;
-	result = (*audioPlayerVol)->GetMaxVolumeLevel(audioPlayerVol, &tempVol);
-	
-	tempVol *= 0.01 * volPercentage;
+	float tempVol = volPercentage;
+	tempVol *= 0.01;
 
-	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, tempVol);
+	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, gain_to_attenuation(tempVol));
 	CheckError("Setting audio volume levels failed!");
+}
+
+float pm::AudioPlayer::gain_to_attenuation(float gain)
+{
+	return gain < 0.01F ? -96.0F : 20 * log10(gain);
 }
 
 void pm::AudioPlayer::CheckError(std::string errorText)

@@ -52,6 +52,7 @@ namespace pm
 
 	private:
 		void CheckError(std::string errorText);
+		float gain_to_attenuation(float gain);
 
 		SLObjectItf audioPlayerObj;
 		SLPlayItf audioPlayerPlay;
