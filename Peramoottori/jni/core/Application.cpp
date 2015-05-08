@@ -101,6 +101,14 @@ bool Application::IsReady()
 		return false;
 }
 
+bool Application::IsFocused()
+{
+	if (application == nullptr || !window.HasContext() || CommandCenter::focus == false)
+		return false;
+	else
+		return true;
+}
+
 void Application::Wait()
 {
 	while(!IsReady()) // Could be useful in game loops when Application is resumed.

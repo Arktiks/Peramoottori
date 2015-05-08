@@ -52,7 +52,7 @@ bool Log::PrintGLError(const char* file, const unsigned int line)
 			else
 				tempString = "???";
 
-			DEBUG_WARNING(("OpenGL error (%i : %s) %s on line %s.", tempError, tempString.c_str(), file, line));
+			DEBUG_WARNING(("OpenGL error (%i : %s) %s on line %i.", tempError, tempString.c_str(), file, line));
 		}
 
 	} while (tempError != GL_NO_ERROR);

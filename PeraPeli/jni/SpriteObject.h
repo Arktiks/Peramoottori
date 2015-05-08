@@ -44,6 +44,8 @@ public:
 	
 	glm::vec2 GetPosition();
 	glm::vec2 GetSize();
+	glm::vec2 GetOrigin();
+	glm::vec4 GetColor();
 
 	GLfloat GetRotation();
 

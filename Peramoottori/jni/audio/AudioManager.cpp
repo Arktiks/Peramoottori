@@ -69,11 +69,17 @@ void pm::AudioManager::CreateEngine()
 	result = (*engineObj)->GetInterface(engineObj, SL_IID_ENGINE, &engine);
 	CheckError("Getting OpenSL engine interface failed!");
 
-	result = (*engine)->CreateOutputMix(engine, &outputMixObj, 0, NULL, NULL);
+	const SLInterfaceID tempIds[1] = { SL_IID_VOLUME };
+	const SLboolean tempReq[1] = { SL_BOOLEAN_TRUE };
+
+	result = (*engine)->CreateOutputMix(engine, &outputMixObj, 1, tempIds, tempReq);
 	CheckError("Creating OpenSL outputMix object failed!");
 
 	result = (*outputMixObj)->Realize(outputMixObj, SL_BOOLEAN_FALSE);
 	CheckError("Realizing OpenSL outpuMix object failed!");
+
+	result = (*outputMixObj)->GetInterface(outputMixObj, SL_IID_VOLUME, &outputMixVol);
+	CheckError("Getting OpenSL outpuMix volume interface failed!");
 }
 
 void pm::AudioManager::CheckError(std::string errorText)
