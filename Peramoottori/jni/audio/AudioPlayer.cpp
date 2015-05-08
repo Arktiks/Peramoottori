@@ -47,7 +47,7 @@ void pm::AudioPlayer::SetVolume(float volPercentage)
 {
 	SLmillibel tempVol;
 	result = (*audioPlayerVol)->GetMaxVolumeLevel(audioPlayerVol, &tempVol);
-
+	
 	tempVol *= 0.01 * volPercentage;
 
 	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, tempVol);
