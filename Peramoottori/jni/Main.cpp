@@ -77,8 +77,11 @@ namespace pm
 
 			sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
 			sounds[0]->SetLooping(true);
-			sounds[0]->SetVolume(100.0f);
+			sounds[0]->SetVolume(volume);
 			sounds[0]->Play();
+
+			sounds.push_back(NEW Audio("Push.ogg"));
+			sounds[1]->SetVolume(volume);
 		};
 
 		void Update()
@@ -86,6 +89,9 @@ namespace pm
 			rotation += 0.1f;
 			volume -= 0.1f;
 			sounds[0]->SetVolume(volume);
+
+			if(input.GetSingleTouch())
+				sounds[1]->Play();
 
 			objects[0].GetComponent<Transformable>()->SetRotation(rotation);
 			SpriteBatch::GetInstance()->AddGameEntity(&objects[0]);
@@ -111,7 +117,7 @@ namespace pm
 		std::vector<Audio*> sounds;
 		float rotation, volume;
 		bool paused;
-		
+		Input input;
 		static bool first;
 	};
 
