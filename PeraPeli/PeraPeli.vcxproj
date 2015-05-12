@@ -45,8 +45,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\TestFragmentShader.txt" />
-    <None Include="assets\TestVertexShader.txt" />
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt" />
+    <None Include="assets\DEF_VERTEX_SHADER.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{97E30C33-1EFB-4275-8D46-A5E4BD98E597}</ProjectGuid>

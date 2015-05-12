@@ -2,11 +2,12 @@
 #include <core\Log.h>
 #include <core\Passert.h>
 #include <core\Memory.h>
-#include <resources\ResourceManager.h>
 
-pm::Audio::Audio(std::string fileName) : maxPlayerCount(3), playerCount(1)
+#include <resources\ResourceManager.h>
+#include <audio\AudioManager.h>
+
+pm::Audio::Audio(std::string fileName) : volume(100.0f), playerCount(1), maxPlayerCount(3)
 {
-	volume = 100;
 	AudioResource* tempAudioAsset = (pm::AudioResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
 	ASSERT_NEQUAL(tempAudioAsset, nullptr);
 	player.push_back(NEW AudioPlayer(tempAudioAsset));

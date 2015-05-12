@@ -115,11 +115,11 @@ void RenderSystem::CreateShaders()
 {
 	DEBUG_GL_ERROR_CLEAR();
 
-	bool tempCheck = shaderProgram.AddShader("TestVertexShader.txt", GL_VERTEX_SHADER); // Create default vertex shader.
+	bool tempCheck = shaderProgram.AddShader("DEF_VERTEX_SHADER.txt", GL_VERTEX_SHADER); // Create default vertex shader.
 	DEBUG_GL_ERROR();
 	//ASSERT(tempCheck);
 
-	tempCheck = shaderProgram.AddShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER); // Create default fragment shader.
+	tempCheck = shaderProgram.AddShader("DEF_FRAGMENT_SHADER.txt", GL_FRAGMENT_SHADER); // Create default fragment shader.
 	DEBUG_GL_ERROR();
 	//ASSERT(tempCheck);
 

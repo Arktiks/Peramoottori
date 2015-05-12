@@ -88,10 +88,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\TestFragmentShader.txt">
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt">
       <Filter>assets</Filter>
     </None>
-    <None Include="assets\TestVertexShader.txt">
+    <None Include="assets\DEF_VERTEX_SHADER.txt">
       <Filter>assets</Filter>
     </None>
   </ItemGroup>

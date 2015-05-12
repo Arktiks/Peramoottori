@@ -7,8 +7,7 @@ pm::AudioManager* pm::AudioManager::instance = nullptr;
 void AudioPlayerCallback(SLPlayItf playerObject, void* context, SLuint32 event)
 {
 	DEBUG_INFO(("AudioPlayer callback called."));
-
-	if (event == SL_PLAYEVENT_HEADATEND)
+	if(event == SL_PLAYEVENT_HEADATEND)
 	{
 		DEBUG_INFO(("AudioPlayer callback event: SL_PLAYEVENT_HEADATED."));
 		(*playerObject)->SetPlayState(playerObject, SL_PLAYSTATE_STOPPED);
@@ -17,23 +16,26 @@ void AudioPlayerCallback(SLPlayItf playerObject, void* context, SLuint32 event)
 
 pm::AudioManager* pm::AudioManager::GetInstance()
 {
-	if (instance == nullptr)
+	if(instance == nullptr)
 		instance = NEW AudioManager();
-
 	return instance;
 }
 
 void pm::AudioManager::InitAudioPlayer(AudioPlayer* player)
 {
-	SLDataLocator_AndroidFD locator = { SL_DATALOCATOR_ANDROIDFD, player->getAudioResource()->GetFileDescriptor(), player->getAudioResource()->GetStart(), player->getAudioResource()->GetLength() };
-	SLDataFormat_MIME format = { SL_DATAFORMAT_MIME, nullptr, SL_CONTAINERTYPE_UNSPECIFIED };
-	SLDataSource audioSrc = { &locator, &format };
+	SLDataLocator_AndroidFD locator = {SL_DATALOCATOR_ANDROIDFD,
+		player->GetAudioResource()->GetFileDescriptor(),
+		player->GetAudioResource()->GetStart(),
+		player->GetAudioResource()->GetLength()};
 
-	SLDataLocator_OutputMix tempOutmix = { SL_DATALOCATOR_OUTPUTMIX, outputMixObj };
-	SLDataSink tempAudioSink = { &tempOutmix, nullptr };
+	SLDataFormat_MIME format = {SL_DATAFORMAT_MIME, nullptr, SL_CONTAINERTYPE_UNSPECIFIED};
+	SLDataSource audioSrc = {&locator, &format};
 
-	const SLInterfaceID tempIds[3] = { SL_IID_PLAY, SL_IID_SEEK, SL_IID_VOLUME };
-	const SLboolean tempReq[3] = { SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE };
+	SLDataLocator_OutputMix tempOutmix = {SL_DATALOCATOR_OUTPUTMIX, outputMixObj};
+	SLDataSink tempAudioSink = {&tempOutmix, nullptr};
+
+	const SLInterfaceID tempIds[3] = {SL_IID_PLAY, SL_IID_SEEK, SL_IID_VOLUME};
+	const SLboolean tempReq[3] = {SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE};
 
 	result = (*engine)->CreateAudioPlayer(engine, &player->audioPlayerObj, &audioSrc, &tempAudioSink, 3, tempIds, tempReq);
 	CheckError("Creating OpenSL audio player object failed!");
@@ -55,7 +57,6 @@ void pm::AudioManager::InitAudioPlayer(AudioPlayer* player)
 
 	result = (*player->audioPlayerPlay)->SetCallbackEventsMask(player->audioPlayerPlay, SL_PLAYEVENT_HEADATEND);
 	CheckError("Setting OpenSL callback events mask failed!");
-
 }
 
 void pm::AudioManager::CreateEngine()

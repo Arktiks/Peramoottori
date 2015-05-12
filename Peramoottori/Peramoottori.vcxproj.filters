@@ -1299,10 +1299,28 @@
     <None Include="libs\glm\gtx\wrap.inl">
       <Filter>libs\glm</Filter>
     </None>
-    <None Include="assets\TestFragmentShader.txt">
+    <None Include="assets\Applause.ogg">
       <Filter>assets</Filter>
     </None>
-    <None Include="assets\TestVertexShader.txt">
+    <None Include="assets\Arial.ttf">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_TEXTURE.png">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_TEXTURE_SMALL.png">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\Midnight_Ride.ogg">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\TEXT.txt">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_VERTEX_SHADER.txt">
       <Filter>assets</Filter>
     </None>
   </ItemGroup>

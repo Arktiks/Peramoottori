@@ -395,8 +395,14 @@
     <ClInclude Include="jni\graphics\Text.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\TestFragmentShader.txt" />
-    <None Include="assets\TestVertexShader.txt" />
+    <None Include="assets\Applause.ogg" />
+    <None Include="assets\Arial.ttf" />
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt" />
+    <None Include="assets\DEF_TEXTURE.png" />
+    <None Include="assets\DEF_TEXTURE_SMALL.png" />
+    <None Include="assets\DEF_VERTEX_SHADER.txt" />
+    <None Include="assets\Midnight_Ride.ogg" />
+    <None Include="assets\TEXT.txt" />
     <None Include="libs\glm\detail\func_common.inl" />
     <None Include="libs\glm\detail\func_exponential.inl" />
     <None Include="libs\glm\detail\func_geometric.inl" />
