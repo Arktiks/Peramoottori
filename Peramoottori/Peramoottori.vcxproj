@@ -41,8 +41,9 @@
     <ClCompile Include="jni\core\Memory.cpp" />
     <ClCompile Include="jni\core\Passert.cpp" />
     <ClCompile Include="jni\core\Profiler.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\core\ProfilerManager.cpp" />
     <ClCompile Include="jni\core\Time.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
@@ -106,8 +107,9 @@
     <ClInclude Include="jni\core\Memory.h" />
     <ClInclude Include="jni\core\Passert.h" />
     <ClInclude Include="jni\core\Profiler.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\core\ProfilerManager.h" />
     <ClInclude Include="jni\core\Time.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>

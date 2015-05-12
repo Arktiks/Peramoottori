@@ -6,7 +6,8 @@
 
 namespace pm
 {	
-	/// Profiler to check how much time functions take to complete
+	/// Profiler to check how much time functions take to complete.
+
 	class Profiler
 	{
 	public:

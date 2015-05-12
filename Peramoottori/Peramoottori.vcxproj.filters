@@ -158,6 +158,9 @@
     <ClCompile Include="jni\core\CommandCenter.cpp">
       <Filter>jni\core\application</Filter>
     </ClCompile>
+    <ClCompile Include="jni\core\ProfilerManager.cpp">
+      <Filter>jni\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -969,6 +972,9 @@
     </ClInclude>
     <ClInclude Include="jni\core\CommandCenter.h">
       <Filter>jni\core\application</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\ProfilerManager.h">
+      <Filter>jni\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

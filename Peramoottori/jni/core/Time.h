@@ -8,9 +8,9 @@ namespace pm
 	class Time
 	{
 	public:
-		/// Constructor for Time
-		Time() : inFrame(false), timeInFrame(0), rawTime(0) {};
 
+		/// Constructor for Time.
+		Time() : inFrame(false), timeInFrame(0), rawTime(0) {};
 
 		/// Simple function to calculate time in frame or a loop.
 		/// When function is called for the first time, it starts
@@ -26,7 +26,6 @@ namespace pm
 		struct timespec start;
 		struct timespec end;
 		bool inFrame;
-
 	};
 }
 

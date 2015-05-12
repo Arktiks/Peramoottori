@@ -61,7 +61,6 @@ namespace pm
 		android_app* application; ///< Pointer to android application.
 
 		static Application* instance; ///< Pointer to only instance of the class.
-
 	};
 }
 

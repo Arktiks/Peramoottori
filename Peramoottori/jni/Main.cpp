@@ -75,10 +75,10 @@ namespace pm
 			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("Arial.ttf");
 			texts.push_back(Text(font, file, 100, 100, 32, 32));
 
-			sounds.push_back(Audio("Midnight_Ride.ogg"));
-			sounds[0].SetLooping(true);
-			sounds[0].SetVolume(50);
-			sounds[0].Play();
+			//sounds.push_back(Audio("Midnight_Ride.ogg"));
+			//sounds[0].SetLooping(true);
+			//sounds[0].SetVolume(50);
+			//sounds[0].Play();
 		};
 
 		void Update()
@@ -94,13 +94,13 @@ namespace pm
 		void Pause()
 		{
 			paused = true;
-			sounds[0].Pause();
+			//sounds[0].Pause();
 		};
 
 		void Unpause()
 		{
 			paused = false;
-			sounds[0].Play();
+			//sounds[0].Play();
 		};
 
 		std::vector<GameEntity> objects;
