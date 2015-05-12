@@ -1,6 +1,6 @@
 #include "Batch.h"
-
 using namespace pm;
+
 Batch::Batch(std::vector<GLfloat> vertexData,
 	std::vector<GLushort> indexData,
 	glm::mat4 transformMatrix,

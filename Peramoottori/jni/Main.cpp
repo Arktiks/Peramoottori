@@ -62,7 +62,7 @@ namespace pm
 	class GameClass // Test holding game information.
 	{
 	public:
-		GameClass() : rotation(0.0f), paused(false)
+		GameClass() : rotation(0.0f), volume(50.0f), paused(false)
 		{
 			objects.push_back(GameEntity());
 			objects[0].AddComponent(NEW Transformable(glm::vec2(500.0f, 500.0f), glm::vec2(1.0f, 1.0f), 0.0f));
@@ -75,15 +75,18 @@ namespace pm
 			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("Arial.ttf");
 			texts.push_back(Text(font, file, 100, 100, 32, 32));
 
-			//sounds.push_back(Audio("Midnight_Ride.ogg"));
-			//sounds[0].SetLooping(true);
-			//sounds[0].SetVolume(50);
-			//sounds[0].Play();
+			sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
+			sounds[0]->SetLooping(true);
+			sounds[0]->SetVolume(100.0f);
+			sounds[0]->Play();
 		};
 
 		void Update()
 		{
 			rotation += 0.1f;
+			volume -= 0.1f;
+			sounds[0]->SetVolume(volume);
+
 			objects[0].GetComponent<Transformable>()->SetRotation(rotation);
 			SpriteBatch::GetInstance()->AddGameEntity(&objects[0]);
 			
@@ -94,19 +97,19 @@ namespace pm
 		void Pause()
 		{
 			paused = true;
-			//sounds[0].Pause();
+			sounds[0]->Pause();
 		};
 
 		void Unpause()
 		{
 			paused = false;
-			//sounds[0].Play();
+			sounds[0]->Play();
 		};
 
 		std::vector<GameEntity> objects;
 		std::vector<Text> texts;
-		std::vector<Audio> sounds;
-		float rotation;
+		std::vector<Audio*> sounds;
+		float rotation, volume;
 		bool paused;
 		
 		static bool first;

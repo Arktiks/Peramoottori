@@ -43,9 +43,6 @@
     <Filter Include="jni\scene">
       <UniqueIdentifier>{b0373214-0b77-4a38-b73d-0d27c20187ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\graphics\shaders">
-      <UniqueIdentifier>{3ed54ec8-099e-41c9-bbdb-1d48c3a92798}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\scene\components">
       <UniqueIdentifier>{4538c9cf-38f4-47cc-8408-9ea041aca08a}</UniqueIdentifier>
     </Filter>
@@ -125,9 +122,6 @@
     <ClCompile Include="jni\scene\Transformable.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Shader.cpp">
-      <Filter>jni\graphics\shaders</Filter>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Color.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
@@ -160,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="jni\core\ProfilerManager.cpp">
       <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Shader.cpp">
+      <Filter>jni\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -928,9 +925,6 @@
     <ClInclude Include="jni\scene\Transformable.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Shader.h">
-      <Filter>jni\graphics\shaders</Filter>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Color.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
@@ -975,6 +969,9 @@
     </ClInclude>
     <ClInclude Include="jni\core\ProfilerManager.h">
       <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Shader.h">
+      <Filter>jni\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

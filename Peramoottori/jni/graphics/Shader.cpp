@@ -1,5 +1,6 @@
 #include "Shader.h"
 #include <resources\ResourceManager.h>
+#include <resources\TextResource.h>
 #include <core\Log.h>
 #include <core\Passert.h>
 
