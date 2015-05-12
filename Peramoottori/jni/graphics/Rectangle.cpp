@@ -40,6 +40,7 @@ glm::vec2 pm::Rectangle::GetSize()
 {
 	return glm::vec2(width, height);
 }
+
 void pm::Rectangle::SetVertices()
 {
 	vertices.clear();
