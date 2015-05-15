@@ -39,6 +39,9 @@ namespace pm
 		/// Returns glm vec2 that has the size of the rectangle.
 		glm::vec2 GetSize();
 		
+		/// Returns glm vec2 that has the origin of the rectangle
+		glm::vec2 GetOrigin();
+
 	private:
 		
 		/// Sets vertises of rectangle.

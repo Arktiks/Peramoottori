@@ -50,7 +50,7 @@ public:
 	glm::vec4 GetColor();
 
 	GLfloat GetRotation();
-
+	bool done;
 
 };
 

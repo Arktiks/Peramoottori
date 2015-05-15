@@ -19,10 +19,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Peramoottori\libs\lodepng.cpp" />
+    <ClCompile Include="jni\Enemy.cpp" />
     <ClCompile Include="jni\GameDemo.cpp" />
     <ClCompile Include="jni\main.cpp" />
+    <ClCompile Include="jni\MultipleTexture.cpp" />
     <ClCompile Include="jni\PhysicComponent.cpp" />
     <ClCompile Include="jni\RNG.cpp" />
+    <ClCompile Include="jni\Smoke.cpp" />
     <ClCompile Include="jni\SpriteObject.cpp" />
     <ClCompile Include="jni\TailComponent.cpp" />
     <ClCompile Include="jni\TailEntity.cpp" />
@@ -33,9 +36,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Peramoottori\libs\lodepng.h" />
+    <ClInclude Include="jni\Enemy.h" />
     <ClInclude Include="jni\GameDemo.h" />
+    <ClInclude Include="jni\MultipleTexture.h" />
     <ClInclude Include="jni\PhysicComponent.h" />
     <ClInclude Include="jni\RNG.h" />
+    <ClInclude Include="jni\Smoke.h" />
     <ClInclude Include="jni\SpriteObject.h" />
     <ClInclude Include="jni\TailComponent.h" />
     <ClInclude Include="jni\TailEntity.h" />

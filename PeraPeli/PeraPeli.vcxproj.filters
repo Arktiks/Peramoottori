@@ -60,6 +60,15 @@
     <ClCompile Include="jni\TailEntity.cpp">
       <Filter>jni\Custom gameEntities</Filter>
     </ClCompile>
+    <ClCompile Include="jni\MultipleTexture.cpp">
+      <Filter>jni\Custom components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\Enemy.cpp">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\Smoke.cpp">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="native_app_glue\android_native_app_glue.h">
@@ -84,6 +93,15 @@
       <Filter>jni\Custom gameEntities</Filter>
     </ClInclude>
     <ClInclude Include="jni\TailEntity.h">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\MultipleTexture.h">
+      <Filter>jni\Custom components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\Enemy.h">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\Smoke.h">
       <Filter>jni\Custom gameEntities</Filter>
     </ClInclude>
   </ItemGroup>

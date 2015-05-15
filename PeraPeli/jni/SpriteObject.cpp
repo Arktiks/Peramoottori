@@ -7,6 +7,7 @@
 
 SpriteObject::SpriteObject()
 {
+	done = false;
 	AddComponent(NEW pm::Rectangle());
 	AddComponent(NEW pm::Transformable());
 	AddComponent(NEW pm::Drawable());
@@ -14,6 +15,7 @@ SpriteObject::SpriteObject()
 }
 SpriteObject::SpriteObject(pm::Texture* texture)
 {
+	done = false;
 	AddComponent(NEW pm::Rectangle(texture->GetTextureSize()));
 	AddComponent(NEW pm::Transformable());
 	AddComponent(NEW pm::Drawable());

@@ -6,167 +6,382 @@
 #include <graphics\Drawable.h>
 #include <graphics\Color.h>
 #include <scene\GameEntity.h>
+#include <resources\ResourceManager.h>
+#include <sstream>
+bool GameDemo::first = false;
 
 GameDemo::GameDemo()
 {
-	
+
 }
 
 
 GameDemo::~GameDemo()
 {
 }
+void GameDemo::Pause()
+{
+	paused = true;
+	music->Pause();
+}
+void GameDemo::Unpause()
+{
+	paused = false;
+	music->Play();
+}
+void GameDemo::DeleteDone()
+{
+	std::vector<Smoke*>::iterator it = smokeVector.begin();
+	while (it != smokeVector.end())
+	{
+		if ((*it)->done)
+		{
+			it = smokeVector.erase(it);
+		}
+		else
+			it++;
+	}
+	std::vector<Enemy*>::iterator it2 = enemyVector.begin();
+	while (it2 != enemyVector.end())
+	{
+		if ((*it2)->done)
+		{
+
+			it2 = enemyVector.erase(it2);
+		}
+		else
+			it2++;
+	}
+	std::vector<SpriteObject*>::iterator it3 = spriteVector.begin();
+	while (it3 != spriteVector.end())
+	{
+		if ((*it3)->done)
+		{
+			delete (*it3);
+			it3 = spriteVector.erase(it3);
+		}
+		else
+			it3++;
+	}
+	it3 = opaqueSpriteVector.begin();
+	while (it3 != opaqueSpriteVector.end())
+	{
+		if ((*it3)->done)
+		{
+			delete (*it3);
+			it3 = opaqueSpriteVector.erase(it3);
+		}
+		else
+			it3++;
+	}
+	
+}
+
+void GameDemo::DeleteAllSprites()
+{
+	std::vector<Smoke*>::iterator it = smokeVector.begin();
+	while (it != smokeVector.end())
+	{
+		it = smokeVector.erase(it);
+	}
+	std::vector<Enemy*>::iterator it2 = enemyVector.begin();
+	while (it2 != enemyVector.end())
+	{
+		it2 = enemyVector.erase(it2);
+	}
+	std::vector<SpriteObject*>::iterator it3 = spriteVector.begin();
+	while (it3 != spriteVector.end())
+	{
+		delete (*it3);
+		it3 = spriteVector.erase(it3);
+
+	}
+	it3 = opaqueSpriteVector.begin();
+	while (it3 != opaqueSpriteVector.end())
+	{
+		delete (*it3);
+		it3 = opaqueSpriteVector.erase(it3);
+	}
+}
 
 void GameDemo::Initialize()
 {
+	paused = false;
+	win = false;
+	score = 0;
+	combo = 0;
 	soundBool = false;
 	pm::Vector2<int> pmLimits = pm::Application::GetInstance()->window.GetResolution();
 	limits.x = pmLimits.x;
 	limits.y = pmLimits.y;
 
-	holdingBall = false;
 
-	touchAudio = NEW pm::Audio("0477.ogg");
-	touchAudio->SetMaxPlayerCount(10);
-	touchAudio->SetVolume(1);
+	winAudio = NEW pm::Audio("sounds/Applause.ogg");
+	winAudio->SetVolume(30);
+	winAudio->SetMaxPlayerCount(3);
 
-	music = NEW pm::Audio("LGMThePortal.ogg");
+	winAudio2 = NEW pm::Audio("sounds/voitto.ogg");
+	winAudio2->SetVolume(100);
+
+	winAudio3 = NEW pm::Audio("sounds/victoryScream.ogg");
+	winAudio3->SetVolume(40);
+
+
+	touchAudio = NEW pm::Audio("sounds/hit.ogg");
+	touchAudio->SetMaxPlayerCount(20);
+	touchAudio->SetVolume(5);
+
+	explosionAudio = NEW pm::Audio("sounds/explosion.ogg");
+	touchAudio->SetMaxPlayerCount(5);
+	touchAudio->SetVolume(5);
+
+	music = NEW pm::Audio("sounds/happyMusic.ogg");
 	music->SetLooping(true);
-	music->SetVolume(50);
+	music->SetVolume(5);
 	music->Play();
 
-	pm::Texture* pointTexture = pm::TextureFactory::CreateTexture("point.png");
-	pm::Texture* groundTexture = pm::TextureFactory::CreateTexture("groundTexture.png");
-	pm::Texture* footBallTexture = pm::TextureFactory::CreateTexture("Football.png");
-	pm::Texture* spiralTexture = pm::TextureFactory::CreateTexture("spiral.png");
-	textureMap["point"] = pointTexture;
-	textureMap["ground"] = groundTexture;
+	text = NEW pm::Text( font =static_cast<pm::FontResource*>(pm::ResourceManager::GetInstance()->LoadAsset("arial.ttf"))
+		, textResource = NEW pm::TextResource("Score "), 32, limits.y - 32, 32, 32);
+	
+	InitializeTextures();
+	
+	SpriteObject* backGround = NEW SpriteObject(textureMap["background"]);
+	backGround->SetPosition(glm::vec2(0, 0));
+	backGround->SetSize(limits);
+	backGround->SetDepth(0);
+	
+	help = NEW SpriteObject(pm::TextureFactory::CreateTexture("iiro.png"));
+	help->SetPosition(glm::vec2(limits.x - 32, limits.y - 32));
+	help->SetSize(32, 32);
+	help->SetDrawState(false);
 
-	SpriteObject* pointSprite = new SpriteObject(pointTexture);
-	opaqueSpriteMap["point"] = pointSprite;
-	pointSprite->SetDepth(3);
-	pointSprite->SetSize(200, 300);
-	pointSprite->SetOrigin(40, 40);
+	spriteVector.push_back(backGround);
+	time.CalculateTimeInFrame();
+	deltaTime = time.CalculateTimeInFrame();
+	fasterTimer = 2000000000;
+}
 
-	SpriteObject* rotationBall = new SpriteObject(footBallTexture);
-	rotationBall->AddPhysics();
+void GameDemo::InitializeTextures()
+{
+	// Creating animation for sprite with multiple different textures
+	// Using custom component "MultipleTexture" to store the textures for future use
+	
+	EnemyTextures.AddTexture(pm::TextureFactory::CreateTexture("sprites/enemy/frame-1.png"));
+	EnemyTextures.AddTexture(pm::TextureFactory::CreateTexture("sprites/enemy/frame-2.png"));
+	EnemyTextures.AddTexture(pm::TextureFactory::CreateTexture("sprites/enemy/frame-3.png"));
+	EnemyTextures.AddTexture(pm::TextureFactory::CreateTexture("sprites/enemy/frame-4.png"));
+	EnemyTextures.AddTexture(pm::TextureFactory::CreateTexture("sprites/enemy/frame-5.png"));
+	EnemyTextures.AddTexture(pm::TextureFactory::CreateTexture("sprites/enemy/frame-6.png"));
+	EnemyTextures.AddTexture(pm::TextureFactory::CreateTexture("sprites/enemy/frame-7.png"));
+	EnemyTextures.AddTexture(pm::TextureFactory::CreateTexture("sprites/enemy/frame-8.png"));
 
-	opaqueSpriteMap["ball"] = rotationBall;
-	rotationBall->SetDepth(2);
-	rotationBall->SetSize(128.0f, 128.0f);
-	rotationBall->SetColor(glm::vec4(0.5f, 1.0f, 0, 0));
-	rotationBall->SetOrigin(64.0f, 64.0f);
-	rotationBall->SetPosition(100.0f, 100.0f);
-	rotationBall->SetVelocity(glm::vec2(2.0f, 3.0f));
+	// Adding background
 
-	SpriteObject* groundSprite = new SpriteObject(groundTexture);
-	spriteMap["ground"] = groundSprite;
-	groundSprite->SetDepth(2);
-	groundSprite->SetPosition(500, 500);
-	groundSprite->SetSize(1000, 100);
-	groundSprite->SetRotation(5.0f);
+	textureMap["background"] = pm::TextureFactory::CreateTexture("sprites/background/felt_brown.png");
+	textureMap["win"] = pm::TextureFactory::CreateTexture("sprites/voitto.png");
+	// Adding smoke-, explosion- and helper spritesheets
+	textureMap["smoke"] = pm::TextureFactory::CreateTexture("sprites/smoke/particlefx_03.png");
+	textureMap["explosion"] = pm::TextureFactory::CreateTexture("sprites/smoke/explosion.png");
+
+}
+
+void GameDemo::OneTimeWinFunction()
+{
+	DeleteAllSprites();
+
+	winSprite = NEW SpriteObject(textureMap["win"]);
+	winSprite->SetSize(limits);
+	winSprite->SetPosition(glm::vec2(0, 0));
 
 
-	SpriteObject* touchSprite1 = new SpriteObject();
-	spriteMap["touchArea1"] = touchSprite1;
-	touchSprite1->SetColor(glm::vec4(0, 0, 1, 0));
-	touchSprite1->SetDepth(5);
-	touchSprite1->SetPosition(0, 500);
-	touchSprite1->SetSize(200, 200);
-
-	SpriteObject* touchSprite2 = new SpriteObject();
-	spriteMap["touchArea2"] = touchSprite2;
-	touchSprite2->SetColor(glm::vec4(0, 0, 1, 0));
-	touchSprite2->SetDepth(10);
-	touchSprite2->SetPosition(900, 500);
-	touchSprite2->SetSize(200, 200);
-
-	SpriteObject* spiral = new SpriteObject(spiralTexture);
-	spiral->SetOrigin(400, 400);
-	spiral->SetPosition(256, 256);
-	spiral->SetSize(128, 128);
-	spiral->SetDepth(5);
-	opaqueSpriteMap["spiral"] = spiral;
+	music->Stop();
+	winAudio3->Play();
 	
 
-	time.CalculateTimeInFrame();
+	winAudio->Play();
+
 }
+void GameDemo::WinFunction()
+{
+	
+	pm::SpriteBatch::GetInstance()->AddGameEntity(winSprite);
+
+	spawnTimer += time.CalculateTimeInFrame();
+	if (spawnTimer > 1000000)
+	{
+		winAudio2->Play();
+		winAudio->Play();
+		spawnTimer = 0;
+	
+	}
+}	
+
 void GameDemo::Update()
 {
-	SpriteObject* obj = opaqueSpriteMap["spiral"];
-	assert( obj != 0);
-	obj->SetRotation(obj->GetRotation() - 1);
-	ColorRNG(obj);
-
-	// Update physics every two seconds
-	if (time.CalculateTimeInFrame() > 2.0f)
-		BallPhysics(opaqueSpriteMap["ball"]);
+	if (win)
+		WinFunction();
 	
-	InputUpdate();
-	Draw();
+	else
+		{
+		if (score > 1000)
+		{
+			win = true;
+			OneTimeWinFunction();
+			return;
+		}
+		deltaTime = time.CalculateTimeInFrame();
+
+
+		spawnTimer += deltaTime;
+		if (spawnTimer > fasterTimer)
+		{
+			for (int i = 0; i < RNG::Random(3); i++)
+			AddEnemy(glm::vec2(RNG::Random(limits.x-100), RNG::Random(limits.y-100)));
+			spawnTimer = 0;
+			fasterTimer -= 10000;
+		}
+		
+		for (int i = 0; i < enemyVector.size(); i++)
+		{
+			enemyVector[i]->Update(deltaTime);
+		}
+		for (int i = 0; i < smokeVector.size(); i++)
+		{
+			smokeVector[i]->Update(deltaTime);
+		}
+
+		
+		//	BallPhysics(opaqueSpriteMap["ball"]);
+		
+		InputUpdate();
+		DeleteDone();
+		if (scoreBool)
+		{
+			
+			scoreBool = false;
+			std::stringstream ss;
+			ss << score;
+
+			std::string tempString = "Score " + ss.str();
+			*textResource = pm::TextResource(tempString);
+
+			*text = pm::Text(font, textResource, 32, limits.y - 32, 32, 32);
+		}
+		Draw();
+	}
 }
+
+void GameDemo::AddEnemy(glm::vec2 location)
+{
+
+	Enemy* enemy = new Enemy();
+	enemy->SetPosition(location);
+	enemy->SetDrawState(false);
+	
+	enemy->SetSize(200, 200);
+	enemy->SetDepth(1);
+	enemy->SetTextureVector(EnemyTextures.textures);
+	enemyVector.push_back(enemy);
+	opaqueSpriteVector.push_back(enemy);
+	AddSmoke(location);
+	
+}
+void GameDemo::AddSmoke(glm::vec2 location)
+{
+	// Create atlascoordinates for smoke to use
+	// These are based on textureAtlas
+	glm::vec2 smokeSize(128.0f, 128.0f);
+	std::vector<glm::vec2> smokeCoords;
+	for (int y = 7; y > 0; y--)
+	{
+		for (int x = 0; x < 8; x++)
+		{
+			smokeCoords.push_back(glm::vec2(x * smokeSize.x, y * smokeSize.y));
+		}
+	}
+	Smoke* smoke = new Smoke(textureMap["smoke"], smokeSize, smokeCoords );
+	smoke->SetDepth(2);
+	smoke->SetPosition(location);
+	smoke->SetSize(300,300);
+	smoke->SetOrigin(40, 20);
+	smokeVector.push_back(smoke);
+	opaqueSpriteVector.push_back(smoke);
+}
+void GameDemo::AddExplosion(glm::vec2 location)
+{
+	glm::vec2 explosionSize(64.0f, 64.0f);
+	std::vector<glm::vec2> explosionCoords;
+	for (int y = 3; y > 0; y--)
+	{
+		for (int x = 0; x < 4; x++)
+		{
+			explosionCoords.push_back(glm::vec2(x * explosionSize.x, y * explosionSize.y));
+		}
+	}
+	Smoke* explosion = new Smoke(textureMap["explosion"], explosionSize, explosionCoords);
+	explosion->SetDepth(2);
+	explosion->SetPosition(location);
+	explosion->SetSize(300, 300);
+	explosion->SetOrigin(40, 20);
+	smokeVector.push_back(explosion);
+	opaqueSpriteVector.push_back(explosion);
+}
+
 
 void GameDemo::Draw()
 {
-	std::map<std::string, SpriteObject*>::iterator it;
+	std::vector<SpriteObject*>::iterator it;
 
-	for (it = spriteMap.begin(); it != spriteMap.end(); it++)
-		pm::SpriteBatch::GetInstance()->AddGameEntity(it->second);
+	for (it = spriteVector.begin(); it != spriteVector.end(); it++)
+		pm::SpriteBatch::GetInstance()->AddGameEntity(*it);
 
-	for (it = opaqueSpriteMap.begin(); it != opaqueSpriteMap.end(); it++)
-		pm::SpriteBatch::GetInstance()->AddOpaqueGameEntity(it->second);
+	for (it = opaqueSpriteVector.begin(); it != opaqueSpriteVector.end(); it++)
+		pm::SpriteBatch::GetInstance()->AddOpaqueGameEntity(*it);
+	
+	std::vector<pm::GameEntity*>::iterator it2;
+
+	std::vector<pm::GameEntity*> textGEV = text->GetTextVector();
+	for (it2 = textGEV.begin(); it2 != textGEV.end(); it2++)
+		pm::SpriteBatch::GetInstance()->AddOpaqueGameEntity(*it2);
 }
 
 void GameDemo::InputUpdate()
 {
 	if (input.IsTouching())
 	{
-		glm::vec2 touchPosition = glm::vec2(input.GetTouchCoordinates().x - 40, input.GetTouchCoordinates().y);
-
-		opaqueSpriteMap["point"]->SetDrawState(true);
-		opaqueSpriteMap["point"]->SetPosition(touchPosition);
-
-		if (CheckTouch(touchPosition, spriteMap["touchArea1"]))
+		if (!soundBool)
 		{
-			spriteMap["touchArea1"]->SetColor(glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
-			spriteMap["touchArea2"]->SetColor(glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-			if (soundBool)
+			soundBool = true;
+			touchAudio->Play();
+		}
+		glm::vec2 touchPosition = glm::vec2(input.GetTouchCoordinates().x, input.GetTouchCoordinates().y);
+
+		//	opaqueSpriteMap["point"]->SetDrawState(true);
+		//	opaqueSpriteMap["point"]->SetPosition(touchPosition);
+
+		for (int i = 0; i < enemyVector.size(); i++)
+		{
+			if (CheckTouch(touchPosition, enemyVector[i]))
 			{
-				touchAudio->Play();
-				soundBool = false;
+				combo++;
+				score += combo;
+				scoreBool = true;
+				explosionAudio->Play();
+				AddExplosion(enemyVector[i]->GetPosition());
+				
+				enemyVector[i]->done = true;
+
 			}
 		}
-
-		if (CheckTouch(touchPosition, spriteMap["touchArea2"]))
+		if (CheckTouch(touchPosition, help))
 		{
-			spriteMap["touchArea1"]->SetColor(glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-			spriteMap["touchArea2"]->SetColor(glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
-			if (!soundBool)
-			{
-				touchAudio->Play();
-				soundBool = true;
-			}
-		}
-		if (CheckTouch((touchPosition + opaqueSpriteMap["ball"]->GetOrigin()), opaqueSpriteMap["ball"]))
-		{
-			holdingBall = true;
-		}
-
-		if (holdingBall)
-		{
-			glm::vec2 dragVector = input.GetDragVector();
-			dragVector.x = dragVector.x / 3;
-			dragVector.y = dragVector.y / 3;
-			opaqueSpriteMap["ball"]->SetVelocity(dragVector);
-			opaqueSpriteMap["ball"]->SetPosition(touchPosition.x, touchPosition.y);
+			for (int i = 0; i < opaqueSpriteVector.size(); i++)
+				opaqueSpriteVector[i]->done = true;
+			scoreBool = true;
 		}
 	}
 	else
-	{
-		opaqueSpriteMap["point"]->SetDrawState(false);
-		holdingBall = false;
-	}
-
+		soundBool = false;
 }
 
 bool GameDemo::CheckTouch(glm::vec2 touch, SpriteObject *target)
@@ -181,70 +396,3 @@ bool GameDemo::CheckTouch(glm::vec2 touch, SpriteObject *target)
 	return false;
 }
 
-void GameDemo::BallPhysics(SpriteObject* target)
-{
-	CheckLimits(target);
-
-	target->SetRotation(target->GetRotation() + target->GetVelocity().x);
-	target->SetPosition(target->GetPosition() + target->GetVelocity());
-}
-
-void GameDemo::CheckLimits(SpriteObject* target)
-{
-	if (target->GetPosition().x - target->GetSize().x/2 < 0)
-	{
-		target->SetPosition(target->GetSize().x / 2, target->GetPosition().y);
-		target->SetVelocity(glm::vec2(target->GetVelocity().x * -0.8f, target->GetVelocity().y));
-	}
-	else if (target->GetPosition().x > limits.x - target->GetSize().x/2)
-	{
-		target->SetPosition(limits.x - target->GetSize().x / 2, target->GetPosition().y);
-		target->SetVelocity(glm::vec2(target->GetVelocity().x * -0.8f, target->GetVelocity().y));
-	}
-
-	if (target->GetPosition().y > limits.y - target->GetSize().y/2)
-	{
-		target->SetVelocity(glm::vec2(target->GetVelocity().x, target->GetVelocity().y * -0.8f));
-		target->SetPosition(glm::vec2(target->GetPosition().x, limits.y - target->GetSize().y / 2));
-	}
-	else
-	{
-		target->SetVelocity(glm::vec2(target->GetVelocity().x, target->GetVelocity().y + 0.1f));
-	}
-}
-
-float CheckMinMax(float color)
-{
-	if (color < 0.00f)
-		return 0.01f;
-	else if (color > 1.00f)
-		return 0.99f;
-	else
-		return color;
-}
-
-void GameDemo::ColorRNG(SpriteObject* target)
-{
-	glm::vec4 newColor = target->GetColor();
-
-	int plusOrMinus = 1;
-	if (RNG::Random(1))
-		plusOrMinus = -1;
-	
-	newColor.r += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
-	newColor.b += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
-	newColor.g += static_cast<float>(RNG::RandomNotZero(100)) / 1000 * plusOrMinus;
-
-
-	newColor.r = CheckMinMax(newColor.r);
-	newColor.b = CheckMinMax(newColor.b);
-	newColor.g = CheckMinMax(newColor.g);
-
-
-	target->SetColor(newColor);
-}
-
-void GameDemo::TailFunction(SpriteObject* target)
-{
-
-}
