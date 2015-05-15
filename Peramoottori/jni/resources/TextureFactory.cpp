@@ -29,6 +29,12 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 
 void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer)
 {
+	if (fileName.empty() || pointer == nullptr)
+	{
+		DEBUG_WARNING(("TextureFactory failed to create texture (%s).", fileName.c_str()));
+		return;
+	}
+
 	DEBUG_GL_ERROR_CLEAR();
 	pm::ImageResource* decodedImage = (pm::ImageResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
 
@@ -74,19 +80,26 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 
 void pm::TextureFactory::RecreateOGLTextures()
 {
-	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	if (!generatedTextures.empty())
 	{
-		CreateOGLTexture(it->first, it->second);
+		for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+			CreateOGLTexture(it->first, it->second);
 	}
 }
 
 void pm::TextureFactory::DestroyOGLTextures()
 {
 	DEBUG_GL_ERROR_CLEAR();
-	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	/*for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
 		GLuint reference = it->second->GetId();
 		glDeleteTextures(1, &reference);
+		DEBUG_GL_ERROR();
+	}*/
+
+	for (GLuint i = 0; i < 10; i++) // Bubblegum fix temporary!
+	{
+		glDeleteTextures(1, &i);
 		DEBUG_GL_ERROR();
 	}
 }

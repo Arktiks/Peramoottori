@@ -19,11 +19,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Peramoottori\libs\lodepng.cpp" />
+    <ClCompile Include="jni\Enemy.cpp" />
     <ClCompile Include="jni\GameDemo.cpp" />
     <ClCompile Include="jni\main.cpp" />
+    <ClCompile Include="jni\MultipleTexture.cpp" />
     <ClCompile Include="jni\PhysicComponent.cpp" />
     <ClCompile Include="jni\RNG.cpp" />
+    <ClCompile Include="jni\Smoke.cpp" />
     <ClCompile Include="jni\SpriteObject.cpp" />
+    <ClCompile Include="jni\TailComponent.cpp" />
+    <ClCompile Include="jni\TailEntity.cpp" />
     <ClCompile Include="native_app_glue\android_native_app_glue.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
@@ -31,18 +36,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Peramoottori\libs\lodepng.h" />
+    <ClInclude Include="jni\Enemy.h" />
     <ClInclude Include="jni\GameDemo.h" />
+    <ClInclude Include="jni\MultipleTexture.h" />
     <ClInclude Include="jni\PhysicComponent.h" />
     <ClInclude Include="jni\RNG.h" />
+    <ClInclude Include="jni\Smoke.h" />
     <ClInclude Include="jni\SpriteObject.h" />
+    <ClInclude Include="jni\TailComponent.h" />
+    <ClInclude Include="jni\TailEntity.h" />
     <ClInclude Include="native_app_glue\android_native_app_glue.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\TestFragmentShader.txt" />
-    <None Include="assets\TestVertexShader.txt" />
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt" />
+    <None Include="assets\DEF_VERTEX_SHADER.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{97E30C33-1EFB-4275-8D46-A5E4BD98E597}</ProjectGuid>

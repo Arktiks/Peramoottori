@@ -15,6 +15,7 @@ using namespace pm;
 using namespace std;
 
 RenderSystem* RenderSystem::instance = nullptr;
+bool RenderSystem::initialized = false;
 
 RenderSystem* RenderSystem::GetInstance()
 {
@@ -27,8 +28,7 @@ void RenderSystem::DestroyInstance()
 {
 	delete instance;
 	instance = nullptr;
-
-	// Clean up RenderSystem.
+	initialized = false;
 }
 
 void RenderSystem::Initialize()
@@ -40,9 +40,6 @@ void RenderSystem::Initialize()
 	float top = resolution.y;
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, -1.0f, 1.0f);
 
-	//vertexBuffer = Buffer(VERTEX); // Already contain GL error handling.
-	//indexBuffer = Buffer(INDEX);
-
 	vertexBuffer.CreateBuffer(VERTEX);
 	indexBuffer.CreateBuffer(INDEX);
 
@@ -51,14 +48,10 @@ void RenderSystem::Initialize()
 	GLint projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
 	DEBUG_GL_ERROR();
 
-	// Print out projection matrix.
-	//for (int i = 0; i < 4; i++)
-		//for (int n = 0; n < 4; n++)
-			//DEBUG_INFO(("%f", projectionMatrix[i][n]));
-
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	DEBUG_GL_ERROR();
 
+	initialized = true;
 	DEBUG_INFO(("RenderSystem initialize finished."));
 }
 
@@ -70,11 +63,8 @@ void RenderSystem::Draw(Batch* batch)
 
 	shaderProgram.UseVertexAttribs();
 
-	glActiveTexture(GL_TEXTURE0); // ???
+	glActiveTexture(GL_TEXTURE0);
 	DEBUG_GL_ERROR();
-
-	//glEnable(GL_TEXTURE_2D); // Not neccessary, maybe.
-	//glUniform1i(shaderProgram.samplerLoc, 0);
 
 	glBindTexture(GL_TEXTURE_2D, batch->textureIndex);
 	DEBUG_GL_ERROR();
@@ -98,6 +88,11 @@ void RenderSystem::Draw(Batch* batch)
 	DEBUG_GL_ERROR();
 }
 
+bool RenderSystem::IsInitialized()
+{
+	return initialized;
+}
+
 void RenderSystem::BindBuffers(Batch* batch)
 {
 	vertexBuffer.BindBufferData(batch->GetVertexDataPointer()->size(), batch->GetVertexDataPointer()->data());
@@ -108,13 +103,13 @@ void RenderSystem::CreateShaders()
 {
 	DEBUG_GL_ERROR_CLEAR();
 
-	bool tempCheck = shaderProgram.AddShader("TestVertexShader.txt", GL_VERTEX_SHADER); // Create default vertex shader.
+	bool tempCheck = shaderProgram.AddShader("DEF_VERTEX_SHADER.txt", GL_VERTEX_SHADER); // Create default vertex shader.
 	DEBUG_GL_ERROR();
-	ASSERT(tempCheck);
+	//ASSERT(tempCheck);
 
-	tempCheck = shaderProgram.AddShader("TestFragmentShader.txt", GL_FRAGMENT_SHADER); // Create default fragment shader.
+	tempCheck = shaderProgram.AddShader("DEF_FRAGMENT_SHADER.txt", GL_FRAGMENT_SHADER); // Create default fragment shader.
 	DEBUG_GL_ERROR();
-	ASSERT(tempCheck);
+	//ASSERT(tempCheck);
 
 	shaderProgram.AddVertexAttribPointer("attrPosition", 3, 9, 0); // Vertex attributes defined by default shaders.
 	shaderProgram.AddVertexAttribPointer("attrColor", 4, 9, 3);
@@ -134,9 +129,6 @@ void RenderSystem::CreateShaders()
 	glDepthFunc(GL_LEQUAL);
 	DEBUG_GL_ERROR();
 
-	//glDisable(GL_DEPTH_TEST);
-	//DEBUG_GL_ERROR();
-
 	GLint tempLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "image");
 	DEBUG_GL_ERROR();
 
@@ -148,5 +140,4 @@ void RenderSystem::CreateShaders()
 
 RenderSystem::~RenderSystem()
 {
-	//glDeleteShader(
 }

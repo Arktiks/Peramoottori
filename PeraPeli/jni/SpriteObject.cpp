@@ -1,11 +1,13 @@
 #include "SpriteObject.h"
 #include <scene\Transformable.h>
+#include <PhysicComponent.h>
 #include <graphics\Rectangle.h>
 #include <graphics\Drawable.h>
 #include <graphics\Color.h>
 
 SpriteObject::SpriteObject()
 {
+	done = false;
 	AddComponent(NEW pm::Rectangle());
 	AddComponent(NEW pm::Transformable());
 	AddComponent(NEW pm::Drawable());
@@ -13,6 +15,7 @@ SpriteObject::SpriteObject()
 }
 SpriteObject::SpriteObject(pm::Texture* texture)
 {
+	done = false;
 	AddComponent(NEW pm::Rectangle(texture->GetTextureSize()));
 	AddComponent(NEW pm::Transformable());
 	AddComponent(NEW pm::Drawable());
@@ -31,6 +34,7 @@ void SpriteObject::AddPhysics()
 	AddComponent(NEW PhysicComponent);
 	GetComponent<PhysicComponent>()->SetPosition(GetComponent<pm::Transformable>()->GetPosition());
 }
+
 
 void SpriteObject::SetVelocity(glm::vec2 velocity)
 {

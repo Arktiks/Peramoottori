@@ -14,7 +14,6 @@ float Input::startOfDragX = 0;
 float Input::startOfDragY = 0;
 glm::vec3 Input::accelerometer = glm::vec3(0, 0, 0);
 
-
 glm::vec2 Input::GetTouchCoordinates()
 {
 	return glm::vec2(_x, _y);

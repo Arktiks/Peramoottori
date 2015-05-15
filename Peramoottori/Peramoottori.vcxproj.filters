@@ -43,9 +43,6 @@
     <Filter Include="jni\scene">
       <UniqueIdentifier>{b0373214-0b77-4a38-b73d-0d27c20187ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\graphics\shaders">
-      <UniqueIdentifier>{3ed54ec8-099e-41c9-bbdb-1d48c3a92798}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\scene\components">
       <UniqueIdentifier>{4538c9cf-38f4-47cc-8408-9ea041aca08a}</UniqueIdentifier>
     </Filter>
@@ -125,9 +122,6 @@
     <ClCompile Include="jni\scene\Transformable.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
-    <ClCompile Include="jni\graphics\Shader.cpp">
-      <Filter>jni\graphics\shaders</Filter>
-    </ClCompile>
     <ClCompile Include="jni\graphics\Color.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
@@ -157,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="jni\core\CommandCenter.cpp">
       <Filter>jni\core\application</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\ProfilerManager.cpp">
+      <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\graphics\Shader.cpp">
+      <Filter>jni\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -925,9 +925,6 @@
     <ClInclude Include="jni\scene\Transformable.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
-    <ClInclude Include="jni\graphics\Shader.h">
-      <Filter>jni\graphics\shaders</Filter>
-    </ClInclude>
     <ClInclude Include="jni\graphics\Color.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
@@ -969,6 +966,12 @@
     </ClInclude>
     <ClInclude Include="jni\core\CommandCenter.h">
       <Filter>jni\core\application</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\ProfilerManager.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\graphics\Shader.h">
+      <Filter>jni\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1299,10 +1302,28 @@
     <None Include="libs\glm\gtx\wrap.inl">
       <Filter>libs\glm</Filter>
     </None>
-    <None Include="assets\TestFragmentShader.txt">
+    <None Include="assets\Applause.ogg">
       <Filter>assets</Filter>
     </None>
-    <None Include="assets\TestVertexShader.txt">
+    <None Include="assets\Arial.ttf">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_TEXTURE.png">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_TEXTURE_SMALL.png">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\Midnight_Ride.ogg">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\TEXT.txt">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_VERTEX_SHADER.txt">
       <Filter>assets</Filter>
     </None>
   </ItemGroup>

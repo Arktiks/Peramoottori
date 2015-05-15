@@ -36,6 +36,8 @@ namespace pm
 		/// Return true if Application is ready to be updated and drawn.
 		bool IsReady();
 
+		bool IsFocused();
+
 		/// Loops infinitely until Application is ready to be updated and drawn.
 		void Wait();
 
@@ -59,7 +61,6 @@ namespace pm
 		android_app* application; ///< Pointer to android application.
 
 		static Application* instance; ///< Pointer to only instance of the class.
-
 	};
 }
 

@@ -43,7 +43,6 @@ namespace pm
 
 		GLuint index;
 		bufferType type;
-
 	};
 }
 

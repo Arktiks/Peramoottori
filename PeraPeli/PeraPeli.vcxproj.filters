@@ -19,6 +19,12 @@
     <Filter Include="assets">
       <UniqueIdentifier>{73b96635-d2f4-48e2-9131-36960e20f4d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\Custom components">
+      <UniqueIdentifier>{f68163aa-acee-4747-9755-8ae1e0a614d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Custom gameEntities">
+      <UniqueIdentifier>{871db0ec-45aa-4832-9e4e-b05e04852669}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="AndroidManifest.xml" />
@@ -39,14 +45,29 @@
     <ClCompile Include="..\Peramoottori\libs\lodepng.cpp">
       <Filter>PeraPeli</Filter>
     </ClCompile>
-    <ClCompile Include="jni\SpriteObject.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\PhysicComponent.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
     <ClCompile Include="jni\RNG.cpp">
       <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\TailComponent.cpp">
+      <Filter>jni\Custom components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\PhysicComponent.cpp">
+      <Filter>jni\Custom components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\SpriteObject.cpp">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\TailEntity.cpp">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\MultipleTexture.cpp">
+      <Filter>jni\Custom components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\Enemy.cpp">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\Smoke.cpp">
+      <Filter>jni\Custom gameEntities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,21 +80,36 @@
     <ClInclude Include="..\Peramoottori\libs\lodepng.h">
       <Filter>PeraPeli</Filter>
     </ClInclude>
-    <ClInclude Include="jni\SpriteObject.h">
-      <Filter>jni</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\PhysicComponent.h">
-      <Filter>jni</Filter>
-    </ClInclude>
     <ClInclude Include="jni\RNG.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="jni\TailComponent.h">
+      <Filter>jni\Custom components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\PhysicComponent.h">
+      <Filter>jni\Custom components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\SpriteObject.h">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\TailEntity.h">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\MultipleTexture.h">
+      <Filter>jni\Custom components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\Enemy.h">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\Smoke.h">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\TestFragmentShader.txt">
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt">
       <Filter>assets</Filter>
     </None>
-    <None Include="assets\TestVertexShader.txt">
+    <None Include="assets\DEF_VERTEX_SHADER.txt">
       <Filter>assets</Filter>
     </None>
   </ItemGroup>

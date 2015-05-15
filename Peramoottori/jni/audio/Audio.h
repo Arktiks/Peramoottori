@@ -1,7 +1,6 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
-#include <audio\AudioManager.h>
 #include <audio\AudioPlayer.h>
 #include <string>
 #include <vector>
@@ -13,7 +12,6 @@ namespace pm
 	public:
 		
 		Audio(std::string fileName);
-		Audio(){};
 		~Audio();
 
 		/**
@@ -21,11 +19,13 @@ namespace pm
 		* Returns false if there are no available audio players.
 		*/
 		bool Play();
+
 		/**
 		* Stops all the instances of this Audio object.
 		* Next time playing will start from the beginning.
 		*/
 		void Stop();
+
 		/**
 		* Pauses all the players of this Audio object.
 		* Next time playing will continue from the same point.
@@ -37,6 +37,7 @@ namespace pm
 		* Give volumeLevel as percentage.
 		*/
 		void SetVolume(float volumeLevel);
+
 		/**
 		* Sets looping to given value.
 		* 'isEnabled = true' enables looping.
@@ -52,16 +53,19 @@ namespace pm
 		void SetMaxPlayerCount(unsigned newMaxCount);
 		
 	private:
+
+		Audio() = delete; // Forbid using default constructor.
+
 		/**
-		*Returns Available AudioPlayer.
+		* Returns available AudioPlayer.
 		*/
 		AudioPlayer* GetAvailable();
-
 		std::vector<AudioPlayer*> player;
 
+		float volume;
 		unsigned playerCount;
 		unsigned maxPlayerCount;
 	};
 }
 
-#endif //AUDIO_H
+#endif // AUDIO_H

@@ -6,6 +6,7 @@
 namespace pm
 {	
 	/// GameEntity Component aka. boolean storage for one boolean.
+
 	class Drawable : public Component
 	{
 	public:
@@ -22,7 +23,6 @@ namespace pm
 	private:
 
 		bool drawState;
-
 	};
 }
 

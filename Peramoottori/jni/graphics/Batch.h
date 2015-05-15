@@ -1,9 +1,9 @@
-#pragma once
+#ifndef BATCH_H
+#define BATCH_H
+
 #include <glm\mat4x4.hpp>
 #include <GLES2\gl2.h>
 #include <vector>
-
-// Needs more commentating!
 
 namespace pm
 {
@@ -12,6 +12,7 @@ namespace pm
 	public:
 		
 		Batch() : textureIndex(0) {};
+
 		/// Batch constructor.
 		Batch(std::vector<GLfloat> vertexData,
 			std::vector<GLushort> indexData,
@@ -24,14 +25,13 @@ namespace pm
 			std::vector<GLushort>indexData,
 			glm::mat4 transformMatrix);
 
-
 		// Are these functions neccessary? I don't know...
 		std::vector<GLfloat> GetVertexData() { return totalVertexData; }
-		std::vector<GLushort> GetIndexData(){ return totalIndexData; }
+		std::vector<GLushort> GetIndexData() { return totalIndexData; }
 
-		std::vector<GLfloat>* GetVertexDataPointer(){ return &totalVertexData; }
-		std::vector<GLushort>* GetIndexDataPointer(){ return &totalIndexData; }
-		std::vector<glm::mat4>* GetTransformMatrixPointer(){ return &transformMatrixVector; }
+		std::vector<GLfloat>* GetVertexDataPointer() { return &totalVertexData; }
+		std::vector<GLushort>* GetIndexDataPointer() { return &totalIndexData; }
+		std::vector<glm::mat4>* GetTransformMatrixPointer() { return &transformMatrixVector; }
 
 		std::vector<GLfloat> totalVertexData;
 		std::vector<GLushort> totalIndexData;
@@ -39,3 +39,5 @@ namespace pm
 		GLuint textureIndex;
 	};
 }
+
+#endif

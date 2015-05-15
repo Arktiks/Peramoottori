@@ -2,9 +2,11 @@
 #include <core\Log.h>
 #include <core\Passert.h>
 #include <core\Memory.h>
-#include <resources\ResourceManager.h>
 
-pm::Audio::Audio(std::string fileName) : maxPlayerCount(3), playerCount(1)
+#include <resources\ResourceManager.h>
+#include <audio\AudioManager.h>
+
+pm::Audio::Audio(std::string fileName) : volume(100.0f), playerCount(1), maxPlayerCount(3)
 {
 	AudioResource* tempAudioAsset = (pm::AudioResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
 	ASSERT_NEQUAL(tempAudioAsset, nullptr);
@@ -45,8 +47,9 @@ void pm::Audio::Pause()
 
 void pm::Audio::SetVolume(float volumeLevel)
 {
+	volume = volumeLevel;
 	for (int i = 0; i < playerCount; i++)
-		player[i]->SetVolume(volumeLevel);
+		player[i]->SetVolume(volume);
 }
 
 void pm::Audio::SetLooping(bool isEnabled)
@@ -91,7 +94,7 @@ pm::AudioPlayer* pm::Audio::GetAvailable()
 		playerCount++;
 		player.push_back(NEW AudioPlayer(player[0]));
 		AudioManager::GetInstance()->InitAudioPlayer(player[playerCount-1]);
-
+		player[playerCount - 1]->SetVolume(volume);
 		return player[playerCount-1];
 	}
 	else

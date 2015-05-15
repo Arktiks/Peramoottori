@@ -1,5 +1,6 @@
-#pragma once
-#include <PhysicComponent.h>
+#ifndef SPRITEOBJECT_H
+#define SPRITEOBJECT_H
+
 
 #include <scene\GameEntity.h>
 #include <scene\Texture.h>
@@ -20,6 +21,7 @@ public:
 
 
 	void AddPhysics();
+	void AddTail();
 	void SetVelocity(glm::vec2 velocity);
 	glm::vec2 GetVelocity();
 
@@ -48,7 +50,8 @@ public:
 	glm::vec4 GetColor();
 
 	GLfloat GetRotation();
-
+	bool done;
 
 };
 
+#endif

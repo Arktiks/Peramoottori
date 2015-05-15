@@ -31,8 +31,6 @@ void SpriteBatch::DestroyInstance()
 {
 	delete instance;
 	instance = nullptr;
-
-	// Clean up SpriteBatch.
 }
 
 void SpriteBatch::Draw()
@@ -56,7 +54,6 @@ void SpriteBatch::AddOpaqueGameEntity(GameEntity* gameEntity)
 {
 	opaqueGameEntityVector.push_back(gameEntity); 
 }
-
 
 bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
 {
@@ -98,7 +95,7 @@ void SpriteBatch::BatchComponents()
 		}
 	}
 
-	// Somebody has to make this good
+	// Somebody has to make this good.
 	for (int i = 0; i < opaqueGameEntityVector.size(); i++)
 	{
 		std::vector<GLfloat> tempVertexData;
@@ -134,25 +131,21 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	glm::mat4* transformMatrix,
 	GLuint* textureIndex)
 {
-	// vertexPos, depth, vertexTexPos, vertexColor
-
 	std::vector<GLfloat> vertexPos;
 	GLfloat depth = 0;
 	std::vector<GLfloat> vertexTexPos;
 	glm::vec4 vertexColor;
-	
 
 	/// SHAPE ///
 	if (gameEntity->GetComponent<Rectangle>() == nullptr)
 	{
 		// Should be edited back to shape class.
-	//	DEBUG_WARNING(("Gathering data from GameEntity without SHAPE."));
+		//DEBUG_WARNING(("Gathering data from GameEntity without SHAPE."));
 	}
 	else
 	{
 		vertexPos = gameEntity->GetComponent<Rectangle>()->GetVertices();
 		*indexData = gameEntity->GetComponent<Rectangle>()->GetIndices();
-
 		//ASSERT(vertexPos.empty());
 		//ASSERT(indices.empty());
 	}
@@ -160,19 +153,16 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	/// TRANSFORMABLE ///
 	if (gameEntity->GetComponent<Transformable>() == nullptr)
 	{
-	//	DEBUG_WARNING(("Gathering data from GameEntity without TRANSFORMABLE."));
+		//DEBUG_WARNING(("Gathering data from GameEntity without TRANSFORMABLE."));
 	}
 	else
 	{
-		// Do transform magic.
-		Transformable* transform = gameEntity->GetComponent<Transformable>();
+		Transformable* transform = gameEntity->GetComponent<Transformable>(); // Do transform magic.
 		glm::mat4 tempMat = glm::mat4();
 		tempMat = glm::scale(glm::vec3(transform->GetScale(), 0.0f)) * tempMat;
 		tempMat = glm::rotate(transform->GetRotation()*3.14f / 180.0f, glm::vec3(0, 0, 1)) * tempMat;
 		tempMat = glm::translate(glm::vec3(transform->GetPosition(), 0.0f)) * tempMat;
-		
 		*transformMatrix = tempMat;
-
 		depth = transform->GetDepth();
 	}
 
@@ -183,7 +173,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 		for (int i = 0; i < 8; i++)
 			vertexTexPos.push_back(0);
 
-	//	DEBUG_WARNING(("Gathering data from GameEntity without TEXTURE."));
+		//DEBUG_WARNING(("Gathering data from GameEntity without TEXTURE."));
 	}
 	else
 	{
@@ -197,8 +187,9 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 		vertexColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 	else
+	{
 		vertexColor = gameEntity->GetComponent<Color>()->GetColor();
-
+	}
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -214,6 +205,4 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 		vertexData->push_back(vertexTexPos[i * 2]);
 		vertexData->push_back(vertexTexPos[i * 2 + 1]);
 	}
-
-
 }
