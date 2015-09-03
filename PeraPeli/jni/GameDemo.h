@@ -35,8 +35,8 @@ public:
 private:
 
 
-	SpriteObject* winSprite;
-	pm::Audio* touchAudio, *explosionAudio, *music, *winAudio, *winAudio2, *winAudio3;
+	SpriteObject* winSprite, *logoSprite;
+	pm::Audio *touchAudio, *explosionAudio, *music, *winAudio, *winAudio2, *winAudio3, *logoAudio;
 	pm::Text* text;
 	pm::TextResource* textResource;
 	pm::FontResource* font;
@@ -55,6 +55,7 @@ private:
 	
 
 	bool win;
+	void SplashScreen();
 	void WinFunction();
 	void OneTimeWinFunction();
 	

@@ -115,6 +115,9 @@ void GameDemo::Initialize()
 	limits.x = pmLimits.x;
 	limits.y = pmLimits.y;
 
+	//logoAudio = NEW pm::Audio("sounds/logo.ogg");
+	//logoAudio->SetVolume(30);
+	//logoAudio->SetMaxPlayerCount(1);
 
 	winAudio = NEW pm::Audio("sounds/Applause.ogg");
 	winAudio->SetVolume(30);
@@ -159,6 +162,8 @@ void GameDemo::Initialize()
 	time.CalculateTimeInFrame();
 	deltaTime = time.CalculateTimeInFrame();
 	fasterTimer = 2000000000;
+
+	//SplashScreen();
 }
 
 void GameDemo::InitializeTextures()
@@ -182,6 +187,17 @@ void GameDemo::InitializeTextures()
 	// Adding smoke-, explosion- and helper spritesheets
 	textureMap["smoke"] = pm::TextureFactory::CreateTexture("sprites/smoke/particlefx_03.png");
 	textureMap["explosion"] = pm::TextureFactory::CreateTexture("sprites/smoke/explosion.png");
+	textureMap["logo"] = pm::TextureFactory::CreateTexture("sprites/background/logo.png");
+}
+
+void GameDemo::SplashScreen()
+{
+	logoSprite = NEW SpriteObject(textureMap["logo"]);
+
+	logoSprite->SetSize(limits);
+	logoSprite->SetPosition(glm::vec2(0, 0));
+
+	logoAudio->Play();
 
 }
 
@@ -216,8 +232,14 @@ void GameDemo::WinFunction()
 	}
 }	
 
+float logoTimer = 0;
 void GameDemo::Update()
 {
+	logoTimer += time.CalculateTimeInFrame();
+	if (logoTimer < 2000000)
+	{
+
+	}
 	if (win)
 		WinFunction();
 	
