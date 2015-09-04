@@ -5,18 +5,9 @@ pm::GameEntity::~GameEntity()
 	ComponentList::iterator it = components.begin();
 	while (it != components.end())
 	{
-		 //Check later
-		if (&typeid(*it) != &typeid(pm::Texture))
-	{	
+		delete it->second;
+		it->second = nullptr;
 		it = components.erase(it);
-	}
-		else
-		{
-			delete it->first;
-			delete it->second;
-			it->second = nullptr;
-			it = components.erase(it);
-		}
 	}
 }
 
@@ -28,9 +19,7 @@ void pm::GameEntity::AddComponent(Component* newComponent)
 
 	if (componentIt != components.end())
 	{
-		//delete componentIt->first;
-		//delete componentIt->second;//
-		//componentIt->second = nullptr;
+		delete componentIt->second;
 	}
 
 	newComponent->SetParent(this);

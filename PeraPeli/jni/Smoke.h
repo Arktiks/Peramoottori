@@ -10,12 +10,12 @@ public:
 
 	void Update(float deltaTime);
 	void UpdateTexturePosition();
-
 private:
 
 	int currentIndex;
 	std::vector<glm::vec2> texturePositionVector;
 	glm::vec2 textureRectSize;
 	float timer;
+
 };
 

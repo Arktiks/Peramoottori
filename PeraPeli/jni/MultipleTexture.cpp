@@ -8,6 +8,11 @@ MultipleTexture::MultipleTexture()
 
 MultipleTexture::~MultipleTexture()
 {
+	for (std::vector<pm::Texture*>::iterator it = textures.begin(); it != textures.end(); it++)
+	{
+		delete *it;
+	}
+
 }
 
 void MultipleTexture::AddTexture(pm::Texture* texture)

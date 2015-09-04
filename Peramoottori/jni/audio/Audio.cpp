@@ -85,7 +85,7 @@ pm::AudioPlayer* pm::Audio::GetAvailable()
 	for (int i = 0; i < playerCount; i++)
 	{
 		SLuint32 temp = player.at(i)->GetPlayState();
-		if ( temp == SL_PLAYSTATE_STOPPED )
+		if (temp == SL_PLAYSTATE_STOPPED)
 			return player[i];
 	}
 

@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <typeinfo>
 #include <scene\Texture.h>
+#include <unordered_map>
 
 namespace pm
 {
@@ -13,7 +14,7 @@ namespace pm
 	class GameEntity
 	{
 
-		using ComponentList = std::unordered_map < const std::type_info*, Component* >;
+		using ComponentList = std::unordered_map<const std::type_info*, Component*>;
 
 	public:
 
@@ -36,8 +37,9 @@ namespace pm
 		* Removes desired component from GameEntity.
 		* For example:
 		* <Color>RemoveComponent();
+		* Does not work.
 		*/
-		template<typename T> void RemoveComponent();
+		//template<typename T> void RemoveComponent();
 
 	private:
 
@@ -55,11 +57,11 @@ T* pm::GameEntity::GetComponent()
 		return nullptr;
 }
 
-template<typename T>
-void pm::GameEntity::RemoveComponent()
-{
-	// What happens if there is no component to be erased?
-	components.erase(&typeid(T));
-}
+//template<typename T>
+//void pm::GameEntity::RemoveComponent()
+//{
+//	// What happens if there is no component to be erased?
+//	components.erase(&typeid(T));
+//}
 
 #endif // GAMEENTITY_H

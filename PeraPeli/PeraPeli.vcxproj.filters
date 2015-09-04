@@ -48,16 +48,10 @@
     <ClCompile Include="jni\RNG.cpp">
       <Filter>jni</Filter>
     </ClCompile>
-    <ClCompile Include="jni\TailComponent.cpp">
-      <Filter>jni\Custom components</Filter>
-    </ClCompile>
     <ClCompile Include="jni\PhysicComponent.cpp">
       <Filter>jni\Custom components</Filter>
     </ClCompile>
     <ClCompile Include="jni\SpriteObject.cpp">
-      <Filter>jni\Custom gameEntities</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\TailEntity.cpp">
       <Filter>jni\Custom gameEntities</Filter>
     </ClCompile>
     <ClCompile Include="jni\MultipleTexture.cpp">
@@ -83,16 +77,10 @@
     <ClInclude Include="jni\RNG.h">
       <Filter>jni</Filter>
     </ClInclude>
-    <ClInclude Include="jni\TailComponent.h">
-      <Filter>jni\Custom components</Filter>
-    </ClInclude>
     <ClInclude Include="jni\PhysicComponent.h">
       <Filter>jni\Custom components</Filter>
     </ClInclude>
     <ClInclude Include="jni\SpriteObject.h">
-      <Filter>jni\Custom gameEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\TailEntity.h">
       <Filter>jni\Custom gameEntities</Filter>
     </ClInclude>
     <ClInclude Include="jni\MultipleTexture.h">
