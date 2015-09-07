@@ -31,8 +31,10 @@
     <NdkToolchainVersion>Default</NdkToolchainVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings"></ImportGroup>
-  <PropertyGroup Label="UserMacros"></PropertyGroup>
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -449,11 +451,14 @@
   <ItemGroup>
     <None Include="assets\Applause.ogg" />
     <None Include="assets\Arial.ttf" />
+    <None Include="assets\Audio Credits.txt" />
     <None Include="assets\DEF_FRAGMENT_SHADER.txt" />
+    <None Include="assets\DEF_LOGO.png" />
     <None Include="assets\DEF_TEXTURE.png" />
     <None Include="assets\DEF_TEXTURE_SMALL.png" />
     <None Include="assets\DEF_VERTEX_SHADER.txt" />
     <None Include="assets\Midnight_Ride.ogg" />
+    <None Include="assets\Push.ogg" />
     <None Include="assets\TEXT.txt" />
     <None Include="libs\glm\detail\func_common.inl" />
     <None Include="libs\glm\detail\func_exponential.inl" />
@@ -566,5 +571,6 @@
     <None Include="libs\glm\gtx\wrap.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets"></ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

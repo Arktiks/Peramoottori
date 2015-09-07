@@ -67,7 +67,7 @@ namespace pm
 			objects.push_back(GameEntity());
 			objects[0].AddComponent(NEW Transformable(glm::vec2(500.0f, 500.0f), glm::vec2(1.0f, 1.0f), 0.0f));
 			objects[0].AddComponent(NEW Color(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
-			objects[0].AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE.png"));
+			objects[0].AddComponent(TextureFactory::CreateTexture("DEF_LOGO.png"));
 			objects[0].AddComponent(NEW Rectangle(150.0f, 150.0f));
 			objects[0].AddComponent(NEW Drawable);
 

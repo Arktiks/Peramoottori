@@ -1308,22 +1308,31 @@
     <None Include="assets\Arial.ttf">
       <Filter>assets</Filter>
     </None>
+    <None Include="assets\Audio Credits.txt">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\DEF_LOGO.png">
+      <Filter>assets</Filter>
+    </None>
     <None Include="assets\DEF_TEXTURE.png">
       <Filter>assets</Filter>
     </None>
     <None Include="assets\DEF_TEXTURE_SMALL.png">
       <Filter>assets</Filter>
     </None>
+    <None Include="assets\DEF_VERTEX_SHADER.txt">
+      <Filter>assets</Filter>
+    </None>
     <None Include="assets\Midnight_Ride.ogg">
       <Filter>assets</Filter>
     </None>
+    <None Include="assets\Push.ogg">
+      <Filter>assets</Filter>
+    </None>
     <None Include="assets\TEXT.txt">
-      <Filter>assets</Filter>
-    </None>
-    <None Include="assets\DEF_FRAGMENT_SHADER.txt">
-      <Filter>assets</Filter>
-    </None>
-    <None Include="assets\DEF_VERTEX_SHADER.txt">
       <Filter>assets</Filter>
     </None>
   </ItemGroup>
