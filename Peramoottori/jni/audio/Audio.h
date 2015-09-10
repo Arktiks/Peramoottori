@@ -26,6 +26,12 @@ namespace pm
 		bool Play();
 
 		/**
+		* Plays audio from certain location. Give position as milliseconds.
+		* Returns false if there are no available AudioPlayers.
+		*/
+		bool PlayFrom(SLuint32 playbackPositionAsMilliseconds);
+
+		/**
 		* Stops all the instances of this Audio object.
 		* Next time playing will start from the beginning.
 		*/
@@ -37,6 +43,12 @@ namespace pm
 		*/
 		void Pause();
 		
+		/**
+		* Returns the playback head position of the first AudioPlayer.
+		* Mainly used for getting the playback head position of a music clip.
+		*/
+		SLuint32 GetPlaybackPosition();
+
 		/**
 		* Sets the volume to given value.
 		* Give volumeLevel as percentage.

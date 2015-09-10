@@ -46,6 +46,11 @@ namespace pm
 		SLuint32 GetPlayState();
 		
 		/**
+		* Get position of playback head. Returns value as milliseconds.
+		*/
+		SLuint32 GetPlaybackPosition();
+
+		/**
 		* Set playstate for AudioPlayer:
 		* 1 = SL_PLAYSTATE_STOPPED
 		* 2 = SL_PLAYSTATE_PAUSED
@@ -57,6 +62,11 @@ namespace pm
 		* Set player to loop sound.
 		*/
 		void SetLooping(bool isEnabled); 
+
+		/**
+		* Seek a position in audio to start playing from. Give playbackPosition as milliseconds.
+		*/
+		void SetPosition(SLmillisecond playbackPosition);
 
 		/**
 		* Set player volume.

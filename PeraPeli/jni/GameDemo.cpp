@@ -22,13 +22,13 @@ GameDemo::~GameDemo()
 void GameDemo::Pause()
 {
 	paused = true;
-	music->Pause();
+	audioMap["alternativeMusic"]->Pause();
 }
 
 void GameDemo::Unpause()
 {
 	paused = false;
-	music->Play();
+	audioMap["alternativeMusic"]->Play();
 }
 
 void GameDemo::DeleteDone()
@@ -121,35 +121,37 @@ void GameDemo::InitializeTextures()
 
 void GameDemo::InitializeSounds()
 {
-	winAudio = NEW pm::Audio("sounds/Applause.ogg");
-	winAudio->SetVolume(30);
-	winAudio->SetMaxPlayerCount(3);
+	// Load sound files and add them to map
+	audioMap["applause"]		= NEW pm::Audio("sounds/Applause.ogg");
+	audioMap["winPhrase"]		= NEW pm::Audio("sounds/voitto.ogg");
+	audioMap["victoryScream"]	= NEW pm::Audio("sounds/victoryScream.ogg");
+	audioMap["hit"]				= NEW pm::Audio("sounds/hit.ogg");
+	audioMap["explosion"]		= NEW pm::Audio("sounds/explosion.ogg");
+	audioMap["happyMusic"]		= NEW pm::Audio("sounds/happyMusic.ogg");
+	audioMap["alternativeMusic"]= NEW pm::Audio("sounds/koo.ogg");
 
-	winAudio2 = NEW pm::Audio("sounds/voitto.ogg");
-	winAudio2->SetVolume(100);
-
-	winAudio3 = NEW pm::Audio("sounds/victoryScream.ogg");
-	winAudio3->SetVolume(40);
-
-
-	touchAudio = NEW pm::Audio("sounds/hit.ogg");
-	touchAudio->SetMaxPlayerCount(20);
-	touchAudio->SetVolume(5);
-
-	explosionAudio = NEW pm::Audio("sounds/explosion.ogg");
-	touchAudio->SetMaxPlayerCount(20);
-	touchAudio->SetVolume(5);
-//
-//	music = NEW pm::Audio("sounds/happyMusic.ogg");
-	music = NEW pm::Audio("sounds/koo.ogg");
-	music->SetLooping(true);
-	music->SetVolume(50);
+	// Set attributes of sounds.
+	audioMap["applause"]->SetVolume(30);
+	audioMap["applause"]->SetMaxPlayerCount(3);
+	
+	audioMap["winPhrase"]->SetVolume(1000);
+	
+	audioMap["victoryScream"]->SetVolume(40);
+	
+	audioMap["hit"]->SetMaxPlayerCount(20);
+	audioMap["hit"]->SetVolume(10);
+	
+	audioMap["explosion"]->SetMaxPlayerCount(20);
+	audioMap["explosion"]->SetVolume(50);
+	
+	audioMap["alternativeMusic"]->SetLooping(true);
+	audioMap["alternativeMusic"]->SetVolume(60);
 }
 
 void GameDemo::InitializeText()
 {
-	text = NEW pm::Text(font = static_cast<pm::FontResource*>(pm::ResourceManager::GetInstance()->LoadAsset("arial.ttf"))
-		, textResource = NEW pm::TextResource("Score "), 32, limits.y - 32, 32, 32);
+	text = NEW pm::Text(font = static_cast<pm::FontResource*>(pm::ResourceManager::GetInstance()->LoadAsset("arial.ttf")),
+		textResource = NEW pm::TextResource("Score "), 32, limits.y - 32, 32, 32);
 
 }
 void GameDemo::InitializeGameEntities()
@@ -177,8 +179,8 @@ void GameDemo::Initialize()
 	InitializeText();
 	
 	InitializeGameEntities();
-	
-	music->Play();
+	audioMap["winPhrase"]->Play();
+	audioMap["alternativeMusic"]->Play();
 	//SplashScreen();
 }
 
@@ -216,8 +218,6 @@ void GameDemo::SplashScreen()
 	logoSprite->SetSize(limits);
 	logoSprite->SetPosition(glm::vec2(0, 0));
 
-	logoAudio->Play();
-
 }
 
 void GameDemo::OneTimeWinFunction()
@@ -228,11 +228,12 @@ void GameDemo::OneTimeWinFunction()
 	winSprite->SetSize(limits);
 	winSprite->SetPosition(glm::vec2(0, 0));
 
-	music->Stop();
+	audioMap["alternativeMusic"]->Stop();
 
-	winAudio3->Play();
-	winAudio->Play();
+	audioMap["applause"]->Play();
+	audioMap["victoryScream"]->Play();
 
+	audioBool = true;
 }
 void GameDemo::WinFunction()
 {
@@ -240,12 +241,16 @@ void GameDemo::WinFunction()
 	pm::SpriteBatch::GetInstance()->AddGameEntity(winSprite);
 
 	spawnTimer += time.CalculateTimeInFrame();
-	if (spawnTimer > 1000000)
+	if (spawnTimer > 1000000 && audioBool)
 	{
-		winAudio2->Play();
-		winAudio->Play();
+		audioMap["applause"]->Play();
+		audioBool = false;
+	}
+	if (spawnTimer > 1100000)
+	{
+		audioMap["winPhrase"]->Play();
 		spawnTimer = 0;
-	
+		audioBool = true;
 	}
 }	
 
@@ -258,7 +263,7 @@ void GameDemo::Update()
 	
 	else
 	{
-		if (score > 10000)
+		if (score > 700)
 		{
 			win = true;
 			OneTimeWinFunction();
@@ -300,24 +305,32 @@ void GameDemo::Update()
 
 void GameDemo::SetScoreString()
 {
+	//TODO: Testaa johtuuko vuoto tekstien m‰‰r‰st‰
+
 	std::stringstream ss;
 	ss << score;
 
 	std::string tempString = "Score " + ss.str();
 	*textResource = pm::TextResource(tempString);
-
+	// Destroy old text resource
+	// Temporary, will be changed when texture has function to change string.
+	//if (text != nullptr)
+	//{
+	//	text->~Text();
+	//}
 	*text = pm::Text(font, textResource, 32, limits.y - 32, 32, 32);
 }
 
 void GameDemo::AddEnemy(glm::vec2 location)
 {
-
+	// Create new enemy and set it's attributes
 	Enemy* enemy = NEW Enemy();
 	enemy->SetPosition(location);
 	enemy->SetDrawState(false);
 	
 	enemy->SetSize(200, 200);
 	enemy->SetDepth(1);
+	// Copy multipleTexture-component's texture pointers to enemy's multipleTexture-component.
 	enemy->SetTextureVector(EnemyTextures.textures);
 	enemyVector.push_back(enemy);
 	opaqueSpriteVector.push_back(enemy);
@@ -396,30 +409,34 @@ void GameDemo::Draw()
 
 void GameDemo::CheckInput()
 {
+	// Check if touchscreen is being touched
 	if (input.IsTouching())
 	{
-		
+		// Get current position of touch
 		glm::vec2 touchPosition = input.GetTouchCoordinates();
+		// Check if touch sound has already been played
 		if (!soundBool)
 		{
-			touchAudio->Play();
+			// Play touch sound
+			audioMap["hit"]->Play();
 		}
-
+		// Check if touch is inside any enemy sprites.
 		for (int i = 0; i < enemyVector.size(); i++)
 		{
+			// Set score, destruction-animation and destruction flag for enemy.
 			if (CheckTouch(touchPosition, enemyVector[i]))
 			{
 				combo++;
 				score += combo;
 				scoreChange = true;
 				
-				explosionAudio->Play();
+				audioMap["explosion"]->Play();
 				AddExplosion(enemyVector[i]->GetPosition());
 				
 				enemyVector[i]->done = true;
-
 			}
 		}
+		// Temporary function for clearing the screen.
 		if (CheckTouch(touchPosition, help))
 		{
 			for (int i = 0; i < opaqueSpriteVector.size(); i++)

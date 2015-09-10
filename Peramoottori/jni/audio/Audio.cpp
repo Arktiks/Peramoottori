@@ -33,6 +33,20 @@ bool pm::Audio::Play()
 		return false;
 }
 
+bool pm::Audio::PlayFrom(SLuint32 playbackPositionAsMilliseconds)
+{
+	AudioPlayer* tempPointer = GetAvailable();
+
+	if (tempPointer != nullptr)
+	{
+		tempPointer->SetPosition(playbackPositionAsMilliseconds);
+		tempPointer->SetPlayState(SL_PLAYSTATE_PLAYING);
+		return true;
+	}
+	else
+		return false;
+}
+
 void pm::Audio::Stop()
 {
 	for (int i = 0; i < playerCount; i++)
@@ -43,6 +57,11 @@ void pm::Audio::Pause()
 {
 	for (int i = 0; i < playerCount; i++)
 		player[i]->SetPlayState(SL_PLAYSTATE_PAUSED);
+}
+
+SLuint32 pm::Audio::GetPlaybackPosition()
+{
+	return player[0]->GetPlaybackPosition();
 }
 
 void pm::Audio::SetVolume(float volumeLevel)
