@@ -22,6 +22,14 @@ SLuint32 pm::AudioPlayer::GetPlayState()
 	return tempReturnValue;
 }
 
+SLuint32 pm::AudioPlayer::GetPlaybackPosition()
+{
+	SLuint32 tempReturnValue;
+	result = (*audioPlayerPlay)->GetPosition(audioPlayerPlay, &tempReturnValue);
+	CheckError("Getting OpenSL audio playback position failed!");
+	return tempReturnValue;
+}
+
 void pm::AudioPlayer::SetPlayState(SLuint32 state)
 {
 	if(audioPlayerPlay != nullptr)
@@ -37,12 +45,18 @@ void pm::AudioPlayer::SetLooping(bool isEnabled)
 	CheckError("Setting OpenSL audio loop state failed!");
 }
 
+void pm::AudioPlayer::SetPosition(SLmillisecond playbackPosition)
+{
+	result = (*audioPlayerSeek)->SetPosition(audioPlayerSeek, playbackPosition, SL_SEEKMODE_ACCURATE);
+	CheckError("Setting OpenSL audio playback position failed!");
+}
+
 void pm::AudioPlayer::SetVolume(float volPercentage)
 {
 	float tempVol = volPercentage;
 	tempVol *= 0.01;
 
-	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, gain_to_attenuation(tempVol) * 100);
+	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, GainToAttenuation(tempVol) * 100);
 	CheckError("Setting audio volume levels failed!");
 }
 
