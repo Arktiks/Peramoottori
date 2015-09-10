@@ -13,16 +13,32 @@ namespace pm
 	public:
 
 		/**
-		* Text Constructor need FontResource, TextResource, texts begining point (x,y), 
+		* Text Constructor need FontResource, TextResource, texts begining point (x,y),
 		* and the height and width of the desired text.
 		*/
 		Text(FontResource* font, TextResource* text, float x, float y, float w, float h);
-		        
+		
+		void ReText(FontResource* font, TextResource* text, float x, float y, float w, float h);
+
 		~Text();
 
-		std::vector<GameEntity*> GetTextVector() { return textVector; } ///< Returns generated GameEntity that text has created.
-		
-		void ReintializeText();
+		std::vector<GameEntity*> GetTextVector()
+		{
+			if (textVector.size() != 0)return textVector;
+			else
+			{
+				123 / 0;
+				return std::vector<GameEntity*>();
+			}
+
+		} ///< Returns generated GameEntity that text has created.
+
+
+		void ReintializeFont(std::string s);
+		void ReintializeText(std::string s);
+
+		TextResource* GetTextResource(){ return savedText; };
+		FontResource* GetFontResource(){ return savedFont; };
 
 		std::string name;
 
@@ -42,7 +58,7 @@ namespace pm
 		float Y;
 
 		FontResource* savedFont;
-		TextResource* savedtext;
+		TextResource* savedText;
 
 		GLuint textId;
 		FT_GlyphSlot  slot;

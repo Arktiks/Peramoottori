@@ -48,8 +48,9 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 		
 			FontResource* tempFontData = NEW FontResource(ttf);
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
-
-				return tempFontData; // Return created resource instantly.
+			tempFontData->SetName(fileName);
+			
+			return tempFontData; // Return created resource instantly.
 		}
 
 		else if (tempFileExtension.compare(OGG) == 0) // OGG FILE

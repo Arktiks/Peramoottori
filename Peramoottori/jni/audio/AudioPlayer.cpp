@@ -42,7 +42,7 @@ void pm::AudioPlayer::SetVolume(float volPercentage)
 	float tempVol = volPercentage;
 	tempVol *= 0.01;
 
-	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, gain_to_attenuation(tempVol) * 100);
+	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, GainToAttenuation(tempVol) * 100);
 	CheckError("Setting audio volume levels failed!");
 }
 

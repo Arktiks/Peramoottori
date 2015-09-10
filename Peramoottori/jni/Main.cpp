@@ -56,11 +56,16 @@ using namespace std;
 #include <graphics\Color.h>
 #include <audio\Audio.h>
 #include <core\Input.h>
+#include <core\Time.h>
 
 namespace pm
 {
 	class GameClass // Test holding game information.
 	{
+		Time timer;
+		Time timer2;
+		TextResource* file;
+		FontResource* font;
 	public:
 		GameClass() : rotation(0.0f), volume(50.0f), paused(false)
 		{
@@ -71,8 +76,8 @@ namespace pm
 			objects[0].AddComponent(NEW Rectangle(150.0f, 150.0f));
 			objects[0].AddComponent(NEW Drawable);
 
-			TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
-			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
+			file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
+			font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
 			texts.push_back(Text(font, file, 100, 100, 32, 32));
 
 			sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
@@ -90,8 +95,12 @@ namespace pm
 			volume -= 0.1f;
 			sounds[0]->SetVolume(volume);
 
-			if(input.GetSingleTouch())
-				sounds[1]->Play();
+			if (input.GetSingleTouch())
+			{
+				sounds[0]->Play();
+				texts.at(0).ReText(font, file, 100, 100, 32, 32);
+			}
+
 
 			objects[0].GetComponent<Transformable>()->SetRotation(rotation);
 			SpriteBatch::GetInstance()->AddGameEntity(&objects[0]);

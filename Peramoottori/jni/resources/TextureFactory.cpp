@@ -11,6 +11,7 @@
 
 std::map<std::string, pm::Texture*> pm::TextureFactory::generatedTextures = { { "MapInit", nullptr } };
 std::map<std::string, pm::Text*> pm::TextureFactory::savedTexts = { { "TextMapInit", nullptr } };
+std::map<std::string, pm::Text*> pm::TextureFactory::savedFonts = { { "FontMapInit", nullptr } };
 
 pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 {
@@ -39,7 +40,8 @@ void pm::TextureFactory::SaveText(Text* savedText)
 	//	}
 	//}
 
-	savedTexts[savedText->name] = savedText;
+	savedTexts[savedText->GetTextResource()->GetTextData()] = savedText;
+	savedFonts[savedText->name] = savedText;
 }
 
 void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer)
@@ -103,6 +105,21 @@ void pm::TextureFactory::RecreateOGLTextures()
 
 
 	// may crash the whole thing mayhaps
+
+	if (!savedFonts.empty())
+	{
+		for (std::map<std::string, Text*>::iterator fit = savedFonts.begin(); fit != savedFonts.end(); fit++)
+		{
+			if (fit->second == nullptr)
+			{
+			}
+			else
+			{
+				fit->second->ReintializeFont(fit->first);
+			}
+			//
+		}
+	}
 	if (!savedTexts.empty())
 	{
 		for (std::map<std::string, Text*>::iterator tit = savedTexts.begin(); tit != savedTexts.end(); tit++)
@@ -112,7 +129,7 @@ void pm::TextureFactory::RecreateOGLTextures()
 			}
 			else
 			{
-				tit->second->ReintializeText();
+				tit->second->ReintializeText(tit->first);
 			}
 			//
 		}
@@ -152,4 +169,5 @@ pm::TextureFactory::~TextureFactory()
 	}
 	generatedTextures.clear();
 	savedTexts.clear();
+	savedFonts.clear();
 }

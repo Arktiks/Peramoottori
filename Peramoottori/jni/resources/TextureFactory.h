@@ -40,6 +40,7 @@ namespace pm
 
 		static std::map<std::string, Texture*> generatedTextures;
 		static std::map<std::string, Text*> savedTexts;
+		static std::map<std::string, Text*> savedFonts;
 	};
 }
 
