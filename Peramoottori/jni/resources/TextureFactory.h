@@ -2,11 +2,14 @@
 #define TEXTUREFACTORY_H
 
 #include <map>
+#include <vector>
 #include <string>
 #include <scene\Texture.h>
 
+
 namespace pm
 {
+	class Text;
 	class TextureFactory
 	{
 
@@ -16,6 +19,9 @@ namespace pm
 
 		/// Creates a texture.
 		static Texture* CreateTexture(std::string fileName);
+
+
+		static void SaveText(Text* savedText);
 
 	private:
 
@@ -33,7 +39,7 @@ namespace pm
 		~TextureFactory();
 
 		static std::map<std::string, Texture*> generatedTextures;
-
+		static std::map<std::string, Text*> savedTexts;
 	};
 }
 

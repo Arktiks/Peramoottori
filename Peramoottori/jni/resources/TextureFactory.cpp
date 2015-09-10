@@ -7,8 +7,10 @@
 #include <GLES2\gl2.h>
 
 #include <lodepng.h>
+#include <graphics\Text.h>
 
 std::map<std::string, pm::Texture*> pm::TextureFactory::generatedTextures = { { "MapInit", nullptr } };
+std::map<std::string, pm::Text*> pm::TextureFactory::savedTexts = { { "TextMapInit", nullptr } };
 
 pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 {
@@ -25,6 +27,19 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 	generatedTextures[fileName] = tempTexture;
 
 	return tempTexture;
+}
+
+void pm::TextureFactory::SaveText(Text* savedText)
+{
+	//for (std::map<std::string, Text*>::iterator it = savedTexts.begin(); it != savedTexts.end(); it++)
+	//{
+	//	if (it->first == savedText->name)
+	//	{
+	//		return;
+	//	}
+	//}
+
+	savedTexts[savedText->name] = savedText;
 }
 
 void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer)
@@ -85,23 +100,43 @@ void pm::TextureFactory::RecreateOGLTextures()
 		for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 			CreateOGLTexture(it->first, it->second);
 	}
+
+
+	// may crash the whole thing mayhaps
+	if (!savedTexts.empty())
+	{
+		for (std::map<std::string, Text*>::iterator tit = savedTexts.begin(); tit != savedTexts.end(); tit++)
+		{
+			if (tit->second == nullptr)
+			{
+			}
+			else
+			{
+				tit->second->ReintializeText();
+			}
+			//
+		}
+	}
 }
 
 void pm::TextureFactory::DestroyOGLTextures()
 {
-	DEBUG_GL_ERROR_CLEAR();
-	/*for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
-	{
-		GLuint reference = it->second->GetId();
-		glDeleteTextures(1, &reference);
-		DEBUG_GL_ERROR();
-	}*/
 
-	for (GLuint i = 0; i < 10; i++) // Bubblegum fix temporary!
+	DEBUG_GL_ERROR_CLEAR();
+	/*
+	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	{
+		glDeleteTextures(1, &it->second->GetId());
+		DEBUG_GL_ERROR();
+	}//*/
+
+	///*
+	for (GLuint i = 0; i < generatedTextures.size(); i++) // Bubblegum fix temporary!
 	{
 		glDeleteTextures(1, &i);
 		DEBUG_GL_ERROR();
 	}
+	//*/
 }
 
 pm::TextureFactory::~TextureFactory()
@@ -116,4 +151,5 @@ pm::TextureFactory::~TextureFactory()
 		it->second = nullptr;
 	}
 	generatedTextures.clear();
+	savedTexts.clear();
 }

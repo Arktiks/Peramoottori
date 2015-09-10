@@ -7,18 +7,29 @@
 
 namespace pm
 {
+	/**
+	* Class for playing audio.
+	*/
 	class Audio
 	{
 	public:
-		
+		/**
+		* Constructor for Audio class.
+		*/
 		Audio(std::string fileName);
 		~Audio();
 
 		/**
-		* Starts a player.
-		* Returns false if there are no available audio players.
+		* Starts playing audio.
+		* Returns false if there are no available AudioPlayers.
 		*/
 		bool Play();
+
+		/**
+		* Plays audio from certain location. Give position as milliseconds.
+		* Returns false if there are no available AudioPlayers.
+		*/
+		bool PlayFrom(SLuint32 playbackPositionAsMilliseconds);
 
 		/**
 		* Stops all the instances of this Audio object.
@@ -27,11 +38,17 @@ namespace pm
 		void Stop();
 
 		/**
-		* Pauses all the players of this Audio object.
+		* Pauses all the instances of this Audio object.
 		* Next time playing will continue from the same point.
 		*/
 		void Pause();
 		
+		/**
+		* Returns the playback head position of the first AudioPlayer.
+		* Mainly used for getting the playback head position of a music clip.
+		*/
+		SLuint32 GetPlaybackPosition();
+
 		/**
 		* Sets the volume to given value.
 		* Give volumeLevel as percentage.
@@ -46,7 +63,7 @@ namespace pm
 		void SetLooping(bool isEnabled);
 
 		/**
-		/* MaxPlayerCount default = 3
+		* MaxPlayerCount default = 3
 		* MaxPlayerCount defines how many instances of this Audio object
 		* can be played at once. 
 		*/
