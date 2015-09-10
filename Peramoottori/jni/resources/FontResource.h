@@ -15,7 +15,7 @@ namespace pm
 
 		/// constructor
 		FontResource(std::vector<FT_Byte> ttfData) :
-			ttfData(ttfData) 
+			ttfData(ttfData)
 		{
 			//SetColor(1, 0, 1, 1);
 		};
@@ -34,12 +34,19 @@ namespace pm
 
 		/// return float vector, thats first four values are the rgba values of the font
 		std::vector<float> GetColor() { return color; };
+
+		/// Sets name of the file that got tff data
+		void SetFileName(std::string newName){ fileName = newName; };
+
+		std::string GetFileName(){ return fileName; };
+		
 		~FontResource() {};
 		
 	private:
 	
 		std::vector<FT_Byte> ttfData;
 		std::vector<float> color;
+		std::string fileName;
 
 	};
 }

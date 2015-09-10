@@ -9,6 +9,7 @@
 #include <graphics\Color.h>
 #include <graphics\Drawable.h>
 #include <resources\TextureFactory.h>
+#include <resources\ResourceManager.h>
 
 namespace pm
 {
@@ -22,9 +23,9 @@ namespace pm
 		WIDTH = w;
 
 		savedFont = font;
-		savedtext = text;
+		savedText = text;
 
-		name = text->GetName();
+		name = font->GetName();
 		float y0 = y;
 		int size = text->GetTextData().size();
 		for (int i = 0; i < size; i++)
@@ -43,14 +44,57 @@ namespace pm
 			else
 				Character(font, text->GetTextData()[i], x0, y0, w, h);
 		}
-		
+
 		pm::TextureFactory::SaveText(this);
 	}
 
-	void Text::ReintializeText()
+	void Text::ReText(FontResource* font, TextResource* text, float x, float y, float w, float h)
 	{
-		for (int i = 0; i < savedtext->GetTextData().size(); i++)
+		//for (int i = textVector.size(); )
+		textVector.clear();
+		float x0 = x;
+
+		X = x;
+		Y = y;
+		HEIGHT = h;
+		WIDTH = w;
+
+		savedFont = font;
+		savedText = text;
+
+		name = font->GetName();
+		float y0 = y;
+		int size = text->GetTextData().size();
+		for (int i = 0; i < size; i++)
 		{
+			x0 += w * 1.125;
+			if (text->GetTextData()[i + 1] == '\n')
+			{
+				x0 = x;
+				y0 += h * 1.125;
+				i++;
+			}
+			else if (text->GetTextData()[i] == ' ')
+			{
+				x0 -= w * 0.5;
+			}
+			else
+				Character(font, text->GetTextData()[i], x0, y0, w, h);
+		}
+	}
+
+	void Text::ReintializeFont(std::string s)
+	{
+		savedFont = (FontResource*)ResourceManager::GetInstance()->LoadAsset(s);
+	}
+	void Text::ReintializeText(std::string s)
+	{
+		textVector.clear();
+		savedText = new pm::TextResource(s);
+		for (int i = 0; i < savedText->GetTextData().size(); i++)
+		{
+			GameEntity* GE = NEW GameEntity();
+
 			FT_Library  library;
 
 			FT_Error error = FT_Init_FreeType(&library);
@@ -106,7 +150,7 @@ namespace pm
 
 			FT_UInt glyph_index;
 
-			glyph_index = FT_Get_Char_Index(face, savedtext->GetTextData().at(i));
+			glyph_index = FT_Get_Char_Index(face, savedText->GetTextData().at(i));
 
 			FT_Load_Glyph(face, glyph_index, FT_LOAD_RENDER);
 
@@ -114,8 +158,37 @@ namespace pm
 
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, slot->bitmap.width, slot->bitmap.rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, slot->bitmap.buffer);
 
-			textVector.at(i)->GetComponent<Texture>()->SetId(textId);
-			textVector.at(i)->GetComponent<Texture>()->SetTextureSize(glm::vec2(slot->bitmap.width, slot->bitmap.rows));
+			WIDTH = 10;
+			HEIGHT = 10;
+
+			GE->AddComponent(NEW Rectangle(WIDTH, HEIGHT));
+			GE->AddComponent(NEW Transformable());
+
+			float scaleY = slot->bitmap.width / slot->bitmap.rows;
+			if (scaleY < 1)
+				GE->GetComponent<Transformable>()->SetScale(1, 1);
+			else
+				GE->GetComponent<Transformable>()->SetScale(1, 1);
+
+			GE->GetComponent<Transformable>()->SetPosition(position);
+			GE->GetComponent<Transformable>()->SetRotation(0);
+
+			GE->AddComponent(NEW Drawable());
+			GE->GetComponent<Drawable>()->SetDrawState(true);
+
+			GE->AddComponent(NEW Texture());
+			GE->GetComponent<Texture>()->SetId(textId);
+			GE->GetComponent<Texture>()->SetTextureSize(glm::vec2(slot->bitmap.width, slot->bitmap.rows));
+
+			GE->AddComponent(NEW Color(glm::vec4(0.0f, 0.8f, 0.0f, 0.0f)));
+
+			glActiveTexture(0);
+			glBindTexture(GL_TEXTURE_2D, 0);
+
+			textVector.push_back(GE);
+		
+			int asd = 0;
+		
 		}
 
 	}
