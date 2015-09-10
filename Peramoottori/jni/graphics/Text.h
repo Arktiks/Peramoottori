@@ -1,8 +1,10 @@
 #ifndef TEXT_H
 #define TEXT_H
+#include <resources\TextureFactory.h>
 #include <resources\FontResource.h>
 #include <resources\TextResource.h>
 #include <scene\GameEntity.h>
+
 #include <vector>
 
 namespace pm

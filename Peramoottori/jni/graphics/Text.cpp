@@ -51,16 +51,6 @@ namespace pm
 		glm::vec2 position(x, y);
 		glm::vec2 rightBottom(w, h);                             
 
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-		glGenTextures(1, &textId);
-		glActiveTexture(textId);
-		glBindTexture(GL_TEXTURE_2D, textId);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		float ux = slot->bitmap_left;
 		float uy = slot->bitmap_top;
@@ -76,9 +66,22 @@ namespace pm
 
 		FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL);
 
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+		glBindTexture(GL_TEXTURE_2D, textId);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, slot->bitmap.width, slot->bitmap.rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, slot->bitmap.buffer);
 		
+
+
 		GE->AddComponent(NEW Rectangle(w, w));
+		GE->GetComponent<Rectangle>()->SetOrigin(w/2,w/2);
 		GE->AddComponent(NEW Transformable());
 		
 		float scaleY = slot->bitmap.width / slot->bitmap.rows;
@@ -93,9 +96,7 @@ namespace pm
 		GE->AddComponent(NEW Drawable());
 		GE->GetComponent<Drawable>()->SetDrawState(true);
 
-		GE->AddComponent(NEW Texture());
-		GE->GetComponent<Texture>()->SetId(textId);
-		GE->GetComponent<Texture>()->SetTextureSize(glm::vec2(slot->bitmap.width, slot->bitmap.rows));
+		GE->AddComponent(TextureFactory::CreateTexture(slot->bitmap.buffer, c, x, y));
 		
 		GE->AddComponent(NEW Color(glm::vec4(0.0f, 0.8f, 0.0f, 0.0f)));
 
