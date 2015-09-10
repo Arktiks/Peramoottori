@@ -55,6 +55,12 @@ void SpriteBatch::AddOpaqueGameEntity(GameEntity* gameEntity)
 	opaqueGameEntityVector.push_back(gameEntity); 
 }
 
+void SpriteBatch::AddText(Text* textEntity)
+{
+	for (int i = 0; i < textEntity->GetTextVector().size(); i++)
+		opaqueGameEntityVector.push_back(textEntity->GetTextVector().at(i));
+}
+
 bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
 {
 	if (gameEntity->GetComponent<Drawable>() == nullptr)

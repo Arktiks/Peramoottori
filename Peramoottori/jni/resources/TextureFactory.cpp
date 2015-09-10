@@ -5,10 +5,12 @@
 #include <core\Log.h>
 #include <core\Memory.h>
 #include <GLES2\gl2.h>
-#include <sstream>
+
 #include <lodepng.h>
+#include <graphics\Text.h>
 
 std::map<std::string, pm::Texture*> pm::TextureFactory::generatedTextures = { { "MapInit", nullptr } };
+std::map<std::string, pm::Text*> pm::TextureFactory::savedTexts = { { "TextMapInit", nullptr } };
 
 pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 {
@@ -26,68 +28,20 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 
 	return tempTexture;
 }
-//pm::Texture* pm::TextureFactory::CreateTexture(unsigned char* buffer ,char fileName, int x, int y)
-//{
-//	std::string character = std::string(filename);
-//
-//	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
-//	{
-//		if (it->first == character)
-//		{
-//			return it->second;
-//		}
-//	}
-//
-//	pm::Texture* tempTexture = NEW pm::Texture;
-//	CreateOGLTexture(fileName, tempTexture, buffer, x, y);
-//	generatedTextures[fileName] = tempTexture;
-//
-//	return tempTexture;
-//}
-void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer, unsigned char* buffer, int x, int y)
+
+void pm::TextureFactory::SaveText(Text* savedText)
 {
-	if (fileName.empty() || pointer == nullptr)
-	{
-		DEBUG_WARNING(("TextureFactory failed to create texture (%s).", fileName.c_str()));
-		return;
-	}
-	DEBUG_GL_ERROR_CLEAR();
-	
-	GLuint textureIndex;
-	glGenTextures(1, &textureIndex);
-	DEBUG_GL_ERROR();
+	//for (std::map<std::string, Text*>::iterator it = savedTexts.begin(); it != savedTexts.end(); it++)
+	//{
+	//	if (it->first == savedText->name)
+	//	{
+	//		return;
+	//	}
+	//}
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	DEBUG_GL_ERROR();
-
-	glBindTexture(GL_TEXTURE_2D, textureIndex);
-	DEBUG_GL_ERROR();
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	DEBUG_GL_ERROR();
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	DEBUG_GL_ERROR();
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	DEBUG_GL_ERROR();
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	DEBUG_GL_ERROR();
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA,
-		x, y,
-		0, GL_ALPHA, GL_UNSIGNED_BYTE,
-		buffer);
-	DEBUG_GL_ERROR();
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-	DEBUG_GL_ERROR();
-
-	pointer->SetTextureSize(glm::uvec2(x, y));
-	pointer->SetId(textureIndex);
-
+	savedTexts[savedText->name] = savedText;
 }
+
 void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer)
 {
 	if (fileName.empty() || pointer == nullptr)
@@ -146,23 +100,43 @@ void pm::TextureFactory::RecreateOGLTextures()
 		for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 			CreateOGLTexture(it->first, it->second);
 	}
+
+
+	// may crash the whole thing mayhaps
+	if (!savedTexts.empty())
+	{
+		for (std::map<std::string, Text*>::iterator tit = savedTexts.begin(); tit != savedTexts.end(); tit++)
+		{
+			if (tit->second == nullptr)
+			{
+			}
+			else
+			{
+				tit->second->ReintializeText();
+			}
+			//
+		}
+	}
 }
 
 void pm::TextureFactory::DestroyOGLTextures()
 {
-	DEBUG_GL_ERROR_CLEAR();
-	/*for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
-	{
-		GLuint reference = it->second->GetId();
-		glDeleteTextures(1, &reference);
-		DEBUG_GL_ERROR();
-	}*/
 
-	for (GLuint i = 0; i < 10; i++) // Bubblegum fix temporary!
+	DEBUG_GL_ERROR_CLEAR();
+	/*
+	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	{
+		glDeleteTextures(1, &it->second->GetId());
+		DEBUG_GL_ERROR();
+	}//*/
+
+	///*
+	for (GLuint i = 0; i < generatedTextures.size(); i++) // Bubblegum fix temporary!
 	{
 		glDeleteTextures(1, &i);
 		DEBUG_GL_ERROR();
 	}
+	//*/
 }
 
 pm::TextureFactory::~TextureFactory()
@@ -177,4 +151,5 @@ pm::TextureFactory::~TextureFactory()
 		it->second = nullptr;
 	}
 	generatedTextures.clear();
+	savedTexts.clear();
 }
