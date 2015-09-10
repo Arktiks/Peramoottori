@@ -6,7 +6,15 @@
 
 namespace pm
 {
-	/// Handles input and lifeline of application.
+	/** \brief Handles input and lifeline of application.
+	*
+	* Current functionality includes initializing and handling device sensors. Such as disabling and enabling
+	* them depending if application is focused. 
+	*
+	* Readying and destroying OpenGL context and objects depending on state of application.
+	*
+	* Destroying application and writing memory leaks using Memory class.
+	*/
 
 	class CommandCenter
 	{
@@ -61,13 +69,22 @@ namespace pm
 
 	protected:
 
-		/// Handles application input processing.
-		/// Reference given to android_native_app_glue.
+		/** @name Restricted Static Protected Member Functions
+		*  User should not use following restricted functions unless he is 100% confident of their purpose.
+		*/
+		///@{
+		/** \brief Handles application input processing.
+		*
+		* \note Reference given to android_native_app_glue.
+		*/
 		static int HandleInput(android_app* application, AInputEvent* event);
 
-		/// Handles application command processing.
-		/// Reference given to android_native_app_glue.
+		/** \brief Handles application command processing.
+		*
+		* \note Reference given to android_native_app_glue.
+		*/
 		static void ProcessCommand(android_app* application, int32_t command);
+		///@}
 	};
 }
 

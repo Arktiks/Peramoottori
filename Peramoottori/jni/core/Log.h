@@ -6,32 +6,58 @@
 
 namespace pm
 {
-	/// Logging functions that our macros use.
+	/** \brief Tools used to print info into logcat. For proper use of this class see the following
+	* <a href="https://github.com/Grimcode/Peramoottori/wiki/Tutorial:-Debug-Tools">tutorial</a>.
+	*
+	* Logcat being android logging system.
+	* Log class functionality includes printing your own messages or catching possible OpenGL errors.
+	*/
+
 	class Log
 	{
 	public:
-		/// Writes messages into logcat under DEBUG_INFO.
-		/// Works same as printf:
-		///		PrintInfo("These are numbers: %i %f", int, float);
+
+		/** @name Restricted Static Public Member Functions
+		*  User should not use following restricted functions unless he is 100% confident of their purpose.
+		* 
+		* These functions are utilized more effectively by predefined macros documented in the following
+		* <a href="https://github.com/Grimcode/Peramoottori/wiki/Tutorial:-Debug-Tools">tutorial</a>.
+		*/
+		///@{
+		/**
+		* \brief Writes messages into logcat under DEBUG_INFO.
+		*
+		* Works same as printf: PrintInfo("These are numbers: %i %f", int, float);
+		*/
 		static void PrintInfo(const char* text...);
 
-		/// Writes messages into logcat under DEBUG_WARNING.
+		/** \brief Write messages into logcat under DEBUG_WARNING.
+		*
+		* Works same as printf: PrintWarning("These are numbers: %i %f", int, float);
+		*/
 		static void PrintWarning(const char* text...);
 
-		/// Writes shader errors into logcat.
-		static void PrintGLShaderError(GLuint shader);
-
-		/// Writes OPENGL errors into logcat.
+		/** \brief Write OpenGL errors into logcat.
+		*
+		* Goes through all glGetError() flags while formatting and printing them using DEBUG_WARNING.
+		*/
 		static bool PrintGLError(const char* file, const unsigned int line);
 
-		/// Clears GL errors from memory.
+		/** \brief Clear possible OpenGL errors.
+		*
+		* Logic here is to clear error queue from earlier error messages that didn't crash the program,
+		* so we can be 100% sure of our error handling on more critical parts.
+		*/
 		static void ClearGLError();
+		///@}
 
 	private:
+
 		/// Formats received text into printf format.
 		static char* FormatMessage(const char* text...);
 	};
 }
+
 
 // Macros should be used instead of the direct functions.
 #define DEBUG_INFO(text) pm::Log::PrintInfo text ///< Macro to print info into logcat.

@@ -122,9 +122,6 @@
     <ClInclude Include="..\Peramoottori\jni\scene\GameEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Peramoottori\jni\resources\Image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Peramoottori\jni\resources\ImageResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -164,9 +161,6 @@
     <ClInclude Include="..\Peramoottori\jni\graphics\Shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Peramoottori\jni\graphics\Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Peramoottori\jni\graphics\SpriteBatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -180,9 +174,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Peramoottori\jni\resources\TextureFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Peramoottori\jni\graphics\TextureRectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Peramoottori\jni\core\Time.h">
@@ -203,5 +194,8 @@
     <ClInclude Include="..\Peramoottori\jni\core\CommandCenter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
