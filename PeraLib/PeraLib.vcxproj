@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="NsightTegraProject">
-    <NsightTegraProjectRevisionNumber>9</NsightTegraProjectRevisionNumber>
+    <NsightTegraProjectRevisionNumber>11</NsightTegraProjectRevisionNumber>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Tegra-Android">
@@ -13,6 +13,52 @@
       <Platform>Tegra-Android</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{88740431-0C37-4AF2-8E0E-7C22B9404337}</ProjectGuid>
+    <RootNamespace>PeraLib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidTargetAPI>android-16</AndroidTargetAPI>
+    <AndroidMinAPI>android-16</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidTargetAPI>android-16</AndroidTargetAPI>
+    <AndroidMinAPI>android-16</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings"></ImportGroup>
+  <PropertyGroup Label="UserMacros"></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <TargetName>lib$(ProjectName)</TargetName>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <TargetName>lib$(ProjectName)</TargetName>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <ClCompile>
+      <CppLanguageStandard>gnu++11</CppLanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs;$(SolutionDir)\libs\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;_DEBUG</PreprocessorDefinitions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <ClCompile>
+      <CppLanguageStandard>gnu++11</CppLanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs;$(SolutionDir)\libs\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;NDEBUG</PreprocessorDefinitions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Peramoottori\jni\audio\Audio.cpp" />
     <ClCompile Include="..\Peramoottori\jni\audio\AudioManager.cpp" />
@@ -81,55 +127,6 @@
     <ClInclude Include="..\Peramoottori\jni\structs\MemoryTrack.h" />
     <ClInclude Include="..\Peramoottori\jni\structs\ShaderVertexAttrib.h" />
   </ItemGroup>
-  <PropertyGroup Label="Globals">
-    <ProjectGuid>{88740431-0C37-4AF2-8E0E-7C22B9404337}</ProjectGuid>
-    <RootNamespace>PeraLib</RootNamespace>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidTargetAPI>android-16</AndroidTargetAPI>
-    <AndroidMinAPI>android-16</AndroidMinAPI>
-    <AndroidMaxAPI>android-21</AndroidMaxAPI>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidTargetAPI>android-16</AndroidTargetAPI>
-    <AndroidMinAPI>android-16</AndroidMinAPI>
-    <AndroidMaxAPI>android-21</AndroidMaxAPI>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros">
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <TargetName>lib$(ProjectName)</TargetName>
-    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <TargetName>lib$(ProjectName)</TargetName>
-    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <ClCompile>
-      <CppLanguageStandard>gnu++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs;$(SolutionDir)\libs\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DISABLE_IMPORTGL;_DEBUG</PreprocessorDefinitions>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <ClCompile>
-      <CppLanguageStandard>gnu++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs;$(SolutionDir)\libs\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DISABLE_IMPORTGL;NDEBUG</PreprocessorDefinitions>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-    </ClCompile>
-  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets"></ImportGroup>
 </Project>

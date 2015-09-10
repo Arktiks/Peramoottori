@@ -6,10 +6,12 @@
 
 namespace pm
 {
-	/// Need to decide wether we will make this class partialy or completely static
+	/// Need to decide whether we will make this class partially or completely static.
+
 	class Input
 	{
 	public:
+
 		Input() : dragX(0), dragY(0) {};
 		~Input() {};
 
@@ -29,7 +31,6 @@ namespace pm
 		/**
 			\return Returns accelerometer data as glm vec3.
 		*/
-
 		glm::vec3 GetAccelerometerData();
 
 		/// Checks if its the first time calling GetSingleTouch during touch.
@@ -46,9 +47,6 @@ namespace pm
 		*/
 		bool IsTouching();
 
-
-		/// Static member functions
-
 		/// Updates the static parts at start of main loop. /-> Application.cpp
 		/**
 			Used in application class at start of each main loop. Dont use elsewhere.
@@ -63,14 +61,13 @@ namespace pm
 
 		/// Called when android touch event (AKEY_EVENT_ACTION_DOWN) is received on android side. /-> Application.cpp
 		/**
-			Given to the HandleInput communicating with android.  Dont use elsewhere.
-
+			Given to the HandleInput communicating with android. Dont use elsewhere.
 		*/
 		static void InputEventKeyDown();
 
 		/// Called when android touch event (AINPUT_EVENT_TYPE_MOTION) is received on android side. /-> Application.cpp
 		/**
-			Given to the HandleInput communicating with android.  Dont use elsewhere.
+			Given to the HandleInput communicating with android. Dont use elsewhere.
 			\param x The touch coordinate in X received from android.
 			\param y The touch coordinate in Y received from android.
 		*/
@@ -78,15 +75,16 @@ namespace pm
 
 		/// Called in Application.Update().
 		/**
-		\param accelerometer The accelerometer data to be given to input.
+			\param accelerometer The accelerometer data to be given to input.
 		*/
 		static void InputEventAccelerometer(float x, float y, float z);
 
 	private:
-		/// Private variables(of multiple input systems if wanted)
+
+		/// Private variables, of multiple input systems if wanted.
 		float dragX, dragY;
 
-		/// Static member variables
+		/// Static member variables.
 		static bool touch, singleTouch, startOfDrag;
 		static float startOfDragX, startOfDragY, _x, _y, lx, ly;
 		static glm::vec3 accelerometer;

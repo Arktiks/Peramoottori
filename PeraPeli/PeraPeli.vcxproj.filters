@@ -48,16 +48,19 @@
     <ClCompile Include="jni\RNG.cpp">
       <Filter>jni</Filter>
     </ClCompile>
-    <ClCompile Include="jni\TailComponent.cpp">
-      <Filter>jni\Custom components</Filter>
-    </ClCompile>
     <ClCompile Include="jni\PhysicComponent.cpp">
       <Filter>jni\Custom components</Filter>
     </ClCompile>
     <ClCompile Include="jni\SpriteObject.cpp">
       <Filter>jni\Custom gameEntities</Filter>
     </ClCompile>
-    <ClCompile Include="jni\TailEntity.cpp">
+    <ClCompile Include="jni\MultipleTexture.cpp">
+      <Filter>jni\Custom components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\Enemy.cpp">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\Smoke.cpp">
       <Filter>jni\Custom gameEntities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,24 +77,27 @@
     <ClInclude Include="jni\RNG.h">
       <Filter>jni</Filter>
     </ClInclude>
-    <ClInclude Include="jni\TailComponent.h">
-      <Filter>jni\Custom components</Filter>
-    </ClInclude>
     <ClInclude Include="jni\PhysicComponent.h">
       <Filter>jni\Custom components</Filter>
     </ClInclude>
     <ClInclude Include="jni\SpriteObject.h">
       <Filter>jni\Custom gameEntities</Filter>
     </ClInclude>
-    <ClInclude Include="jni\TailEntity.h">
+    <ClInclude Include="jni\MultipleTexture.h">
+      <Filter>jni\Custom components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\Enemy.h">
+      <Filter>jni\Custom gameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\Smoke.h">
       <Filter>jni\Custom gameEntities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\TestFragmentShader.txt">
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt">
       <Filter>assets</Filter>
     </None>
-    <None Include="assets\TestVertexShader.txt">
+    <None Include="assets\DEF_VERTEX_SHADER.txt">
       <Filter>assets</Filter>
     </None>
   </ItemGroup>

@@ -1,22 +1,27 @@
 #include "Text.h"
-#include "core\Log.h"
-#include <GLES2/gl2.h>
+#include <GLES2\gl2.h>
 #include <string>
+
+#include <core\Log.h>
+#include <core\Memory.h>
+#include <scene\Texture.h>
+#include <graphics\Rectangle.h>
+#include <graphics\Color.h>
+#include <graphics\Drawable.h>
+
 namespace pm
 {
 	void Text::Textasd(FontResource* font, char c, float x, float y, float w, float h)
 	{
-		GE = new GameEntity();
+		GE = NEW GameEntity();
 
 		FT_Library  library;
 
 		FT_Error error = FT_Init_FreeType(&library);
 		if (error)
-		{
-			DEBUG_INFO(("Failed to initialize freetype library"));
-		}
+			DEBUG_INFO(("Failed to initialize freetype library!"));
 
-		FT_Face face;		//... create face object ...
+		FT_Face face;
 
 		std::vector<FT_Byte> ttf = font->GetTTFData();
 
@@ -36,7 +41,6 @@ namespace pm
 
 		FT_GlyphSlot  slot = face->glyph;
 
-
 		error = FT_Set_Char_Size(
 			face,						/* handle to face object           */
 			0,							/* char_width in 1/64th of points  */
@@ -44,10 +48,8 @@ namespace pm
 			1280,						/* horizontal device resolution    */
 			720);						/* vertical device resolution      */
 
-
 		glm::vec2 position(x, y);
 		glm::vec2 rightBottom(w, h);                             
-
 
 
 		float ux = slot->bitmap_left;
@@ -57,7 +59,6 @@ namespace pm
 		float uh = slot->bitmap.rows;
 
 		FT_UInt glyph_index;
-
 
 		glyph_index = FT_Get_Char_Index(face, c);
 
@@ -85,15 +86,12 @@ namespace pm
 		
 		float scaleY = slot->bitmap.width / slot->bitmap.rows;
 		if (scaleY < 1)
-		{
 			GE->GetComponent<Transformable>()->SetScale(1, 1);
-		}
 		else
 			GE->GetComponent<Transformable>()->SetScale(1, 1);
 
 		GE->GetComponent<Transformable>()->SetPosition(position);
 		GE->GetComponent<Transformable>()->SetRotation(0);
-		
 
 		GE->AddComponent(NEW Drawable());
 		GE->GetComponent<Drawable>()->SetDrawState(true);
@@ -106,7 +104,6 @@ namespace pm
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		textVector.push_back(GE);
-
 	}
 
 	Text::Text(FontResource* font, TextResource* text, float x, float y, float w, float h)
@@ -125,9 +122,7 @@ namespace pm
 			}
 			else if (text->GetTextData()[i] == ' ')
 			{
-
 				x0 -= w * 0.5;
-				
 			}
 			else
 				Textasd(font, text->GetTextData()[i], x0, y0, w, h);
@@ -136,8 +131,5 @@ namespace pm
 
 	Text::~Text()
 	{
-
 	}
-
-
 }

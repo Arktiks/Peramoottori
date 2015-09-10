@@ -2,17 +2,11 @@
 #include <math.h>
 #include <core/Log.h>
 
-pm::AudioPlayer::AudioPlayer(AudioPlayer* pointer)
-{
-	audioResource = pointer->audioResource;
-}
-
 pm::AudioPlayer::~AudioPlayer()
 {
 	if (audioPlayerObj != nullptr)
 	{
 		(*audioPlayerObj)->Destroy(audioPlayerObj);
-
 		audioPlayerObj = nullptr;
 		audioPlayerPlay = nullptr;
 		audioPlayerSeek = nullptr;
@@ -24,8 +18,7 @@ SLuint32 pm::AudioPlayer::GetPlayState()
 {
 	SLuint32 tempReturnValue;
 	result = (*audioPlayerPlay)->GetPlayState(audioPlayerPlay, &tempReturnValue);
-	CheckError("Getting OpenSL audio play state failed!");
-
+	CheckError("Getting OpenSL audio playstate failed!");
 	return tempReturnValue;
 }
 
@@ -49,13 +42,8 @@ void pm::AudioPlayer::SetVolume(float volPercentage)
 	float tempVol = volPercentage;
 	tempVol *= 0.01;
 
-	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, gain_to_attenuation(tempVol)*100);
+	result = (*audioPlayerVol)->SetVolumeLevel(audioPlayerVol, gain_to_attenuation(tempVol) * 100);
 	CheckError("Setting audio volume levels failed!");
-}
-
-float pm::AudioPlayer::gain_to_attenuation(float gain)
-{
-	return gain < 0.01F ? -96.0F : 20 * log10(gain);
 }
 
 void pm::AudioPlayer::CheckError(std::string errorText)
@@ -63,4 +51,9 @@ void pm::AudioPlayer::CheckError(std::string errorText)
 	if (result != SL_RESULT_SUCCESS)
 		DEBUG_WARNING((errorText.c_str()));
 	(void)result;
+}
+
+float pm::AudioPlayer::gain_to_attenuation(float gain)
+{
+	return gain < 0.01F ? -96.0F : 20 * log10(gain);
 }

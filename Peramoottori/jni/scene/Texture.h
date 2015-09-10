@@ -8,14 +8,16 @@
 
 namespace pm
 {
-	/// Component for GameEntity:s stores texture vertices and textureID
+	/// Component for GameEntity stores texture vertices and textureID.
+
 	class Texture : public Component
 	{
 	public:
+
 		/// Default constructor.
 		Texture() : Component() {};
 
-		/// Sets the exture size
+		/// Sets the exture size.
 		void SetTextureSize(glm::uvec2 textureSize);
 
 		/// Set texture vertices for full size texture.
@@ -24,16 +26,16 @@ namespace pm
 		/// Take specific part of the texture in pixels.
 		void SetTextureVertices(glm::vec2 leftTop, glm::vec2 rightBottom);
 
-		/// Returns texture vertices as float vector 4x2 values 
+		/// Returns texture vertices as float vector 4x2 values .
 		std::vector<GLfloat> GetTextureVertices() { return textureVertex; };
 
-		/// Return GLuint textureID
+		/// Return GLuint textureID.
 		GLuint GetId();
 
 		/// Returns glm uvec2 sixze of the texture.
 		glm::uvec2 GetTextureSize();
 
-		/// Sets the textureID   
+		/// Sets the textureID.
 		void SetId(GLuint textureId);
 
 	private:
@@ -43,7 +45,6 @@ namespace pm
 		std::vector<GLfloat> textureVertex;
 
 		glm::uvec2 textureSize;
-
 	};
 }
 

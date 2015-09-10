@@ -6,7 +6,8 @@
 
 namespace pm
 {
-	/// Component for GameEntity:s that strores data for translation, transformation and rotation
+	/// Component for GameEntity:s that strores data for translation, transformation and rotation.
+
 	class Transformable : public Component
 	{
 	public:
@@ -41,17 +42,16 @@ namespace pm
 		/// Sets the depth.
 		void SetDepth(int newDepthValue);
 
-		/// returns glm float vec2 position  
+		/// Returns glm float vec2 position.
 		glm::vec2 GetPosition();
 
-		/// returns glm float vec2 scale  
+		/// Returns glm float vec2 scale.
 		glm::vec2 GetScale();
 
-
-		/// returns rotation value as float 
+		/// Returns rotation value as float.
 		float GetRotation();
 
-		/// returns depth value as int
+		/// Returns depth value as int.
 		int GetDepth();
 
 	private:

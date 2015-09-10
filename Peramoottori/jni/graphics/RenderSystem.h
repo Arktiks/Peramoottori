@@ -41,7 +41,6 @@ namespace pm
 		static bool initialized;
 
 		~RenderSystem();
-
 	};
 }
 

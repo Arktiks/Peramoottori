@@ -18,10 +18,9 @@ public:
 	SpriteObject();
 	SpriteObject(pm::Texture* texture);
 	~SpriteObject();
-
+	virtual void Update(float deltaTime);
 
 	void AddPhysics();
-	void AddTail();
 	void SetVelocity(glm::vec2 velocity);
 	glm::vec2 GetVelocity();
 
@@ -50,7 +49,9 @@ public:
 	glm::vec4 GetColor();
 
 	GLfloat GetRotation();
+	bool done;
 
+	// Update function for child classes
 
 };
 

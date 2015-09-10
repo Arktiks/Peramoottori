@@ -10,7 +10,7 @@ namespace pm
 	public:
 
 		/**
-		*Returns AudioManager Instance, that can be only one at once.
+		*Return AudioManager instance.
 		*/
 		static AudioManager* GetInstance();
 
@@ -22,12 +22,12 @@ namespace pm
 	private:
 
 		/**
-		*Creates OPENGL soundEngine
+		* Creates OpenSL sound engine.
 		*/
 		void CreateEngine();
 
 		/**
-		*In case of error prints them in the LogCat
+		* Error message formatting for LogCat.
 		*/
 		void CheckError(std::string errorText);
 
@@ -46,4 +46,4 @@ namespace pm
 	};
 }
 
-#endif //AUDIOMANAGER_H
+#endif // AUDIOMANAGER_H

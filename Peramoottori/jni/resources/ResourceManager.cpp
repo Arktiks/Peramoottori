@@ -17,11 +17,6 @@ const std::string PNG = ".png";
 
 /// User Functions ///
 
-///TODO tää toimii nyt sillai typerästi että loadAsset palauttaa käyttäjälle Resourcen,
-///millö käyttäjä ei nyt juuri voi tehdä mitään. Pitää siis tehdä jotenkin sillai, 
-///että kun tietyn tyyppinen resurssi luodaan, niin itse Resource luokasta pääsee 
-///assettien dataan käsiksi joita käyttäjä pystyy hyödyntämään.
-
 pm::ResourceManager* pm::ResourceManager::GetInstance()
 {
 	if (instance == nullptr) // If instance has not been initialized yet.
@@ -50,12 +45,9 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 		{
 			AAsset* ttfAsset = OpenAAsset(fileName);
 			std::vector<FT_Byte> ttf = ReadUnsignedChar(ttfAsset);
-			//AAsset_close(ttfAsset);
 		
 			FontResource* tempFontData = NEW FontResource(ttf);
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempFontData));
-
-				//AAsset_close(ttfAsset);
 
 				return tempFontData; // Return created resource instantly.
 		}
@@ -71,7 +63,7 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 
 			AAsset_close(tempAudioAsset);
 
-			return tempAudioResource;
+			return tempAudioResource; // Return created resource instantly.
 
 		}
 
@@ -80,7 +72,7 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 			ImageResource* tempImageResource = NEW ImageResource(ReadImage(fileName));
 			assets.insert(std::pair<std::string, Resource*>(fileName, tempImageResource));
 
-			return tempImageResource;
+			return tempImageResource; // Return created resource instantly.
 		}
 
 		else
@@ -123,33 +115,8 @@ std::string pm::ResourceManager::ReadText(std::string fileName)
 		return std::string(); // Returns empty string if there is an error.
 }
 
-//SIIRRÄ FONTIN LATAUS TÄNNE
-//std::string pm::ResourceManager::ReadFont(std::string fileName)
-//{
-//	AAsset* tempAsset = OpenAAsset(fileName);
-//
-//	if (tempAsset)
-//	{
-//		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
-//		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-//		DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
-//		return tempString;
-//	}
-//	else
-//		return std::string();
-//
-//}
-
 AAsset* pm::ResourceManager::ReadAudio(std::string fileName)
 {
-	return OpenAAsset(fileName);
-}
-
-/// FIX THIS TO BE IN THE SAME FORM AS OTHER RESOURCE LOADERS
-AAsset* pm::ResourceManager::GetAAsset(std::string fileName)
-{
-	// Temporary function for audio streaming.
-	// The AAsset needs to be closed manually.
 	return OpenAAsset(fileName);
 }
 

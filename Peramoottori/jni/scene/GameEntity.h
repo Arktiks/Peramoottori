@@ -5,27 +5,31 @@
 #include <unordered_map>
 #include <typeinfo>
 #include <scene\Texture.h>
+#include <unordered_map>
 
 namespace pm
 {
-	/// The base of entity component system that stores components
+	/// The base of entity component system that stores components.
+
 	class GameEntity
 	{
-		using ComponentList = std::unordered_map < const std::type_info*, Component* >;
+
+		using ComponentList = std::unordered_map<const std::type_info*, Component*>;
 
 	public:
 
 		/// Default constructor.
 		GameEntity() {};
+
 		~GameEntity();
 
 		/// Adds a new component to GameEntity
 		void AddComponent(Component* newComponent);
 
 		/**
-		* "return desired component from GameEntity.
+		* Return desired component from GameEntity.
 		* For example:
-		* Color* ColorComponent =  <Color>GetComponent();
+		* Color* ColorComponent = <Color>GetComponent();
 		*/
 		template<typename T> T* GetComponent();
 
@@ -33,15 +37,16 @@ namespace pm
 		* Removes desired component from GameEntity.
 		* For example:
 		* <Color>RemoveComponent();
+		* Does not work.
 		*/
-		template<typename T> void RemoveComponent();
+		//template<typename T> void RemoveComponent();
 
 	private:
 
 		ComponentList components;
 
 	};
-} // end namespace
+}
 
 template<typename T>
 T* pm::GameEntity::GetComponent()
@@ -52,11 +57,11 @@ T* pm::GameEntity::GetComponent()
 		return nullptr;
 }
 
-template<typename T>
-void pm::GameEntity::RemoveComponent()
-{
-	// What happens if there is no component to be erased?
-	components.erase(&typeid(T));
-}
+//template<typename T>
+//void pm::GameEntity::RemoveComponent()
+//{
+//	// What happens if there is no component to be erased?
+//	components.erase(&typeid(T));
+//}
 
 #endif // GAMEENTITY_H

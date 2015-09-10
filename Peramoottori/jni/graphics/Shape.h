@@ -10,15 +10,17 @@ static const double PI = 3.141;
 
 namespace pm
 {
-	/// Shape Component that is the base class for other shapes
+	/// Shape Component that is the base class for other shapes.
+
 	class Shape : public Component
 	{
 	public:
+
 		/// Constructor.
 		Shape() : Component()
 		{
 			origin = glm::vec2(0.0, 0.0);
-		};
+		}
 
 		/// Sets origin.
 		virtual void SetOrigin(glm::vec2 newOrigin)
@@ -55,7 +57,6 @@ namespace pm
 		std::vector<float> vertices;
 		std::vector<unsigned short> indices;
 		glm::vec2 origin;
-
 	};
 }
 

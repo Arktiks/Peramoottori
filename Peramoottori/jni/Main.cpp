@@ -54,29 +54,45 @@ using namespace std;
 #include <graphics\Drawable.h>
 #include <graphics\SpriteBatch.h>
 #include <graphics\Color.h>
+#include <audio\Audio.h>
+#include <core\Input.h>
 
 namespace pm
 {
 	class GameClass // Test holding game information.
 	{
 	public:
-		GameClass() : rotation(0.0f)
+		GameClass() : rotation(0.0f), volume(50.0f), paused(false)
 		{
 			objects.push_back(GameEntity());
 			objects[0].AddComponent(NEW Transformable(glm::vec2(500.0f, 500.0f), glm::vec2(1.0f, 1.0f), 0.0f));
 			objects[0].AddComponent(NEW Color(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
-			objects[0].AddComponent(TextureFactory::CreateTexture("PM_TEXTURE.png"));
+			objects[0].AddComponent(TextureFactory::CreateTexture("DEF_LOGO.png"));
 			objects[0].AddComponent(NEW Rectangle(150.0f, 150.0f));
 			objects[0].AddComponent(NEW Drawable);
 
-			TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("PM_TEXT.txt");
+			TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
 			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("Arial.ttf");
 			texts.push_back(Text(font, file, 100, 100, 32, 32));
+
+			sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
+			sounds[0]->SetLooping(true);
+			sounds[0]->SetVolume(volume);
+			sounds[0]->Play();
+
+			sounds.push_back(NEW Audio("Push.ogg"));
+			sounds[1]->SetVolume(volume);
 		};
 
 		void Update()
 		{
 			rotation += 0.1f;
+			volume -= 0.1f;
+			sounds[0]->SetVolume(volume);
+
+			if(input.GetSingleTouch())
+				sounds[1]->Play();
+
 			objects[0].GetComponent<Transformable>()->SetRotation(rotation);
 			SpriteBatch::GetInstance()->AddGameEntity(&objects[0]);
 			
@@ -84,14 +100,24 @@ namespace pm
 				SpriteBatch::GetInstance()->AddGameEntity(texts[0].GetTextVector()[i]);
 		};
 
-		void Draw()
+		void Pause()
 		{
+			paused = true;
+			sounds[0]->Pause();
+		};
+
+		void Unpause()
+		{
+			paused = false;
+			sounds[0]->Play();
 		};
 
 		std::vector<GameEntity> objects;
 		std::vector<Text> texts;
-		float rotation;
-
+		std::vector<Audio*> sounds;
+		float rotation, volume;
+		bool paused;
+		Input input;
 		static bool first;
 	};
 
@@ -103,32 +129,38 @@ void android_main(android_app* application)
 {
 	DEBUG_INFO(("Starting android_main."));
 
-	Application* game = Application::GetInstance(); // For ease of use.
-	game->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
-	game->Wait();
+	Application* app = Application::GetInstance(); // For ease of use.
+	app->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
+	app->Wait();
 
 	if (GameClass::first == false)
 	{
-		GameClass* g = NEW GameClass;
-		game->saveData = (void*)g;
+		GameClass* game = NEW GameClass;
+		app->saveData = (void*)game;
 		GameClass::first = true;
 	}
 
 	Time time;
 	float fps = 0;
 
-	while (game->Update())
+	while (app->Update())
 	{
-		if (game->IsFocused())
-		{
-			GameClass* access = (GameClass*)game->saveData;
-			access->Update();
+		GameClass* access = (GameClass*)app->saveData;
 
-			game->window.Clear();
-			game->Draw();
+		if (app->IsFocused())
+		{
+			if(access->paused == true)
+				access->Unpause();
+
+			access->Update();
+			app->window.Clear();
+			app->Draw();
 		}
 		else
 		{
+			if(access->paused == false)
+				access->Pause();
+	
 			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 			DEBUG_INFO(("Game is not focused."));
 		}

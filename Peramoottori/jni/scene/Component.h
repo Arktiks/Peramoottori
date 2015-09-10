@@ -2,17 +2,16 @@
 #define COMPONENT_H
 
 #include <typeinfo>
-//#include <scene\GameEntity.h>
 
 namespace pm
 {
-	class GameEntity; /// fore declaration of GameEntity class.
+
+	class GameEntity; /// Fore declaration of GameEntity class.
 
 	class Component
 	{
 	public:
 
-		// parenting
 		/// Constructor.
 		Component() : parent(nullptr) {};
 
@@ -33,7 +32,6 @@ namespace pm
 	protected:
 
 		GameEntity* parent;
-
 	};
 }
 

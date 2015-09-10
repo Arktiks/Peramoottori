@@ -5,8 +5,6 @@
 #include <EGL/egl.h>
 #include <vector>
 #include <string>
-#include <resources\TextResource.h>
-#include <resources\ResourceManager.h>
 
 namespace pm
 {
@@ -28,7 +26,6 @@ namespace pm
 		/// Confirm if program has been linked successfully.
 		bool GetLinkStatus();
 
-		// ...
 		void UseVertexAttribs();
 
 		/// Use program as part of current rendering state.

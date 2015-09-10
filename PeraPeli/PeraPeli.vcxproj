@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="NsightTegraProject">
-    <NsightTegraProjectRevisionNumber>9</NsightTegraProjectRevisionNumber>
+    <NsightTegraProjectRevisionNumber>11</NsightTegraProjectRevisionNumber>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Tegra-Android">
@@ -12,41 +12,6 @@
       <Configuration>Release</Configuration>
       <Platform>Tegra-Android</Platform>
     </ProjectConfiguration>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidBuild Include="AndroidManifest.xml" />
-    <AndroidBuild Include="res\values\strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\Peramoottori\libs\lodepng.cpp" />
-    <ClCompile Include="jni\GameDemo.cpp" />
-    <ClCompile Include="jni\main.cpp" />
-    <ClCompile Include="jni\PhysicComponent.cpp" />
-    <ClCompile Include="jni\RNG.cpp" />
-    <ClCompile Include="jni\SpriteObject.cpp" />
-    <ClCompile Include="jni\TailComponent.cpp" />
-    <ClCompile Include="jni\TailEntity.cpp" />
-    <ClCompile Include="native_app_glue\android_native_app_glue.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Peramoottori\libs\lodepng.h" />
-    <ClInclude Include="jni\GameDemo.h" />
-    <ClInclude Include="jni\PhysicComponent.h" />
-    <ClInclude Include="jni\RNG.h" />
-    <ClInclude Include="jni\SpriteObject.h" />
-    <ClInclude Include="jni\TailComponent.h" />
-    <ClInclude Include="jni\TailEntity.h" />
-    <ClInclude Include="native_app_glue\android_native_app_glue.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\TestFragmentShader.txt" />
-    <None Include="assets\TestVertexShader.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{97E30C33-1EFB-4275-8D46-A5E4BD98E597}</ProjectGuid>
@@ -64,10 +29,8 @@
     <AndroidMinAPI>android-16</AndroidMinAPI>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros">
-  </PropertyGroup>
+  <ImportGroup Label="ExtensionSettings"></ImportGroup>
+  <PropertyGroup Label="UserMacros"></PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <OutDir>$(ProjectDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)Build\$(Configuration)\</IntDir>
@@ -99,7 +62,43 @@
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\PeraLib;$(SolutionDir)$(Platform)\$(Configuration)\freetype</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml" />
+    <AndroidBuild Include="res\values\strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Peramoottori\libs\lodepng.cpp" />
+    <ClCompile Include="jni\Enemy.cpp" />
+    <ClCompile Include="jni\GameDemo.cpp" />
+    <ClCompile Include="jni\main.cpp" />
+    <ClCompile Include="jni\MultipleTexture.cpp" />
+    <ClCompile Include="jni\PhysicComponent.cpp" />
+    <ClCompile Include="jni\RNG.cpp" />
+    <ClCompile Include="jni\Smoke.cpp" />
+    <ClCompile Include="jni\SpriteObject.cpp" />
+    <ClCompile Include="native_app_glue\android_native_app_glue.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Peramoottori\libs\lodepng.h" />
+    <ClInclude Include="jni\Enemy.h" />
+    <ClInclude Include="jni\GameDemo.h" />
+    <ClInclude Include="jni\MultipleTexture.h" />
+    <ClInclude Include="jni\PhysicComponent.h" />
+    <ClInclude Include="jni\RNG.h" />
+    <ClInclude Include="jni\Smoke.h" />
+    <ClInclude Include="jni\SpriteObject.h" />
+    <ClInclude Include="native_app_glue\android_native_app_glue.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\DEF_FRAGMENT_SHADER.txt" />
+    <None Include="assets\DEF_VERTEX_SHADER.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets"></ImportGroup>
 </Project>

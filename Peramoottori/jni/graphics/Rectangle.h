@@ -6,20 +6,22 @@
 namespace pm
 {
 	/// Rectangle shape that is inherited from shape base class.
+
 	class Rectangle : public Shape
 	{
 	public:
 
-		/// default constructor.
-		Rectangle() : width(0), height(0) { 
-		SetIndices();
-		SetVertices();
-		};
+		/// Default constructor.
+		Rectangle() : width(0), height(0)
+		{ 
+			SetIndices();
+			SetVertices();
+		}
 
-		/// constructor.
+		/// Constructor.
 		Rectangle(float width, float height);
 
-		/// constructor.
+		/// Constructor.
 		Rectangle(glm::vec2 size);
 
 		/// Set the origin of the rectangle.
@@ -34,19 +36,21 @@ namespace pm
 		/// Set the size of the rectangle.
 		void SetSize(float newSizeX, float newSizeY);
 
-		/// returns glm vec2 that has the size of the rectangle.
+		/// Returns glm vec2 that has the size of the rectangle.
 		glm::vec2 GetSize();
 		
+		/// Returns glm vec2 that has the origin of the rectangle
+		glm::vec2 GetOrigin();
+
 	private:
 		
-		///sets vertises of rectangle
+		/// Sets vertises of rectangle.
 		void SetVertices();
 
-		/// sets indexes of rectangle
+		/// Sets indexes of rectangle.
 		void SetIndices();
 
 		float width, height;
-
 	};
 }
 

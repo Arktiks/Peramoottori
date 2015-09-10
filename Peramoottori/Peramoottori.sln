@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Peramoottori", "Peramoottori.vcxproj", "{E8B040CD-E7BD-499F-B4F0-38DD7D17EC70}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -96,7 +96,6 @@ Global
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Debug|Mixed Platforms.Build.0 = Debug|Tegra-Android
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
-		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Debug|Tegra-Android.Build.0 = Debug|Tegra-Android
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Debug|Win32.ActiveCfg = Debug|Tegra-Android
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Debug|x64.ActiveCfg = Debug|Tegra-Android
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}.Release Multithreaded|Mixed Platforms.ActiveCfg = Release Multithreaded|Tegra-Android
@@ -132,7 +131,6 @@ Global
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Mixed Platforms.Build.0 = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
-		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Tegra-Android.Build.0 = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|Win32.ActiveCfg = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Debug|x64.ActiveCfg = Debug|Tegra-Android
 		{88740431-0C37-4AF2-8E0E-7C22B9404337}.Release Multithreaded|Mixed Platforms.ActiveCfg = Release|Tegra-Android
