@@ -23,6 +23,8 @@ namespace pm
 
 		void AddOpaqueGameEntity(GameEntity* gameEntity); ///< Stores given GameEntity that is opaque to get patched.
 
+		void AddOpaqueGameEntity(std::vector<GameEntity*> entityVector); //////< Stores given GameEntityvector that is opaque to get patched.
+
 		void AddText(Text* textEntity); ///< Stores given Text that is opaque to get patched.
 
 	private:

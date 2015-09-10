@@ -55,6 +55,14 @@ void SpriteBatch::AddOpaqueGameEntity(GameEntity* gameEntity)
 	opaqueGameEntityVector.push_back(gameEntity); 
 }
 
+void SpriteBatch::AddOpaqueGameEntity(std::vector<GameEntity*> entityVector)
+{
+	for (int i = 0; i < entityVector.size(); i++)
+	{
+		opaqueGameEntityVector.push_back(entityVector.at(i));
+	}
+}
+
 void SpriteBatch::AddText(Text* textEntity)
 {
 	for (int i = 0; i < textEntity->GetTextVector().size(); i++)

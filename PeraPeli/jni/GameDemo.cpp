@@ -110,13 +110,11 @@ void GameDemo::InitializeTextures()
 
 	// Adding background
 
-	textureMap["background"] = pm::TextureFactory::CreateTexture("sprites/background/felt_brown.png");
-	//textureMap["win"] = pm::TextureFactory::CreateTexture("sprites/voitto.png");
-	textureMap["win"] = pm::TextureFactory::CreateTexture("sprites/background/mg.png");
-	// Adding smoke-, explosion- and helper spritesheets
-	textureMap["smoke"] = pm::TextureFactory::CreateTexture("sprites/smoke/particlefx_03.png");
-	textureMap["explosion"] = pm::TextureFactory::CreateTexture("sprites/smoke/explosion.png");
-	textureMap["logo"] = pm::TextureFactory::CreateTexture("sprites/background/logo.png");
+	textureMap["background"]	= pm::TextureFactory::CreateTexture("sprites/background/felt_brown.png");
+	textureMap["win"]			= pm::TextureFactory::CreateTexture("sprites/background/mg.png");
+	textureMap["smoke"]			= pm::TextureFactory::CreateTexture("sprites/smoke/particlefx_03.png");
+	textureMap["explosion"]		= pm::TextureFactory::CreateTexture("sprites/smoke/explosion.png");
+	textureMap["logo"]			= pm::TextureFactory::CreateTexture("sprites/background/logo.png");
 }
 
 void GameDemo::InitializeSounds()
@@ -341,8 +339,12 @@ void GameDemo::AddSmoke(glm::vec2 location)
 {
 	// Create atlascoordinates for smoke to use
 	// These are based on textureAtlas
+	// Size of one sprite
 	glm::vec2 smokeSize(128.0f, 128.0f);
+	// amount of sprites in x & y
+	glm::vec2 smokeAmount(8, 8);
 	std::vector<glm::vec2> smokeCoords;
+	//std::vector<glm::vec2> smokeCoords = CreateSpriteSheet(smokeSize, smokeAmount);
 	for (int y = 7; y > 0; y--)
 	{
 		for (int x = 0; x < 8; x++)
@@ -350,6 +352,7 @@ void GameDemo::AddSmoke(glm::vec2 location)
 			smokeCoords.push_back(glm::vec2(x * smokeSize.x, y * smokeSize.y));
 		}
 	}
+
 	Smoke* smoke = NEW Smoke(textureMap["smoke"], smokeSize, smokeCoords );
 	smoke->SetDepth(2);
 	smoke->SetPosition(location);
@@ -357,6 +360,19 @@ void GameDemo::AddSmoke(glm::vec2 location)
 	smoke->SetOrigin(40, 20);
 	smokeVector.push_back(smoke);
 	opaqueSpriteVector.push_back(smoke);
+}
+
+std::vector<glm::vec2> GameDemo::CreateSpriteSheet(glm::vec2 pixelSize, glm::vec2 spriteAmount)
+{
+	std::vector<glm::vec2> coordinates;
+	for (int y = spriteAmount.y-1; y > 0; y--)
+	{
+		for (int x = 0; x < spriteAmount.x; x++)
+		{
+			coordinates.push_back(glm::vec2(x * pixelSize.x, y * pixelSize.y));
+		}
+	}
+	return coordinates;
 }
 // add Smoke-SpriteObject to given position
 void GameDemo::AddExplosion(glm::vec2 location)
@@ -373,7 +389,7 @@ void GameDemo::AddExplosion(glm::vec2 location)
 			explosionCoords.push_back(glm::vec2(x * explosionSize.x, y * explosionSize.y));
 		}
 	}
-	// Use smoke (Sprite with animation) to create cool explosion.
+	// Use smoke (Sprite with animation) to create explosion.
 	Smoke* explosion = NEW Smoke(textureMap["explosion"], explosionSize, explosionCoords);
 	// Set how deep explosion is drawn.
 	explosion->SetDepth(2);
@@ -403,8 +419,9 @@ void GameDemo::Draw()
 
 	// add letter entities
 	std::vector<pm::GameEntity*> textGEV = text->GetTextVector();
-	for (it2 = textGEV.begin(); it2 != textGEV.end(); it2++)
-		pm::SpriteBatch::GetInstance()->AddOpaqueGameEntity(*it2);
+	
+	pm::SpriteBatch::GetInstance()->AddOpaqueGameEntity(textGEV);
+
 }
 
 void GameDemo::CheckInput()

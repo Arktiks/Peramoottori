@@ -35,7 +35,6 @@ public:
 
 private:
 
-
 	SpriteObject* winSprite, *logoSprite;
 	bool audioBool;
 	pm::Text* text;
@@ -59,6 +58,7 @@ private:
 
 	void AddEnemy(glm::vec2 location);
 	void AddSmoke(glm::vec2 location);
+	std::vector<glm::vec2> CreateSpriteSheet(glm::vec2 pixelSize, glm::vec2 spriteAmount);
 	void AddExplosion(glm::vec2 location);
 	
 
