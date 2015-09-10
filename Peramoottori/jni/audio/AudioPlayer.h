@@ -10,6 +10,9 @@
 
 namespace pm
 { 
+	/**
+	* Ease of access class for handling OpenSL objects. Use "Audio" class instead.
+	*/
 	class AudioPlayer
 	{
 
@@ -18,11 +21,17 @@ namespace pm
 	public:
 
 		/**
-		* Constructor for AudioPlayer.
+		* Constructor for AudioPlayer. Create an AudioPlayer object from an AudioResource.
+		* AudioPlayer must be initialized after construction. Call "pm::AudioManager::GetInstance()->InitAudioPlayer(AudioPlayer* player)"
+		* to initialize an AudioPlayer.
 		*/
 		AudioPlayer(AudioResource* resource)
 			: audioResource(resource) {};
-
+		/**
+		* Constructor for AudioPlayer. Create an AudioPlayer object from another AudioPlayer.
+		* AudioPlayer must be initialized after construction. Call "pm::AudioManager::GetInstance()->InitAudioPlayer(AudioPlayer* player)"
+		* to initialize an AudioPlayer.
+		*/
 		AudioPlayer(AudioPlayer* player)
 			: audioResource(player->audioResource) {};
 
@@ -35,7 +44,13 @@ namespace pm
 		* 3 = SL_PLAYSTATE_PLAYING
 		*/
 		SLuint32 GetPlayState();
-
+		
+		/**
+		* Set playstate for AudioPlayer:
+		* 1 = SL_PLAYSTATE_STOPPED
+		* 2 = SL_PLAYSTATE_PAUSED
+		* 3 = SL_PLAYSTATE_PLAYING
+		*/
 		void SetPlayState(SLuint32 state);
 
 		/**
@@ -55,9 +70,15 @@ namespace pm
 
 	private:
 
+		/**
+		* Checks if SLresult != SL_RESULT_SUCCESS and displays a given error message.
+		*/
 		void CheckError(std::string errorText);
 
-		float gain_to_attenuation(float gain);
+		/**
+		* Calculates the correct decibel value based on volPercentage given to SetVolume.
+		*/
+		float GainToAttenuation(float gain);
 
 		SLObjectItf audioPlayerObj;
 		SLPlayItf audioPlayerPlay;

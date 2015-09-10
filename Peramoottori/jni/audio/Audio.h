@@ -7,16 +7,21 @@
 
 namespace pm
 {
+	/**
+	* Class for playing audio.
+	*/
 	class Audio
 	{
 	public:
-		
+		/**
+		* Constructor for Audio class.
+		*/
 		Audio(std::string fileName);
 		~Audio();
 
 		/**
-		* Starts a player.
-		* Returns false if there are no available audio players.
+		* Starts playing audio.
+		* Returns false if there are no available AudioPlayers.
 		*/
 		bool Play();
 
@@ -27,7 +32,7 @@ namespace pm
 		void Stop();
 
 		/**
-		* Pauses all the players of this Audio object.
+		* Pauses all the instances of this Audio object.
 		* Next time playing will continue from the same point.
 		*/
 		void Pause();
@@ -46,7 +51,7 @@ namespace pm
 		void SetLooping(bool isEnabled);
 
 		/**
-		/* MaxPlayerCount default = 3
+		* MaxPlayerCount default = 3
 		* MaxPlayerCount defines how many instances of this Audio object
 		* can be played at once. 
 		*/

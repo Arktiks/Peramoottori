@@ -53,7 +53,7 @@ void pm::AudioPlayer::CheckError(std::string errorText)
 	(void)result;
 }
 
-float pm::AudioPlayer::gain_to_attenuation(float gain)
+float pm::AudioPlayer::GainToAttenuation(float gain)
 {
 	return gain < 0.01F ? -96.0F : 20 * log10(gain);
 }
