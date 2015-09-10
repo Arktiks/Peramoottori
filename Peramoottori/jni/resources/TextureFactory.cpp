@@ -26,24 +26,24 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 
 	return tempTexture;
 }
-pm::Texture* pm::TextureFactory::CreateTexture(unsigned char* buffer ,char fileName, int x, int y)
-{
-	std::string character = std::string(filename);
-
-	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
-	{
-		if (it->first == character)
-		{
-			return it->second;
-		}
-	}
-
-	pm::Texture* tempTexture = NEW pm::Texture;
-	CreateOGLTexture(fileName, tempTexture, buffer, x, y);
-	generatedTextures[fileName] = tempTexture;
-
-	return tempTexture;
-}
+//pm::Texture* pm::TextureFactory::CreateTexture(unsigned char* buffer ,char fileName, int x, int y)
+//{
+//	std::string character = std::string(filename);
+//
+//	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+//	{
+//		if (it->first == character)
+//		{
+//			return it->second;
+//		}
+//	}
+//
+//	pm::Texture* tempTexture = NEW pm::Texture;
+//	CreateOGLTexture(fileName, tempTexture, buffer, x, y);
+//	generatedTextures[fileName] = tempTexture;
+//
+//	return tempTexture;
+//}
 void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer, unsigned char* buffer, int x, int y)
 {
 	if (fileName.empty() || pointer == nullptr)

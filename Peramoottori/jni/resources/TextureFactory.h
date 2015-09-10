@@ -20,7 +20,7 @@ namespace pm
 		/// Creates a texture.
 		/// @param unsigned char* buffer
 		/// used for text
-		static Texture* CreateTexture(unsigned char* buffer, char character, int x, int y);
+		//static Texture* CreateTexture(unsigned char* buffer, char character, int x, int y);
 
 	private:
 
