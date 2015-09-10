@@ -2,11 +2,14 @@
 #define TEXTUREFACTORY_H
 
 #include <map>
+#include <vector>
 #include <string>
 #include <scene\Texture.h>
 
+
 namespace pm
 {
+	class Text;
 	class TextureFactory
 	{
 
@@ -17,18 +20,13 @@ namespace pm
 		/// Creates a texture.
 		static Texture* CreateTexture(std::string fileName);
 
-		/// Creates a texture.
-		/// @param unsigned char* buffer
-		/// used for text
-		//static Texture* CreateTexture(unsigned char* buffer, char character, int x, int y);
+
+		static void SaveText(Text* savedText);
 
 	private:
 
 		///	Function used in creating a texture 
 		static void CreateOGLTexture(std::string fileName, Texture* pointer);
-
-		///	Function used in creating a texture 
-		static void CreateOGLTexture(std::string fileName, Texture* pointer, unsigned char* buffer, int x,int y);
 
 		/// recreates OPENGL values after the application get focus again.
 		static void RecreateOGLTextures();
@@ -41,7 +39,7 @@ namespace pm
 		~TextureFactory();
 
 		static std::map<std::string, Texture*> generatedTextures;
-
+		static std::map<std::string, Text*> savedTexts;
 	};
 }
 

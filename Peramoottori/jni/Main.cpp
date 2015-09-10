@@ -72,7 +72,7 @@ namespace pm
 			objects[0].AddComponent(NEW Drawable);
 
 			TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
-			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("Arial.ttf");
+			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
 			texts.push_back(Text(font, file, 100, 100, 32, 32));
 
 			sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
