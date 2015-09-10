@@ -37,7 +37,7 @@ private:
 
 
 	SpriteObject* winSprite, *logoSprite;
-	pm::Audio *touchAudio, *explosionAudio, *music, *winAudio, *winAudio2, *winAudio3, *logoAudio;
+	bool audioBool;
 	pm::Text* text;
 	pm::TextResource* textResource;
 	pm::FontResource* font;
@@ -80,7 +80,7 @@ private:
 	MultipleTexture EnemyTextures;
 	SpriteObject* help;
 	std::map<std::string, pm::Texture*> textureMap;
-	
+	std::map<std::string, pm::Audio*> audioMap;
 	std::vector<Smoke*> smokeVector;
 	
 	std::vector<Enemy*> enemyVector;

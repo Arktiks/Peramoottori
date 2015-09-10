@@ -5,6 +5,8 @@
 class MultipleTexture : public pm::Component
 {
 public:
+	// Create component with multiple textures
+	// Not recommended. Rather create textureAtlas.
 	MultipleTexture();
 	~MultipleTexture();
 	void AddTexture(pm::Texture* texture);
