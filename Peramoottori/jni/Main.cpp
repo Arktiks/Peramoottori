@@ -5,8 +5,6 @@
 
 #include <resources\ResourceManager.h>
 #include <core\Time.h>
-#include <resources\FontResource.h>
-#include <resources\TextResource.h>
 #include <graphics\Text.h>
 #include <graphics\SpriteBatch.h>
 
@@ -65,6 +63,7 @@ namespace pm
 		Time timer;
 		Time timer2;
 		TextResource* file;
+		TextResource* file2;
 		FontResource* font;
 	public:
 		GameClass() : rotation(0.0f), volume(50.0f), paused(false)
@@ -77,13 +76,14 @@ namespace pm
 			objects[0].AddComponent(NEW Drawable);
 
 			file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
+			file2 = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT2.txt");
 			font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
 			texts.push_back(Text(font, file, 100, 100, 32, 32));
 
 			sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
 			sounds[0]->SetLooping(true);
 			sounds[0]->SetVolume(volume);
-			sounds[0]->Play();
+			//sounds[0]->Play();
 
 			sounds.push_back(NEW Audio("Push.ogg"));
 			sounds[1]->SetVolume(volume);
@@ -92,13 +92,14 @@ namespace pm
 		void Update()
 		{
 			rotation += 0.1f;
-			volume -= 0.1f;
+			volume -= 0.0f;
 			sounds[0]->SetVolume(volume);
 
 			if (input.GetSingleTouch())
 			{
-				sounds[0]->Play();
-				texts.at(0).ReText(font, file, 100, 100, 32, 32);
+				sounds[0]->Stop();
+				sounds[0]->PlayFrom(3000);
+				texts.at(0).ReText(font, file2, 100, 100, 32, 32);
 			}
 
 

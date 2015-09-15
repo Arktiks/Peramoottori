@@ -105,7 +105,7 @@ void pm::TextureFactory::RecreateOGLTextures()
 
 
 	// may crash the whole thing mayhaps
-
+	/*
 	if (!savedFonts.empty())
 	{
 		for (std::map<std::string, Text*>::iterator fit = savedFonts.begin(); fit != savedFonts.end(); fit++)
@@ -131,9 +131,9 @@ void pm::TextureFactory::RecreateOGLTextures()
 			{
 				tit->second->ReintializeText(tit->first);
 			}
-			//
+
 		}
-	}
+	}//*/
 }
 
 void pm::TextureFactory::DestroyOGLTextures()

@@ -50,7 +50,8 @@ namespace pm
 
 	void Text::ReText(FontResource* font, TextResource* text, float x, float y, float w, float h)
 	{
-		//for (int i = textVector.size(); )
+		for (int i = 0; i < textVector.size(); i++)
+			textVector.at(i)->~GameEntity();
 		textVector.clear();
 		float x0 = x;
 
@@ -89,7 +90,8 @@ namespace pm
 	}
 	void Text::ReintializeText(std::string s)
 	{
-		textVector.clear();
+		//textVector.clear();
+		std::vector<GameEntity*> tempEntityVector;
 		savedText = new pm::TextResource(s);
 		for (int i = 0; i < savedText->GetTextData().size(); i++)
 		{
@@ -164,11 +166,11 @@ namespace pm
 			GE->AddComponent(NEW Rectangle(WIDTH, HEIGHT));
 			GE->AddComponent(NEW Transformable());
 
-			float scaleY = slot->bitmap.width / slot->bitmap.rows;
-			if (scaleY < 1)
-				GE->GetComponent<Transformable>()->SetScale(1, 1);
-			else
-				GE->GetComponent<Transformable>()->SetScale(1, 1);
+			//float scaleY = slot->bitmap.width / slot->bitmap.rows;
+			//if (scaleY < 1)
+			//	GE->GetComponent<Transformable>()->SetScale(1, 1);
+			//else
+			GE->GetComponent<Transformable>()->SetScale(1, 1);
 
 			GE->GetComponent<Transformable>()->SetPosition(position);
 			GE->GetComponent<Transformable>()->SetRotation(0);
@@ -185,11 +187,9 @@ namespace pm
 			glActiveTexture(0);
 			glBindTexture(GL_TEXTURE_2D, 0);
 
-			textVector.push_back(GE);
-		
-			int asd = 0;
-		
+			tempEntityVector.push_back(GE);
 		}
+		textVector = tempEntityVector;
 
 	}
 
@@ -278,8 +278,12 @@ namespace pm
 		GE->AddComponent(NEW Texture());
 		GE->GetComponent<Texture>()->SetId(textId);
 		GE->GetComponent<Texture>()->SetTextureSize(glm::vec2(slot->bitmap.width, slot->bitmap.rows));
-		
-		GE->AddComponent(NEW Color(glm::vec4(0.0f, 0.8f, 0.0f, 0.0f)));
+
+		std::vector<float> clr = font->GetColor();
+
+		GE->AddComponent(NEW Color(glm::vec4(clr[0], clr[1], clr[2], clr[3])));
+
+		//GE->AddComponent(NEW Color(glm::vec4(0.0f, 0.8f, 0.8f, 0.0f)));
 
 		glActiveTexture(0);
 		glBindTexture(GL_TEXTURE_2D, 0);

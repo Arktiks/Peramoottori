@@ -29,8 +29,10 @@
     <AndroidMinAPI>android-16</AndroidMinAPI>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings"></ImportGroup>
-  <PropertyGroup Label="UserMacros"></PropertyGroup>
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <OutDir>$(ProjectDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)Build\$(Configuration)\</IntDir>
@@ -43,7 +45,7 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs;$(ProjectDir)\jni</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs;$(ProjectDir)\jni;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -55,7 +57,7 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;NDEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>PeraLib;android;EGL;GLESv2;OpenSLES;freetype</AdditionalDependencies>
@@ -100,5 +102,6 @@
     <None Include="assets\DEF_VERTEX_SHADER.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets"></ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

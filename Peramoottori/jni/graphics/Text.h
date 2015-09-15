@@ -17,7 +17,11 @@ namespace pm
 		* and the height and width of the desired text.
 		*/
 		Text(FontResource* font, TextResource* text, float x, float y, float w, float h);
-		
+
+		/**
+		* Function can be used to change text resource
+		* font , text, position, and / or size
+		*/
 		void ReText(FontResource* font, TextResource* text, float x, float y, float w, float h);
 
 		~Text();
@@ -27,17 +31,34 @@ namespace pm
 			if (textVector.size() != 0)return textVector;
 			else
 			{
-				123 / 0;
 				return std::vector<GameEntity*>();
 			}
 
 		} ///< Returns generated GameEntity that text has created.
 
 
+		/**
+		* Reinitializes Text after the app is in focus again.
+		* For inner engine use only!
+		*/
 		void ReintializeFont(std::string s);
+
+		/**
+		* Reinitializes Text after the app is in focus again.
+		* For inner engine use only!
+		*/
 		void ReintializeText(std::string s);
 
+		/**
+		* 
+		* For inner engine use only!
+		*/
 		TextResource* GetTextResource(){ return savedText; };
+
+		/**
+		* 
+		* For inner engine use only!
+		*/
 		FontResource* GetFontResource(){ return savedFont; };
 
 		std::string name;
