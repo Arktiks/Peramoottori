@@ -126,9 +126,6 @@
     <ClInclude Include="..\Peramoottori\jni\structs\MemoryTrack.h" />
     <ClInclude Include="..\Peramoottori\jni\structs\ShaderVertexAttrib.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
