@@ -1,4 +1,4 @@
-# Peramoottori
+# Perämoottori
 2D Android game engine created for learning purposes. We are adding new tutorials and content into our  [Wiki](https://github.com/Grimcode/Peramoottori/wiki/Tutorials) almost weekly.
 
 # Developement Kit
