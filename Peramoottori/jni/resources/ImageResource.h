@@ -8,17 +8,20 @@ namespace pm
 {
 	class ImageResource : public Resource
 	{
-	public:
+		friend class ResourceManager;
+		friend class TextureFactory;
+	private:
 		ImageResource();
+
 		///constructor
 		ImageResource(std::vector<unsigned char> pixels) :
 			imageData(pixels) {};
+
 		/// returns image data 
 		std::vector <unsigned char> GetImageData() { return imageData; }
 
 		~ImageResource() {};
 
-	private:
 
 		std::vector <unsigned char> imageData;
 

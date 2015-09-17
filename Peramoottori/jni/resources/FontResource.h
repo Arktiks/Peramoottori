@@ -11,14 +11,18 @@ namespace pm
 {
 	class FontResource : public Resource
 	{
-	public:
+		friend class ResourceManager;
+		friend class Text;
+		friend class TextureFactory;
 
-		/// constructor
+	private:
+		/// Constructor
 		FontResource(std::vector<FT_Byte> ttfData) :
 			ttfData(ttfData)
 		{
 			SetColor(1, 0, 1, 0);
 		};
+
 
 		///returns FT_Byte vector, that is the data of the font
 		std::vector<FT_Byte> GetTTFData() { return ttfData; }
@@ -42,7 +46,6 @@ namespace pm
 		
 		~FontResource() {};
 		
-	private:
 
 		/// sets the color of the font
 		void SetColor(float red, float green, float blue, float alpha)

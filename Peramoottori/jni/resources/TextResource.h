@@ -7,20 +7,30 @@ namespace pm
 {
 	class TextResource : public Resource
 	{
-	public:
+		friend class Text;
+		friend class Shader;
+		friend class ResourceManager;
+		friend class TextureFactory;
 
+	private:
+		///
 		///Constructor
+		///		\param data : string of the text data
+		///
 		TextResource(std::string data) :
 			textData(data)
 		{
 			SetName("text");
 		};
-		/// returns test data as a string
+
+
+		///
+		/// Returns test data as a string
+		///		\return text data as string
+		///
 		std::string GetTextData() { return textData; }
 
 		~TextResource() {};
-
-	private:
 
 		std::string textData;
 

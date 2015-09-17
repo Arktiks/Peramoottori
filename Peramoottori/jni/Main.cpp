@@ -55,6 +55,7 @@ using namespace std;
 #include <audio\Audio.h>
 #include <core\Input.h>
 #include <core\Time.h>
+#include <streambuf>
 
 namespace pm
 {
@@ -77,7 +78,7 @@ namespace pm
 
 			file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
 			file2 = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT2.txt");
-			font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
+			font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("segoeuil.ttf");
 			texts.push_back(Text(font, file, 100, 100, 32, 32));
 
 			sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
@@ -89,17 +90,26 @@ namespace pm
 			sounds[1]->SetVolume(volume);
 		};
 
+		double aika;
+
 		void Update()
 		{
+			aika = timer.GetCurrentTime();
+
+			DEBUG_INFO(("FrameTime: %d", aika));
+
 			rotation += 0.1f;
 			volume -= 0.0f;
 			sounds[0]->SetVolume(volume);
 
 			if (input.GetSingleTouch())
 			{
+
 				sounds[0]->Stop();
 				sounds[0]->PlayFrom(3000);
 				texts.at(0).ReText(font, file2, 100, 100, 32, 32);
+
+
 			}
 
 
@@ -137,8 +147,8 @@ namespace pm
 
 void android_main(android_app* application)
 {
-	DEBUG_INFO(("Starting android_main."));
 
+	DEBUG_INFO(("Starting android_main."));
 	Application* app = Application::GetInstance(); // For ease of use.
 	app->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
 	app->Wait();
@@ -150,7 +160,6 @@ void android_main(android_app* application)
 		GameClass::first = true;
 	}
 
-	Time time;
 	float fps = 0;
 
 	while (app->Update())
