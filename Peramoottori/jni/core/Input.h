@@ -6,8 +6,13 @@
 
 namespace pm
 {
-	/// Need to decide whether we will make this class partially or completely static.
-
+	/// Input objects are used to access the input data provided by Android API
+	/**
+		Only functionality that requires multiple input objects are separate checks for Single Touch.
+		The engine uses the static functions to deliver input data from the API to all input objects.
+		You can use these static functions to force feed specific input data to the input objects.
+		This should be used with extreme caution since it can interfere with other Input functionalities.
+	*/
 	class Input
 	{
 	public:
@@ -15,13 +20,13 @@ namespace pm
 		Input() : dragX(0), dragY(0) {};
 		~Input() {};
 
-		/// Updates the static parts at start of main loop. /-> Application.cpp
+		/// Returns the current touch coordinates.
 		/**
 			\return Returns the last known touch coordinates as glm vec2.
 		*/
 		glm::vec2 GetTouchCoordinates();
 		
-		/// Updates the static parts at start of main loop. /-> Application.cpp
+		/// Returns the length vector from start of the drag to current touch position.
 		/**
 			\return Returns the drag vector that happened between last main loops as glm vec2.
 		*/
@@ -35,13 +40,13 @@ namespace pm
 
 		/// Checks if its the first time calling GetSingleTouch during touch.
 		/**
-			Single touch, will return true the first time called between touch down and touch up event.
-			Resets the state when touch up is called.
+			Single touch will return true the first time called between touch down and touch up event.
+			Automatically resets the state when touch up is called by the Android API.
 			\return Returns true if called first time after a registered touch down event and before touch up event.
 		*/
 		bool GetSingleTouch();
 		
-		/// Updates the static parts at start of main loop. /-> Application.cpp
+		/// Returns the current state of touch.
 		/**
 			\return Returns the current state of touch (up/down). Touching = true, not touching = false.
 		*/
@@ -75,7 +80,7 @@ namespace pm
 
 		/// Called in Application.Update().
 		/**
-			\param accelerometer The accelerometer data to be given to input.
+			\param accelerometer The accelerometer data to be given to input. Dont use elsewhere.
 		*/
 		static void InputEventAccelerometer(float x, float y, float z);
 
