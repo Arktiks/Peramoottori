@@ -29,14 +29,14 @@ glm::vec2 Input::GetDragVector()
 	return glm::vec2(_x - lx, _y - ly);
 }
 
-bool Input::IsTouching()
+glm::vec3 Input::GetAccelerometerData()
 {
-	return touch;
+	return accelerometer;
 }
 
 bool Input::GetSingleTouch()
 {
-	if (touch == true && singleTouch == false)
+	if(touch == true && singleTouch == false)
 	{
 		singleTouch = true;
 		return true;
@@ -44,33 +44,13 @@ bool Input::GetSingleTouch()
 	return false;
 }
 
-glm::vec3 Input::GetAccelerometerData()
+bool Input::IsTouching()
 {
-	return accelerometer;
+	return touch;
 }
 
-/// Static functions used in Application.cpp 
-void Input::InputEventMovement(float x, float y)
-{
-	_x = x;
-	_y = y;
-}
+/**** Below are static functions used in Application.cpp ****/
 
-/// Static functions used in Application.cpp 
-void Input::InputEventKeyDown()
-{
-	touch = true;
-	startOfDragX = _x;
-	startOfDragY = _y;
-}
-
-/// Static functions used in Application.cpp 
-void Input::InputEventKeyUp()
-{
-	touch = false;
-}
-
-/// Static function used in Application.cpp
 void Input::Update()
 {
 	lx = _x;
@@ -83,7 +63,24 @@ void Input::Update()
 	}
 }
 
-///Static function used in Application.cpp to get Accelerometer Data
+void Input::InputEventKeyUp()
+{
+	touch = false;
+}
+
+void Input::InputEventKeyDown()
+{
+	touch = true;
+	startOfDragX = _x;
+	startOfDragY = _y;
+}
+
+void Input::InputEventMovement(float x, float y)
+{
+	_x = x;
+	_y = y;
+}
+
 void Input::InputEventAccelerometer(float x, float y, float z)
 {
 	accelerometer.x = x;

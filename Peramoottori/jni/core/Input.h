@@ -6,13 +6,14 @@
 
 namespace pm
 {
-	/// Input objects are used to access the input data provided by Android API
+	/// Input objects are used to access the input data provided by Android API.
 	/**
-		Only functionality that requires multiple input objects are separate checks for Single Touch.
-		The engine uses the static functions to deliver input data from the API to all input objects.
-		You can use these static functions to force feed specific input data to the input objects.
-		This should be used with extreme caution since it can interfere with other Input functionalities.
+	* Only functionality that requires multiple input objects are separate checks for Single Touch.
+	* The engine uses the static functions to deliver input data from the API to all input objects.
+	* You can use these static functions to force feed specific input data to the input objects.
+	* This should be used with extreme caution since it can interfere with other Input functionalities.
 	*/
+
 	class Input
 	{
 	public:
@@ -32,7 +33,7 @@ namespace pm
 		*/
 		glm::vec2 GetDragVector();
 
-		/// Returns Accelerometer data
+		/// Returns accelerometer data
 		/**
 			\return Returns accelerometer data as glm vec3.
 		*/
@@ -52,37 +53,43 @@ namespace pm
 		*/
 		bool IsTouching();
 
-		/// Updates the static parts at start of main loop. /-> Application.cpp
-		/**
-			Used in application class at start of each main loop. Dont use elsewhere.
+		/** @name Restricted Static Public Member Functions
+		* Following static functions have already been implemented in Application class. User is not recommended
+		* use of them unless he is 100% confident of their purpose.
+		*/
+		///@{
+		/** \brief Updates static variables at start of each engine main loop.
+		*
+		* Used in Application class at start of each main loop.
 		*/
 		static void Update();
 
-		/// Called when android touch event (AKEY_EVENT_ACTION_UP) is received on android side. /-> Application.cpp
-		/**
-			Given to the HandleInput communicating with android. Dont use elsewhere.
+		/** \brief Called when android touch event (AKEY_EVENT_ACTION_UP) is received on android side.
+		*
+		* Given to the HandleInput communicating with android.
 		*/
 		static void InputEventKeyUp();
 
-		/// Called when android touch event (AKEY_EVENT_ACTION_DOWN) is received on android side. /-> Application.cpp
-		/**
-			Given to the HandleInput communicating with android. Dont use elsewhere.
+		/** \brief Called when android touch event (AKEY_EVENT_ACTION_DOWN) is received on android side.
+		*
+		* Given to the HandleInput communicating with android.
 		*/
 		static void InputEventKeyDown();
 
-		/// Called when android touch event (AINPUT_EVENT_TYPE_MOTION) is received on android side. /-> Application.cpp
-		/**
-			Given to the HandleInput communicating with android. Dont use elsewhere.
-			\param x The touch coordinate in X received from android.
-			\param y The touch coordinate in Y received from android.
+		/** \brief Called when android touch event (AINPUT_EVENT_TYPE_MOTION) is received on android side.
+		*
+		* Given to the HandleInput communicating with android.
+		* \param x The touch coordinate in X received from android.
+		* \param y The touch coordinate in Y received from android.
 		*/
 		static void InputEventMovement(float x, float y);
 
-		/// Called in Application.Update().
-		/**
-			\param accelerometer The accelerometer data to be given to input. Dont use elsewhere.
+		/** \brief Called in Application::Update() to receive accelerometer data. 
+		*
+		* \param accelerometer The accelerometer data to be given to Input.
 		*/
 		static void InputEventAccelerometer(float x, float y, float z);
+		///@}
 
 	private:
 
