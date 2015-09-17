@@ -158,6 +158,7 @@
     <ClCompile Include="jni\graphics\Shader.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
