@@ -64,9 +64,6 @@ void Log::ClearGLError()
 {
 	GLenum tempError = GL_NO_ERROR;
 
-	// Logic here is to clear error queue from earlier error messages that didn't crash the program,
-	// so we can be 100% sure of our error handling on more critical parts.
-
 	while (true)
 	{
 		GLenum tempError = glGetError();

@@ -35,9 +35,8 @@ public:
 
 private:
 
-
 	SpriteObject* winSprite, *logoSprite;
-	pm::Audio *touchAudio, *explosionAudio, *music, *winAudio, *winAudio2, *winAudio3, *logoAudio;
+	bool audioBool;
 	pm::Text* text;
 	pm::TextResource* textResource;
 	pm::FontResource* font;
@@ -59,6 +58,7 @@ private:
 
 	void AddEnemy(glm::vec2 location);
 	void AddSmoke(glm::vec2 location);
+	std::vector<glm::vec2> CreateSpriteSheet(glm::vec2 pixelSize, glm::vec2 spriteAmount);
 	void AddExplosion(glm::vec2 location);
 	
 
@@ -80,7 +80,7 @@ private:
 	MultipleTexture EnemyTextures;
 	SpriteObject* help;
 	std::map<std::string, pm::Texture*> textureMap;
-	
+	std::map<std::string, pm::Audio*> audioMap;
 	std::vector<Smoke*> smokeVector;
 	
 	std::vector<Enemy*> enemyVector;

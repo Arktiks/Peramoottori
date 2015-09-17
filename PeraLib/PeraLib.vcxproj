@@ -31,8 +31,10 @@
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings"></ImportGroup>
-  <PropertyGroup Label="UserMacros"></PropertyGroup>
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <TargetName>lib$(ProjectName)</TargetName>
@@ -108,13 +110,10 @@
     <ClInclude Include="..\Peramoottori\jni\graphics\RenderSystem.h" />
     <ClInclude Include="..\Peramoottori\jni\graphics\Shader.h" />
     <ClInclude Include="..\Peramoottori\jni\graphics\Shape.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\Sprite.h" />
     <ClInclude Include="..\Peramoottori\jni\graphics\SpriteBatch.h" />
     <ClInclude Include="..\Peramoottori\jni\graphics\Text.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\TextureRectangle.h" />
     <ClInclude Include="..\Peramoottori\jni\resources\AudioResource.h" />
     <ClInclude Include="..\Peramoottori\jni\resources\FontResource.h" />
-    <ClInclude Include="..\Peramoottori\jni\resources\Image.h" />
     <ClInclude Include="..\Peramoottori\jni\resources\ImageResource.h" />
     <ClInclude Include="..\Peramoottori\jni\resources\Resource.h" />
     <ClInclude Include="..\Peramoottori\jni\resources\ResourceManager.h" />
@@ -128,5 +127,6 @@
     <ClInclude Include="..\Peramoottori\jni\structs\ShaderVertexAttrib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets"></ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

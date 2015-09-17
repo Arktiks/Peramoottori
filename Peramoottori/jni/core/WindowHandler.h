@@ -8,7 +8,10 @@
 
 namespace pm
 {
-	/// Handles display of android device.
+	/** \brief Handles display of android device. Should be accessed through Application class.
+	*
+	* Main functionality includes clearing screen and returning device resolution.
+	*/
 
 	class WindowHandler
 	{
@@ -18,17 +21,33 @@ namespace pm
 
 	public:
 
-		/// Return display resolution.
+		/** \brief Return device resolution.
+		*
+		* \return Vector2<int>: screen width (x) and height (y).
+		*/
 		Vector2<int> GetResolution();
 
-		/// Clears display with set color.
+		/// Clear display with set color.
 		void Clear();
 
+		/// Set color for Clear() as RGB.
 		void SetClearColor(float red, float green, float blue);
 
+		/** \brief Exchanges front and back buffers of device window.
+		*
+		* Double buffering uses two display buffers to smoothen animation.
+		* The next screen is prepared in back buffer, while the current screen is held in front buffer.
+		* 
+		* Already included in Application::Draw() function.
+		*/
 		void SwapBuffers();
 
-		/// Status of context.
+		/** \brief Returns current status of device rendering context.
+		*
+		* Initializing the rendering context can take up to multiple seconds, as such
+		* it's important to make sure the context is up before proceeding with other graphical tasks.
+		* \return True if EGL rendering context is working.
+		*/
 		bool HasContext();
 
 	private:

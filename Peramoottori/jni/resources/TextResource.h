@@ -11,7 +11,10 @@ namespace pm
 
 		///Constructor
 		TextResource(std::string data) :
-			textData(data) {};
+			textData(data)
+		{
+			SetName("text");
+		};
 		/// returns test data as a string
 		std::string GetTextData() { return textData; }
 

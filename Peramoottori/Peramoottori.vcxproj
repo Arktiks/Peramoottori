@@ -45,7 +45,7 @@
     <ClCompile>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -57,7 +57,7 @@
     <ClCompile>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;NDEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>

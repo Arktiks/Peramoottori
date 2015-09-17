@@ -5,6 +5,7 @@
 #include <GLES2\gl2.h>
 #include <scene\GameEntity.h>
 #include <vector>
+#include <graphics\Text.h>
 
 namespace pm
 {
@@ -21,6 +22,10 @@ namespace pm
 		void AddGameEntity(GameEntity* gameEntity); ///< Stores given GameEntity to get patched.
 
 		void AddOpaqueGameEntity(GameEntity* gameEntity); ///< Stores given GameEntity that is opaque to get patched.
+
+		void AddOpaqueGameEntity(std::vector<GameEntity*> entityVector); //////< Stores given GameEntityvector that is opaque to get patched.
+
+		void AddText(Text* textEntity); ///< Stores given Text that is opaque to get patched.
 
 	private:
 

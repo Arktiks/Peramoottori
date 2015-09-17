@@ -5,17 +5,20 @@
 
 namespace pm
 {
+	/**
+	* Class for managing OpenSL AudioPlayer objects. To play audio use "Audio" class.
+	*/
 	class AudioManager
 	{
 	public:
 
 		/**
-		*Return AudioManager instance.
+		* Return AudioManager instance.
 		*/
 		static AudioManager* GetInstance();
 
 		/**
-		*Initializes AudioPlayer.
+		* Initializes AudioPlayer.
 		*/
 		void InitAudioPlayer(AudioPlayer* player);
 		
@@ -31,6 +34,9 @@ namespace pm
 		*/
 		void CheckError(std::string errorText);
 
+		/**
+		* Private constructor for AudioManager.
+		*/
 		AudioManager();
 		~AudioManager();		
 
