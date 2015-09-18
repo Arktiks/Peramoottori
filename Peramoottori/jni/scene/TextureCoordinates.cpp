@@ -1,5 +1,10 @@
 #include <scene\TextureCoordinates.h>
 
+pm::TextureCoordinates::TextureCoordinates()
+{
+	SetTextureCoordinates(0.0f, 0.0f, 1.0f, 1.0f);
+}
+
 pm::TextureCoordinates::TextureCoordinates(float left, float top, float right, float bottom)
 {
 	SetTextureCoordinates(left, top, right, bottom);

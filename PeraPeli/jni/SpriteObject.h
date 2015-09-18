@@ -42,6 +42,7 @@ public:
 	void SetColor(glm::vec4 color);
 	void SetTexture(pm::Texture* texture);
 
+	void SetTextureCoordinates(glm::vec4 textureCoordinates);
 	
 	glm::vec2 GetPosition();
 	glm::vec2 GetSize();

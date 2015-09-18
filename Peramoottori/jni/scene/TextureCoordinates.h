@@ -13,7 +13,7 @@ namespace pm
 	class TextureCoordinates : public Component
 	{
 	public:
-
+		TextureCoordinates();
 		TextureCoordinates(float left, float top, float right, float bottom);
 		TextureCoordinates(glm::vec2 leftTop, glm::vec2 rightBottom);
 		TextureCoordinates(glm::vec4 textureCoordinates);

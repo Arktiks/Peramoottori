@@ -11,12 +11,21 @@ namespace pm
 	{
 	public:
 
-		Resource() {};
-
+		Resource() {}; 
+		/// Function to set a name for a resource.
+		///
+		/// This function is used by the spesific resource classes.
+		///		@param name : string name of the file
+		///
 		void SetName(std::string name) { fileName = name; }
 
+		/// Function to get a name of a resource
+		///
+		///		@return name of the resource
+		///
 		std::string GetName() { return fileName; }
 
+		/// Deconstructor
 		~Resource() {};
 
 	private:
