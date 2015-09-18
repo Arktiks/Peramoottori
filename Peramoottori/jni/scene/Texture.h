@@ -17,22 +17,13 @@ namespace pm
 		/// Default constructor.
 		Texture() : Component() {};
 
-		/// Sets the exture size.
+		/// Sets the texture size.
 		void SetTextureSize(glm::uvec2 textureSize);
-
-		/// Set texture vertices for full size texture.
-		void SetTextureVertices();
-
-		/// Take specific part of the texture in pixels.
-		void SetTextureVertices(glm::vec2 leftTop, glm::vec2 rightBottom);
-
-		/// Returns texture vertices as float vector 4x2 values .
-		std::vector<GLfloat> GetTextureVertices() { return textureVertex; };
 
 		/// Return GLuint textureID.
 		GLuint GetId();
 
-		/// Returns glm uvec2 sixze of the texture.
+		/// Returns glm uvec2 size of the texture.
 		glm::uvec2 GetTextureSize();
 
 		/// Sets the textureID.
@@ -41,9 +32,6 @@ namespace pm
 	private:
 
 		GLuint textureIndex;
-
-		std::vector<GLfloat> textureVertex;
-
 		glm::uvec2 textureSize;
 	};
 }
