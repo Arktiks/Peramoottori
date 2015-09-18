@@ -83,9 +83,11 @@
     <ClCompile Include="..\Peramoottori\jni\graphics\Text.cpp" />
     <ClCompile Include="..\Peramoottori\jni\resources\ResourceManager.cpp" />
     <ClCompile Include="..\Peramoottori\jni\resources\TextureFactory.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Camera.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Component.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\GameEntity.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Texture.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\TextureCoordinates.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Transformable.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -119,9 +121,11 @@
     <ClInclude Include="..\Peramoottori\jni\resources\ResourceManager.h" />
     <ClInclude Include="..\Peramoottori\jni\resources\TextResource.h" />
     <ClInclude Include="..\Peramoottori\jni\resources\TextureFactory.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Camera.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Component.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\GameEntity.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Texture.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\TextureCoordinates.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Transformable.h" />
     <ClInclude Include="..\Peramoottori\jni\structs\MemoryTrack.h" />
     <ClInclude Include="..\Peramoottori\jni\structs\ShaderVertexAttrib.h" />

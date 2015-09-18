@@ -5,6 +5,7 @@
 #include <GLES2\gl2.h>
 
 #include "Batch.h"
+#include <scene\Camera.h>
 #include "Shader.h"
 #include "Buffer.h"
 
@@ -15,6 +16,9 @@ namespace pm
 	public:
 
 		static RenderSystem* GetInstance();///< Returns RenderSystem instance, that can be only one at once.
+
+		void SetActiveCamera(Camera* camera){ activeCamera = camera; }
+		Camera* GetActiveCamera(){ return activeCamera; }
 
 		void DestroyInstance(); /// Removes current instance.
 
@@ -31,6 +35,8 @@ namespace pm
 		void BindBuffers(Batch* batch); ///< Binds buffers before rendering patch.
 
 		void CreateShaders(); // May be changed.
+
+		Camera* activeCamera;
 
 		Shader shaderProgram;
 

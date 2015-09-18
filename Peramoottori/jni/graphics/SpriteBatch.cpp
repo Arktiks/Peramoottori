@@ -11,6 +11,7 @@
 
 #include <scene\Texture.h>
 #include <scene\Transformable.h>
+#include <scene\TextureCoordinates.h>
 
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtx\transform.hpp>
@@ -52,7 +53,7 @@ void SpriteBatch::AddGameEntity(GameEntity* gameEntity)
 
 void SpriteBatch::AddOpaqueGameEntity(GameEntity* gameEntity)
 {
-	opaqueGameEntityVector.push_back(gameEntity); 
+	opaqueGameEntityVector.push_back(gameEntity);
 }
 
 void SpriteBatch::AddOpaqueGameEntity(std::vector<GameEntity*> entityVector)
@@ -154,7 +155,8 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	if (gameEntity->GetComponent<Rectangle>() == nullptr)
 	{
 		// Should be edited back to shape class.
-		//DEBUG_WARNING(("Gathering data from GameEntity without SHAPE."));
+		DEBUG_WARNING(("GameEntity in SpriteBatch has no SHAPE."));
+		return;
 	}
 	else
 	{
@@ -167,7 +169,8 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	/// TRANSFORMABLE ///
 	if (gameEntity->GetComponent<Transformable>() == nullptr)
 	{
-		//DEBUG_WARNING(("Gathering data from GameEntity without TRANSFORMABLE."));
+		DEBUG_WARNING(("Gathering data from GameEntity without TRANSFORMABLE."));
+		*transformMatrix = glm::mat4(1);
 	}
 	else
 	{
@@ -187,12 +190,38 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 		for (int i = 0; i < 8; i++)
 			vertexTexPos.push_back(0);
 
-		//DEBUG_WARNING(("Gathering data from GameEntity without TEXTURE."));
+		DEBUG_WARNING(("Gathering data from GameEntity without TEXTURE."));
 	}
 	else
 	{
-		vertexTexPos = gameEntity->GetComponent<Texture>()->GetTextureVertices();
 		*textureIndex = gameEntity->GetComponent<Texture>()->GetId();
+
+		if (gameEntity->GetComponent<TextureCoordinates>() == nullptr)
+		{
+			for (int i = 0; i < 2; i++)
+				for (int j = 0; j < 2; j++)
+				{
+					vertexTexPos.push_back(i);
+					vertexTexPos.push_back(j);
+				}
+		}
+		else
+		{
+			glm::uvec2 tempTextureSize = gameEntity->GetComponent<Texture>()->GetTextureSize();;
+			std::vector<GLfloat> tempVec = gameEntity->GetComponent<TextureCoordinates>()->GetTextureCoordinates();
+
+			vertexTexPos.push_back(tempVec[0] / tempTextureSize.x);
+			vertexTexPos.push_back(1 - (tempVec[3] / tempTextureSize.y));
+
+			vertexTexPos.push_back(tempVec[0] / tempTextureSize.x);
+			vertexTexPos.push_back(1 - (tempVec[1] / tempTextureSize.y));
+
+			vertexTexPos.push_back(tempVec[2] / tempTextureSize.x);
+			vertexTexPos.push_back(1 - (tempVec[3] / tempTextureSize.y));
+
+			vertexTexPos.push_back(tempVec[2] / tempTextureSize.x);
+			vertexTexPos.push_back(1 - (tempVec[1] / tempTextureSize.y));
+		}
 	}
 
 	/// COLOR ///
@@ -210,12 +239,12 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 		vertexData->push_back(vertexPos[i * 2]);
 		vertexData->push_back(vertexPos[i * 2 + 1]);
 		vertexData->push_back(depth);
-				  
+
 		vertexData->push_back(vertexColor.x);
 		vertexData->push_back(vertexColor.y);
 		vertexData->push_back(vertexColor.z);
 		vertexData->push_back(vertexColor.w);
-				  
+
 		vertexData->push_back(vertexTexPos[i * 2]);
 		vertexData->push_back(vertexTexPos[i * 2 + 1]);
 	}
