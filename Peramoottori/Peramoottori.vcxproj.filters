@@ -159,6 +159,9 @@
       <Filter>jni\graphics</Filter>
     </ClCompile>
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="jni\scene\TextureCoordinates.cpp">
+      <Filter>jni\scene\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -973,6 +976,9 @@
     </ClInclude>
     <ClInclude Include="jni\graphics\Shader.h">
       <Filter>jni\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\TextureCoordinates.h">
+      <Filter>jni\scene\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
