@@ -5,21 +5,35 @@
 
 namespace pm
 {
+	/** Different types of OpenGL buffer objects. */
 	enum bufferType
 	{
-		NONE,
-		VERTEX,
-		INDEX
+		NONE, ///< Type has not been set.
+		VERTEX, ///< GL_ARRAY_BUFFER
+		INDEX ///< GL_ELEMENT_ARRAY_BUFFER
 	};
 
-	// Needs commentating!
+	/** \brief Class that works as OpenGL buffer object necessary for rendering.
+	*
+	* Buffer Objects are an OpenGL feature that provides methods for uploading
+	* vertex data (position, normal vector, color, etc.) to the video device for non-immediate-mode rendering.
+	*
+	* Most likely developer does not need to create his own buffers and should instead
+	* use the functions found in SpriteBatch class.
+	*
+	* \note Current buffer sizes are hard coded which should lead to unexcpected behavior if
+	* enough GameEntities are set to be drawn. This will be fixed on future Perämoottori version.
+	*/
 
 	class Buffer
 	{
 	public:
 
+		/** \brief Construct Buffer with unset buffer type. */
 		Buffer() : index(0), type(NONE) {};
 
+		/** 
+		*/
 		void CreateBuffer(bufferType type);
 
 		void BindBufferData(unsigned size, void *data);

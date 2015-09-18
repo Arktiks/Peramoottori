@@ -17,7 +17,12 @@ void Batch::AddData(std::vector <GLfloat> vertexData,
 	glm::mat4 transformMatrix)
 {
 	totalVertexData.insert(totalVertexData.end(), vertexData.begin(), vertexData.end());
-	// Indexit asetetaan oikeiksi arvoiksi sen mukaan montako spriteä on batchissä.
+	
+	/* TESTAA TEGRALLA! 
+	*
+	* totalIndexData = indexData;
+	*/
+
 	unsigned size = (totalIndexData.size() / 6) * 4;
 	totalIndexData.push_back(indexData[0] + size);
 	totalIndexData.push_back(indexData[1] + size);
