@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="NsightTegraProject">
+    <NsightTegraProjectRevisionNumber>11</NsightTegraProjectRevisionNumber>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Tegra-Android">
+      <Configuration>Debug</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Tegra-Android">
+      <Configuration>Release</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{88740431-0C37-4AF2-8E0E-7C22B9404337}</ProjectGuid>
+    <RootNamespace>PeraLib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidTargetAPI>android-16</AndroidTargetAPI>
+    <AndroidMinAPI>android-16</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidTargetAPI>android-16</AndroidTargetAPI>
+    <AndroidMinAPI>android-16</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <TargetName>lib$(ProjectName)</TargetName>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <TargetName>lib$(ProjectName)</TargetName>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <ClCompile>
+      <CppLanguageStandard>gnu++11</CppLanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs;$(SolutionDir)\libs\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;_DEBUG</PreprocessorDefinitions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <ClCompile>
+      <CppLanguageStandard>gnu++11</CppLanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs;$(SolutionDir)\libs\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;NDEBUG</PreprocessorDefinitions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Peramoottori\jni\audio\Audio.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\audio\AudioManager.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\audio\AudioPlayer.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Application.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\CommandCenter.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Input.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Log.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Memory.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Passert.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Time.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\WindowHandler.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Batch.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Buffer.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Color.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Rectangle.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\RenderSystem.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Shader.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\SpriteBatch.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Text.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\resources\ResourceManager.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\resources\TextureFactory.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Component.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\GameEntity.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Texture.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Transformable.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Peramoottori\jni\audio\Audio.h" />
+    <ClInclude Include="..\Peramoottori\jni\audio\AudioManager.h" />
+    <ClInclude Include="..\Peramoottori\jni\audio\AudioPlayer.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Application.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\CommandCenter.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Input.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Log.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Memory.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Passert.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Time.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Vector2.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Vector3.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\WindowHandler.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Batch.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Buffer.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Color.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Drawable.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Rectangle.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\RenderSystem.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Shader.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Shape.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\SpriteBatch.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Text.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\AudioResource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\FontResource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\ImageResource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\Resource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\ResourceManager.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\TextResource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\TextureFactory.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Component.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\GameEntity.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Texture.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Transformable.h" />
+    <ClInclude Include="..\Peramoottori\jni\structs\MemoryTrack.h" />
+    <ClInclude Include="..\Peramoottori\jni\structs\ShaderVertexAttrib.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
