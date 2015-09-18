@@ -233,3 +233,7 @@ Peramoottori/*.filters.orig
 
 *.filters.orig
 *.orig
+PeraLib/PeraLib.ntskip
+Peramoottori/libs/freetype.ntskip
+Peramoottori/Peramoottori.ntskip
+PeraPeli/PeraPeli.ntskip
