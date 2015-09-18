@@ -26,6 +26,7 @@ RenderSystem* RenderSystem::GetInstance()
 
 void RenderSystem::DestroyInstance()
 {
+	delete activeCamera;
 	delete instance;
 	instance = nullptr;
 	initialized = false;
@@ -34,6 +35,8 @@ void RenderSystem::DestroyInstance()
 void RenderSystem::Initialize()
 {
 	DEBUG_GL_ERROR_CLEAR();
+
+	activeCamera = NEW Camera();
 
 	Vector2<int> resolution = Application::GetInstance()->window.GetResolution(); // Get resolution of display.
 	float right = resolution.x; // Calculate limits.
@@ -72,6 +75,13 @@ void RenderSystem::Draw(Batch* batch)
 	GLint transformMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "transformable");
 	DEBUG_GL_ERROR();
 	
+	GLint cameraMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "camera");
+	DEBUG_GL_ERROR();
+
+	glUniformMatrix4fv(cameraMatrixLocation, 1, GL_FALSE, value_ptr(activeCamera->GetCameraMatrix()));
+	DEBUG_GL_ERROR();
+
+
 	for (int i = 0; i < batch->GetTransformMatrixPointer()->size(); i++)
 	{
 		int tempInt = 6 * i * sizeof(GLushort);

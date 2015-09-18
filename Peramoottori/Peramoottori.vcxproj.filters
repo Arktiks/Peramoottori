@@ -162,6 +162,9 @@
     <ClCompile Include="jni\scene\TextureCoordinates.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
+    <ClCompile Include="jni\scene\Camera.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -979,6 +982,9 @@
     </ClInclude>
     <ClInclude Include="jni\scene\TextureCoordinates.h">
       <Filter>jni\scene\components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Camera.h">
+      <Filter>jni\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
