@@ -1,6 +1,5 @@
 #pragma once
 
-// GameDemo poistetaan ja tehd‰‰n uudestaan mainiin
 
 #include "SpriteObject.h"
 #include "Enemy.h"

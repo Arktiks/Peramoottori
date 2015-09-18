@@ -65,6 +65,7 @@ namespace pm
 		TextResource* file;
 		TextResource* file2;
 		FontResource* font;
+
 	public:
 		GameClass() : rotation(0.0f), volume(50.0f), paused(false)
 		{
@@ -75,10 +76,17 @@ namespace pm
 			objects[0].AddComponent(NEW Rectangle(150.0f, 150.0f));
 			objects[0].AddComponent(NEW Drawable);
 
-			file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
+			objects.push_back(GameEntity());
+			objects[1].AddComponent(NEW Transformable(glm::vec2(600.0f, 600.0f), glm::vec2(1.0f, 1.0f), 0.0f));
+			objects[1].AddComponent(NEW Color(glm::vec4(0.5f, 0.8f, 0.3f, 1.0f)));
+			objects[1].AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE_SMALL.png"));
+			objects[1].AddComponent(NEW Rectangle(111.0f, 182.0f));
+			objects[1].AddComponent(NEW Drawable);
+
+			/*file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
 			file2 = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT2.txt");
-			font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
-			texts.push_back(Text(font, file, 100, 100, 32, 32));
+			font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("Arial.ttf");
+			texts.push_back(Text(font, file, 100, 100, 32, 32));*/
 
 			sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
 			sounds[0]->SetLooping(true);
@@ -95,19 +103,20 @@ namespace pm
 			volume -= 0.0f;
 			sounds[0]->SetVolume(volume);
 
-			if (input.GetSingleTouch())
+			/*if (input.GetSingleTouch())
 			{
 				sounds[0]->Stop();
 				sounds[0]->PlayFrom(3000);
 				texts.at(0).ReText(font, file2, 100, 100, 32, 32);
-			}
+			}*/
 
 
 			objects[0].GetComponent<Transformable>()->SetRotation(rotation);
 			SpriteBatch::GetInstance()->AddGameEntity(&objects[0]);
+			SpriteBatch::GetInstance()->AddGameEntity(&objects[1]);
 			
-			for (int i = 0; i < texts[0].GetTextVector().size(); i++)
-				SpriteBatch::GetInstance()->AddGameEntity(texts[0].GetTextVector()[i]);
+			//for (int i = 0; i < texts[0].GetTextVector().size(); i++)
+				//SpriteBatch::GetInstance()->AddGameEntity(texts[0].GetTextVector()[i]);
 		};
 
 		void Pause()
