@@ -2,6 +2,11 @@
 
 pm::TextureCoordinates::TextureCoordinates()
 {
+	// Temporary fix, make prettier later. There is no space reserved in vector.
+	textureCoordinates.push_back(0.0f);
+	textureCoordinates.push_back(0.0f);
+	textureCoordinates.push_back(1.0f);
+	textureCoordinates.push_back(1.0f);
 	SetTextureCoordinates(0.0f, 0.0f, 1.0f, 1.0f);
 }
 

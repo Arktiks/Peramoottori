@@ -12,16 +12,19 @@ namespace pm
 		friend class ResourceManager;
 		friend class TextureFactory;
 
-	private:
-		///
-		///Constructor
-		///		\param data : string of the text data
-		///
+	public: // WAS PRIVATE; TRYING TO GET IT WORKING, FIX!
 		TextResource(std::string data) :
 			textData(data)
 		{
 			SetName("text");
 		};
+		~TextResource() {};
+	private:
+		///
+		///Constructor
+		///		\param data : string of the text data
+		///
+		
 
 
 		///
@@ -30,7 +33,7 @@ namespace pm
 		///
 		std::string GetTextData() { return textData; }
 
-		~TextResource() {};
+	
 
 		std::string textData;
 

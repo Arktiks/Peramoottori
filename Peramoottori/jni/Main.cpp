@@ -110,7 +110,7 @@ namespace pm
 			volume -= 0.0f;
 			sounds[0]->SetVolume(volume);
 
-			/*if (input.GetSingleTouch())
+			if (input.GetSingleTouch())
 			{
 
 				sounds[0]->Stop();
