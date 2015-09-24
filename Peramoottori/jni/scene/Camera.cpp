@@ -6,7 +6,7 @@
 pm::Camera::Camera()
 {
 	origin = glm::vec2(	Application::GetInstance()->window.GetResolution().x, 
-									Application::GetInstance()->window.GetResolution().y);
+						Application::GetInstance()->window.GetResolution().y);
 
 	origin *= 0.5;
 
