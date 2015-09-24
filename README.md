@@ -6,6 +6,8 @@
 
 Perämoottori Developement Kit is the fastest way to start using Perämoottori, download from [Google Drive](https://goo.gl/MXL0bo). See [Tutorial: Setup](https://github.com/Grimcode/Peramoottori/wiki/Tutorial:-Setup) for more instructions.
 
+Hotfix: Current Developement Kits freetype lib is malformed. Please replace it with [this](https://goo.gl/5jYFaj) one.
+
 # Documentation and Examples
 Documentation of headers is included within both Solution files and Developement Kit. _(Peramoottori Documentation.zip)_
 
