@@ -138,11 +138,9 @@
     <ClCompile Include="libs\glm\detail\glm.cpp" />
     <ClCompile Include="libs\lodepng.cpp" />
     <ClCompile Include="jni\graphics\Text.cpp" />
-    <ClCompile Include="test.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Groups.h" />
     <ClInclude Include="jni\audio\Audio.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>

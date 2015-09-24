@@ -29,10 +29,12 @@ namespace pm
 	{
 	public:
 
-		/** \brief Construct Buffer with unset buffer type. */
+		/** \brief Construct Buffer with unset type. */
 		Buffer() : index(0), type(NONE) {};
 
-		/** 
+		/** \brief Initialize buffer of chosen type.
+		*
+		* \param[in] type 
 		*/
 		void CreateBuffer(bufferType type);
 

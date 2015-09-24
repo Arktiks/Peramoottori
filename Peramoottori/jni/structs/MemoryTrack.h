@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <string>
 
-/** \brief Struct to hold information where new operator is called. Used in conjunction with Memory class. */
+/** \brief Struct to hold information where new operator is called. Used in conjunction with pm::Memory class. */
 
 struct MemoryTrack
 {

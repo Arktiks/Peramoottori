@@ -18,11 +18,6 @@ void Batch::AddData(std::vector <GLfloat> vertexData,
 {
 	totalVertexData.insert(totalVertexData.end(), vertexData.begin(), vertexData.end());
 	
-	/* TESTAA TEGRALLA! 
-	*
-	* totalIndexData = indexData;
-	*/
-
 	unsigned size = (totalIndexData.size() / 6) * 4;
 	totalIndexData.push_back(indexData[0] + size);
 	totalIndexData.push_back(indexData[1] + size);

@@ -4,11 +4,19 @@
 
 namespace pm
 {
-	/// Assert functions that our macros use.
+	/** \brief Custom assertion functions for debugging.
+	* \ingroup Debug
+	*/
+
 	class Passert
 	{
 	public:
-		/// Assert function to be used with custom assert macros.
+
+		/** \brief Assert function to be used with custom assert macros.
+		*
+		* \param[in] file File where assert was called.
+		* \param[in] line Line number where assert was called.
+		*/
 		static void Assert(const char* file, const int line);
 	};
 }

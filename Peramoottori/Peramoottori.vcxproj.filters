@@ -158,7 +158,6 @@
     <ClCompile Include="jni\graphics\Shader.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="jni\scene\TextureCoordinates.cpp">
       <Filter>jni\scene\components</Filter>
     </ClCompile>
@@ -986,6 +985,7 @@
     <ClInclude Include="jni\scene\Camera.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
+    <ClInclude Include="Groups.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">

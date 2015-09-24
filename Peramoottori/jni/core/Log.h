@@ -6,11 +6,12 @@
 
 namespace pm
 {
-	/** \brief Tools used to print info into logcat. For proper use of this class see the following
-	* <a href="https://github.com/Grimcode/Peramoottori/wiki/Tutorial:-Debug-Tools">tutorial</a>.
+	/** \brief Tools used to print info into logcat.
 	*
 	* Logcat being android logging system.
 	* Log class functionality includes printing your own messages or catching possible OpenGL errors.
+	*
+	* \ingroup Debug
 	*/
 
 	class Log
@@ -57,7 +58,6 @@ namespace pm
 		static char* FormatMessage(const char* text...);
 	};
 }
-
 
 // Macros should be used instead of the direct functions.
 #define DEBUG_INFO(text) pm::Log::PrintInfo text ///< Macro to print info into logcat.
