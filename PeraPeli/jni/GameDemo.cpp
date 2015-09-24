@@ -89,7 +89,8 @@ void GameDemo::InitializeGameValues()
 	soundBool = false;
 	deltaTime = time.CalculateTimeInFrame();
 	fasterTimer = 2000000000;
-
+	camera = NEW pm::Camera();
+	pm::RenderSystem::GetInstance()->SetActiveCamera(camera);
 	pm::Vector2<int> pmLimits = pm::Application::GetInstance()->window.GetResolution();
 	limits.x = pmLimits.x;
 	limits.y = pmLimits.y;
@@ -432,6 +433,8 @@ void GameDemo::CheckInput()
 	// Check if touchscreen is being touched
 	if (input.IsTouching())
 	{
+		camera->MoveCamera(20.0f, 20.0f);
+		camera->RotateCamera(10.0f);
 		// Get current position of touch
 		glm::vec2 touchPosition = input.GetTouchCoordinates();
 		// Check if touch sound has already been played
