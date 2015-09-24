@@ -6,7 +6,7 @@
 namespace pm
 {
 
-	class GameEntity; /// Fore declaration of GameEntity class.
+	class GameEntity;
 
 	class Component
 	{
