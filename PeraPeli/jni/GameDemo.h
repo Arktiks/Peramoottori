@@ -34,7 +34,7 @@ public:
 	void Unpause();
 
 private:
-	pm::Camera* camera;
+	pm::Camera asdcamera;
 	SpriteObject* winSprite, *logoSprite;
 	bool audioBool;
 	pm::Text* text;

@@ -44,6 +44,7 @@ namespace pm
 		GLint transformMatrixLocation;
 		GLint cameraMatrixLocation;
 		GLint projectionLocation;
+
 		glm::mat4 defaultCamera;
 
 		Shader shaderProgram;
