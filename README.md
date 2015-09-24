@@ -8,6 +8,8 @@ Perämoottori Developement Kit is the fastest way to start using Perämoottori, 
 
 Hotfix: Current Developement Kits freetype lib is malformed. Please replace it with [this](https://goo.gl/5jYFaj) one.
 
+Hotfix: If freetype problem persists, see [this troubleshooting](https://github.com/Grimcode/Peramoottori/wiki/Tutorial:-Setup#libfreetypea-error-adding-symbols-malformed-archive) for final solution.
+
 # Documentation and Examples
 Documentation of headers is included within both Solution files and Developement Kit. _(Peramoottori Documentation.zip)_
 
