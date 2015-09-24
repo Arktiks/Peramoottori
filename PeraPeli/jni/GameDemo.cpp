@@ -1,6 +1,7 @@
 #include "GameDemo.h"
 #include "RNG.h"
 
+
 #include <graphics\SpriteBatch.h>
 #include <graphics\Drawable.h>
 #include <graphics\Color.h>
@@ -316,7 +317,9 @@ void GameDemo::SetScoreString()
 	//{
 	//	text->~Text();
 	//}
-	*text = pm::Text(font, textResource, 32, limits.y - 32, 32, 32);
+	text->ReText(font, textResource, 32, limits.y -32, 32, 32);
+	//*text = pm::Text(font, textResource, 32, limits.y - 32, 32, 32);
+	
 }
 
 void GameDemo::AddEnemy(glm::vec2 location)
@@ -327,7 +330,7 @@ void GameDemo::AddEnemy(glm::vec2 location)
 	enemy->SetDrawState(false);
 	
 	enemy->SetSize(200, 200);
-	enemy->SetDepth(1);
+	enemy->SetDepth(float(RNG::Between(100,200))/100.0f);
 	// Copy multipleTexture-component's texture pointers to enemy's multipleTexture-component.
 	enemy->SetTextureVector(EnemyTextures.textures);
 	enemyVector.push_back(enemy);
@@ -476,7 +479,10 @@ bool GameDemo::CheckTouch(glm::vec2 touchPosition, SpriteObject *target)
 
 	if (position.x < touchPosition.x && position.x + size.x > touchPosition.x &&
 		position.y < touchPosition.y && position.y + size.y > touchPosition.y)
-			return true;
+	{
+		DEBUG_LOG("TOUCH");
+		return true;
+	}
 	else
 	return false;
 }
