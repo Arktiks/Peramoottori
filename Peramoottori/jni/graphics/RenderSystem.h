@@ -17,8 +17,11 @@ namespace pm
 
 		static RenderSystem* GetInstance();///< Returns RenderSystem instance, that can be only one at once.
 
-		void SetActiveCamera(Camera* camera){ activeCamera = camera; }
-		Camera* GetActiveCamera(){ return activeCamera; }
+		
+		void SetActiveCamera(Camera* camera)/// Set active camera.
+		{ activeCamera = camera; }
+		Camera* GetActiveCamera()///< Returns active camera.
+		{ return activeCamera; }
 
 		void DestroyInstance(); /// Removes current instance.
 
