@@ -1,5 +1,5 @@
 #pragma once
-
+#include "graphics\RenderSystem.h"
 
 #include "SpriteObject.h"
 #include "Enemy.h"
@@ -16,6 +16,7 @@
 #include <resources\ResourceManager.h>
 #include <resources\TextureFactory.h>
 #include <audio\Audio.h>
+#include <scene\Camera.h>
 #include <map>
 class GameDemo
 {
@@ -33,7 +34,7 @@ public:
 	void Unpause();
 
 private:
-
+	pm::Camera* camera;
 	SpriteObject* winSprite, *logoSprite;
 	bool audioBool;
 	pm::Text* text;
