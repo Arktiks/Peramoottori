@@ -4,6 +4,7 @@
 #include <graphics\Rectangle.h>
 #include <graphics\Drawable.h>
 #include <graphics\Color.h>
+#include <scene\TextureCoordinates.h>
 
 // Create default SpriteObject without texture
 SpriteObject::SpriteObject()
@@ -13,6 +14,7 @@ SpriteObject::SpriteObject()
 	AddComponent(NEW pm::Transformable());
 	AddComponent(NEW pm::Drawable());
 	AddComponent(NEW pm::Color());
+	AddComponent(NEW pm::TextureCoordinates());
 }
 // Crete SpriteObject with texture
 SpriteObject::SpriteObject(pm::Texture* texture)
@@ -22,6 +24,7 @@ SpriteObject::SpriteObject(pm::Texture* texture)
 	AddComponent(NEW pm::Transformable());
 	AddComponent(NEW pm::Drawable());
 	AddComponent(NEW pm::Color());
+	AddComponent(NEW pm::TextureCoordinates(0.0f, 0.0f, texture->GetTextureSize().x, texture->GetTextureSize().y));
 	AddComponent(texture);
 
 }
@@ -134,6 +137,7 @@ glm::vec4 SpriteObject::GetColor()
 void SpriteObject::SetTexture(pm::Texture* texture)
 {
 	AddComponent(texture);
+	SetTextureCoordinates(glm::vec4(0.0f, 0.0f, texture->GetTextureSize().x, texture->GetTextureSize().y));
 }
 //  Get current SpriteObject position
 glm::vec2 SpriteObject::GetPosition()
@@ -154,4 +158,10 @@ GLfloat SpriteObject::GetRotation()
 glm::vec2 SpriteObject::GetOrigin()
 {
 	return GetComponent<pm::Rectangle>()->GetOrigin();
+}
+// ADD GETTER
+// As pixels
+void SpriteObject::SetTextureCoordinates(glm::vec4 textureCoordinates)
+{
+	GetComponent<TextureCoordinates>()->SetTextureCoordinates(textureCoordinates);
 }

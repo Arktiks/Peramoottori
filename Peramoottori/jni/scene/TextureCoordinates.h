@@ -7,13 +7,15 @@
 #include <scene\Component.h>
 #include <vector>
 
+// Olisko mahdollista saada asettaa koordinaatit välillä 0-1?
+
 namespace pm
 {
 
 	class TextureCoordinates : public Component
 	{
 	public:
-
+		TextureCoordinates();
 		TextureCoordinates(float left, float top, float right, float bottom);
 		TextureCoordinates(glm::vec2 leftTop, glm::vec2 rightBottom);
 		TextureCoordinates(glm::vec4 textureCoordinates);
@@ -31,6 +33,7 @@ namespace pm
 		std::vector<GLfloat> GetTextureCoordinates() { return textureCoordinates; };
 
 	private:
+		void ReserveSpace();
 		std::vector<GLfloat> textureCoordinates;
 	};
 }

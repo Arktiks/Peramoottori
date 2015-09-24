@@ -40,7 +40,7 @@ namespace pm
 		* Does not work.
 		*/
 		//template<typename T> void RemoveComponent();
-
+		template<typename T> void RemoveComponent();
 	private:
 
 		ComponentList components;
@@ -57,11 +57,14 @@ T* pm::GameEntity::GetComponent()
 		return nullptr;
 }
 
-//template<typename T>
-//void pm::GameEntity::RemoveComponent()
-//{
-//	// What happens if there is no component to be erased?
-//	components.erase(&typeid(T));
-//}
+template<typename T>
+void pm::GameEntity::RemoveComponent()
+{
+	ComponentList::const_iterator position =
+		components.find(&typeid(T));
+	if (position == components.end())
+		return;
+	components.erase(position);
+}
 
 #endif // GAMEENTITY_H

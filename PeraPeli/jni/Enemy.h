@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 #include "SpriteObject.h"
 #include <vector>
 #include <scene\Texture.h>
