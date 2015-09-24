@@ -13,6 +13,13 @@ namespace pm
 	public:
 		Camera();
 
+		void MoveCamera(float x, float y);
+		void MoveCamera(glm::vec2 moveXY);
+
+		void RotateCamera(float rotation);
+
+		void ZoomCamera(float zoom);
+
 		void SetCameraMatrix(glm::mat4 newCameraMatrix);
 		
 		void SetCameraPosition(float xPosition, float yPosition);
@@ -25,6 +32,8 @@ namespace pm
 		glm::mat4 GetCameraMatrix();
 
 	private:
+
+		glm::vec2 origin;
 
 		void CalculateMatrix();
 

@@ -2,6 +2,7 @@
 #include <core\Log.h>
 #include <core\Passert.h>
 #include <core\Memory.h>
+#include <scene\Camera.h>
 
 #include <resources\ResourceManager.h>
 #include <core\Time.h>
@@ -55,6 +56,7 @@ using namespace std;
 #include <audio\Audio.h>
 #include <core\Input.h>
 #include <core\Time.h>
+#include <graphics\RenderSystem.h>
 
 namespace pm
 {
@@ -65,9 +67,15 @@ namespace pm
 		TextResource* file;
 		TextResource* file2;
 		FontResource* font;
+
+		Camera *camera;
+
 	public:
 		GameClass() : rotation(0.0f), volume(50.0f), paused(false)
 		{
+			camera = NEW Camera();
+			RenderSystem::GetInstance()->SetActiveCamera(camera);
+			
 			objects.push_back(GameEntity());
 			objects[0].AddComponent(NEW Transformable(glm::vec2(500.0f, 500.0f), glm::vec2(1.0f, 1.0f), 0.0f));
 			objects[0].AddComponent(NEW Color(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
@@ -97,6 +105,7 @@ namespace pm
 
 			if (input.GetSingleTouch())
 			{
+				camera->RotateCamera(10.0f);
 				sounds[0]->Stop();
 				sounds[0]->PlayFrom(3000);
 				texts.at(0).ReText(font, file2, 100, 100, 32, 32);
@@ -142,6 +151,8 @@ void android_main(android_app* application)
 	Application* app = Application::GetInstance(); // For ease of use.
 	app->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
 	app->Wait();
+
+
 
 	if (GameClass::first == false)
 	{
