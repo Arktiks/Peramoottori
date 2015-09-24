@@ -37,6 +37,11 @@ namespace pm
 		void CreateShaders(); // May be changed.
 
 		Camera* activeCamera;
+		
+		GLint transformMatrixLocation;
+		GLint cameraMatrixLocation;
+		GLint projectionLocation;
+		glm::mat4 defaultCamera;
 
 		Shader shaderProgram;
 

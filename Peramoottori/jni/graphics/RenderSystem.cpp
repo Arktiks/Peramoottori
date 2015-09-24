@@ -36,19 +36,27 @@ void RenderSystem::Initialize()
 {
 	DEBUG_GL_ERROR_CLEAR();
 
-	activeCamera = NEW Camera();
+	activeCamera = nullptr;
 
 	Vector2<int> resolution = Application::GetInstance()->window.GetResolution(); // Get resolution of display.
 	float right = resolution.x; // Calculate limits.
 	float top = resolution.y;
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, -1.0f, 1.0f);
 
+	defaultCamera = glm::mat4(1);
+
 	vertexBuffer.CreateBuffer(VERTEX);
 	indexBuffer.CreateBuffer(INDEX);
 
 	CreateShaders();
 
-	GLint projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
+	transformMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "transformable");
+	DEBUG_GL_ERROR();
+
+	cameraMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "camera");
+	DEBUG_GL_ERROR();
+
+	projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
 	DEBUG_GL_ERROR();
 
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
@@ -72,14 +80,16 @@ void RenderSystem::Draw(Batch* batch)
 	glBindTexture(GL_TEXTURE_2D, batch->textureIndex);
 	DEBUG_GL_ERROR();
 	
-	GLint transformMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "transformable");
-	DEBUG_GL_ERROR();
-	
-	GLint cameraMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "camera");
-	DEBUG_GL_ERROR();
-
-	glUniformMatrix4fv(cameraMatrixLocation, 1, GL_FALSE, value_ptr(activeCamera->GetCameraMatrix()));
-	DEBUG_GL_ERROR();
+	if (activeCamera == nullptr)
+	{
+		glUniformMatrix4fv(cameraMatrixLocation, 1, GL_FALSE, value_ptr(defaultCamera));
+		DEBUG_GL_ERROR();
+	}
+	else
+	{
+		glUniformMatrix4fv(cameraMatrixLocation, 1, GL_FALSE, value_ptr(activeCamera->GetCameraMatrix()));
+		DEBUG_GL_ERROR();
+	}
 
 
 	for (int i = 0; i < batch->GetTransformMatrixPointer()->size(); i++)
