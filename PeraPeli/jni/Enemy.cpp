@@ -86,6 +86,8 @@ void Enemy::SetTextureVector(std::vector<pm::Texture*> textures)
 	MultipleTexture* mTexture = GetComponent<MultipleTexture>();
 
 	mTexture->SetTextureVector(textures);
+	SetTextureCoordinates(glm::vec4(0.0f, 0.0f,
+		currentTexture->GetTextureSize().x, currentTexture->GetTextureSize().y));
 
 	// Check if Texture-component has been created, if not
 	// Create memorylocation for new Texture

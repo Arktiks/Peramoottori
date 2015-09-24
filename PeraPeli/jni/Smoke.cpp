@@ -36,10 +36,11 @@ void Smoke::UpdateTexturePosition()
 {
 	
 	pm::Texture* texture = GetComponent<pm::Texture>();
-	glm::vec2 leftTop(texturePositionVector[currentIndex].x, texturePositionVector[currentIndex].y);
-	glm::vec2 rightBottom(texturePositionVector[currentIndex].x + textureRectSize.x,
-		texturePositionVector[currentIndex].y + textureRectSize.y);
-	texture->SetTextureVertices(leftTop, rightBottom);
+//	glm::vec2 leftTop(texturePositionVector[currentIndex].x, texturePositionVector[currentIndex].y);
+//	glm::vec2 rightBottom(texturePositionVector[currentIndex].x + textureRectSize.x,
+//		texturePositionVector[currentIndex].y + textureRectSize.y);
+	SetTextureCoordinates(glm::vec4(texturePositionVector[currentIndex].x, texturePositionVector[currentIndex].y,
+		texturePositionVector[currentIndex].x + textureRectSize.x, texturePositionVector[currentIndex].y + textureRectSize.y));
 	currentIndex++;
 
 }

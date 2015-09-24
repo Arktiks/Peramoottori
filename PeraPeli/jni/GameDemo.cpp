@@ -1,6 +1,7 @@
 #include "GameDemo.h"
 #include "RNG.h"
 
+
 #include <graphics\SpriteBatch.h>
 #include <graphics\Drawable.h>
 #include <graphics\Color.h>
@@ -88,7 +89,8 @@ void GameDemo::InitializeGameValues()
 	soundBool = false;
 	deltaTime = time.CalculateTimeInFrame();
 	fasterTimer = 2000000000;
-
+	
+	pm::RenderSystem::GetInstance()->SetActiveCamera(&asdcamera);
 	pm::Vector2<int> pmLimits = pm::Application::GetInstance()->window.GetResolution();
 	limits.x = pmLimits.x;
 	limits.y = pmLimits.y;
@@ -255,6 +257,7 @@ void GameDemo::WinFunction()
 float logoTimer = 0;
 void GameDemo::Update()
 {
+	asdcamera.RotateCamera(1.0f);
 	deltaTime = time.CalculateTimeInFrame();
 	if (win)
 		WinFunction();
@@ -316,7 +319,9 @@ void GameDemo::SetScoreString()
 	//{
 	//	text->~Text();
 	//}
-	*text = pm::Text(font, textResource, 32, limits.y - 32, 32, 32);
+	text->ReText(font, textResource, 32, limits.y -32, 32, 32);
+	//*text = pm::Text(font, textResource, 32, limits.y - 32, 32, 32);
+	
 }
 
 void GameDemo::AddEnemy(glm::vec2 location)
@@ -327,7 +332,7 @@ void GameDemo::AddEnemy(glm::vec2 location)
 	enemy->SetDrawState(false);
 	
 	enemy->SetSize(200, 200);
-	enemy->SetDepth(1);
+	enemy->SetDepth(float(RNG::Between(100,200))/100.0f);
 	// Copy multipleTexture-component's texture pointers to enemy's multipleTexture-component.
 	enemy->SetTextureVector(EnemyTextures.textures);
 	enemyVector.push_back(enemy);
@@ -353,7 +358,7 @@ void GameDemo::AddSmoke(glm::vec2 location)
 		}
 	}
 
-	Smoke* smoke = NEW Smoke(textureMap["smoke"], smokeSize, smokeCoords );
+	Smoke* smoke = NEW Smoke(textureMap["smoke"], smokeSize, smokeCoords);
 	smoke->SetDepth(2);
 	smoke->SetPosition(location);
 	smoke->SetSize(300,300);
@@ -429,6 +434,7 @@ void GameDemo::CheckInput()
 	// Check if touchscreen is being touched
 	if (input.IsTouching())
 	{
+		
 		// Get current position of touch
 		glm::vec2 touchPosition = input.GetTouchCoordinates();
 		// Check if touch sound has already been played
@@ -476,7 +482,9 @@ bool GameDemo::CheckTouch(glm::vec2 touchPosition, SpriteObject *target)
 
 	if (position.x < touchPosition.x && position.x + size.x > touchPosition.x &&
 		position.y < touchPosition.y && position.y + size.y > touchPosition.y)
-			return true;
+	{
+		return true;
+	}
 	else
 	return false;
 }

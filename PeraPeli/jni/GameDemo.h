@@ -1,6 +1,5 @@
 #pragma once
-
-// GameDemo poistetaan ja tehd‰‰n uudestaan mainiin
+#include "graphics\RenderSystem.h"
 
 #include "SpriteObject.h"
 #include "Enemy.h"
@@ -17,6 +16,7 @@
 #include <resources\ResourceManager.h>
 #include <resources\TextureFactory.h>
 #include <audio\Audio.h>
+#include <scene\Camera.h>
 #include <map>
 class GameDemo
 {
@@ -34,7 +34,7 @@ public:
 	void Unpause();
 
 private:
-
+	pm::Camera asdcamera;
 	SpriteObject* winSprite, *logoSprite;
 	bool audioBool;
 	pm::Text* text;
