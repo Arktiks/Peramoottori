@@ -353,7 +353,7 @@ void GameDemo::AddSmoke(glm::vec2 location)
 		}
 	}
 
-	Smoke* smoke = NEW Smoke(pm::TextureFactory::CreateTexture("sprites/smoke/particlefx_03.png"), smokeSize, smokeCoords);
+	Smoke* smoke = NEW Smoke(textureMap["smoke"], smokeSize, smokeCoords);
 	smoke->SetDepth(2);
 	smoke->SetPosition(location);
 	smoke->SetSize(300,300);
@@ -390,7 +390,7 @@ void GameDemo::AddExplosion(glm::vec2 location)
 		}
 	}
 	// Use smoke (Sprite with animation) to create explosion.
-	Smoke* explosion = NEW Smoke(pm::TextureFactory::CreateTexture("sprites/smoke/explosion.png"), explosionSize, explosionCoords);
+	Smoke* explosion = NEW Smoke(textureMap["explosion"], explosionSize, explosionCoords);
 	// Set how deep explosion is drawn.
 	explosion->SetDepth(2);
 	explosion->SetPosition(location);
