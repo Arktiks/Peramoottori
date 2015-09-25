@@ -66,7 +66,11 @@ namespace pm
 		* Get camera matrix.
 		*/
 		glm::mat4 GetCameraMatrix();
-
+		
+		/**
+		* Get inverse camera matrix.
+		*/
+		glm::mat4 GetInverseCameraMatrix();
 	private:
 
 		glm::vec2 origin;

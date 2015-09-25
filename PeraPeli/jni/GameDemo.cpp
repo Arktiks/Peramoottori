@@ -258,6 +258,9 @@ float logoTimer = 0;
 void GameDemo::Update()
 {
 	asdcamera.RotateCamera(1.0f);
+	inverseCameraMatrix = asdcamera.GetInverseCameraMatrix();
+
+
 	deltaTime = time.CalculateTimeInFrame();
 	if (win)
 		WinFunction();
@@ -436,6 +439,7 @@ void GameDemo::CheckInput()
 	{
 		
 		// Get current position of touch
+		//glm::vec4 touchxPosition = (inverseCameraMatrix * glm::vec4(input.GetTouchCoordinates(), 1, 1));
 		glm::vec2 touchPosition = input.GetTouchCoordinates();
 		// Check if touch sound has already been played
 		if (!soundBool)
@@ -487,6 +491,20 @@ bool GameDemo::CheckTouch(glm::vec2 touchPosition, SpriteObject *target)
 	}
 	else
 	return false;
+}
+
+bool GameDemo::CheckTouchCircle(glm::vec2 touchPosition, SpriteObject *target)
+{
+	glm::vec2 position = target->GetPosition();
+	glm::vec2 size = target->GetSize();
+
+	if (position.x < touchPosition.x && position.x + size.x > touchPosition.x &&
+		position.y < touchPosition.y && position.y + size.y > touchPosition.y)
+	{
+		return true;
+	}
+	else
+		return false;
 }
 
 // Check if touched area is inside the target area.

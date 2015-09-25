@@ -6,22 +6,30 @@
 
 namespace pm
 {
-	/// Color component that GameEntity uses to get different color entities.
-
+	///
+	/// Color component that GameEntity uses to create color for entities.
+	///
 	class Color : public Component
 	{
 	public:
-
-		/// Default constructor.
+		///
+		/// Default constructor. Sets Color to (0.0f, 0.0f, 0.0f, 0.0f) (rgba)
+		///
 		Color();
-
-		/// Constructor.
+		
+		///
+		/// Constructor that sets color to given color (rgba).
+		///
 		Color(glm::vec4 color);
 
-		/// Sets the color with glm float vec4 rgba.
+		///
+		/// Sets the color to given color (rgba).
+		///
 		void SetColor(glm::vec4 newColor);
 
-		/// Returns glm vec4 that has the rgba values in float.
+		///
+		/// Returns set color (rgba).
+		///
 		glm::vec4 GetColor();
 
 	private:
