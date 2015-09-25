@@ -17,24 +17,24 @@ namespace pm
 		using ComponentList = std::unordered_map<const std::type_info*, Component*>;
 
 	public:
-		///Default constructor for GameEntity.
+		///\brief Default constructor for GameEntity.
 		GameEntity() {};
 
 		~GameEntity();
 
-		///Add new component to the GameEntity.
+		///\brief Add new component to the GameEntity.
 		// \param Component to be added to the GameEntity.
 		void AddComponent(Component* newComponent);
 
 		
-		///Return desired component from GameEntity.
+		///\brief Return desired component from GameEntity.
 		//For example: 
 		//ComponentClass* componentName = <ComponentClass>GetComponent();
 		//Color* ColorComponent = <Color>GetComponent();
 		template<typename T> T* GetComponent();
 
 		
-		///Removes desired component from GameEntity.
+		///\brief Removes desired component from GameEntity.
 		//For example:
 		//<Color>RemoveComponent();
 		template<typename T> void RemoveComponent();
