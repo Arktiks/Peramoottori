@@ -9,21 +9,24 @@
 
 namespace pm
 {
+	///
 	/// The base of entity component system that stores components.
-
+	///
 	class GameEntity
 	{
 
 		using ComponentList = std::unordered_map<const std::type_info*, Component*>;
 
 	public:
-
+		///
 		/// Default constructor.
+		///
 		GameEntity() {};
 
 		~GameEntity();
-
-		/// Adds a new component to GameEntity
+		///
+		/// Adds the given component to GameEntity
+		///
 		void AddComponent(Component* newComponent);
 
 		/**
