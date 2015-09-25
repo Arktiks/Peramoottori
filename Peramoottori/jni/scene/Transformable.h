@@ -3,6 +3,7 @@
 
 #include <scene\Component.h>
 #include <glm\vec2.hpp>
+#include <glm\mat4x4.hpp>
 
 namespace pm
 {
@@ -42,6 +43,8 @@ namespace pm
 		/// Sets the depth.
 		void SetDepth(int newDepthValue);
 
+		glm::mat4 GetTransformMatrix(){ return transformMatrix; }
+
 		/// Returns glm float vec2 position.
 		glm::vec2 GetPosition();
 
@@ -55,6 +58,10 @@ namespace pm
 		int GetDepth();
 
 	private:
+
+		void CalculateMatrix();
+
+		glm::mat4 transformMatrix;
 
 		glm::vec2 position;
 		glm::vec2 scale;

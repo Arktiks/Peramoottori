@@ -5,7 +5,6 @@
 #include <GLES2\gl2.h>
 
 #include "Batch.h"
-#include <scene\Camera.h>
 #include "Shader.h"
 #include "Buffer.h"
 
@@ -47,7 +46,6 @@ namespace pm
 		* For example RenderSystem and SpriteBatch both have Draw().
 		* Also public Initialize function might imply user needs to initialize RenderSystem himself. */
 	private:
-
 		void DestroyInstance(); /// Removes current instance.
 
 		void Initialize(); ///< RenderSystem should be initialized when context is ready.
@@ -64,14 +62,10 @@ namespace pm
 
 		void CreateShaders(); // May be changed.
 
-		Camera* activeCamera;
-		
 		GLint transformMatrixLocation;
 		GLint cameraMatrixLocation;
 		GLint projectionLocation;
-
-		glm::mat4 defaultCamera;
-
+		
 		Shader shaderProgram;
 
 		Buffer vertexBuffer, indexBuffer;
