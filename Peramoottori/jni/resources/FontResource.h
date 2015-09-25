@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <include\ft2build.h>
+#include <scene\Texture.h>
 #include FT_FREETYPE_H
 
 namespace pm
@@ -18,6 +19,7 @@ namespace pm
 			ttfData(ttfData)
 		{
 			SetColor(1, 0, 1, 0);
+			//
 		};
 
 		///returns FT_Byte vector, that is the data of the font
@@ -55,8 +57,9 @@ namespace pm
 	
 		std::vector<FT_Byte> ttfData;
 		std::vector<float> color;
+		std::vector<Texture*> texture;
 		std::string fileName;
-
+		
 	};
 }
 

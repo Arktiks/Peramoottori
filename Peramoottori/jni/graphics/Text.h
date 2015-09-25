@@ -8,6 +8,7 @@
 
 namespace pm
 {
+
 	class Text
 	{
 	public:
