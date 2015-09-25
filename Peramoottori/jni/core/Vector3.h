@@ -1,18 +1,15 @@
-#ifndef VECTOR2_H
-#define VECTOR2_H
-#include <iostream>
+#ifndef VECTOR3_H
+#define VECTOR3_H
 
 namespace pm
 {
-	/**
-	* Engines own Vector3 that can be used to make fast 2 place vectors
-	*/
+	/** \brief Very basic class to hold three dimensional vectors. */
+
 	template<typename T>
 	class Vector3
 	{
 		Vector3<T> operator<<(const Vector3<T>& v)
 		{
-			//DEBUG_INFO(("&f, &f, &f", v.x, v.y, v.z));
 		}
 
 	public:

@@ -8,68 +8,87 @@
 
 namespace pm
 {
+
+	/** \brief Custom class for OpenGL shaders.
+	*
+	* Shaders are user-defined programs designed to run on some stage of rendering pipeline.
+	*
+	* \ingroup Graphics
+	*/
+
 	class Shader
 	{
 	public:
 		
-		///\brief Default constructor for Shader.
 		Shader() : created(false), shaderProgram(0), vertex(0), fragment(0) {};
 
-		///\brief Shader copy constructor.
-		// \param[in] shader Shader ID of a previous shader. 
-		Shader(GLuint shader) : created(true), shaderProgram(shader) {};
+		/** \internal Shader index is set @ AddShader().
+		* \brief Copy constructor.
+		* \param[in] shader Shader ID of a previous shader.
+		*
+		*Shader(GLuint shader) : created(true), shaderProgram(shader) {}; */
 
-		
-		///\brief Add shaders to program.
-		// \param[in] filePath Name of the shader file.
-		// \param[in] shaderType GLenum type of the shader.
-		// \return Returns false if adding shader failed.
+		/** \brief Add shaders you wish to execute.
+		*
+		* Contains error handling in form of debug messages and assertion.
+		* \param[in] filePath Name of shader file --- example "FRAGMENT_SHADER.txt".
+		* \param[in] shaderType GLenum type of shader --- see relevant OpenGL documentation for possible types.
+		* \return true if attaching shader was successful.
+		*/
 		bool AddShader(std::string filePath, GLenum shaderType);
 
-		///\brief Create executable program object.
-		// \return Returns true.
+		/** \brief Create final executable shader program object.
+		* 
+		* Contains assertion.
+		* \return true if program was linked succesfully.
+		*/
 		bool LinkProgram();
 		
-		///\brief Confirm if program has been linked successfully.
-		// \return Returns bool wether program has been linked successfully.
+		/** \brief Confirm if shader program has been linked successfully.
+		*
+		* \return true if program has been linked succesfully.
+		* \return false if program has not been linked yet.
+		*/
 		bool GetLinkStatus();
 
-		
-		///\brief Use vertex attributes
+		/** \brief Use vertex attributes. */
 		void UseVertexAttribs();
-
 		
-		///\brief Use program as part of current rendering state.
+		/** \brief Use shader program as part of current rendering state. */
 		void UseProgram();
 
-	
-		///\brief Return value of attribute within program.
-		// \param[in] attributeName Name of the attribute requested
-		// \return Returns the value of requested parameter.
+		/** \brief Return value of attribute within shader program.
+		*
+		* \param[in] attributeName Name of attribute requested as std::string.
+		* \return Value of requested attribute.
+		*/
 		GLuint GetAttribLocation(std::string attributeName);
 
-		///\brief Makes a new VertexAttribPointer that is placed in shaderVertexAtribute vector
-		//	\param[in] attributeName Name of the attribute to be added.
-		//	\param[in] size Size of the attribute to be added.
-		//	\param[in] stride Stride of the attribute to be added.
-		//	\param[in] offset Offset of the attribute to be added.
+		/**\brief Add new VertexAttribPointer.
+		*
+		* Specifies data formats and locations of attributes in vertex attributes array.
+		* \param[in] attributeName Name of the attribute to be added.
+		* \param[in] size Size of the attribute to be added.
+		* \param[in] stride Stride of the attribute to be added.
+		* \param[in] offset Offset of the attribute to be added.
+		*/
 		void AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset);
-		
-		
 	
-		///\brief Returns the shaderprogram ID
-		// \return Returns the GLuint number of the program.
+		/** \brief Returns index assigned for shader program.
+		* \return assigned index as GLuint.
+		* \return 0 if index has not been assigned.
+		*/
 		GLuint GetShaderProgramLocation() { return shaderProgram; };
 
 		~Shader();
 
 	private:
 
-		std::string LoadShader(std::string filePath); ///< loads shader from txt file
+		std::string LoadShader(std::string filePath); ///< Load shader from file.
 
-		bool CheckShaderCompile(GLuint shader); ///< Check shader compilation status
+		bool CheckShaderCompile(GLuint shader); ///< Check shader compilation status.
 
-		bool CheckProgramLink(GLuint program); ///< Check program linking status
+		bool CheckProgramLink(GLuint program); ///< Check program linking status.
 
 		std::vector<ShaderVertexAttrib> ShaderVertexAttribs;
 

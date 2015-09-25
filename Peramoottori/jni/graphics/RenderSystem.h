@@ -11,17 +11,42 @@
 
 namespace pm
 {
+	/** \brief System that contains necessary data (shader, camera, etc.) for rendering.
+	*
+	* pm::Application handles the lifeline of %RenderSystem.
+	*
+	* \sa pm::SpriteBatch contains all necessary functions for rendering GameEntities.
+	*
+	* \ingroup Graphics
+	*/
+
 	class RenderSystem
 	{
 	public:
 
-		static RenderSystem* GetInstance();///< Returns RenderSystem instance, that can be only one at once.
+		friend class SpriteBatch;
+		friend class Application;
+		friend class CommandCenter;
 
+		/** \brief Return instance of RenderSystem. 
+		* \return Pointer to RenderSystem.
+		*/
+		static RenderSystem* GetInstance();
+
+		/** \brief Set active pm::Camera for rendering.
+		* \param[in] camera Pointer to pm::Camera.
+		*/
+		void SetActiveCamera(Camera* camera) { (this->activeCamera) = camera; }
 		
-		void SetActiveCamera(Camera* camera)/// Set active camera.
-		{ activeCamera = camera; }
-		Camera* GetActiveCamera()///< Returns active camera.
-		{ return activeCamera; }
+		/** \brief Return handle to pm::Camera currently being used.
+		* \return Pointer to pm::Camera.
+		*/
+		Camera* GetActiveCamera() { return activeCamera; }
+
+		/** \internal Following four functions set private as not to confuse user.
+		* For example RenderSystem and SpriteBatch both have Draw().
+		* Also public Initialize function might imply user needs to initialize RenderSystem himself. */
+	private:
 
 		void DestroyInstance(); /// Removes current instance.
 

@@ -1,7 +1,6 @@
 #include "Text.h"
 #include <GLES2\gl2.h>
 
-
 #include <core\Log.h>
 #include <core\Memory.h>
 #include <scene\Texture.h>

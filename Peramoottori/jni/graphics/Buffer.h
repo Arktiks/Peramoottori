@@ -29,7 +29,14 @@ namespace pm
 
 	class Buffer
 	{
-	public:
+
+		/** \internal Buffer class changed to private.
+		* SpriteBatch and RenderSystem have been given friend status to accommodate.
+		*/
+		friend class RenderSystem;
+		friend class SpriteBatch;
+
+	private:
 
 		/** \brief Construct pm::Buffer with unset type. */
 		Buffer() : index(0), type(NONE) {};

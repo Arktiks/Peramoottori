@@ -12,6 +12,7 @@
 namespace pm
 {
 	/** \brief Debug tool designed to keep track of memory usage during debugging.
+	*
 	* \ingroup Debug
 	*/
 
