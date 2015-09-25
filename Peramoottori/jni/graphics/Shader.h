@@ -11,48 +11,54 @@ namespace pm
 	class Shader
 	{
 	public:
-		/**
-		*  Constructor for Shader.
-		*/
+		
+		///Default constructor for Shader.
 		Shader() : created(false), shaderProgram(0), vertex(0), fragment(0) {};
 
+		///Shader copy constructor.
+		// \param[in] shader Shader ID of a previous shader. 
 		Shader(GLuint shader) : created(true), shaderProgram(shader) {};
 
-		/**
-		*  Add shaders to program.
-		*/
+		
+		///Add shaders to program.
+		// \param[in] filePath Name of the shader file.
+		// \param[in] shaderType GLenum type of the shader.
+		// \return Returns false if adding shader failed.
 		bool AddShader(std::string filePath, GLenum shaderType);
-		/**
-		*	Create executable program object.
-		*/
+
+		///Create executable program object.
+		// \return Returns true.
 		bool LinkProgram();
-		/**
-		* Confirm if program has been linked successfully.
-		*/
+		
+		///Confirm if program has been linked successfully.
+		// \return Returns bool wether program has been linked successfully.
 		bool GetLinkStatus();
 
-		/**
-		*	Use vertex attributes
-		*/
+		
+		///Use vertex attributes
 		void UseVertexAttribs();
 
-		/**
-		*	Use program as part of current rendering state.
-		*/
+		
+		///Use program as part of current rendering state.
 		void UseProgram();
 
-		/**
-		*	Return value of attribute within program.
-		*/
+	
+		///Return value of attribute within program.
+		// \param[in] attributeName Name of the attribute requested
+		// \return Returns the value of requested parameter.
 		GLuint GetAttribLocation(std::string attributeName);
 
-		/**
-		*	Makes a new VertexAttribPointer that is placed in shaderVertexAtribute vector
-		*/
+		///	Makes a new VertexAttribPointer that is placed in shaderVertexAtribute vector
+		//	\param[in] attributeName Name of the attribute to be added.
+		//	\param[in] size Size of the attribute to be added.
+		//	\param[in] stride Stride of the attribute to be added.
+		//	\param[in] offset Offset of the attribute to be added.
 		void AddVertexAttribPointer(std::string attributeName, GLint size, GLsizei stride, GLint offset);
-		/**
-		* Return shaderprogram
-		*/
+		
+		
+	
+		///Returns the shaderprogram ID
+		// \return Returns the GLuint number of the program.
 		GLuint GetShaderProgramLocation() { return shaderProgram; };
 
 		~Shader();

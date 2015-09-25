@@ -9,40 +9,34 @@
 
 namespace pm
 {
-	///
-	/// The base of entity component system that stores components.
-	///
+
+	/// \brief The base of entity component system that stores components.
 	class GameEntity
 	{
 
 		using ComponentList = std::unordered_map<const std::type_info*, Component*>;
 
 	public:
-		///
-		/// Default constructor.
-		///
+		///Default constructor for GameEntity.
 		GameEntity() {};
 
 		~GameEntity();
-		///
-		/// Adds the given component to GameEntity
-		///
+
+		///Add new component to the GameEntity.
+		// \param Component to be added to the GameEntity.
 		void AddComponent(Component* newComponent);
 
-		/**
-		* Return desired component from GameEntity.
-		* For example:
-		* Color* ColorComponent = <Color>GetComponent();
-		*/
+		
+		///Return desired component from GameEntity.
+		//For example: 
+		//ComponentClass* componentName = <ComponentClass>GetComponent();
+		//Color* ColorComponent = <Color>GetComponent();
 		template<typename T> T* GetComponent();
 
-		/**
-		* Removes desired component from GameEntity.
-		* For example:
-		* <Color>RemoveComponent();
-		* Does not work.
-		*/
-		//template<typename T> void RemoveComponent();
+		
+		///Removes desired component from GameEntity.
+		//For example:
+		//<Color>RemoveComponent();
 		template<typename T> void RemoveComponent();
 	private:
 
