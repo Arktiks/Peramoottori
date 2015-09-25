@@ -5,26 +5,40 @@
 
 namespace pm
 {
-
+	/** \brief Component class parent that is inherited for all components.
+	* 
+	* 
+	* \ingroup Scene
+	*/
 	class GameEntity;
 
 	class Component
 	{
 	public:
 
-		/// Constructor.
+		/**
+		* Little lost component
+		*/
 		Component() : parent(nullptr) {};
 
-		/// Constructor.
+		/** \brief Copy constuctor
+		* 
+		*/
 		Component(Component& component);
 
-		/// Constructor.
+		/** \brief Set GameEntity as component's parent
+		* 
+		*/
 		Component(GameEntity* entity);
 		
-		/// Sets the parent.
+		/**
+		* Set new parent for component
+		*/
 		void SetParent(GameEntity* entity);
 
-		/// Return handle to components GameEntity parent.
+		/**
+		* Return handle to components GameEntity parent.
+		*/
 		GameEntity*  GetParent() { return parent; };
 
 		virtual ~Component() {};
