@@ -8,9 +8,12 @@
 
 namespace pm
 {
+
 	/// Class for controlling screen view.
 	class Camera
 	{
+		friend class CameraSystem;
+
 	public:
 		/// Default constructor.
 		/**

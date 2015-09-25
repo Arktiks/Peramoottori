@@ -5,7 +5,6 @@
 #include <GLES2\gl2.h>
 
 #include "Batch.h"
-#include <scene\Camera.h>
 #include "Shader.h"
 #include "Buffer.h"
 
@@ -16,12 +15,6 @@ namespace pm
 	public:
 
 		static RenderSystem* GetInstance();///< Returns RenderSystem instance, that can be only one at once.
-
-		
-		void SetActiveCamera(Camera* camera)/// Set active camera.
-		{ activeCamera = camera; }
-		Camera* GetActiveCamera()///< Returns active camera.
-		{ return activeCamera; }
 
 		void DestroyInstance(); /// Removes current instance.
 
@@ -39,14 +32,10 @@ namespace pm
 
 		void CreateShaders(); // May be changed.
 
-		Camera* activeCamera;
-		
 		GLint transformMatrixLocation;
 		GLint cameraMatrixLocation;
 		GLint projectionLocation;
-
-		glm::mat4 defaultCamera;
-
+		
 		Shader shaderProgram;
 
 		Buffer vertexBuffer, indexBuffer;

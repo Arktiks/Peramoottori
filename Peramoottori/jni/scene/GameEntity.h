@@ -1,6 +1,7 @@
 #ifndef GAMEENTITY_H
 #define GAMEENTITY_H
 
+
 #include <scene\Component.h>
 #include <unordered_map>
 #include <typeinfo>
