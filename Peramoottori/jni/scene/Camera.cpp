@@ -85,3 +85,8 @@ glm::mat4 pm::Camera::GetCameraMatrix()
 {
 	return cameraMatrix;
 }
+
+glm::mat4 pm::Camera::GetInverseCameraMatrix()
+{
+	return glm::inverse(cameraMatrix);
+}
