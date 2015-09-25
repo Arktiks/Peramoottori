@@ -30,6 +30,8 @@ namespace pm
 		int size = text->GetTextData().size();
 		for (int i = 0; i < size; i++)
 		{
+			int y = 0;
+			int z = 0;
 			x0 += w * 1.125;
 			if (text->GetTextData()[i + 1] == '\n')
 			{
@@ -42,7 +44,74 @@ namespace pm
 				x0 -= w * 0.5;
 			}
 			else
+			{
+				if      (text->GetTextData()[i] == 'a'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'c'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'e'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'm'){ y0 += h * .2; y = 1; z = -2; }
+				else if (text->GetTextData()[i] == 'n'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'o'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'p'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'g'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'q'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'i'){ z = 1; }
+				else if (text->GetTextData()[i] == 'j'){ z = 1; }
+				else if (text->GetTextData()[i] == 'r'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 's'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'u'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'ä'){ y0 += h * .1; y = 4;}
+				else if (text->GetTextData()[i] == 'ö'){ y0 += h * .1; y = 4;}
+				else if (text->GetTextData()[i] == 't'){ z = 1; }
+				else if (text->GetTextData()[i] == 'l'){ z = 1; }
+				else if (text->GetTextData()[i] == 'v'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'w'){ y0 += h * .2; y = 1; z = -2; }
+				else if (text->GetTextData()[i] == 'x'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'y'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'z'){ y0 += h * .2; y = 1;}
+				else if (text->GetTextData()[i] == 'I'){ z = 1; }
+				else if (text->GetTextData()[i] == 'J'){ y = 1; }
+				else if (text->GetTextData()[i] == 'G'){ z = -2; }
+				else if (text->GetTextData()[i] == 'A'){ z = -2; }
+				else if (text->GetTextData()[i] == 'Å'){ z = -2; }
+				else if (text->GetTextData()[i] == 'C'){ z = -2; }
+
+				else if (text->GetTextData()[i] == 'W'){ z = -1; y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'O'){ z = -2; y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'M'){ z = -2; y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'Q'){ z = -2; y0 += h * .2; y = 1; }
+
+				else if (text->GetTextData()[i] == 'K'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'L'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'N'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'P'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'R'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'S'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'T'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'U'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'V'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'X'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'Y'){ y0 += h * .2; y = 1; }
+				else if (text->GetTextData()[i] == 'Z'){ y0 += h * .2; y = 1; }
+
+				else if (text->GetTextData()[i] == '.'){ y0 += h * .55; y = 2; }
+				else if (text->GetTextData()[i] == ','){ y0 += h * .55; y = 2; }
+				else if (text->GetTextData()[i] == '+'){ y0 += h * .2 ; y = 1; }
+				else if (text->GetTextData()[i] == '-'){ y0 += h * .35; y = 3; }
+				else if (text->GetTextData()[i] == '*'){ y0 += h * .2 ; y = 1; }
+				else if (text->GetTextData()[i] == '='){ y0 += h * .2 ; y = 1; }
+
+
+
 				Character(font, text->GetTextData()[i], x0, y0, w, h);
+				if (y == 1)y0 -= h * .2;
+				if (y == 2)y0 -= h * .55;
+				if (y == 3)y0 -= h * .35;
+				if (y == 4)y0 -= h * .1;
+				if (z == 1)x0 -= w * .5;
+				if (z == -1)x0 += w * .5;
+				if (z == -2)x0 += w * .25;
+			}
+
 		}
 
 		pm::TextureFactory::SaveText(this);
@@ -163,14 +232,14 @@ namespace pm
 			WIDTH = 10;
 			HEIGHT = 10;
 
-			GE->AddComponent(NEW Rectangle(WIDTH, HEIGHT));
+			GE->AddComponent(NEW Rectangle(slot->bitmap.width, slot->bitmap.rows));
 			GE->AddComponent(NEW Transformable());
 
 			//float scaleY = slot->bitmap.width / slot->bitmap.rows;
 			//if (scaleY < 1)
 			//	GE->GetComponent<Transformable>()->SetScale(1, 1);
 			//else
-			GE->GetComponent<Transformable>()->SetScale(1, 1);
+			GE->GetComponent<Transformable>()->SetScale(slot->bitmap.width, slot->bitmap.rows);
 
 			GE->GetComponent<Transformable>()->SetPosition(position);
 			GE->GetComponent<Transformable>()->SetRotation(0);
@@ -260,14 +329,14 @@ namespace pm
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, slot->bitmap.width, slot->bitmap.rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, slot->bitmap.buffer);
 		
-		GE->AddComponent(NEW Rectangle(w, w));
+		GE->AddComponent(NEW Rectangle(slot->bitmap.width / (16 / (w / 20)), slot->bitmap.rows / (16 / (h / 20))));
 		GE->AddComponent(NEW Transformable());
 		
-		float scaleY = slot->bitmap.width / slot->bitmap.rows;
-		if (scaleY < 1)
-			GE->GetComponent<Transformable>()->SetScale(1, 1);
-		else
-			GE->GetComponent<Transformable>()->SetScale(1, 1);
+		//float scaleY = slot->bitmap.width / slot->bitmap.rows;
+		//if (scaleY < 1)
+		//	GE->GetComponent<Transformable>()->SetScale(slot->bitmap.width, slot->bitmap.rows);
+		//else
+		GE->GetComponent<Transformable>()->SetScale(1,1);
 
 		GE->GetComponent<Transformable>()->SetPosition(position);
 		GE->GetComponent<Transformable>()->SetRotation(0);
