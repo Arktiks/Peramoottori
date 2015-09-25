@@ -5,39 +5,33 @@
 
 namespace pm
 {
-	/**
-	* Class for managing OpenSL AudioPlayer objects. To play audio use "Audio" class.
+	/** \brief Class for managing OpenSL AudioPlayer objects.
+	*
+	* Class has been constructed using singleton design pattern.
+	* \ingroup Audio
 	*/
+
 	class AudioManager
 	{
 	public:
 
-		/**
-		* Return AudioManager instance.
+		/** \brief Return instace of AudioManager.
 		*/
 		static AudioManager* GetInstance();
 
-		/**
-		* Initializes AudioPlayer.
+		/** \brief Initialize given AudioPlayer.
+		* \param[out] player Pointer to AudioPlayer that should be initialized.
 		*/
 		void InitAudioPlayer(AudioPlayer* player);
 		
 	private:
 
-		/**
-		* Creates OpenSL sound engine.
-		*/
-		void CreateEngine();
+		void CreateEngine(); // Creates OpenSL sound engine.
 
-		/**
-		* Error message formatting for LogCat.
-		*/
-		void CheckError(std::string errorText);
+		void CheckError(std::string errorText); // Error message formatting for LogCat.
 
-		/**
-		* Private constructor for AudioManager.
-		*/
-		AudioManager();
+		AudioManager(); // Private constructor for AudioManager.
+
 		~AudioManager();		
 
 		SLresult result;

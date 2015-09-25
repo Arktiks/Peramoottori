@@ -2,9 +2,8 @@
 #include <core\Log.h>
 #include <core\Passert.h>
 #include <core\Memory.h>
-
-#include <resources\ResourceManager.h>
 #include <audio\AudioManager.h>
+#include <resources\ResourceManager.h>
 
 pm::Audio::Audio(std::string fileName) : volume(100.0f), playerCount(1), maxPlayerCount(3)
 {
@@ -12,6 +11,7 @@ pm::Audio::Audio(std::string fileName) : volume(100.0f), playerCount(1), maxPlay
 	ASSERT_NEQUAL(tempAudioAsset, nullptr);
 	player.push_back(NEW AudioPlayer(tempAudioAsset));
 	AudioManager::GetInstance()->InitAudioPlayer(player[0]);
+	(this->file) = fileName;
 }
 
 pm::Audio::~Audio()
@@ -86,7 +86,7 @@ void pm::Audio::SetMaxPlayerCount(unsigned newMaxCount)
 			player[i]->SetPlayState(SL_PLAYSTATE_STOPPED);
 		}
 
-		DEBUG_WARNING(("Removing AudioPlayers. Possible loss of data!"));
+		DEBUG_WARNING(("Removing AudioPlayers for (%s), possible loss of data!", file.c_str()));
 
 		for (int i = newMaxCount - 1; i < playerCount; i++)
 		{
@@ -112,7 +112,7 @@ pm::AudioPlayer* pm::Audio::GetAvailable()
 	{
 		playerCount++;
 		player.push_back(NEW AudioPlayer(player[0]));
-		AudioManager::GetInstance()->InitAudioPlayer(player[playerCount-1]);
+		AudioManager::GetInstance()->InitAudioPlayer(player[playerCount - 1]);
 		player[playerCount - 1]->SetVolume(volume);
 		return player[playerCount-1];
 	}
