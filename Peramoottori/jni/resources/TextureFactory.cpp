@@ -99,7 +99,9 @@ void pm::TextureFactory::RecreateOGLTextures()
 			CreateOGLTexture(it->first, tempTexture);
 	}
 
+	/* may crash the whole thing mayhaps
 }
+	}//*/
 
 void pm::TextureFactory::DestroyOGLTextures()
 {
@@ -110,15 +112,15 @@ void pm::TextureFactory::DestroyOGLTextures()
 	{
 		glDeleteTextures(1, &it->second->GetId());
 		DEBUG_GL_ERROR();
-	}//*/
+	}*/
 
-	///*
+	/*
 	for (GLuint i = 0; i < generatedTextures.size(); i++) // Bubblegum fix temporary!
 	{
 		glDeleteTextures(1, &i);
 		DEBUG_GL_ERROR();
 	}
-	//*/
+	*/
 }
 
 pm::TextureFactory::~TextureFactory()

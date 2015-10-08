@@ -4,6 +4,7 @@
 #include <vector>
 #include <GLES2\gl2.h>
 
+#include "scene\CameraSystem.h"
 #include "Batch.h"
 #include "Shader.h"
 #include "Buffer.h"
@@ -52,14 +53,15 @@ namespace pm
 
 		bool IsInitialized();
 
-	private:
 
 		RenderSystem() : shaderProgram(), vertexBuffer(), indexBuffer() {};
 
 		void BindBuffers(Batch* batch); ///< Binds buffers before rendering patch.
 
 		void CreateShaders(); // May be changed.
-
+		
+		CameraSystem* cameraSystem;
+		
 		GLint transformMatrixLocation;
 		GLint cameraMatrixLocation;
 		GLint projectionLocation;

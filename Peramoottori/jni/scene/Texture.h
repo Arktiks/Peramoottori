@@ -10,32 +10,53 @@
 
 namespace pm
 {
-	/// Component for GameEntity stores texture vertices and textureID.
+
+	/** \brief Component for storing texture vertices and textureID.
+	*
+	* Description.
+	*
+	* \ingroup Scene
+	*/
 
 	class Texture : public Component
 	{
 	public:
 
-		/// Default constructor.
+		Texture() : Component(), textureIndex(0), textureSize(glm::uvec2(0.0f, 0.0f)) {};
 		Texture();
 
 		Texture(std::string path);
 
-		/// Sets the texture size.
+		/** \brief Set size of Texture.
+		*
+		* \param[in] textureSize glm::uvec2 [width, height].
+		*/
 		void SetTextureSize(glm::uvec2 textureSize);
 
-		/// Return GLuint textureID.
+		/** \brief Return texture ID OpenGL has assigned for Texture.
+		*
+		* \return 0 if ID has not been assigned.
+		*/
 		GLuint GetId();
 
-		/// Returns glm uvec2 size of the texture.
+		/** \brief Return size of texture.
+		*
+		* \return glm::uvec2(0.0f, 0.0f) if size has not been set.
+		*/
 		glm::uvec2 GetTextureSize();
 
-		/// Sets the textureID.
+		/** \brief Set texture ID.
+		*
+		* Approriate OpenGL should be called before assigning index.
+		*
+		* \param[in] textureId new texture index assigned by OpenGL.
+		*/
 		void SetId(GLuint textureId);
 
 	private:
 
 		GLuint textureIndex;
+
 		glm::uvec2 textureSize;
 	};
 }

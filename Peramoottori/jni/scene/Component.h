@@ -5,35 +5,42 @@
 
 namespace pm
 {
-	///\brief Component class parent that is inherited for all components.
-	//\ingroup Scene
+
+	/** \brief Base class for all components.
+	*
+	* Description.
+	*
+	* \ingroup Scene
+	*/
+
 	class GameEntity;
 
 	class Component
 	{
 	public:
 
-		
-		///\brief Default constructor for Components.
 		Component() : parent(nullptr) {};
 
-		///\brief Copy constuctor for Components
-		// \param[in] component Component to be copied.
+		/** \brief Copy constuctor. */
 		Component(Component& component);
 
-		///\brief Constructor that sets GameEntity as the component's parent.
-		// \param[in] entity Entity to be set as parent for the Component.
+		/** \brief Constructor that sets GameEntity as the components parent.
+		*
+		* \param[in] entity Pointer to GameEntity to be set as parent.
+		*/
 		Component(GameEntity* entity);
 		
-		
-		///Set new parent for component
-		// \param[in] entity Entity that will be set as the Component's Parent.
+		/** \brief Set new parent for component.
+		*
+		* \param[in] entity Pointer to GameEntity to be set as parent.
+		*/
 		void SetParent(GameEntity* entity);
 
-		
-		///Return handle to components GameEntity parent.
-		// \return Returns a pointer to the parent of the Component.
-		GameEntity*  GetParent() { return parent; };
+		/** \brief Return handle to components GameEntity parent.
+		*
+		* \return GameEntity* To parent of component.
+		*/
+		GameEntity* GetParent() { return parent; };
 
 		virtual ~Component() {};
 		

@@ -1,79 +1,90 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-
 #include <glm\mat4x4.hpp>
 #include <glm\vec2.hpp>
-
 
 namespace pm
 {
 
-	/// Class for controlling screen view.
+	/** \brief Class for controlling screen view.
+	*
+	* Description.
+	*
+	* \ingroup Scene
+	*/
+
 	class Camera
 	{
 		friend class CameraSystem;
 
 	public:
-		/// Default constructor.
-		/**
-		* Creates a camera in position xy(0,0), with rotation of 0.0f degrees and 1.0x zoom.
+
+		/** \brief Creates a Camera in position (0,0), with rotation of 0 degrees and 1.0 zoom.
+		*
 		*/
 		Camera();
 
-		/**
-		* Moves camera by given values in x and y directions.
+		/** \brief Moves Camera by given values in x and y directions.
+		*
 		*/
 		void MoveCamera(float x, float y);
-		/**
-		* Moves camera by given values in x and y directions.
+
+		/** \brief Moves Camera by given values in x and y directions.
+		*
+		* \param[in] moveXY glm::vec2 [x,y].
 		*/
 		void MoveCamera(glm::vec2 moveXY);
 
-		/**
-		* Rotates camera by given value in degrees.
+		/** \brief Rotates Camera by given value in degrees.
+		*
 		*/
 		void RotateCamera(float rotation);
 
-		/**
-		* Zooms camera by given value.
+		/** \brief Zooms Camera by given value.
+		*
 		*/
 		void ZoomCamera(float zoom);
 
-		/**
-		* Set camera matrix directly.
+		/** \brief Set Camera matrix directly.
+		*
+		* \param[in] newCameraMatrix New matrix as glm::mat4.
 		*/
 		void SetCameraMatrix(glm::mat4 newCameraMatrix);
 		
-		/**
-		* Set camera position to given coordinates.
+		/** \brief Set Camera position to given coordinates.
+		*
 		*/
 		void SetCameraPosition(float xPosition, float yPosition);
 		
-		/**
-		* Set camera position to given coordinates.
+		/** \brief Set Camera position to given coordinates.
+		*
+		* \param[in] newPosition glm::vec2 [x,y].
 		*/
 		void SetCameraPosition(glm::vec2 newPosition);
 		
-		/**
-		* Set camera rotation.
+		/** \brief Set Camera rotation.
+		* 
 		*/
 		void SetCameraRotation(float newRotation);
 		
-		/**
-		* Set camera Zoom.
+		/** \brief Set Camera Zoom.
+		* 
 		*/
 		void SetCameraZoom(float newZoom);
 		
-		/**
-		* Get camera matrix.
+		/** \brief Get Camera matrix.
+		* 
+		* \return glm::mat4 transformation of Camera.
 		*/
 		glm::mat4 GetCameraMatrix();
 		
-		/**
-		* Get inverse camera matrix.
+		/** \brief Get inverse Camera matrix.
+		* 
+		* \return glm::mat4 inverse transformation of Camera.
 		*/
 		glm::mat4 GetInverseCameraMatrix();
+
 	private:
 
 		glm::vec2 origin;
@@ -89,4 +100,4 @@ namespace pm
 	};
 }
 
-#endif //CAMERA_H
+#endif // CAMERA_H

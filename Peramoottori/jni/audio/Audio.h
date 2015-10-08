@@ -18,7 +18,7 @@ namespace pm
 	public:
 
 		/**
-		* \param[in] filename Name of file you wish to create Audio object from - for example "Push.ogg".
+		* \param[in] fileName Name of file you wish to create Audio object from - for example "Push.ogg".
 		*/
 		Audio(std::string fileName);
 

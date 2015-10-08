@@ -89,7 +89,7 @@ namespace pm
 
 		/** \brief Set name of file that contains TTF data.
 		*
-		* \param[in]
+		* \param[in] newName
 		*/
 		void SetFileName(std::string newName) { fileName = newName; };
 

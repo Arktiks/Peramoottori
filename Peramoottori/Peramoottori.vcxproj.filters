@@ -998,6 +998,7 @@
     <ClInclude Include="jni\scene\CameraSystem.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
+    <ClInclude Include="Mainpage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">
