@@ -1,4 +1,19 @@
 #include "Texture.h"
+#include "resources\TextureFactory.h"
+#include "string"
+
+pm::Texture::Texture() : Component()
+{
+	//this = TextureFactory::CreateTexture();
+
+}
+
+pm::Texture::Texture(std::string path) : Component()
+{
+	Texture* tex = TextureFactory::CreateTexture(path);
+	this->SetId(tex->GetId());
+	this->SetTextureSize(tex->GetTextureSize());
+}
 
 void pm::Texture::SetTextureSize(glm::uvec2 textureSize)
 {

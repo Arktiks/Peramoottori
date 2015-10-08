@@ -9,39 +9,34 @@
 #include <lodepng.h>
 #include <graphics\Text.h>
 
-std::map<std::string, pm::Texture*> pm::TextureFactory::generatedTextures = { { "MapInit", nullptr } };
-std::map<std::string, pm::Text*> pm::TextureFactory::savedTexts = { { "TextMapInit", nullptr } };
-std::map<std::string, pm::Text*> pm::TextureFactory::savedFonts = { { "FontMapInit", nullptr } };
+pm::TextureStruct TS;
+std::map<std::string, pm::TextureStruct> pm::TextureFactory::generatedTextures = { { "MapInit", TS } };
 
 pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 {
-	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	pm::Texture* tempTexture = NEW pm::Texture;
+
+	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
 		if (it->first == fileName)
 		{
-			return it->second;
+			tempTexture->SetId(it->second.id);
+			tempTexture->SetTextureSize(glm::uvec2(it->second.sx, it->second.sy));
+			return tempTexture;
 		}
 	}
 
-	pm::Texture* tempTexture = NEW pm::Texture;
+
 	CreateOGLTexture(fileName, tempTexture);
-	generatedTextures[fileName] = tempTexture;
+
+	pm::TextureStruct tempTS;
+	tempTS.id = tempTexture->GetId();
+	tempTS.sx = tempTexture->GetTextureSize().x;
+	tempTS.sy = tempTexture->GetTextureSize().y;
+
+	generatedTextures[fileName] = tempTS;
 
 	return tempTexture;
-}
-
-void pm::TextureFactory::SaveText(Text* savedText)
-{
-	//for (std::map<std::string, Text*>::iterator it = savedTexts.begin(); it != savedTexts.end(); it++)
-	//{
-	//	if (it->first == savedText->name)
-	//	{
-	//		return;
-	//	}
-	//}
-
-	savedTexts[savedText->GetTextResource()->GetTextData()] = savedText;
-	savedFonts[savedText->name] = savedText;
 }
 
 void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer)
@@ -97,43 +92,13 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 
 void pm::TextureFactory::RecreateOGLTextures()
 {
+	pm::Texture* tempTexture = NEW pm::Texture;
 	if (!generatedTextures.empty())
 	{
-		for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
-			CreateOGLTexture(it->first, it->second);
+		for (std::map<std::string, TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+			CreateOGLTexture(it->first, tempTexture);
 	}
 
-
-	// may crash the whole thing mayhaps
-	/*
-	if (!savedFonts.empty())
-	{
-		for (std::map<std::string, Text*>::iterator fit = savedFonts.begin(); fit != savedFonts.end(); fit++)
-		{
-			if (fit->second == nullptr)
-			{
-			}
-			else
-			{
-				fit->second->ReintializeFont(fit->first);
-			}
-			//
-		}
-	}
-	if (!savedTexts.empty())
-	{
-		for (std::map<std::string, Text*>::iterator tit = savedTexts.begin(); tit != savedTexts.end(); tit++)
-		{
-			if (tit->second == nullptr)
-			{
-			}
-			else
-			{
-				tit->second->ReintializeText(tit->first);
-			}
-
-		}
-	}//*/
 }
 
 void pm::TextureFactory::DestroyOGLTextures()
@@ -159,15 +124,13 @@ void pm::TextureFactory::DestroyOGLTextures()
 pm::TextureFactory::~TextureFactory()
 {
 	DEBUG_GL_ERROR_CLEAR();
-	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
-		GLuint reference = it->second->GetId();
+		GLuint reference = it->second.id;
 		glDeleteTextures(1, &reference);
 		DEBUG_GL_ERROR();
-		delete it->second;
-		it->second = nullptr;
+		//delete it->second;
+		//it->second = nullptr;
 	}
 	generatedTextures.clear();
-	savedTexts.clear();
-	savedFonts.clear();
 }

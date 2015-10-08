@@ -2,9 +2,11 @@
 #define TEXTURE_H
 
 #include <vector>
+#include <string>
 #include <GLES2\gl2.h>
 #include <scene\Component.h>
 #include <glm\vec2.hpp>
+
 
 namespace pm
 {
@@ -15,7 +17,9 @@ namespace pm
 	public:
 
 		/// Default constructor.
-		Texture() : Component() {};
+		Texture();
+
+		Texture(std::string path);
 
 		/// Sets the texture size.
 		void SetTextureSize(glm::uvec2 textureSize);

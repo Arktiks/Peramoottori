@@ -17,6 +17,11 @@ namespace pm
 {
 	class Text; // Circular dependencies ouch.
 
+	struct TextureStruct
+	{
+		GLuint id;
+		float sx, sy;
+	};
 	class TextureFactory
 	{
 
@@ -29,12 +34,6 @@ namespace pm
 		* \param[in] fileName
 		*/
 		static Texture* CreateTexture(std::string fileName);
-
-		/** \brief
-		*
-		* \param[in] savedText
-		*/
-		static void SaveText(Text* savedText);
 
 	private:
 
@@ -51,9 +50,7 @@ namespace pm
 
 		~TextureFactory();
 
-		static std::map<std::string, Texture*> generatedTextures;
-		static std::map<std::string, Text*> savedTexts;
-		static std::map<std::string, Text*> savedFonts;
+		static std::map<std::string, TextureStruct> generatedTextures;
 	};
 }
 
