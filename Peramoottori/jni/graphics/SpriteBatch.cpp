@@ -13,8 +13,6 @@
 #include <scene\Transformable.h>
 #include <scene\TextureCoordinates.h>
 
-#include <glm\gtc\matrix_transform.hpp>
-#include <glm\gtx\transform.hpp>
 
 using namespace pm;
 using namespace std;
@@ -174,13 +172,8 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	}
 	else
 	{
-		Transformable* transform = gameEntity->GetComponent<Transformable>(); // Do transform magic.
-		glm::mat4 tempMat = glm::mat4();
-		tempMat = glm::scale(glm::vec3(transform->GetScale(), 0.0f)) * tempMat;
-		tempMat = glm::rotate(transform->GetRotation()*3.14f / 180.0f, glm::vec3(0, 0, 1)) * tempMat;
-		tempMat = glm::translate(glm::vec3(transform->GetPosition(), 0.0f)) * tempMat;
-		*transformMatrix = tempMat;
-		depth = transform->GetDepth();
+		*transformMatrix = gameEntity->GetComponent<Transformable>()->GetTransformMatrix(); // Do transform magic.
+		depth = gameEntity->GetComponent<Transformable>()->GetDepth();
 	}
 
 	/// TEXTURE ///

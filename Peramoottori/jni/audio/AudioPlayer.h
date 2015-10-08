@@ -10,8 +10,9 @@
 
 namespace pm
 { 
-	/**
-	* Ease of access class for handling OpenSL objects. Use "Audio" class instead.
+	/** \brief Ease of access class for handling OpenSL objects.
+	*
+	* \ingroup Audio
 	*/
 	class AudioPlayer
 	{
@@ -20,74 +21,69 @@ namespace pm
 
 	public:
 
-		/**
-		* Constructor for AudioPlayer. Create an AudioPlayer object from an AudioResource.
-		* AudioPlayer must be initialized after construction. Call "pm::AudioManager::GetInstance()->InitAudioPlayer(AudioPlayer* player)"
-		* to initialize an AudioPlayer.
+		///@{
+		/** \brief Constructor.
+		* \param[in] resource AudioResource from which you wish to create an AudioPlayer.
+		* \sa pm::AudioManager::InitAudioPlayer()
 		*/
 		AudioPlayer(AudioResource* resource)
 			: audioResource(resource) {};
-		/**
-		* Constructor for AudioPlayer. Create an AudioPlayer object from another AudioPlayer.
-		* AudioPlayer must be initialized after construction. Call "pm::AudioManager::GetInstance()->InitAudioPlayer(AudioPlayer* player)"
-		* to initialize an AudioPlayer.
+
+		/** \brief Copy constructor.
+		* \param[in] player AudioPlayer which you wish to copy from.
+		* \sa pm::AudioManager::InitAudioPlayer()
 		*/
 		AudioPlayer(AudioPlayer* player)
 			: audioResource(player->audioResource) {};
+		///@}
 
 		~AudioPlayer();
 
-		/**
-		* Get current playstate from AudioPlayer:
-		* 1 = SL_PLAYSTATE_STOPPED
-		* 2 = SL_PLAYSTATE_PAUSED
-		* 3 = SL_PLAYSTATE_PLAYING
+		/** \brief Get current playstate from AudioPlayer.
+		* \return 1 SL_PLAYSTATE_STOPPED
+		* \return 2 SL_PLAYSTATE_PAUSED
+		* \return 3 SL_PLAYSTATE_PLAYING
 		*/
 		SLuint32 GetPlayState();
 		
-		/**
-		* Get position of playback head. Returns value as milliseconds.
+		/** \brief Get position of playback head.
+		* \return Position as milliseconds.
 		*/
 		SLuint32 GetPlaybackPosition();
 
-		/**
-		* Set playstate for AudioPlayer:
-		* 1 = SL_PLAYSTATE_STOPPED
-		* 2 = SL_PLAYSTATE_PAUSED
-		* 3 = SL_PLAYSTATE_PLAYING
+		/** \brief Set playstate for AudioPlayer.
+		* \return 1 SL_PLAYSTATE_STOPPED
+		* \return 2 SL_PLAYSTATE_PAUSED
+		* \return 3 SL_PLAYSTATE_PLAYING
 		*/
 		void SetPlayState(SLuint32 state);
 
-		/**
-		* Set player to loop sound.
+		/** \brief Set player to loop sound.
+		* \param[in] true if player should loop.
 		*/
 		void SetLooping(bool isEnabled); 
 
-		/**
-		* Seek a position in audio to start playing from. Give playbackPosition as milliseconds.
+		/** \brief Seek a position in audio to start playing from.
+		* \param[in] playbackPosition as milliseconds.
 		*/
 		void SetPosition(SLmillisecond playbackPosition);
 
-		/**
-		* Set player volume.
+		/** \brief Set player volume.
+		* \param[in] volPercentage New volume as percentage (0-100).
 		*/
 		void SetVolume(float volPercentage);
 
 		/**
-		* Return handle to AudioResource.
+		* \return Handle to AudioResource.
 		*/
 		AudioResource* GetAudioResource() { return audioResource; }
 
 	private:
 
-		/**
-		* Checks if SLresult != SL_RESULT_SUCCESS and displays a given error message.
-		*/
+		/// Checks if SLresult != SL_RESULT_SUCCESS and displays a given error message.
 		void CheckError(std::string errorText);
 
-		/**
-		* Calculates the correct decibel value based on volPercentage given to SetVolume.
-		*/
+		/// Calculates the correct decibel value based on volPercentage given to SetVolume.
 		float GainToAttenuation(float gain);
 
 		SLObjectItf audioPlayerObj;

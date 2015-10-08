@@ -13,6 +13,8 @@ namespace pm
 	*
 	* Most likely developer does not need to create his own batches and should instead
 	* use functions found in SpriteBatch class.
+	*
+	* \ingroup Graphics
 	*/
 
 	class Batch

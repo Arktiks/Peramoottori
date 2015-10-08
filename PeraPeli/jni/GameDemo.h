@@ -34,6 +34,8 @@ public:
 	void Unpause();
 
 private:
+
+	glm::mat4 inverseCameraMatrix;
 	pm::Camera asdcamera;
 	SpriteObject* winSprite, *logoSprite;
 	bool audioBool;
@@ -68,6 +70,7 @@ private:
 	void OneTimeWinFunction();
 	
 	bool CheckTouch(glm::vec2 touchPosition, SpriteObject* target);
+	bool CheckTouchCircle(glm::vec2 touchPosition, SpriteObject* target);
 	bool CheckTouch(glm::vec2 touchPosition, glm::vec4 target);
 
 	void CheckInput();

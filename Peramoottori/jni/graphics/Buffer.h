@@ -15,33 +15,56 @@ namespace pm
 
 	/** \brief Class that works as OpenGL buffer object necessary for rendering.
 	*
-	* Buffer Objects are an OpenGL feature that provides methods for uploading
+	* %Buffer objects are an OpenGL feature that provides methods for uploading
 	* vertex data (position, normal vector, color, etc.) to the video device for non-immediate-mode rendering.
 	*
-	* Most likely developer does not need to create his own buffers and should instead
+	* Most likely developer does not need to create his own pm::Buffer and should instead
 	* use the functions found in SpriteBatch class.
 	*
 	* \note Current buffer sizes are hard coded which should lead to unexcpected behavior if
-	* enough GameEntities are set to be drawn. This will be fixed on future Perämoottori version.
+	* enough GameEntities are set to be drawn. This will be fixed on future Peramoottori version.
+	*
+	* \ingroup Graphics
 	*/
 
 	class Buffer
 	{
-	public:
 
-		/** \brief Construct Buffer with unset type. */
+		/** \internal Buffer class changed to private.
+		* SpriteBatch and RenderSystem have been given friend status to accommodate.
+		*/
+		friend class RenderSystem;
+		friend class SpriteBatch;
+
+	private:
+
+		/** \brief Construct pm::Buffer with unset type. */
 		Buffer() : index(0), type(NONE) {};
 
-		/** \brief Initialize buffer of chosen type.
+		/** \brief Initialize OpenGL buffer object of chosen type.
 		*
-		* \param[in] type 
+		* \param[in] type Defined by bufferType enum.
 		*/
-		void CreateBuffer(bufferType type);
+		void CreateBuffer(enum bufferType type);
 
+		/** \brief Bind OpenGL buffer object to the specified binding point.
+		*
+		* Data store for the buffer object is also initialized.
+		* \param[in] size in bytes of the data store region being replaced.
+		* \param[in] data pointer to the new data that will be copied into the data store.
+		*/
 		void BindBufferData(unsigned size, void *data);
 
+		/** \brief Return bufferType which this pm::Buffer was initialized as.
+		* 
+		* \return bufferType
+		*/
 		bufferType GetType() { return type; }
 
+		/** \brief Return index which buffer object was assigned.
+		*
+		* \return 0 If pm::Buffer was not yet initialized.
+		*/
 		GLuint GetIndex() { return index; }
 
 		~Buffer();
@@ -58,6 +81,7 @@ namespace pm
 		void BindIndexData(unsigned size, void *data);
 
 		GLuint index;
+
 		bufferType type;
 	};
 }

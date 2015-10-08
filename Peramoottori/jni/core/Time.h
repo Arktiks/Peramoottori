@@ -5,18 +5,23 @@
 
 namespace pm
 {
+	/** \brief Class to calculate elapsed time within your android %application.
+	*
+	* \ingroup Core
+	*/
+
 	class Time
 	{
 	public:
-
-		/// Constructor for Time.
+		
 		Time() : inFrame(false), timeInFrame(0), rawTime(0) {};
 
-		/// Simple function to calculate time in frame or a loop.
-		/// When function is called for the first time, it starts
-		/// the timer, and when it's called second time and so on
-		/// it calculates how long it took to call it again.
-		///		\return double value how long the time between calls was.
+		/** \brief Calculate time in frame or loop.
+		*
+		* When called for the first time Time objects internal timer starts ticking.
+		* When called second time and onward elapsed time between calls is calculated.
+		* \return Elapsed time between calls in milliseconds.
+		*/
 		double CalculateTimeInFrame();
 
 	private:

@@ -5,6 +5,7 @@
 namespace pm
 {
 	/** \brief Custom assertion functions for debugging.
+	*
 	* \ingroup Debug
 	*/
 

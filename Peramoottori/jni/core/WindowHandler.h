@@ -8,9 +8,11 @@
 
 namespace pm
 {
-	/** \brief Handles display of android device. Should be accessed through Application class.
+	/** \brief Manages android device display. Should be accessed through pm::Application.
 	*
 	* Main functionality includes clearing screen and returning device resolution.
+	*
+	* \ingroup Core
 	*/
 
 	class WindowHandler
@@ -23,7 +25,7 @@ namespace pm
 
 		/** \brief Return device resolution.
 		*
-		* \return Vector2<int>: screen width (x) and height (y).
+		* \return Vector2<int> screen width (x) and height (y).
 		*/
 		Vector2<int> GetResolution();
 

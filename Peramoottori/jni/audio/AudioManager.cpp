@@ -6,10 +6,10 @@ pm::AudioManager* pm::AudioManager::instance = nullptr;
 
 void AudioPlayerCallback(SLPlayItf playerObject, void* context, SLuint32 event)
 {
-	DEBUG_INFO(("AudioPlayer callback called."));
+	// DEBUG_INFO(("AudioPlayerCallback called."));
 	if(event == SL_PLAYEVENT_HEADATEND)
 	{
-		DEBUG_INFO(("AudioPlayer callback event: SL_PLAYEVENT_HEADATED."));
+		DEBUG_INFO(("AudioPlayerCallback event: SL_PLAYEVENT_HEADATED."));
 		(*playerObject)->SetPlayState(playerObject, SL_PLAYSTATE_STOPPED);
 	}
 }

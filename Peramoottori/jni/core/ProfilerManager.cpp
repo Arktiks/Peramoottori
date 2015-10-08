@@ -16,7 +16,7 @@ void ProfilerManager::Print()
 {
 	map <string, long double>::iterator it;
 	for (it = data.begin(); it != data.end(); ++it)
-		DEBUG_INFO(("Time spent in %s is: %f", it->first.c_str(), it->second));
+		DEBUG_INFO(("Time spent in %s is: %f.", it->first.c_str(), it->second));
 }
 
 void ProfilerManager::Clear()

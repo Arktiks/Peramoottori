@@ -9,23 +9,55 @@
 
 namespace pm
 {
+	/** \brief Keeps track of Drawable GameEntity objects that have been queued to be drawn and optimizes rendering.
+	*
+	* \ingroup Graphics
+	*/
+
 	class SpriteBatch
 	{
 	public:
 
-		static SpriteBatch* GetInstance(); ///< Return SpriteBatch instance.
+		/** \brief Return instance of SpriteBatch. 
+		* \return Pointer to SpriteBatch.
+		*/
+		static SpriteBatch* GetInstance();
 
+		/** \brief Delete pm::SpriteBatch and all associated resources.
+		*
+		* Deleting pm::SpriteBatch is already part of cleaning routine when application is shut down permanently.
+		* As such user will no need to call this unless for very specific reason.
+		*/
 		void DestroyInstance();
 
-		void Draw(); ///< Render all batches.
+		/** \brief Render all objects that have been queued to be drawn.
+		*
+		* \sa AddGameEntity(), AddOpaqueGameEntity() and AddText().
+		*/
+		void Draw();
 
-		void AddGameEntity(GameEntity* gameEntity); ///< Stores given GameEntity to get patched.
+		/** @name Batching Functions
+		* \brief Store GameEntity objects to be drawn.
+		*/
+		///@{
+		/** \param[in] gameEntity Pointer to GameEntity object. */
+		void AddGameEntity(GameEntity* gameEntity);
 
-		void AddOpaqueGameEntity(GameEntity* gameEntity); ///< Stores given GameEntity that is opaque to get patched.
+		/** \brief Add GameEntity object that contains transparency.
+		* \param[in] gameEntity Pointer to GameEntity object.
+		*/
+		void AddOpaqueGameEntity(GameEntity* gameEntity);
 
-		void AddOpaqueGameEntity(std::vector<GameEntity*> entityVector); //////< Stores given GameEntityvector that is opaque to get patched.
-
-		void AddText(Text* textEntity); ///< Stores given Text that is opaque to get patched.
+		/** \brief Add std::vector of GameEntity objects that contains transparency.
+		* \param[in] entityVector Pointer to std::vector<GameEntity*>.
+		*/
+		void AddOpaqueGameEntity(std::vector<GameEntity*> entityVector);
+		
+		/** \brief Add Text object that contains transparency.
+		* \param[in] textEntity Pointer to pm::Text object.
+		*/
+		void AddText(Text* textEntity);
+		///@}
 
 	private:
 
@@ -37,10 +69,7 @@ namespace pm
 		
 		void BatchComponents();///< Makes final batch.
 
-		/**
-		* GameEntity is gutted to form data matrises that can be assimilated into Batch.
-		**/
-		void ParseData(GameEntity* gameEntity,
+		void ParseData(GameEntity* gameEntity, // GameEntity is gutted to form data matrises that can be assimilated into Batch.
 			std::vector<GLfloat>* vertexData, 
 			std::vector<GLushort>* indexData,
 			glm::mat4* transformMatrix,
