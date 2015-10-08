@@ -15,6 +15,10 @@ namespace pm
 	*
 	* \ingroup Core
 	*/
+	struct Pointer
+	{
+		int id, x, y, sx, sy, lx, ly;
+	};
 
 	class Input
 	{
@@ -91,6 +95,24 @@ namespace pm
 		static void InputEventAccelerometer(float x, float y, float z);
 		///@}
 
+
+		/////////////////////////////////////
+		///*Everything done for the rework*//
+		/////////////////////////////////////
+
+		/** \brief Check if the pointer exists by the ID.
+		* \param id Pointer ID from AMotionEvent_getPointerId.
+		*/
+		static bool CheckPointer(int id);
+
+		static void NewPointer(int id, int x, int y);
+
+		static void RemovePointer(int id);
+
+		static void NoPointers();
+
+		static void MovePointer(int id, int x, int y);
+
 	private:
 
 		/// Private variables, of multiple input systems if wanted.
@@ -100,6 +122,11 @@ namespace pm
 		static bool touch, singleTouch, startOfDrag;
 		static float startOfDragX, startOfDragY, _x, _y, lx, ly;
 		static glm::vec3 accelerometer;
+	
+		/*Refactoring work*/
+
+		static std::vector<Pointer*> pointers;
+
 	};
 }
 
