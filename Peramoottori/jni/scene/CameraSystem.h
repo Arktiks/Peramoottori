@@ -3,8 +3,16 @@
 
 #include <scene\Camera.h>
 
+/** \internal Work in progress. */
+
 namespace pm
 {
+
+	/** \brief Work in progress.
+	*
+	* Description.
+	*/
+
 	class CameraSystem
 	{
 		friend class Camera;
@@ -14,7 +22,6 @@ namespace pm
 
 		void SetActiveCamera(Camera* camera);/// Set active camera.
 		Camera* GetActiveCamera();///< Returns active camera.
-	
 
 	private:
 		CameraSystem();

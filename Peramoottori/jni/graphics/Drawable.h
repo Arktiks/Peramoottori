@@ -5,19 +5,34 @@
 
 namespace pm
 {	
-	/// GameEntity Component aka. boolean storage for one boolean.
+	/** \brief Set GameEntity to be drawn.
+	*
+	* Description.
+	*
+	* \ingroup Scene
+	*/
 
 	class Drawable : public Component
 	{
 	public:
 
-		///Constructor
+		/** \brief
+		*
+		* By default Drawable is set to be drawn.
+		*/
 		Drawable() : Component(), drawState(true) {};
 
-		/// Sets the draw state of component.
+		/** \brief Change if GameEntity should be drawn.
+		*
+		* \param[in] newDrawState False if GameEntity should not be drawn.
+		*/
 		void SetDrawState(bool newDrawState) { drawState = newDrawState; }
 
-		/// Returns boolean that tels the draw state.
+		/** \brief Return state of Drawable.
+		*
+		* \return true if GameEntity is drawn.
+		* \return false if GameEntity is not drawn.
+		*/
 		bool GetDrawState() { return drawState; }
 
 	private:

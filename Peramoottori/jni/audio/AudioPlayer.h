@@ -59,7 +59,7 @@ namespace pm
 		void SetPlayState(SLuint32 state);
 
 		/** \brief Set player to loop sound.
-		* \param[in] true if player should loop.
+		* \param[in] isEnabled true if player should loop.
 		*/
 		void SetLooping(bool isEnabled); 
 
