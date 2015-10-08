@@ -67,8 +67,9 @@ namespace pm
 		* Base depth of drawables is 0. As the you increase depth objects
 		* will be drawn over objects with lesser depth.
 		*
-		* \param[in] newDepthValue as int.
+		* \param[in] newDepthValue as float.
 		*/
+		void SetDepth(float newDepthValue);
 
 		/** \brief Get transformation applied to GameEntity.
 		*
@@ -96,8 +97,9 @@ namespace pm
 
 		/** \brief Get depth of GameEntity.
 		*
-		* \return int depth.
+		* \return float depth.
 		*/
+		float GetDepth();
 
 	private:
 

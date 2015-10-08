@@ -456,6 +456,7 @@
     <ClInclude Include="libs\lodepng.h" />
     <ClInclude Include="libs\stb_easy_font.h" />
     <ClInclude Include="jni\graphics\Text.h" />
+    <ClInclude Include="Mainpage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\Applause.ogg" />
