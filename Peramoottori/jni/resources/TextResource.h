@@ -5,17 +5,23 @@
 
 namespace pm
 {
+
+	/** \brief
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
+
 	class TextResource : public Resource
 	{
 	public:
 
-		///Constructor
-		TextResource(std::string data) :
-			textData(data)
-		{
-			SetName("text");
-		};
-		/// returns test data as a string
+		TextResource() = delete;
+
+		TextResource(std::string data) : textData(data) {};
+
+		/** \brief Return content of text as string. */
 		std::string GetTextData() { return textData; }
 
 		~TextResource() {};

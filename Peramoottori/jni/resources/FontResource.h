@@ -10,22 +10,39 @@
 
 namespace pm
 {
+
+	/** \internal Functions should be described with more detail. */
+
+	/** \brief
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
+
 	class FontResource : public Resource
 	{
 	public:
 
-		/// constructor
+		FontResource() = delete;
+
+		/** \brief
+		*
+		* \param[in] ttfData 
+		*/
 		FontResource(std::vector<FT_Byte> ttfData) :
 			ttfData(ttfData)
 		{
 			SetColor(1, 0, 1, 0);
-			//
 		};
 
-		///returns FT_Byte vector, that is the data of the font
+		/** \brief
+		*
+		* \return Vector<FT_Byte> data of the font.
+		*/
 		std::vector<FT_Byte> GetTTFData() { return ttfData; }
 
-		/// Changes the color of the font
+		/** \brief Change color of the font. */
 		void ChangeColor(float red, float green, float blue, float alpha)
 		{
 			color.at(0) = red;
@@ -34,19 +51,30 @@ namespace pm
 			color.at(3) = alpha;
 		};
 
-		/// return float vector, thats first four values are the rgba values of the font
+		/** \brief Return color of font.
+		*
+		* \return vector<float> that contains colors in RGBA order.
+		*/
 		std::vector<float> GetColor() { return color; };
 
-		/// Sets name of the file that got tff data
-		void SetFileName(std::string newName){ fileName = newName; };
+		/** \brief Set name of file that contains TTF data.
+		*
+		* \param[in]
+		*/
+		void SetFileName(std::string newName) { fileName = newName; };
 
-		std::string GetFileName(){ return fileName; };
+		/** \brief Return name of file.
+		*
+		* \return string Name of file.
+		*
+		*/
+		std::string GetFileName() { return fileName; };
 		
 		~FontResource() {};
 		
 	private:
 
-		/// sets the color of the font
+		/// Sets color of the font.
 		void SetColor(float red, float green, float blue, float alpha)
 		{
 			color.push_back(red);
