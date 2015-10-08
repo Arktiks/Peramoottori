@@ -90,7 +90,6 @@ void GameDemo::InitializeGameValues()
 	deltaTime = time.CalculateTimeInFrame();
 	fasterTimer = 2000000000;
 	
-	pm::RenderSystem::GetInstance()->SetActiveCamera(&asdcamera);
 	pm::Vector2<int> pmLimits = pm::Application::GetInstance()->window.GetResolution();
 	limits.x = pmLimits.x;
 	limits.y = pmLimits.y;
@@ -257,10 +256,6 @@ void GameDemo::WinFunction()
 float logoTimer = 0;
 void GameDemo::Update()
 {
-	asdcamera.RotateCamera(1.0f);
-	inverseCameraMatrix = asdcamera.GetInverseCameraMatrix();
-
-
 	deltaTime = time.CalculateTimeInFrame();
 	if (win)
 		WinFunction();

@@ -36,7 +36,6 @@ public:
 private:
 
 	glm::mat4 inverseCameraMatrix;
-	pm::Camera asdcamera;
 	SpriteObject* winSprite, *logoSprite;
 	bool audioBool;
 	pm::Text* text;

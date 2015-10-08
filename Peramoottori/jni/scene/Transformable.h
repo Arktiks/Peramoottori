@@ -69,7 +69,6 @@ namespace pm
 		*
 		* \param[in] newDepthValue as int.
 		*/
-		void SetDepth(int newDepthValue);
 
 		/** \brief Get transformation applied to GameEntity.
 		*
@@ -99,7 +98,6 @@ namespace pm
 		*
 		* \return int depth.
 		*/
-		int GetDepth();
 
 	private:
 
@@ -110,7 +108,7 @@ namespace pm
 		glm::vec2 position;
 		glm::vec2 scale;
 
-		int depthBuffer;
+		float depthBuffer;
 		
 		float rotation;
 	};

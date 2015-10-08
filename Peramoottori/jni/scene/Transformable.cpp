@@ -32,10 +32,9 @@ void pm::Transformable::SetRotation(float newRotation)
 	CalculateMatrix();
 }
 
-void pm::Transformable::SetDepth(int newDepthValue)
+void pm::Transformable::SetDepth(float newDepthValue)
 {
 	depthBuffer = newDepthValue;
-	CalculateMatrix();
 }
 
 glm::vec2 pm::Transformable::GetPosition()
@@ -53,7 +52,7 @@ float pm::Transformable::GetRotation()
 	return rotation;
 }
 
-int pm::Transformable::GetDepth()
+float pm::Transformable::GetDepth()
 {
 	return depthBuffer;
 }
