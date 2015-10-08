@@ -6,15 +6,32 @@
 
 namespace pm
 {
+
+	/** \brief
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
+
 	class ImageResource : public Resource
 	{
 	public:
-		ImageResource();
-		///constructor
+
+		ImageResource() = delete;
+		
+		/** \brief
+		*
+		* \param[in] pixels Image data as unsigned char.
+		*/
 		ImageResource(std::vector<unsigned char> pixels) :
 			imageData(pixels) {};
-		/// returns image data 
-		std::vector <unsigned char> GetImageData() { return imageData; }
+
+		/** \brief
+		*
+		* \return vector<unsigned char> Image data.
+		*/
+		std::vector<unsigned char> GetImageData() { return imageData; }
 
 		~ImageResource() {};
 
@@ -25,4 +42,4 @@ namespace pm
 	};
 }
 
-#endif //!IMAGERESOURCE_H
+#endif // IMAGERESOURCE_H
