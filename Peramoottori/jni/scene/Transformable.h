@@ -41,7 +41,7 @@ namespace pm
 		void SetRotation(float newRotation);
 
 		/// Sets the depth.
-		void SetDepth(int newDepthValue);
+		void SetDepth(float newDepthValue);
 
 		glm::mat4 GetTransformMatrix(){ return transformMatrix; }
 
@@ -55,7 +55,7 @@ namespace pm
 		float GetRotation();
 
 		/// Returns depth value as int.
-		int GetDepth();
+		float GetDepth();
 
 	private:
 
@@ -66,7 +66,7 @@ namespace pm
 		glm::vec2 position;
 		glm::vec2 scale;
 
-		int depthBuffer;
+		float depthBuffer;
 		
 		float rotation;
 	};
