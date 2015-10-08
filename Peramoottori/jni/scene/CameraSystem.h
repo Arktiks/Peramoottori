@@ -17,9 +17,9 @@ namespace pm
 	
 
 	private:
+		static CameraSystem* instance;
 		CameraSystem();
 		~CameraSystem(){};
-		static CameraSystem* instance;
 
 		Camera* activeCamera;
 		bool defaultCamera;

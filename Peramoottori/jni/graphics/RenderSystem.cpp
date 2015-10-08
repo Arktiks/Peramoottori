@@ -5,7 +5,6 @@
 #include <core\Passert.h>
 #include <core\Vector2.h>
 #include <core\Application.h> // Only needed for resolution at the moment.
-#include <scene\CameraSystem.h>
 
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
@@ -59,6 +58,8 @@ void RenderSystem::Initialize()
 
 	initialized = true;
 	DEBUG_INFO(("RenderSystem initialize finished."));
+
+	cameraSystem = CameraSystem::GetInstance();
 }
 
 void RenderSystem::Draw(Batch* batch)
@@ -75,7 +76,7 @@ void RenderSystem::Draw(Batch* batch)
 	glBindTexture(GL_TEXTURE_2D, batch->textureIndex);
 	DEBUG_GL_ERROR();
 	
-	glUniformMatrix4fv(cameraMatrixLocation, 1, GL_FALSE, value_ptr(CameraSystem::GetInstance()->GetActiveCamera()->GetCameraMatrix()));
+	glUniformMatrix4fv(cameraMatrixLocation, 1, GL_FALSE, value_ptr(cameraSystem->GetActiveCamera()->GetCameraMatrix()));
 	DEBUG_GL_ERROR();
 
 

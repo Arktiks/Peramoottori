@@ -13,7 +13,11 @@ pm::CameraSystem* pm::CameraSystem::GetInstance()
 
 void pm::CameraSystem::SetActiveCamera(Camera* camera)/// Set active camera.
 {
-	defaultCamera = false;
+	if (defaultCamera)
+	{
+		delete activeCamera;
+		defaultCamera = false;
+	}
 	activeCamera = camera;
 }
 
@@ -24,6 +28,6 @@ pm::Camera* pm::CameraSystem::GetActiveCamera()///< Returns active camera.
 
 pm::CameraSystem::CameraSystem()
 {
-	defaultCamera = NEW Camera();
+	activeCamera = NEW Camera();
 	defaultCamera = true; 
 }

@@ -14,7 +14,7 @@ pm::Camera::Camera()
 	cameraRotation	= 0.0f;
 	cameraZoom		= 1.0f;
 	
-	cameraMatrix	= glm::mat4(1);
+	CalculateMatrix();
 }
 
 void pm::Camera::MoveCamera(float x, float y)
