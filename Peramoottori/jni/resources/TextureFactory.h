@@ -50,7 +50,7 @@ namespace pm
 
 		~TextureFactory();
 
-		static std::map<std::string, TextureStruct> generatedTextures;
+		static std::map<std::string, pm::TextureStruct> generatedTextures;
 	};
 }
 

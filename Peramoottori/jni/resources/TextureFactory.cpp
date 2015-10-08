@@ -92,17 +92,15 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 
 void pm::TextureFactory::RecreateOGLTextures()
 {
-	pm::Texture* tempTexture = NEW pm::Texture;
+	pm::Texture* tempTexture = nullptr;
 	if (!generatedTextures.empty())
 	{
-		for (std::map<std::string, TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+		for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 			CreateOGLTexture(it->first, tempTexture);
 	}
-
-	/* may crash the whole thing mayhaps
 }
-	}//*/
 
+						
 void pm::TextureFactory::DestroyOGLTextures()
 {
 
@@ -126,7 +124,7 @@ void pm::TextureFactory::DestroyOGLTextures()
 pm::TextureFactory::~TextureFactory()
 {
 	DEBUG_GL_ERROR_CLEAR();
-	for (std::map<std::string, TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
 		GLuint reference = it->second.id;
 		glDeleteTextures(1, &reference);

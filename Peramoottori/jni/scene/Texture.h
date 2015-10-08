@@ -22,7 +22,6 @@ namespace pm
 	{
 	public:
 
-		Texture() : Component(), textureIndex(0), textureSize(glm::uvec2(0.0f, 0.0f)) {};
 		Texture();
 
 		Texture(std::string path);
