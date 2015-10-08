@@ -103,9 +103,7 @@ void pm::TextureFactory::RecreateOGLTextures()
 			CreateOGLTexture(it->first, it->second);
 	}
 
-
-	// may crash the whole thing mayhaps
-	/*
+	/* may crash the whole thing mayhaps
 	if (!savedFonts.empty())
 	{
 		for (std::map<std::string, Text*>::iterator fit = savedFonts.begin(); fit != savedFonts.end(); fit++)
@@ -133,7 +131,7 @@ void pm::TextureFactory::RecreateOGLTextures()
 			}
 
 		}
-	}//*/
+	}*/
 }
 
 void pm::TextureFactory::DestroyOGLTextures()
@@ -145,15 +143,15 @@ void pm::TextureFactory::DestroyOGLTextures()
 	{
 		glDeleteTextures(1, &it->second->GetId());
 		DEBUG_GL_ERROR();
-	}//*/
+	}*/
 
-	///*
+	/*
 	for (GLuint i = 0; i < generatedTextures.size(); i++) // Bubblegum fix temporary!
 	{
 		glDeleteTextures(1, &i);
 		DEBUG_GL_ERROR();
 	}
-	//*/
+	*/
 }
 
 pm::TextureFactory::~TextureFactory()

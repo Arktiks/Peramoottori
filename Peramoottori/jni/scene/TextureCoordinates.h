@@ -7,10 +7,18 @@
 #include <scene\Component.h>
 #include <vector>
 
-// Olisko mahdollista saada asettaa koordinaatit välillä 0-1?
+/** \internal Work in progress.
+*
+* Olisko mahdollista saada asettaa koordinaatit välillä 0-1?
+*/
 
 namespace pm
 {
+
+	/** \brief Work in progress.
+	*
+	* Description.
+	*/
 
 	class TextureCoordinates : public Component
 	{

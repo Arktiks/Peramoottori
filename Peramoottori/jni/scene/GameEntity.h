@@ -1,7 +1,6 @@
 #ifndef GAMEENTITY_H
 #define GAMEENTITY_H
 
-
 #include <scene\Component.h>
 #include <unordered_map>
 #include <typeinfo>
@@ -11,34 +10,49 @@
 namespace pm
 {
 
-	/// \brief The base of entity component system that stores components.
+	/** \brief GameEntity stores components that detail its functionality.
+	*
+	* Description.
+	*
+	* \ingroup Scene
+	*/
+
 	class GameEntity
 	{
 
 		using ComponentList = std::unordered_map<const std::type_info*, Component*>;
 
 	public:
-		///\brief Default constructor for GameEntity.
+
+		/** \brief Default constructor. 
+		*
+		* By default GameEntity stores no components.
+		*/
 		GameEntity() {};
 
 		~GameEntity();
 
-		///\brief Add new component to the GameEntity.
-		// \param Component to be added to the GameEntity.
+		/** \brief Add new component to GameEntity.
+		*
+		* More details.
+		*
+		* \param[in] newComponent pointer to Component to be added.
+		*/
 		void AddComponent(Component* newComponent);
 
-		
-		///\brief Return desired component from GameEntity.
-		//For example: 
-		//ComponentClass* componentName = <ComponentClass>GetComponent();
-		//Color* ColorComponent = <Color>GetComponent();
+		/** \brief Return desired component from GameEntity.
+		*
+		* \note ComponentClass* componentName = <ComponentClass>GetComponent();
+		* Color* ColorComponent = <Color>GetComponent();
+		*/
 		template<typename T> T* GetComponent();
 
-		
-		///\brief Removes desired component from GameEntity.
-		//For example:
-		//<Color>RemoveComponent();
+		/**\brief Removes desired component from GameEntity.
+		*
+		* \note <Color>RemoveComponent();
+		*/
 		template<typename T> void RemoveComponent();
+
 	private:
 
 		ComponentList components;

@@ -5,41 +5,68 @@
 
 namespace pm
 {
-	/// Rectangle shape that is inherited from shape base class.
+
+	/** \brief Drawable rectangle shape derived from Shape class.
+	*
+	* Description.
+	*
+	* \ingroup Scene
+	*/
 
 	class Rectangle : public Shape
 	{
 	public:
 
-		/// Default constructor.
 		Rectangle() : width(0), height(0)
 		{ 
 			SetIndices();
 			SetVertices();
 		}
 
-		/// Constructor.
+		/**
+		* \param[in] width of Rectangle.
+		* \param[in] height of Rectangle.
+		*/
 		Rectangle(float width, float height);
 
-		/// Constructor.
+		/**
+		* \param[in] size glm::vec2 [width, height].
+		*/
 		Rectangle(glm::vec2 size);
 
-		/// Set the origin of the rectangle.
+		/** \brief Set origin from which transformations are applied to Rectangle.
+		*
+		* By default all transformations are applied from left-top corner.
+		*
+		* \param[in] newOrigin New point of transformation.
+		*/
 		void SetOrigin(glm::vec2 newOrigin);
 
-		/// Set the origin of the rectangle.
+		/** \brief Set origin from which transformations are applied to Shape.
+		*
+		* By default all transformations are applied from left-top corner.
+		*/
 		void SetOrigin(float newOriginX, float newOriginY);
 
-		/// Set the size of the rectangle.
+		/** \brief Set size for Rectangle.
+		*
+		* \param[in] newSize glm::vec2 [width, height].
+		*/
 		void SetSize(glm::vec2 newSize);
 
-		/// Set the size of the rectangle.
+		/** \brief Set size for Rectangle. */
 		void SetSize(float newSizeX, float newSizeY);
 
-		/// Returns glm vec2 that has the size of the rectangle.
+		/** \brief Return size of Rectangle.
+		*
+		* \return glm::vec size [width, height].
+		*/
 		glm::vec2 GetSize();
 		
-		/// Returns glm vec2 that has the origin of the rectangle
+		/** \brief Return origin of Rectangle.
+		*
+		* \return glm::vec2 origin [width, height].
+		*/
 		glm::vec2 GetOrigin();
 
 	private:

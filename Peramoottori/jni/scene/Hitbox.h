@@ -11,8 +11,16 @@
 
 #include <vector>
 
+/** \internal Work in progress. */
+
 namespace pm
 {
+
+	/** \brief Work in progress.
+	*
+	*
+	*/
+
 	class Hitbox : public Component
 	{
 	public:

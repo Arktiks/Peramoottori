@@ -6,16 +6,16 @@
 #include <string>
 #include <scene\Texture.h>
 
-/** \brief Makes all necessary OpenGL calls to create textures.
-*
-* Long description.
-*
-* \ingroup Resources
-*/
-
 namespace pm
 {
 	class Text; // Circular dependencies ouch.
+
+	/** \brief Makes all necessary OpenGL calls to create textures.
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
 
 	class TextureFactory
 	{
