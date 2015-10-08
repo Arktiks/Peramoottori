@@ -2,22 +2,32 @@
 #define RESOURCE_H
 
 #include <string>
-//#include <android\asset_manager.h>
 
 namespace pm
 {
-	/// Mother class of all Resources
+	
+	/** \brief Base class to all resource types.
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
+
 	class Resource
 	{
 	public:
-
-		Resource() {};
 
 		void SetName(std::string name) { fileName = name; }
 
 		std::string GetName() { return fileName; }
 
-		~Resource() {};
+		virtual ~Resource() {};
+
+	protected:
+
+		Resource() {}; // Resource is never created directly.
+
+		Resource(std::string name) : fileName(name) {};
 
 	private:
 
@@ -26,4 +36,4 @@ namespace pm
 	};
 }
 
-#endif //!RESOURCE_H
+#endif // RESOURCE_H

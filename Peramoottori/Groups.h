@@ -25,3 +25,9 @@
 *
 * Almost all necessary calls to control your android application can be called through pm::Application.
 */
+
+/** \defgroup Resources
+* \brief All classes used in asset and resources managing.
+*
+* Long description.
+*/

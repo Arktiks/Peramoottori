@@ -12,33 +12,41 @@
 
 namespace pm
 {
+
+	/** \brief
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
+
 	class ResourceManager
 	{
 
 		friend class Application;
 
 	public:
+
+		/// \brief Static function that returns instance pointer of ResourceManager.
 		///
-		/// Static function that returns instance pointer of ResourceManager.
 		/// Only one instance of ResourceManager will exist during runtime.
-		///		\return pointer to only instance of this class.
 		///
+		///	\return pointer to only instance of this class.
 		static ResourceManager* GetInstance();
 		
+		/// \brief Main resource management function for user.
 		///
-		/// Main resource management function for user.
 		/// Checks that there won't be duplicate files.
 		/// Determines type of file and calls proper function to decrypt it.
 		/// Every file is converted to Resource type.
-		///		\param fileName : string name of the file.
-		///		\return created or loaded Resource.
 		///
+		///	\param[in] fileName String name of the file.
+		///	\return pointer to created or loaded Resource.
 		Resource* LoadAsset(std::string fileName);
 
+		/// \brief Simple public function to delete all assets.
 		///
-		/// Simple public function to empty the asset std::map.
 		/// Should be used when deleting previous scene.
-		///
 		void ClearAssetMap();
 
 	private:

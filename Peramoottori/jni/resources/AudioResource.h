@@ -5,26 +5,59 @@
 
 namespace pm
 {
+
+	/** \internal Functions should be described with more detail. */
+
+	/** \brief
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
+
 	class AudioResource : public Resource
 	{
+
 		friend class Audio;
+
 	public:
-		/// Audioresource constructor.
+		
+		/* I assume default constructor is not supported. */
+		AudioResource() = delete;
+
+		/**\brief The numbers, Mason! What do they mean?
+		*
+		* \param[in] fileDescriptorData Identifier that AudioManager uses to define files.
+		* \param[in] aLength Length of the AudioResourse.
+		* \param[in] aStart Length that is distance to start.
+		*/
 		AudioResource(int fileDescriptorData, off_t aLength, off_t aStart)
 		: fileDescriptor(fileDescriptorData), length(aLength), start(aStart) {};
-		/// returns fileDescriptor int that AudioManager uses to define files
+
+		/** \brief
+		*
+		* \return int FileDescriptor that AudioManager uses to define files.
+		*/ 
 		int GetFileDescriptor() { return fileDescriptor; };
 
-		/// returns the lenght of the AudioResourse
+		/** \brief
+		*
+		* \return off_t Length of AudioResourse.
+		*/
 		off_t GetLength() { return length; };
 
-		/// returns the lenght that is the distance to start 
+		/** \brief
+		*
+		* \return off_t Length that is distance to start.
+		*/
 		off_t GetStart(){ return start; };
 
-		~AudioResource() { /* AudioAsset should be closed perhaps? NOPE*/ };
+		~AudioResource() {};
 
 	private:
+
 		int fileDescriptor;
+
 		off_t length, start;
 
 	};

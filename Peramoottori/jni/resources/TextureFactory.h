@@ -6,10 +6,17 @@
 #include <string>
 #include <scene\Texture.h>
 
+/** \brief Makes all necessary OpenGL calls to create textures.
+*
+* Long description.
+*
+* \ingroup Resources
+*/
 
 namespace pm
 {
-	class Text;
+	class Text; // Circular dependencies ouch.
+
 	class TextureFactory
 	{
 
@@ -17,10 +24,16 @@ namespace pm
 
 	public:
 
-		/// Creates a texture.
+		/** \brief Create texture based on its filename.
+		*
+		* \param[in] fileName
+		*/
 		static Texture* CreateTexture(std::string fileName);
 
-
+		/** \brief
+		*
+		* \param[in] savedText
+		*/
 		static void SaveText(Text* savedText);
 
 	private:
