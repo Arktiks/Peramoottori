@@ -76,10 +76,10 @@ void pm::Camera::CalculateMatrix()
 	cameraMatrix = glm::mat4(1);
 
 	cameraMatrix = glm::translate(glm::vec3(-origin, 0.0f)) * cameraMatrix;
+	cameraMatrix = glm::translate(glm::vec3(-cameraPosition, 0.0f)) * cameraMatrix;
 	cameraMatrix = glm::scale(glm::vec3(cameraZoom, cameraZoom, 0.0f)) * cameraMatrix;
 	cameraMatrix = glm::rotate(cameraRotation * 3.14f / 180.0f, glm::vec3(0, 0, 1)) * cameraMatrix;
 	cameraMatrix = glm::translate(glm::vec3(origin, 0.0f)) * cameraMatrix;
-	cameraMatrix = glm::translate(glm::vec3(cameraPosition, 0.0f)) * cameraMatrix;
 }
 glm::mat4 pm::Camera::GetCameraMatrix()
 {
