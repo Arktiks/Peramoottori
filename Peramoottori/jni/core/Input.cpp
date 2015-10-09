@@ -13,6 +13,61 @@ bool Input::startOfDrag = false;
 float Input::startOfDragX = 0;
 float Input::startOfDragY = 0;
 glm::vec3 Input::accelerometer = glm::vec3(0, 0, 0);
+std::vector<Pointer*> Input::pointers;
+
+
+bool Input::CheckPointer(int id)
+{
+	for (auto &_pointer : pointers)
+		if (_pointer->id == id)
+			return true;
+	return false;
+
+}
+
+void Input::NewPointer(int id, float x, float y)
+{
+	Pointer* newPointer = new Pointer();
+	newPointer->id = id;
+	newPointer->sx = x;
+	newPointer->sy = y;
+	newPointer->x = x;
+	newPointer->y = y;
+	newPointer->lx = 0;
+	newPointer->ly = 0;
+	pointers.push_back(newPointer);
+
+}
+
+void Input::RemovePointer(int id)
+{
+	std::vector<Pointer*>::iterator it;
+	for (it = pointers.begin(); it != pointers.end(); it++)
+		if ((*it)->id == id)
+			pointers.erase(it);
+}
+
+void Input::NoPointers()
+{
+	pointers.clear();
+}
+
+void Input::MovePointer(int id, float x, float y)
+{
+	for (auto &_pointer : pointers)
+		if (_pointer->id == id)
+		{
+			_pointer->lx = _pointer->x;
+			_pointer->ly = _pointer->y;
+			_pointer->x = x;
+			_pointer->y = y;
+		}
+}
+
+
+/////////////////////////////////////
+/*Everything from before the rework*/
+/////////////////////////////////////
 
 glm::vec2 Input::GetTouchCoordinates()
 {
@@ -36,7 +91,7 @@ glm::vec3 Input::GetAccelerometerData()
 
 bool Input::GetSingleTouch()
 {
-	if(touch == true && singleTouch == false)
+	if (touch == true && singleTouch == false)
 	{
 		singleTouch = true;
 		return true;
@@ -55,7 +110,7 @@ void Input::Update()
 {
 	lx = _x;
 	ly = _y;
-	
+
 	if (touch == false)
 	{
 		singleTouch = false;

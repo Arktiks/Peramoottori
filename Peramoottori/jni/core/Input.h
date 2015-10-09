@@ -3,6 +3,7 @@
 
 #include <glm\vec2.hpp>
 #include <glm\vec3.hpp>
+#include <vector>
 
 namespace pm
 {
@@ -17,7 +18,8 @@ namespace pm
 	*/
 	struct Pointer
 	{
-		int id, x, y, sx, sy, lx, ly;
+		int id;
+		float x, y, sx, sy, lx, ly;
 	};
 
 	class Input
@@ -105,13 +107,13 @@ namespace pm
 		*/
 		static bool CheckPointer(int id);
 
-		static void NewPointer(int id, int x, int y);
+		static void NewPointer(int id, float x, float y);
 
 		static void RemovePointer(int id);
 
 		static void NoPointers();
 
-		static void MovePointer(int id, int x, int y);
+		static void MovePointer(int id, float x, float y);
 
 	private:
 

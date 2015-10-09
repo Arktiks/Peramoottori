@@ -151,7 +151,7 @@ int CommandCenter::HandleInput(android_app* application, AInputEvent* event)
 
 	/** CURRENT PROBLEMS
 	* How to make sure pointer index of the AMOTION_EVENT_ACTION is correct?
-	* Done with bitshift? 
+	* Done with bitshift?
 	* Reshift the index to a temp mask with the event type, then compare flags for action and index?
 	*/
 
@@ -160,7 +160,6 @@ int CommandCenter::HandleInput(android_app* application, AInputEvent* event)
 	{
 		if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
 		{
-
 			int action = AMotionEvent_getAction(event);
 			int pointerIndex = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK) >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
 			int pointerID = AMotionEvent_getPointerId(event, pointerIndex);
@@ -198,100 +197,8 @@ int CommandCenter::HandleInput(android_app* application, AInputEvent* event)
 		}
 	}
 	return 0; // Return 0 for any default dispatching.
-
-	// V2. Might be nessessary for working multiple pointers per action.
-/*	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
-	{
-
-		int action = AMotionEvent_getAction(event);
-		int count = AMotionEvent_getPointerCount(event);
-		for (int pointerIndex = 0; pointerIndex > count; pointerIndex++)
-		{
-			int pointerID = AMotionEvent_getPointerId(event, pointerIndex);
-			
-			switch (action & AMOTION_EVENT_ACTION_MASK)
-			{
-			case AMOTION_EVENT_ACTION_DOWN && AMOTION_EVENT_ACTION_POINTER_DOWN:
-			{
-				Input::NewPointer(pointerID, AMotionEvent_getX(event, pointerIndex), AMotionEvent_getY(event, pointerIndex));
-				break;
-			}
-			case AMOTION_EVENT_ACTION_UP:
-			{
-				Input::NoPointers();
-				break;
-			}
-			case AMOTION_EVENT_ACTION_POINTER_UP:
-			{
-				if (Input::CheckPointer(pointerID))
-					Input::RemovePointer(pointerID);
-				break;
-			}
-			case AMOTION_EVENT_ACTION_MOVE:
-			{
-				if (Input::CheckPointer(pointerID))
-					Input::MovePointer(pointerID, AMotionEvent_getX(event, pointerIndex), AMotionEvent_getY(event, pointerIndex));
-				break;
-			}
-
-			default:
-				break;
-			}
-
-		}
-	} */
 }
 
-
-
-
-
-
-
-
-
-	///if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
-	// if (AKeyEvent_getAction(event) == AMOTION_EVENT_ACTION_MASK)
-	//		
-
-	///Important identifiers.
-	//AMOTION_EVENT_ACTION_MASK
-	//AMOTION_EVENT_ACTION_POINTER_DOWN;
-	//AMOTION_EVENT_ACTION_POINTER_UP;
-	//AMOTION_EVENT_ACTION_POINTER_INDEX_MASK;
-
-	/*
-
-	Bitshift the pointer ID out of the mask.
-	int pointerIndex = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK) >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-
-
-				int count = AMotionEvent_getPointerCount(event);
-
-			// Check if there are new pointers.
-	for (int i = 0; i > count; i++)
-	{
-		if (!Input::CheckPointer(AMotionEvent_getPointerId(event, i)));
-		Input::NewPointer(AMotionEvent_getPointerId(event, i), AMotionEvent_getX(event, i), AMotionEvent_getY(event, i));
-	}
-
-	for (int i = 0; i > count; i++)
-	{
-		if (AMotionEvent_getAction(event) == (AMOTION_EVENT_ACTION_DOWN || AMOTION_EVENT_ACTION_POINTER_DOWN)) {}
-
-		if (AMotionEvent_getAction(event) == (AMOTION_EVENT_ACTION_UP || AMOTION_EVENT_ACTION_POINTER_UP)) {}
-
-	}
-	*/
-	/* Get the combined motion event action code and pointer index. */
-	//int32_t AMotionEvent_getAction(const AInputEvent* motion_event);
-
-	/* Get the pointer identifier associated with a particular pointer
-	* data index in this event.  The identifier tells you the actual pointer
-	* number associated with the data, accounting for individual pointers
-	* going up and down since the start of the current gesture. */
-	//int32_t AMotionEvent_getPointerId(const AInputEvent* motion_event, size_t pointer_index);
-}
 void CommandCenter::ProcessCommand(android_app* application, int32_t command)
 {
 	if(application != nullptr)
