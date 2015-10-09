@@ -52,11 +52,33 @@ namespace pm
 		*/
 		void SetId(GLuint textureId);
 
+		/** \brief Return Texturegroup.
+		*
+		* \return textureGroup that has been assigned.
+		*/
+		uint GetTextureGroup();
+
+		/** \brief Set texture Group.
+		*
+		* Approriate OpenGL should be called before assigning index.
+		*
+		* \param[in] TextureGroup new texture group assigned.
+		*/
+		void SetTextureGroup(uint TextureGroup);
+
+
+
 	private:
 
 		GLuint textureIndex;
 
 		glm::uvec2 textureSize;
+
+		uint textureGroup;
+
+
+
+
 	};
 }
 

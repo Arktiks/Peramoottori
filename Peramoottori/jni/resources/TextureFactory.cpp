@@ -6,6 +6,7 @@
 #include <core\Memory.h>
 #include <GLES2\gl2.h>
 
+
 #include <lodepng.h>
 #include <graphics\Text.h>
 
@@ -20,7 +21,7 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 	{
 		if (it->first == fileName)
 		{
-			tempTexture->SetId(it->second.id);
+			tempTexture->SetId(it->second.ti);
 			tempTexture->SetTextureSize(glm::uvec2(it->second.sx, it->second.sy));
 			return tempTexture;
 		}
@@ -30,7 +31,7 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 	CreateOGLTexture(fileName, tempTexture);
 
 	pm::TextureStruct tempTS;
-	tempTS.id = tempTexture->GetId();
+	tempTS.ti = tempTexture->GetId();
 	tempTS.sx = tempTexture->GetTextureSize().x;
 	tempTS.sy = tempTexture->GetTextureSize().y;
 
@@ -50,11 +51,11 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 	DEBUG_GL_ERROR_CLEAR();
 	pm::ImageResource* decodedImage = (pm::ImageResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
 
-	std::vector<unsigned char> img;
-	unsigned int sx = 0;
-	unsigned int sy = 0;
+	std::vector<unsigned char> image;
+	unsigned int sizex = 0;
+	unsigned int sizey = 0;
 
-	unsigned error = lodepng::decode(img, sx, sy, decodedImage->GetImageData().data(), decodedImage->GetImageData().size());
+	unsigned error = lodepng::decode(image, sizex, sizey, decodedImage->GetImageData().data(), decodedImage->GetImageData().size());
 
 	if (error) // display error to debugger
 	{
@@ -63,6 +64,41 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 	}
 	else
 	{
+
+		unsigned int xpo2 = 2;
+		while (xpo2 < sizex)
+			xpo2 *= 2;
+
+		unsigned int ypo2 = 2;
+		while (ypo2 < sizey)
+			ypo2 *= 2;
+
+		std::vector<unsigned char>::iterator it;
+
+		for (int y = 0; y < ypo2; y++)
+		{
+			if (y < sizey)
+			{
+
+				std::vector<unsigned char> entiia;
+				for (int asdf = 0; asdf < (xpo2 - sizex) * 4; asdf++)
+				{
+					it = image.begin() + (sizex + (y * xpo2)) * 4 + asdf;
+					image.insert(it, (unsigned int)(rand() % 256));
+				}
+
+			}
+			else
+			{
+				std::vector<unsigned char> entiia;
+				for (int asdf = 0; asdf < (xpo2)* 4; asdf++)
+				{
+					it = image.end();
+					image.insert(it, (unsigned int)(rand() % 256));
+				}
+			}
+		}
+
 		GLuint textureIndex;
 		glGenTextures(1, &textureIndex);
 		DEBUG_GL_ERROR();
@@ -77,17 +113,30 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 		DEBUG_GL_ERROR();
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-			sx, sy,
+			xpo2, ypo2,
 			0, GL_RGBA, GL_UNSIGNED_BYTE,
-			img.data());
+			image.data());
 		DEBUG_GL_ERROR();
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		DEBUG_GL_ERROR();
 
-		pointer->SetTextureSize(glm::uvec2(sx, sy));
+		pointer->SetTextureSize(glm::uvec2(sizex, sizey));
 		pointer->SetId(textureIndex);
 	}
+}
+
+void pm::TextureFactory::RemoveTextureGroup(uint textureGroupToRemove)
+{
+	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	{
+		if (it->second.tg == textureGroupToRemove)
+		{
+			ResourceManager::GetInstance()->DeleteResource(it->first);
+			it = generatedTextures.erase(it);
+		}
+	}
+
 }
 
 void pm::TextureFactory::RecreateOGLTextures()
@@ -105,6 +154,9 @@ void pm::TextureFactory::DestroyOGLTextures()
 {
 
 	DEBUG_GL_ERROR_CLEAR();
+
+	// Small request to make this a functional function
+
 	/*
 	for (std::map<std::string, Texture*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
@@ -126,7 +178,7 @@ pm::TextureFactory::~TextureFactory()
 	DEBUG_GL_ERROR_CLEAR();
 	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
-		GLuint reference = it->second.id;
+		GLuint reference = it->second.ti;
 		glDeleteTextures(1, &reference);
 		DEBUG_GL_ERROR();
 		//delete it->second;

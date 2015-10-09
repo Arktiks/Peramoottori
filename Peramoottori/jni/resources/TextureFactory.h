@@ -19,8 +19,9 @@ namespace pm
 
 	struct TextureStruct
 	{
-		GLuint id;
-		float sx, sy;
+		GLuint ti; // GL textureIndex
+		float sx, sy; // texture size x and y
+		uint tg; // texture group 
 	};
 	class TextureFactory
 	{
@@ -34,6 +35,8 @@ namespace pm
 		* \param[in] fileName
 		*/
 		static Texture* CreateTexture(std::string fileName);
+
+		static void RemoveTextureGroup(uint textureGroupToRemove);
 
 	private:
 
@@ -53,5 +56,4 @@ namespace pm
 		static std::map<std::string, pm::TextureStruct> generatedTextures;
 	};
 }
-
 #endif

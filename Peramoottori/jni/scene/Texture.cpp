@@ -4,15 +4,14 @@
 
 pm::Texture::Texture() : Component()
 {
-	//this = TextureFactory::CreateTexture();
-
 }
 
 pm::Texture::Texture(std::string path) : Component()
 {
-	Texture* tex = TextureFactory::CreateTexture(path);
-	this->SetId(tex->GetId());
-	this->SetTextureSize(tex->GetTextureSize());
+	Texture* tempTexture = TextureFactory::CreateTexture(path);
+	this->SetId(tempTexture->GetId());
+	this->SetTextureSize(tempTexture->GetTextureSize());
+	delete tempTexture;
 }
 
 void pm::Texture::SetTextureSize(glm::uvec2 textureSize)
@@ -34,4 +33,14 @@ GLuint pm::Texture::GetId()
 glm::uvec2 pm::Texture::GetTextureSize()
 {
 	return textureSize;
+}
+
+uint pm::Texture::GetTextureGroup()
+{
+	return textureGroup;
+}
+
+void pm::Texture::SetTextureGroup(uint inTextureGroup)
+{
+	textureGroup = inTextureGroup;
 }
