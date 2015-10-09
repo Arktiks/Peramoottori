@@ -86,6 +86,21 @@ glm::mat4 pm::Camera::GetCameraMatrix()
 	return cameraMatrix;
 }
 
+glm::vec2 pm::Camera::GetCameraLocation()
+{
+	return cameraPosition;
+}
+
+float pm::Camera::GetCameraRotation()
+{
+	return cameraRotation;
+}
+
+float pm::Camera::GetCameraZoom()
+{
+	return cameraZoom;
+}
+
 glm::mat4 pm::Camera::GetInverseCameraMatrix()
 {
 	return glm::inverse(cameraMatrix);

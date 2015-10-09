@@ -85,6 +85,24 @@ namespace pm
 		*/
 		glm::mat4 GetInverseCameraMatrix();
 
+		/** \brief Get camera location coordinates.
+		*
+		* \return glm::vec2 camera xy coordinates.
+		*/
+		glm::vec2 GetCameraLocation();
+
+		/** \brief Get camera rotation angle.
+		*
+		* \return float camera rotation angle.
+		*/
+		float GetCameraRotation();
+
+		/** \brief Get camera zoom value.
+		*
+		* \return float camer zoom value.
+		*/
+		float GetCameraZoom();
+
 	private:
 
 		glm::vec2 origin;
