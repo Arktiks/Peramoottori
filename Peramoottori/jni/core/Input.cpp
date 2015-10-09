@@ -1,6 +1,5 @@
 #include "Input.h"
 #include <android/input.h>
-#include "Pointer.h"
 using namespace pm;
 
 //Static member variables
@@ -52,7 +51,7 @@ void Input::MovePointer(int id, float x, float y)
 
 glm::vec2 Input::GetTouchCoordinates()
 {
-	return glm::vec2((*pointers.begin())->x, (*pointers.begin())->y);
+	return glm::vec2((*pointers.begin())->GetPos());
 }
 
 glm::vec3 Input::GetAccelerometerData()
