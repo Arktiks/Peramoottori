@@ -19,6 +19,9 @@
 #include <scene\Transformable.h>
 #include <audio\Audio.h>
 
+#include <scene\Physics.h>
+#include <scene\PhysicsSystem.h>
+
 #include <chrono>
 #include <thread>
 
