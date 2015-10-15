@@ -48,11 +48,11 @@ namespace pm
 		* use of them unless he is 100% confident of their purpose.
 		*/
 		///@{
-		/** \brief DEPRECATED FUNCTION! Updates static variables at start of each engine main loop.
+		/** \brief Updates touchState conditions at start of each engine main loop.
 		* 
 		* Used in Application class at start of each main loop.
 		*/
-		static void Update() {};
+		static void Update();
 
 		/** \brief Called in Application::Update() to receive accelerometer data. 
 		*

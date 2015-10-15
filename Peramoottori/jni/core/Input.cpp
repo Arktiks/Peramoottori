@@ -75,3 +75,10 @@ void Input::InputEventAccelerometer(float x, float y, float z)
 	accelerometer.y = y;
 	accelerometer.z = z;
 }
+
+void Input::Update()
+{
+	for (auto &_pointer : pointers)
+		if (_pointer->GetFirstTouch())
+			_pointer->SetFirstTouch();
+}

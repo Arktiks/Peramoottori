@@ -5,30 +5,70 @@ namespace pm
 	class Pointer
 	{
 	public:
-		//glm::vec2 form Getters for the pointer.
 
+		/***********************************************************************************************/
+		///Tors
+		/***********************************************************************************************/
+		//Default constructor
 		Pointer();
-		Pointer(int _id, float _x, float _y) { int id = _id; x = _x; y = _y; sx = _x; sy = _y; lx = _x; ly = _y; };
+		//Setter constructor, you should use this in most cases.
+		Pointer(int _id, float _x, float _y);
+		//Default destructor
 		~Pointer();
 
 
+		/***********************************************************************************************/
 		//Getters
-		int GetID() { return id; }; //Return the id given to the pointer from Android API AMotionEvent_getPointerId().
-		glm::vec2 GetPos() { return glm::vec2(x, y); }; //Return current position of the pointer in glm::vec2 form.
-		glm::vec2 GetStartPos() { return glm::vec2(sx, sy); };//Return starting position of the pointer in glm::vec2 form.
-		glm::vec2 GetLastPos() { return glm::vec2(lx, ly); };//Return previous position of the pointer in glm::vec2 form.
+		/***********************************************************************************************/
+		//Return the id given to the pointer from Android API AMotionEvent_getPointerId().
+		int GetID() { return id; }; 
+		//Return current position of the pointer in glm::vec2 form.
+		glm::vec2 GetPos() { return glm::vec2(x, y); }; 
+		//Return starting position of the pointer in glm::vec2 form.
+		glm::vec2 GetStartPos() { return glm::vec2(sx, sy); };
+		//Return previous position of the pointer in glm::vec2 form.
+		glm::vec2 GetLastPos() { return glm::vec2(lx, ly); };
 
-		//Setters
-		void SetPos(float _x, float _y) { x = _x; y = _y; }; //Set current position of the pointer in glm::vec2 form.
-		void SetStartPos(float _x, float _y) { sx = _x; sy = _y; };//Set starting position of the pointer in glm::vec2 form.
-		void SetLastPos(float _x, float _y) { lx = _x; ly = _y; };//Set previous position of the pointer in glm::vec2 form.
+		//Returns true if this has not been called before for the pointer.
+		bool GetSingleTouch(); 
+		//Returns true if the pointer was put down in last frame.
+		bool GetFirstTouch() { return firstTouch; }; 
 
-		void SetId(int _id){ id = _id; }; //Set the ID of the pointer, use only when creating a pointer with default constructor. The value should come from Android API AMotionEvent_getPointerId().
+		/***********************************************************************************************/
+		///Setters, dont use these unless you are certain you want to override the Android set positions.
+		/***********************************************************************************************/
+		//Set current position of the pointer in glm::vec2 form.
+		void SetPos(float _x, float _y) { x = _x; y = _y; }; 
+		void SetPos(glm::vec2 pos){ x = pos.x; y = pos.y; };
+		//Set starting position of the pointer in glm::vec2 form.
+		void SetStartPos(float _x, float _y) { sx = _x; sy = _y; };
+		void SetStartPos(glm::vec2 pos){ sx = pos.x; sy = pos.y; };
+		//Set previous position of the pointer in glm::vec2 form.
+		void SetLastPos(float _x, float _y)  { lx = _x; ly = _y; };
+		void SetLastPos(glm::vec2 pos){ lx = pos.x; ly = pos.y; };
 
+		/***********************************************************************************************/
+		//System Setters, should not be used outside of the engine.
+		/***********************************************************************************************/
+		//Set the ID of the pointer, use only when creating a pointer with default constructor. The value should come from Android API AMotionEvent_getPointerId().
+		void SetId(int _id){ id = _id; }; 
+		//Setter used in Input::Update, updates firstTouch condition.
+		void SetFirstTouch(){ firstTouch = false; };
+		
 	private:
-		int id; //Android API id from AMotionEvent_getPointerId();
-		float x, y; //Most recent touch cordinates,
-		float sx, sy; //Starting position of the pointer.
-		float lx, ly; // Previous position of the pointer
+
+		/***********************************************************************************************/
+		///Private variables
+		/***********************************************************************************************/
+		//Android API id from AMotionEvent_getPointerId();
+		int id; 
+		//Most recent touch cordinates,
+		float x, y; 
+		//Starting position of the pointer.
+		float sx, sy; 
+		//Previous position of the pointer
+		float lx, ly; 
+		//Variables to check different touch conditions for the pointers.
+		bool singleTouch, firstTouch;
 	};
 }
