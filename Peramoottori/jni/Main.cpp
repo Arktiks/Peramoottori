@@ -32,7 +32,7 @@ namespace pm
 	public:
 		GameClass() : rotation(0.0f), volume(50.0f), paused(false)
 		{
-			float location = 10.0f;
+			float location = 50.0f;
 			float size = 1.0f;
 			float color = 1.0f;
 			float rectangle = 200.0f;
@@ -52,12 +52,10 @@ namespace pm
 				objects[i]->AddComponent(NEW Drawable);
 
 				rectangle -= 30.0f;
-				location += 200.0f;
+				location += 150.0f;
 				size -= 0.1f;
 				color -= 0.2f;
 			}
-
-			objects[4]->GetComponent<Drawable>()->SetDrawState(false);
 
 			/*TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
 			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
@@ -121,7 +119,7 @@ void android_main(android_app* application)
 	}
 
 	Time time;
-	float fps = 0;
+	int timer = 0;
 
 	while (app->Update())
 	{
@@ -131,6 +129,21 @@ void android_main(android_app* application)
 		{
 			if(access->paused == true)
 				access->Unpause();
+
+			timer += 1;
+
+			if (access->input.GetSingleTouch() == true && access->objects.size() > 0)
+			{
+				delete access->objects[0];
+				access->objects.erase(access->objects.begin());
+			}
+
+			if (timer >= 300 && timer < 350)
+			{
+				access->objects[4]->GetComponent<Drawable>()->SetDrawState(false);
+				access->objects[2]->RemoveComponent<Texture>();
+				timer = 351;
+			}
 
 			access->Update();
 			app->window.Clear();

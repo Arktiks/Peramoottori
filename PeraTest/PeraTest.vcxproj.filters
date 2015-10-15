@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="jni">
+      <UniqueIdentifier>1247ccf7-bb93-4d6a-bdc0-3a76310e6371</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>cd582e4f-22da-4a1f-8b44-3c5bc697480a</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\values">
+      <UniqueIdentifier>2cefc2ee-3c43-4391-b862-b4d9be0cff85</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{f727eb0a-5038-4e3c-a3e6-aa0bf7bb773b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{cb4501f9-b839-46fd-8465-260ba785de90}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml" />
+    <AndroidBuild Include="res\values\strings.xml">
+      <Filter>res\values</Filter>
+    </AndroidBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="jni\main.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\android_native_app_glue.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\lodepng.cpp">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libs\android_native_app_glue.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\lodepng.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\DEF_FRAGMENT_SHADER.txt">
+      <Filter>assets</Filter>
+    </Text>
+    <Text Include="assets\DEF_VERTEX_SHADER.txt">
+      <Filter>assets</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\DEF_TEXTURE.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\DEF_TEXTURE_SMALL.png">
+      <Filter>assets</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

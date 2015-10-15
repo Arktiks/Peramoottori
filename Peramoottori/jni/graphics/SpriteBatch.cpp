@@ -183,7 +183,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 		for (int i = 0; i < 8; i++)
 			vertexTexPos.push_back(0);
 
-		DEBUG_WARNING(("Gathering data from GameEntity without TEXTURE."));
+		// DEBUG_WARNING(("Gathering data from GameEntity without TEXTURE."));
 	}
 	else
 	{
