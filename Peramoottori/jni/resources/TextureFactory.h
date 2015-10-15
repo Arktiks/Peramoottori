@@ -8,8 +8,6 @@
 
 namespace pm
 {
-	class Text; // Circular dependencies ouch.
-
 	/** \brief Makes all necessary OpenGL calls to create textures.
 	*
 	* Long description.
@@ -20,7 +18,8 @@ namespace pm
 	struct TextureStruct
 	{
 		GLuint ti; // GL textureIndex
-		float sx, sy; // texture size x and y
+		uint sx; // texture size x
+		uint sy; // texture size y
 		uint tg; // texture group 
 	};
 	class TextureFactory
@@ -43,6 +42,8 @@ namespace pm
 		///	Function used in creating a texture 
 		static void CreateOGLTexture(std::string fileName, Texture* pointer);
 
+		static void CreateOGLTexture(std::string fileName, pm::TextureStruct* tempTS);
+
 		/// recreates OPENGL values after the application get focus again.
 		static void RecreateOGLTextures();
 
@@ -53,7 +54,7 @@ namespace pm
 
 		~TextureFactory();
 
-		static std::map<std::string, pm::TextureStruct> generatedTextures;
+		static std::map<std::string, pm::TextureStruct*> generatedTextures;
 	};
 }
 #endif

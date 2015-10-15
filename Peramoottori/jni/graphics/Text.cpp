@@ -155,9 +155,10 @@ namespace pm
 	{
 		savedFont = (FontResource*)ResourceManager::GetInstance()->LoadAsset(s);
 	}
+
+
 	void Text::ReintializeText(std::string s)
 	{
-		//textVector.clear();
 		std::vector<GameEntity*> tempEntityVector;
 		savedText = new pm::TextResource(s);
 		for (int i = 0; i < savedText->GetTextData().size(); i++)
@@ -183,6 +184,7 @@ namespace pm
 			{
 				DEBUG_INFO(("The font file could be opened and read, but it appears that its font format is unsupported"));
 			}
+
 			else if (error)
 			{
 				DEBUG_INFO(("Font file could not be opened or read, or it is broken"));
@@ -233,10 +235,7 @@ namespace pm
 			GE->AddComponent(NEW Rectangle(slot->bitmap.width, slot->bitmap.rows));
 			GE->AddComponent(NEW Transformable());
 
-			//float scaleY = slot->bitmap.width / slot->bitmap.rows;
-			//if (scaleY < 1)
-			//	GE->GetComponent<Transformable>()->SetScale(1, 1);
-			//else
+
 			GE->GetComponent<Transformable>()->SetScale(slot->bitmap.width, slot->bitmap.rows);
 
 			GE->GetComponent<Transformable>()->SetPosition(position);
@@ -249,7 +248,7 @@ namespace pm
 			GE->GetComponent<Texture>()->SetId(textId);
 			GE->GetComponent<Texture>()->SetTextureSize(glm::vec2(slot->bitmap.width, slot->bitmap.rows));
 
-			GE->AddComponent(NEW Color(glm::vec4(0.0f, 0.8f, 0.0f, 0.0f)));
+			GE->AddComponent(NEW Color(glm::vec4(0.0f, 0.6f, 0.0f, 1.0f)));
 
 			glActiveTexture(0);
 			glBindTexture(GL_TEXTURE_2D, 0);
@@ -262,76 +261,87 @@ namespace pm
 
 	void Text::Character(FontResource* font, char c, float x, float y, float w, float h)
 	{
+		////
+		FT_Library  library;
+
+		FT_Error error = FT_Init_FreeType(&library);
+		if (error)
+			DEBUG_INFO(("Failed to initialize freetype library!"));
+
+		std::vector<FT_Byte> ttf = font->GetTTFData();
+
+		FT_Face face;
+
+		FT_UInt glyph_index;
+
+		error = FT_New_Memory_Face(library,
+			&ttf[0],
+			ttf.size(),
+			0,
+			&face);
+		if (error == FT_Err_Unknown_File_Format)
+		{
+			DEBUG_INFO(("The font file could be opened and read, but it appears that its font format is unsupported"));
+		}
+		else if (error)
+		{
+			DEBUG_INFO(("Font file could not be opened or read, or it is broken"));
+		}
+
+		FT_GlyphSlot  slot = face->glyph;
+
+		error = FT_Set_Char_Size(
+			face,						/* handle to face object           */
+			0,							/* char_width in 1/64th of points  */
+			32 * 64,					/* char_height in 1/64th of points */
+			1280,						/* horizontal device resolution    */
+			720);						/* vertical device resolution      */
+
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+		glyph_index = FT_Get_Char_Index(face, c);
+
+		glGenTextures(1, &textId);
+		glActiveTexture(textId);
+		glBindTexture(GL_TEXTURE_2D, textId);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		float ux = slot->bitmap_left;
+		float uy = slot->bitmap_top;
+
+
+
+
+		FT_Load_Glyph(face, glyph_index, FT_LOAD_RENDER);
+
+		FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, slot->bitmap.width, slot->bitmap.rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, slot->bitmap.buffer);
+
+		float uw = slot->bitmap.width;
+		float uh = slot->bitmap.rows;
+
+
+
+		Texture *textTexture = NEW Texture();
+		textTexture->SetId(textId);
+		textTexture->SetTextureSize(glm::vec2(slot->bitmap.width, slot->bitmap.rows));
+
+		///
 		GameEntity* GE = NEW GameEntity();
 
-		//FT_Library  library;
-		//
-		//FT_Error error = FT_Init_FreeType(&library);
-		//if (error)
-		//	DEBUG_INFO(("Failed to initialize freetype library!"));
-		//
-		//FT_Face face;
-		//
-		//std::vector<FT_Byte> ttf = font->GetTTFData();
-		//
-		//error = FT_New_Memory_Face(library,
-		//	&ttf[0],
-		//	ttf.size(),
-		//	0,
-		//	&face);
-		//if (error == FT_Err_Unknown_File_Format)
-		//{
-		//	DEBUG_INFO(("The font file could be opened and read, but it appears that its font format is unsupported"));
-		//}
-		//else if (error)
-		//{
-		//	DEBUG_INFO(("Font file could not be opened or read, or it is broken"));
-		//}
-		//
-		//FT_GlyphSlot  slot = face->glyph;
-		//
-		//error = FT_Set_Char_Size(
-		//	face,						/* handle to face object           */
-		//	0,							/* char_width in 1/64th of points  */
-		//	32 * 64,					/* char_height in 1/64th of points */
-		//	1280,						/* horizontal device resolution    */
-		//	720);						/* vertical device resolution      */
-		
 		glm::vec2 position(x, y);
-		//glm::vec2 rightBottom(w, h);                             
-		//
-		//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		//
-		//glGenTextures(1, &textId);
-		//glActiveTexture(textId);
-		//glBindTexture(GL_TEXTURE_2D, textId);
-		//
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		//
-		//float ux = slot->bitmap_left;
-		//float uy = slot->bitmap_top;
-		//		  
-		//float uw = slot->bitmap.width;
-		//float uh = slot->bitmap.rows;
-		//
-		//FT_UInt glyph_index;
-		//
-		//glyph_index = FT_Get_Char_Index(face, c);
-		//
-		//FT_Load_Glyph(face, glyph_index, FT_LOAD_RENDER);
-		//
-		//FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL);         //slot->bitmap.width / (16 / (w / 20)), slot->bitmap.rows / (16 / (h / 20)))
-		//
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, slot->bitmap.width, slot->bitmap.rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, slot->bitmap.buffer);
-		
+
 		GE->AddComponent(NEW Rectangle(w,h));
 		GE->AddComponent(NEW Transformable());
 		
 
-		GE->GetComponent<Transformable>()->SetScale(font->Getasd(c) / (450 / (w / 20)), font->Getasda(c) / (450 / (h / 20)));
+		GE->GetComponent<Transformable>()->SetScale(uw / (450 / (w / 20)), uh / (450 / (h / 20)));
 
 		GE->GetComponent<Transformable>()->SetPosition(position);
 		GE->GetComponent<Transformable>()->SetRotation(0);
@@ -339,19 +349,11 @@ namespace pm
 		GE->AddComponent(NEW Drawable());
 		GE->GetComponent<Drawable>()->SetDrawState(true);
 
-		GE->AddComponent(font->GetTexture(c));
-
-		//GE->AddComponent(NEW Texture());
-		//GE->GetComponent<Texture>()->SetId(font->GetTexture(c)->GetId());
-		//GE->GetComponent<Texture>()->SetTextureSize(font->GetTexture(c)->GetTextureSize());
-
-		//GE->AddComponent(NEW Texture());
-		//GE->GetComponent<Texture>()->SetId(textId);
-		//GE->GetComponent<Texture>()->SetTextureSize(glm::vec2(slot->bitmap.width, slot->bitmap.rows));
+		GE->AddComponent(textTexture);
 
 		std::vector<float> clr = font->GetColor();
 
-		GE->AddComponent(NEW Color(glm::vec4(clr[0], clr[1], clr[2], clr[3])));
+		GE->AddComponent(NEW Color(glm::vec4(clr[0], clr[1], clr[2], 0.5)));
 
 		glActiveTexture(0);
 		glBindTexture(GL_TEXTURE_2D, 0);

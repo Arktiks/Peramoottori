@@ -37,7 +37,7 @@ void RenderSystem::Initialize()
 	Vector2<int> resolution = Application::GetInstance()->window.GetResolution(); // Get resolution of display.
 	float right = resolution.x; // Calculate limits.
 	float top = resolution.y;
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, -1.0f, 1.0f);
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, 1.0f, 0.0f);
 
 	vertexBuffer.CreateBuffer(VERTEX);
 	indexBuffer.CreateBuffer(INDEX);

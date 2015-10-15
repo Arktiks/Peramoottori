@@ -10,19 +10,20 @@
 #include <lodepng.h>
 #include <graphics\Text.h>
 
-pm::TextureStruct TS;
-std::map<std::string, pm::TextureStruct> pm::TextureFactory::generatedTextures = { { "MapInit", TS } };
+pm::TextureStruct* TS;
+std::map<std::string, pm::TextureStruct*> pm::TextureFactory::generatedTextures = { { "MapInit", TS } };
 
 pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 {
+	
 	pm::Texture* tempTexture = NEW pm::Texture;
 
-	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, pm::TextureStruct*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
 		if (it->first == fileName)
 		{
-			tempTexture->SetId(it->second.ti);
-			tempTexture->SetTextureSize(glm::uvec2(it->second.sx, it->second.sy));
+			tempTexture->SetId(it->second->ti);
+			tempTexture->SetTextureSize(glm::uvec2((it->second->sx), (it->second->sy)));
 			return tempTexture;
 		}
 	}
@@ -30,10 +31,11 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 
 	CreateOGLTexture(fileName, tempTexture);
 
-	pm::TextureStruct tempTS;
-	tempTS.ti = tempTexture->GetId();
-	tempTS.sx = tempTexture->GetTextureSize().x;
-	tempTS.sy = tempTexture->GetTextureSize().y;
+	pm::TextureStruct* tempTS = (pm::TextureStruct*)malloc(sizeof(*tempTS));
+
+	tempTS->ti = tempTexture->GetId();
+	tempTS->sx = (uint)tempTexture->GetTextureSize().x;
+	tempTS->sy = (uint)tempTexture->GetTextureSize().y;
 
 	generatedTextures[fileName] = tempTS;
 
@@ -79,25 +81,24 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 		{
 			if (y < sizey)
 			{
+				it = image.begin() + (sizex + (y * xpo2)) * 4;
 
-				std::vector<unsigned char> entiia;
-				for (int asdf = 0; asdf < (xpo2 - sizex) * 4; asdf++)
-				{
-					it = image.begin() + (sizex + (y * xpo2)) * 4 + asdf;
-					image.insert(it, (unsigned int)(rand() % 256));
-				}
-
+				std::vector<unsigned char> fillerVec((xpo2 - sizex) * 4, 0);
+				
+				image.insert(it, fillerVec.begin(), fillerVec.end());
 			}
 			else
 			{
-				std::vector<unsigned char> entiia;
-				for (int asdf = 0; asdf < (xpo2)* 4; asdf++)
-				{
-					it = image.end();
-					image.insert(it, (unsigned int)(rand() % 256));
-				}
+				it = image.end();
+
+				std::vector<unsigned char> fillerVec(xpo2 * 4, 0);
+
+				image.insert(it, fillerVec.begin(), fillerVec.end());
 			}
 		}
+
+		sizex = xpo2;
+		sizey = ypo2;
 
 		GLuint textureIndex;
 		glGenTextures(1, &textureIndex);
@@ -126,26 +127,110 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 	}
 }
 
+void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::TextureStruct* tempTS)
+{
+	if (fileName.empty() || tempTS == nullptr)
+	{
+		DEBUG_WARNING(("TextureFactory failed to create texture (%s).", fileName.c_str()));
+		return;
+	}
+
+	DEBUG_GL_ERROR_CLEAR();
+	pm::ImageResource* decodedImage = (pm::ImageResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
+
+	std::vector<unsigned char> image;
+	unsigned int sizex = 0;
+	unsigned int sizey = 0;
+
+	unsigned error = lodepng::decode(image, sizex, sizey, decodedImage->GetImageData().data(), decodedImage->GetImageData().size());
+
+	if (error) // display error to debugger
+	{
+		DEBUG_WARNING(("Texture Creation failed lodepng error #%u", error));
+		return;
+	}
+	else
+	{
+
+		unsigned int xpo2 = 2;
+		while (xpo2 < sizex)
+			xpo2 *= 2;
+
+		unsigned int ypo2 = 2;
+		while (ypo2 < sizey)
+			ypo2 *= 2;
+
+		std::vector<unsigned char>::iterator it;
+
+		for (int y = 0; y < ypo2; y++)
+		{
+			if (y < sizey)
+			{
+				it = image.begin() + (sizex + (y * xpo2)) * 4;
+
+				std::vector<unsigned char> fillerVec((xpo2 - sizex) * 4, 0);
+
+				image.insert(it, fillerVec.begin(), fillerVec.end());
+			}
+			else
+			{
+				it = image.end();
+
+				std::vector<unsigned char> fillerVec(xpo2 * 4, 0);
+
+				image.insert(it, fillerVec.begin(), fillerVec.end());
+			}
+		}
+
+		sizex = xpo2;
+		sizey = ypo2;
+
+		GLuint textureIndex;
+		glGenTextures(1, &textureIndex);
+		DEBUG_GL_ERROR();
+
+		glBindTexture(GL_TEXTURE_2D, textureIndex);
+		DEBUG_GL_ERROR();
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		DEBUG_GL_ERROR();
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		DEBUG_GL_ERROR();
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+			xpo2, ypo2,
+			0, GL_RGBA, GL_UNSIGNED_BYTE,
+			image.data());
+		DEBUG_GL_ERROR();
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+		DEBUG_GL_ERROR();
+
+		tempTS->sx = sizex;
+		tempTS->sy = sizey;
+		tempTS->ti = textureIndex;
+	}
+}
+
 void pm::TextureFactory::RemoveTextureGroup(uint textureGroupToRemove)
 {
-	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, pm::TextureStruct*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
-		if (it->second.tg == textureGroupToRemove)
+		if (it->second->tg == textureGroupToRemove)
 		{
 			ResourceManager::GetInstance()->DeleteResource(it->first);
 			it = generatedTextures.erase(it);
 		}
 	}
-
 }
 
 void pm::TextureFactory::RecreateOGLTextures()
 {
-	pm::Texture* tempTexture = nullptr;
 	if (!generatedTextures.empty())
 	{
-		for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
-			CreateOGLTexture(it->first, tempTexture);
+		for (std::map<std::string, pm::TextureStruct*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+			CreateOGLTexture(it->first, it->second);
 	}
 }
 
@@ -176,9 +261,9 @@ void pm::TextureFactory::DestroyOGLTextures()
 pm::TextureFactory::~TextureFactory()
 {
 	DEBUG_GL_ERROR_CLEAR();
-	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, pm::TextureStruct*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
-		GLuint reference = it->second.ti;
+		GLuint reference = it->second->ti;
 		glDeleteTextures(1, &reference);
 		DEBUG_GL_ERROR();
 		//delete it->second;

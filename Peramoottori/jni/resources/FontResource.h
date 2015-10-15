@@ -43,7 +43,7 @@ namespace pm
 		FontResource(std::vector<FT_Byte> ttfData) :
 			ttfData(ttfData)
 		{
-			SetColor(1, 0, 1, 0);
+			SetColor(0.0f, 1.0f, 0.0f, 0.5f);
 			CharTexture(ttfData);
 		};
 
@@ -112,6 +112,7 @@ namespace pm
 			color.push_back(blue);
 			color.push_back(alpha);
 		};
+
 		void CharTexture(std::vector<FT_Byte> ttfData)
 		{
 			FT_Library  library;
