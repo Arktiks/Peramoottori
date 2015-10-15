@@ -149,53 +149,20 @@ int CommandCenter::HandleInput(android_app* application, AInputEvent* event)
 	http://stackoverflow.com/questions/14391818/how-do-you-use-motionevent-action-pointer-index-shift
 	*/
 
-	/** CURRENT PROBLEMS
-	* How to make sure pointer index of the AMOTION_EVENT_ACTION is correct?
-	* Done with bitshift?
-	* Reshift the index to a temp mask with the event type, then compare flags for action and index?
-	*/
-
+	//Reverted to original, minimal functions.
 
 	if (AInputEvent_getSource(event) == AINPUT_SOURCE_TOUCHSCREEN) // AInputEvent contains properties of input events.
 	{
-		if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
-		{
-			int action = AMotionEvent_getAction(event);
-			int pointerIndex = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK) >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-			int pointerID = AMotionEvent_getPointerId(event, pointerIndex);
+		if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) // Input event is motion.
+			Input::InputEventMovement(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
 
-			switch (action & AMOTION_EVENT_ACTION_MASK)
-			{
-			case AMOTION_EVENT_ACTION_DOWN && AMOTION_EVENT_ACTION_POINTER_DOWN:
-			{
-				Input::NewPointer(pointerID, AMotionEvent_getX(event, pointerIndex), AMotionEvent_getY(event, pointerIndex));
-				break;
-			}
-			case AMOTION_EVENT_ACTION_UP:
-			{
-				Input::NoPointers();
-				break;
-			}
-			case AMOTION_EVENT_ACTION_POINTER_UP:
-			{
-				if (Input::CheckPointer(pointerID))
-					Input::RemovePointer(pointerID);
-				break;
-			}
-			case AMOTION_EVENT_ACTION_MOVE:
-			{
-				if (Input::CheckPointer(pointerID))
-					Input::MovePointer(pointerID, AMotionEvent_getX(event, pointerIndex), AMotionEvent_getY(event, pointerIndex));
-				break;
-			}
+		if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_DOWN) // Key has been pressed down.
+			Input::InputEventKeyDown();
 
-			default:
-				break;
-			}
-
-
-		}
+		if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_UP) // Key has been released.
+			Input::InputEventKeyUp();
 	}
+
 	return 0; // Return 0 for any default dispatching.
 }
 

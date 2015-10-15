@@ -1,57 +1,32 @@
 #include "Input.h"
 #include <android/input.h>
+
 using namespace pm;
 
-//Static member variables
+float Input::_x = 0;
+float Input::_y = 0;
+float Input::lx = 0;
+float Input::ly = 0;
+bool Input::touch = false;
+bool Input::singleTouch = false;
+bool Input::startOfDrag = false;
+float Input::startOfDragX = 0;
+float Input::startOfDragY = 0;
 glm::vec3 Input::accelerometer = glm::vec3(0, 0, 0);
-std::vector<Pointer*> Input::pointers;
-
-
-bool Input::CheckPointer(int id)
-{
-	for (auto &_pointer : pointers)
-		if (_pointer->GetID() == id)
-			return true;
-	return false;
-
-}
-
-void Input::NewPointer(int id, float x, float y)
-{
-	pointers.push_back(new Pointer(id, x, y));
-}
-
-void Input::RemovePointer(int id)
-{
-	std::vector<Pointer*>::iterator it;
-	for (it = pointers.begin(); it != pointers.end(); it++)
-		if ((*it)->GetID() == id)
-			pointers.erase(it);
-}
-
-void Input::NoPointers()
-{
-	pointers.clear();
-}
-
-void Input::MovePointer(int id, float x, float y)
-{
-	for (auto &_pointer : pointers)
-		if (_pointer->GetID() == id)
-		{
-			_pointer->SetLastPos(_pointer->GetPos().x, _pointer->GetPos().y);
-			_pointer->SetPos(x, y);
-		}
-}
-
-
-/////////////////////////////////////
-/*Everything from before the rework*/
-/////////////////////////////////////
 
 glm::vec2 Input::GetTouchCoordinates()
 {
-	return glm::vec2((*pointers.begin())->GetPos());
+	return glm::vec2(_x, _y);
+}
+
+glm::vec2 Input::GetDragVector()
+{
+	if (touch == true && startOfDrag == false)
+	{
+		startOfDrag = true;
+		return glm::vec2(0, 0);
+	}
+	return glm::vec2(_x - lx, _y - ly);
 }
 
 glm::vec3 Input::GetAccelerometerData()
@@ -59,26 +34,56 @@ glm::vec3 Input::GetAccelerometerData()
 	return accelerometer;
 }
 
-
-bool Input::Touch()
+bool Input::GetSingleTouch()
 {
-	if (pointers.begin() != pointers.end())
+	if (touch == true && singleTouch == false)
+	{
+		singleTouch = true;
 		return true;
+	}
 	return false;
 }
 
+bool Input::IsTouching()
+{
+	return touch;
+}
+
 /**** Below are static functions used in Application.cpp ****/
+
+void Input::Update()
+{
+	lx = _x;
+	ly = _y;
+
+	if (touch == false)
+	{
+		singleTouch = false;
+		startOfDrag = false;
+	}
+}
+
+void Input::InputEventKeyUp()
+{
+	touch = false;
+}
+
+void Input::InputEventKeyDown()
+{
+	touch = true;
+	startOfDragX = _x;
+	startOfDragY = _y;
+}
+
+void Input::InputEventMovement(float x, float y)
+{
+	_x = x;
+	_y = y;
+}
 
 void Input::InputEventAccelerometer(float x, float y, float z)
 {
 	accelerometer.x = x;
 	accelerometer.y = y;
 	accelerometer.z = z;
-}
-
-void Input::Update()
-{
-	for (auto &_pointer : pointers)
-		if (_pointer->GetFirstTouch())
-			_pointer->SetFirstTouch();
 }
