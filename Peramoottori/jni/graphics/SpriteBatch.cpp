@@ -36,8 +36,17 @@ void SpriteBatch::Draw()
 {
 	BatchComponents();
 
-	for (int i = 0; i < batchVector.size(); i++)
-		RenderSystem::GetInstance()->Draw(&batchVector[i]);
+	//glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+	//glBlendFunc();
+	RenderSystem::GetInstance()->Draw(&batchVector[0]);
+	
+	//glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_BLEND);
+	glDepthMask(GL_FALSE);
+	glEnable(GL_BLEND);
+	RenderSystem::GetInstance()->Draw(&batchVector[1]);
+	glDepthMask(GL_TRUE);
 
 	gameEntityVector.clear();
 	opaqueGameEntityVector.clear();
@@ -220,7 +229,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	/// COLOR ///
 	if (gameEntity->GetComponent<Color>() == nullptr)
 	{
-		vertexColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+		vertexColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 	else
 	{
