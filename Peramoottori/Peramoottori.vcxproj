@@ -86,12 +86,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\core\CommandCenter.cpp" />
+    <ClCompile Include="jni\core\GestureManager.cpp" />
     <ClCompile Include="jni\core\Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\core\Log.cpp" />
     <ClCompile Include="jni\core\Memory.cpp" />
     <ClCompile Include="jni\core\Passert.cpp" />
+    <ClCompile Include="jni\core\Pointer.cpp" />
     <ClCompile Include="jni\core\Profiler.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
@@ -157,12 +159,14 @@
     </ClInclude>
     <ClInclude Include="jni\core\Application.h" />
     <ClInclude Include="jni\core\CommandCenter.h" />
+    <ClInclude Include="jni\core\GestureManager.h" />
     <ClInclude Include="jni\core\Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="jni\core\Log.h" />
     <ClInclude Include="jni\core\Memory.h" />
     <ClInclude Include="jni\core\Passert.h" />
+    <ClInclude Include="jni\core\Pointer.h" />
     <ClInclude Include="jni\core\Profiler.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>
