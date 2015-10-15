@@ -93,7 +93,6 @@
     <ClCompile Include="jni\core\Log.cpp" />
     <ClCompile Include="jni\core\Memory.cpp" />
     <ClCompile Include="jni\core\Passert.cpp" />
-    <ClCompile Include="jni\core\Pointer.cpp" />
     <ClCompile Include="jni\core\Profiler.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
@@ -166,7 +165,6 @@
     <ClInclude Include="jni\core\Log.h" />
     <ClInclude Include="jni\core\Memory.h" />
     <ClInclude Include="jni\core\Passert.h" />
-    <ClInclude Include="jni\core\Pointer.h" />
     <ClInclude Include="jni\core\Profiler.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
     </ClInclude>

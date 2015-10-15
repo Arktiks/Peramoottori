@@ -1,70 +1,102 @@
 #include "Input.h"
-#include <android/input.h>
 using namespace pm;
 
 //Static member variables
 glm::vec3 Input::accelerometer = glm::vec3(0, 0, 0);
-std::vector<Pointer*> Input::pointers;
+Input::Pointer Input::pointers[8];
+int Input::pointerCount = 0;
 
-
-bool Input::CheckPointer(int id)
+void Input::AndroidEventHandler(AInputEvent* aEvent)
 {
-	for (auto &_pointer : pointers)
-		if (_pointer->GetID() == id)
-			return true;
-	return false;
+	int32_t action = AMotionEvent_getAction(aEvent);
 
-}
+	switch (action & AMOTION_EVENT_ACTION_MASK)
+	{
+	case AMOTION_EVENT_ACTION_DOWN:
+	case AMOTION_EVENT_ACTION_POINTER_DOWN:
+	{
+		int idx = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
+			>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
 
-void Input::NewPointer(int id, float x, float y)
-{
-	pointers.push_back(new Pointer(id, x, y));
-}
+		if (idx >= maxInputs)
+			break;
 
-void Input::RemovePointer(int id)
-{
-	std::vector<Pointer*>::iterator it;
-	for (it = pointers.begin(); it != pointers.end(); it++)
-		if ((*it)->GetID() == id)
-			pointers.erase(it);
-}
+		pointerCount++;
 
-void Input::NoPointers()
-{
-	pointers.clear();
-}
+		pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
+		pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
+		pointers[idx].index = idx;
+		pointers[idx].tap = false;
+		pointers[idx].singleTouch = true;
+	}
+		break;
+	case AMOTION_EVENT_ACTION_MOVE:
+	{
+		const int count = AMotionEvent_getPointerCount(aEvent);
 
-void Input::MovePointer(int id, float x, float y)
-{
-	for (auto &_pointer : pointers)
-		if (_pointer->GetID() == id)
+		for (int idx = 0; idx < count && idx < maxInputs; idx++)
 		{
-			_pointer->SetLastPos(_pointer->GetPos().x, _pointer->GetPos().y);
-			_pointer->SetPos(x, y);
+			pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
+			pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
+
 		}
+	}
+		break;
+	case AMOTION_EVENT_ACTION_UP:
+	case AMOTION_EVENT_ACTION_POINTER_UP:
+	case AMOTION_EVENT_ACTION_CANCEL:
+	case AMOTION_EVENT_ACTION_OUTSIDE:
+	{
+		int idx = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
+			>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+
+		if (idx >= maxInputs)
+			break;
+
+		pointerCount--;
+
+		pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
+		pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
+
+		if (!pointers[idx].tap)
+		{
+			for (unsigned int i = idx; i < maxInputs - 1; i++)
+			{
+				pointers[i].index = pointers[i + 1].index;
+				pointers[i].sPos = pointers[i + 1].sPos;
+			}
+		}
+	}
+		break;
+	default:
+		break;
+	}
+
 }
 
-
-/////////////////////////////////////
-/*Everything from before the rework*/
-/////////////////////////////////////
-
-glm::vec2 Input::GetTouchCoordinates()
+const Input::Pointer& Input::operator[](int id) const
 {
-	return glm::vec2((*pointers.begin())->GetPos());
+	if (id < maxInputs)
+		return pointers[id];
+	return pointers[maxInputs - 1];
 }
 
-glm::vec3 Input::GetAccelerometerData()
+bool Input::Pointer::GetSingleTouch()
 {
-	return accelerometer;
+	return singleTouch;
 }
 
-
-bool Input::Touch()
+ int Input::Pointer::GetID()
 {
-	if (pointers.begin() != pointers.end())
-		return true;
-	return false;
+	return index;
+}
+ glm::vec2 Input::Pointer::GetPos()
+{
+	return pos;
+}
+ glm::vec2 Input::Pointer::GetStartPos()
+{
+	return sPos;
 }
 
 /**** Below are static functions used in Application.cpp ****/
@@ -78,7 +110,18 @@ void Input::InputEventAccelerometer(float x, float y, float z)
 
 void Input::Update()
 {
-	for (auto &_pointer : pointers)
-		if (_pointer->GetFirstTouch())
-			_pointer->SetFirstTouch();
+
+	for (int i = 0; i < maxInputs; i++)
+	{
+		if (!pointers[i].touch)
+			for (unsigned int j = i; j < maxInputs - 1; j++)
+			{
+				pointers[j].index = pointers[j + 1].index;
+				pointers[j].sPos = pointers[j + 1].sPos;
+				pointers[j].singleTouch = false;
+			}
+		else
+			pointers[i].touch = false;
+	}
+
 }
