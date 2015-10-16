@@ -41,26 +41,27 @@ Drawables::Drawables() : Scene("Drawables"), rotation(0.0f)
 		entities[i]->AddComponent(NEW Rectangle(size_x, size_y));
 		entities[i]->AddComponent(NEW Drawable);
 
-		/* Vary drawables between creating them. */
 		location_x += MAX_WIDTH;
 		scale_x = Random() + Random();
 		scale_y = Random() + Random();
-		size_x = Random(MAX_WIDTH);
-		size_y = Random(MAX_HEIGHT);
+		size_x = MAX_WIDTH - Random(50);
+		size_y = MAX_HEIGHT - Random(50);
 
-		if (location_x >= WIN_X) // Next row.
+		if (location_x >= WIN_X)
 		{
 			location_x = 0;
 			location_y += MAX_HEIGHT * 1.2f;
 		}
 
-		if (location_y >= WIN_Y) // Screen is full.
+		if (location_y >= WIN_Y)
 			break;
 	}
 }
 
 Drawables::~Drawables()
 {
+	for (std::Vector<GameEntity*>::iterator it = entities.begin(); it != entities.end(); it++)
+		delete (*it);
 }
 
 void Drawables::Pause()

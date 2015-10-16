@@ -16,6 +16,9 @@
     <Filter Include="assets">
       <UniqueIdentifier>{cb4501f9-b839-46fd-8465-260ba785de90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\Scenes">
+      <UniqueIdentifier>{44673615-5def-407e-99c9-f0b87e37a802}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="AndroidManifest.xml" />
@@ -40,7 +43,10 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="Drawables.cpp">
-      <Filter>jni</Filter>
+      <Filter>jni\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>jni\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,7 +63,10 @@
       <Filter>jni</Filter>
     </ClInclude>
     <ClInclude Include="Drawables.h">
-      <Filter>jni</Filter>
+      <Filter>jni\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>jni\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
