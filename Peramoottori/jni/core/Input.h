@@ -41,6 +41,7 @@ namespace pm
 		static const int maxInputs = 8;
 		static Pointer pointers[maxInputs];
 		static int pointerCount;
+		static int incrPointerID;
 
 		static glm::vec3 accelerometer;
 

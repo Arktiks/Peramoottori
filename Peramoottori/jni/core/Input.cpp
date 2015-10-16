@@ -5,6 +5,7 @@ using namespace pm;
 glm::vec3 Input::accelerometer = glm::vec3(0, 0, 0);
 Input::Pointer Input::pointers[8];
 int Input::pointerCount = 0;
+int Input::incrPointerID = 1;
 
 void Input::AndroidEventHandler(AInputEvent* aEvent)
 {
@@ -23,10 +24,14 @@ void Input::AndroidEventHandler(AInputEvent* aEvent)
 
 		pointerCount++;
 
+		if (incrPointerID > 10000)
+			incrPointerID = 1;
+		incrPointerID++;
+
 		pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
 		pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
 		pointers[idx].index = idx;
-		pointers[idx].id = AMotionEvent_getPointerId(aEvent, idx);
+		pointers[idx].id = incrPointerID;
 		pointers[idx].tap = false;
 		pointers[idx].singleTouch = true;
 		pointers[idx].touch = true;
@@ -91,7 +96,7 @@ bool Input::Pointer::GetSingleTouch()
 {
 	return singleTouch;
 }
- int Input::Pointer::GetID()
+int Input::Pointer::GetID()
 {
 	return id;
 }
