@@ -33,6 +33,7 @@ namespace pm
 		public:
 			int GetID();
 			bool GetSingleTouch();
+			bool IsTouching();
 			glm::vec2 GetPos();
 			glm::vec2 GetStartPos();
 		};
@@ -44,8 +45,21 @@ namespace pm
 
 	public:
 
+		/// Returns the current touch coordinates.
+		/**
+		\return Returns the last known touch coordinates as glm vec2.
+		*/
+		static glm::vec2 GetTouchCoordinates();
 
-		const Pointer& operator[](int id) const;
+		/// Returns the current state of touch.
+		/**
+		\return If there are no pointers, return false. Otherwise, returns true.
+		*/
+		static bool IsTouching();
+
+		static int GetPointerCount();
+
+		Pointer& operator[](int id);
 
 		/** @name Restricted Static Public Member Functions
 		* Following static functions have already been implemented in Application class. User is not recommended

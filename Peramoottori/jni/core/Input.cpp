@@ -28,6 +28,7 @@ void Input::AndroidEventHandler(AInputEvent* aEvent)
 		pointers[idx].index = idx;
 		pointers[idx].tap = false;
 		pointers[idx].singleTouch = true;
+		pointers[idx].touch = true;
 	}
 		break;
 	case AMOTION_EVENT_ACTION_MOVE:
@@ -36,8 +37,8 @@ void Input::AndroidEventHandler(AInputEvent* aEvent)
 
 		for (int idx = 0; idx < count && idx < maxInputs; idx++)
 		{
-			pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
-			pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
+			pointers[idx].pos.x = AMotionEvent_getX(aEvent, idx);
+			pointers[idx].pos.y = AMotionEvent_getY(aEvent, idx);
 
 		}
 	}
@@ -73,8 +74,12 @@ void Input::AndroidEventHandler(AInputEvent* aEvent)
 	}
 
 }
+int Input::GetPointerCount()
+{
+	return pointerCount;
+}
 
-const Input::Pointer& Input::operator[](int id) const
+Input::Pointer& Input::operator[](int id)
 {
 	if (id < maxInputs)
 		return pointers[id];
@@ -85,7 +90,14 @@ bool Input::Pointer::GetSingleTouch()
 {
 	return singleTouch;
 }
-
+glm::vec2 Input::GetTouchCoordinates()
+{
+	for (int i = 0; i < maxInputs; i++)
+	{
+		if (pointers[i].touch)
+			return pointers[i].GetPos();
+	}
+}
  int Input::Pointer::GetID()
 {
 	return index;
@@ -98,8 +110,21 @@ bool Input::Pointer::GetSingleTouch()
 {
 	return sPos;
 }
+ bool Input::Pointer::IsTouching()
+ {
+	 return touch;
+ }
 
-/**** Below are static functions used in Application.cpp ****/
+ bool Input::IsTouching()
+ {
+	 for (int i = 0; i < maxInputs; i++)
+	 {
+		 if (pointers[i].touch)
+			 return true;
+	 }
+	 return false;
+ }
+	 /**** Below are static functions used in Application.cpp ****/
 
 void Input::InputEventAccelerometer(float x, float y, float z)
 {
@@ -120,8 +145,6 @@ void Input::Update()
 				pointers[j].sPos = pointers[j + 1].sPos;
 				pointers[j].singleTouch = false;
 			}
-		else
-			pointers[i].touch = false;
 	}
 
 }
