@@ -9,7 +9,8 @@ namespace pm
 
 	/** \brief Class for controlling screen view.
 	*
-	* Description.
+	* Default camera is created if none is in use.
+	* Camera can be used to zoom, move and/or rotate view.
 	*
 	* \ingroup Scene
 	*/
