@@ -138,31 +138,9 @@ void CommandCenter::LostFocus()
 	DisableSensors();
 }
 
-int CommandCenter::HandleInput(android_app* application, AInputEvent* event)
+int CommandCenter::HandleInput(android_app* application, AInputEvent* _event)
 {
-
-	/*
-	Actual C++ explanation, but very brief.
-	http://flohofwoe.blogspot.fi/2014/10/cross-platform-multitouch-input.html
-
-	How its done in java, might be useful.
-	http://stackoverflow.com/questions/14391818/how-do-you-use-motionevent-action-pointer-index-shift
-	*/
-
-	//Reverted to original, minimal functions.
-
-	if (AInputEvent_getSource(event) == AINPUT_SOURCE_TOUCHSCREEN) // AInputEvent contains properties of input events.
-	{
-		if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) // Input event is motion.
-			Input::InputEventMovement(AMotionEvent_getX(event, 0), AMotionEvent_getY(event, 0));
-
-		if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_DOWN) // Key has been pressed down.
-			Input::InputEventKeyDown();
-
-		if (AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_UP) // Key has been released.
-			Input::InputEventKeyUp();
-	}
-
+	Input::AndroidEventHandler(_event);
 	return 0; // Return 0 for any default dispatching.
 }
 
