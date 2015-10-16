@@ -13,6 +13,82 @@
       <Platform>Tegra-Android</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Peramoottori\jni\audio\Audio.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\audio\AudioManager.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\audio\AudioPlayer.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Application.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\CommandCenter.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Input.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Log.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Memory.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Passert.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Profiler.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\ProfilerManager.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\Time.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\WindowHandler.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Batch.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Buffer.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Color.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Rectangle.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\RenderSystem.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Shader.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\SpriteBatch.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\graphics\Text.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\Main.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\resources\ResourceManager.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\resources\TextureFactory.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Camera.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\CameraSystem.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Component.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\GameEntity.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Texture.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\TextureCoordinates.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Transformable.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Peramoottori\jni\audio\Audio.h" />
+    <ClInclude Include="..\Peramoottori\jni\audio\AudioManager.h" />
+    <ClInclude Include="..\Peramoottori\jni\audio\AudioPlayer.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Application.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\CommandCenter.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Input.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Log.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Memory.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Passert.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Profiler.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\ProfilerManager.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Time.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Vector2.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\Vector3.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\WindowHandler.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Batch.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Buffer.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Color.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Drawable.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Rectangle.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\RenderSystem.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Shader.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Shape.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\SpriteBatch.h" />
+    <ClInclude Include="..\Peramoottori\jni\graphics\Text.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\AudioResource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\FontResource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\ImageResource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\Resource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\ResourceManager.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\TextResource.h" />
+    <ClInclude Include="..\Peramoottori\jni\resources\TextureFactory.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Camera.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\CameraSystem.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Component.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\GameEntity.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Texture.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\TextureCoordinates.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Transformable.h" />
+    <ClInclude Include="..\Peramoottori\jni\structs\MemoryTrack.h" />
+    <ClInclude Include="..\Peramoottori\jni\structs\ShaderVertexAttrib.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{88740431-0C37-4AF2-8E0E-7C22B9404337}</ProjectGuid>
     <RootNamespace>PeraLib</RootNamespace>
@@ -61,77 +137,6 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\Peramoottori\jni\audio\Audio.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\audio\AudioManager.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\audio\AudioPlayer.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\Application.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\CommandCenter.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\Input.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\Log.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\Memory.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\Passert.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\Time.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\core\WindowHandler.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\Batch.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\Buffer.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\Color.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\Rectangle.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\RenderSystem.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\Shader.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\SpriteBatch.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\graphics\Text.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\resources\ResourceManager.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\resources\TextureFactory.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\scene\Camera.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\scene\CameraSystem.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\scene\Component.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\scene\GameEntity.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\scene\Texture.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\scene\TextureCoordinates.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\scene\Transformable.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Peramoottori\jni\audio\Audio.h" />
-    <ClInclude Include="..\Peramoottori\jni\audio\AudioManager.h" />
-    <ClInclude Include="..\Peramoottori\jni\audio\AudioPlayer.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\Application.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\CommandCenter.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\Input.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\Log.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\Memory.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\Passert.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\Time.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\Vector2.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\Vector3.h" />
-    <ClInclude Include="..\Peramoottori\jni\core\WindowHandler.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\Batch.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\Buffer.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\Color.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\Drawable.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\Rectangle.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\RenderSystem.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\Shader.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\Shape.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\SpriteBatch.h" />
-    <ClInclude Include="..\Peramoottori\jni\graphics\Text.h" />
-    <ClInclude Include="..\Peramoottori\jni\resources\AudioResource.h" />
-    <ClInclude Include="..\Peramoottori\jni\resources\FontResource.h" />
-    <ClInclude Include="..\Peramoottori\jni\resources\ImageResource.h" />
-    <ClInclude Include="..\Peramoottori\jni\resources\Resource.h" />
-    <ClInclude Include="..\Peramoottori\jni\resources\ResourceManager.h" />
-    <ClInclude Include="..\Peramoottori\jni\resources\TextResource.h" />
-    <ClInclude Include="..\Peramoottori\jni\resources\TextureFactory.h" />
-    <ClInclude Include="..\Peramoottori\jni\scene\Camera.h" />
-    <ClInclude Include="..\Peramoottori\jni\scene\CameraSystem.h" />
-    <ClInclude Include="..\Peramoottori\jni\scene\Component.h" />
-    <ClInclude Include="..\Peramoottori\jni\scene\GameEntity.h" />
-    <ClInclude Include="..\Peramoottori\jni\scene\Texture.h" />
-    <ClInclude Include="..\Peramoottori\jni\scene\TextureCoordinates.h" />
-    <ClInclude Include="..\Peramoottori\jni\scene\Transformable.h" />
-    <ClInclude Include="..\Peramoottori\jni\structs\MemoryTrack.h" />
-    <ClInclude Include="..\Peramoottori\jni\structs\ShaderVertexAttrib.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

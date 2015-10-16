@@ -33,11 +33,11 @@ void android_main(android_app* application)
 			app->window.Clear();
 			app->Draw();
 
-			if (input.GetSingleTouch())
+			/*if (input.GetSingleTouch())
 			{
 				manager.DeleteScene("Drawables");
 				manager.AddScene(new Drawables());
-			}
+			}*/
 		}
 		else
 		{

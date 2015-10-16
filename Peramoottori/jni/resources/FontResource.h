@@ -26,6 +26,8 @@ namespace pm
 
 	class FontResource : public Resource
 	{
+	public:
+
 		struct fontData
 		{
 			Texture* tex;
@@ -39,8 +41,7 @@ namespace pm
 		*
 		* \param[in] ttfData 
 		*/
-		FontResource(std::vector<FT_Byte> ttfData) :
-			ttfData(ttfData)
+		FontResource(std::vector<FT_Byte> ttfData) : ttfData(ttfData)
 		{
 			SetColor(0.0f, 1.0f, 0.0f, 0.5f);
 			CharTexture(ttfData);

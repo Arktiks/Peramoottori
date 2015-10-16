@@ -413,7 +413,7 @@ void GameDemo::Draw()
 
 	// add non-opaque sprites first
 	for (it = spriteVector.begin(); it != spriteVector.end(); it++)
-		pm::SpriteBatch::GetInstance()->AddGameEntity(*it);
+		pm::SpriteBatch::GetInstance()->AddTranslucentGameEntity(*it);
 	// add opaque sprites
 	for (it = opaqueSpriteVector.begin(); it != opaqueSpriteVector.end(); it++)
 		pm::SpriteBatch::GetInstance()->AddOpaqueGameEntity(*it);
@@ -430,12 +430,12 @@ void GameDemo::Draw()
 void GameDemo::CheckInput()
 {
 	// Check if touchscreen is being touched
-	if (input.IsTouching())
+	if (input[0].IsTouching())
 	{
 		
 		// Get current position of touch
 		//glm::vec4 touchxPosition = (inverseCameraMatrix * glm::vec4(input.GetTouchCoordinates(), 1, 1));
-		glm::vec2 touchPosition = input.GetTouchCoordinates();
+		glm::vec2 touchPosition = input[0].GetPos();
 		// Check if touch sound has already been played
 		if (!soundBool)
 		{

@@ -14,15 +14,12 @@ namespace pm
 	{
 	public:
 		
-		///
-		///
 		Time() : inFrame(false), timeInFrame(0) { clock_gettime(CLOCK_MONOTONIC, &startTimer); };
 
-		* When called for the first time Time objects internal timer starts ticking.
+		/** When called for the first time Time objects internal timer starts ticking.
 		* When called second time and onward elapsed time between calls is calculated.
 		* \return Elapsed time between calls in milliseconds.
 		*/
-		///
 		double CalculateTimeInFrame();
 		
 		double GetCurrentTime();

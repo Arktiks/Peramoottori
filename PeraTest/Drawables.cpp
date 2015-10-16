@@ -13,6 +13,7 @@ using namespace pm;
 
 #include <cstdlib> // Random generation.
 #include <ctime>
+#include <vector>
 
 Drawables::Drawables() : Scene("Drawables"), rotation(0.0f)
 {
@@ -60,7 +61,7 @@ Drawables::Drawables() : Scene("Drawables"), rotation(0.0f)
 
 Drawables::~Drawables()
 {
-	for (std::Vector<GameEntity*>::iterator it = entities.begin(); it != entities.end(); it++)
+	for (std::vector<GameEntity*>::iterator it = entities.begin(); it != entities.end(); it++)
 		delete (*it);
 }
 

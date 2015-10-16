@@ -18,6 +18,8 @@ namespace pm
 	{
 		friend class ResourceManager;
 
+	public:
+
 		ImageResource() = delete;
 		
 		/** \brief

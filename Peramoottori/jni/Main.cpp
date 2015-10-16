@@ -76,7 +76,7 @@ namespace pm
 			for (int i = 0; i < 5; i++)
 			{
 				objects[i]->GetComponent<Transformable>()->SetRotation(rotation);
-				SpriteBatch::GetInstance()->AddGameEntity(objects[i]);
+				SpriteBatch::GetInstance()->AddTranslucentGameEntity(objects[i]);
 			}
 		};
 
@@ -131,12 +131,6 @@ void android_main(android_app* application)
 				access->Unpause();
 
 			timer += 1;
-
-			if (access->input.GetSingleTouch() == true && access->objects.size() > 0)
-			{
-				delete access->objects[0];
-				access->objects.erase(access->objects.begin());
-			}
 
 			if (timer >= 300 && timer < 350)
 			{

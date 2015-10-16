@@ -17,7 +17,6 @@ namespace pm
 	{
 	public:
 
-		Resource() {}; 
 		/// Function to set a name for a resource.
 		///
 		/// This function is used by the spesific resource classes.
