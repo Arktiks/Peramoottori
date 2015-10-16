@@ -41,7 +41,7 @@ namespace pm
 		*/
 		///@{
 		/** \param[in] gameEntity Pointer to GameEntity object. */
-		void AddGameEntity(GameEntity* gameEntity);
+		void AddTranslucentGameEntity(GameEntity* gameEntity);
 
 		/** \brief Add GameEntity object that contains transparency.
 		* \param[in] gameEntity Pointer to GameEntity object.
@@ -67,7 +67,10 @@ namespace pm
 
 		bool IsDrawable(GameEntity* gameEntity); ///< Check if GameEntity is drawable.
 		
-		void BatchComponents();///< Makes final batch.
+		void BatchOpaqueComponents();///< Makes final opaque batch.
+
+		void BatchTranslucentComponents();///< Makes final translucent batch.
+
 
 		void ParseData(GameEntity* gameEntity, // GameEntity is gutted to form data matrises that can be assimilated into Batch.
 			std::vector<GLfloat>* vertexData, 

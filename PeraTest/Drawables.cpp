@@ -79,7 +79,7 @@ void Drawables::Update()
 	for (int i = 0; i < entities.size(); i++)
 	{
 		entities[i]->GetComponent<Transformable>()->SetRotation(rotation);
-		SpriteBatch::GetInstance()->AddGameEntity(entities[i]);
+		SpriteBatch::GetInstance()->AddOpaqueGameEntity(entities[i]);
 	}
 }
 
