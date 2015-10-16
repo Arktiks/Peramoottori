@@ -34,18 +34,21 @@ void SpriteBatch::DestroyInstance()
 
 void SpriteBatch::Draw()
 {
-	BatchComponents();
+	BatchOpaqueComponents();
 
 	//glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
-	//glBlendFunc();
-	RenderSystem::GetInstance()->Draw(&batchVector[0]);
-	
-	//glDisable(GL_DEPTH_TEST);
-	//glDisable(GL_BLEND);
+	for (int i = 0; i < batchVector.size(); i++)
+		RenderSystem::GetInstance()->Draw(&batchVector[i]);
+
+	batchVector.clear();
+	BatchTranslucentComponents();
+
+
 	glDepthMask(GL_FALSE);
 	glEnable(GL_BLEND);
-	RenderSystem::GetInstance()->Draw(&batchVector[1]);
+	for (int i = 0; i < batchVector.size(); i++)
+		RenderSystem::GetInstance()->Draw(&batchVector[i]);
 	glDepthMask(GL_TRUE);
 
 	gameEntityVector.clear();
@@ -53,7 +56,7 @@ void SpriteBatch::Draw()
 	batchVector.clear();
 }
 
-void SpriteBatch::AddGameEntity(GameEntity* gameEntity)
+void SpriteBatch::AddTranslucentGameEntity(GameEntity* gameEntity)
 {
 	gameEntityVector.push_back(gameEntity);
 }
@@ -87,7 +90,7 @@ bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
 		return gameEntity->GetComponent<Drawable>()->GetDrawState();
 }
 
-void SpriteBatch::BatchComponents()
+void SpriteBatch::BatchTranslucentComponents()
 {
 	for (int i = 0; i < gameEntityVector.size(); i++)
 	{
@@ -116,7 +119,10 @@ void SpriteBatch::BatchComponents()
 				batchVector.push_back(Batch(tempVertexData, tempIndexData, tempTransformMatrix, tempTextureIndex));
 		}
 	}
+}
 
+void SpriteBatch::BatchOpaqueComponents()
+{
 	// Somebody has to make this good.
 	for (int i = 0; i < opaqueGameEntityVector.size(); i++)
 	{
