@@ -24,6 +24,7 @@ namespace pm
 			friend class Input;
 		private:
 			int index;
+			int id;
 			glm::vec2 sPos;
 			glm::vec2 pos;
 			bool tap;
@@ -45,21 +46,16 @@ namespace pm
 
 	public:
 
-		/// Returns the current touch coordinates.
-		/**
-		\return Returns the last known touch coordinates as glm vec2.
-		*/
-		static glm::vec2 GetTouchCoordinates();
 
-		/// Returns the current state of touch.
-		/**
-		\return If there are no pointers, return false. Otherwise, returns true.
+		/** \brief Returns the number of pointers currently active.
+		* \return Number of pointers active.
 		*/
-		static bool IsTouching();
-
 		static int GetPointerCount();
-
-		Pointer& operator[](int id);
+		/** \brief Operator [] overload for accessing pointers.
+		* \parm index Index of the pointer you want to access.
+		* \return Returns the pointer in the param index.
+		*/
+		Pointer& operator[](int index);
 
 		/** @name Restricted Static Public Member Functions
 		* Following static functions have already been implemented in Application class. User is not recommended
