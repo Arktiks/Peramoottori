@@ -130,7 +130,10 @@
     <ClCompile Include="jni\scene\CameraSystem.cpp" />
     <ClCompile Include="jni\scene\Component.cpp" />
     <ClCompile Include="jni\scene\GameEntity.cpp" />
-    <ClCompile Include="jni\scene\Hitbox.cpp" />
+    <ClCompile Include="jni\scene\Hitbox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="jni\scene\Texture.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
@@ -217,7 +220,10 @@
     <ClInclude Include="jni\scene\CameraSystem.h" />
     <ClInclude Include="jni\scene\Component.h" />
     <ClInclude Include="jni\scene\GameEntity.h" />
-    <ClInclude Include="jni\scene\Hitbox.h" />
+    <ClInclude Include="jni\scene\Hitbox.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="jni\scene\Texture.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>

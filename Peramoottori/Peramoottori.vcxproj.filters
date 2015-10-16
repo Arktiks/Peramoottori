@@ -1010,6 +1010,7 @@
     <ClInclude Include="jni\core\GestureManager.h">
       <Filter>jni\core</Filter>
     </ClInclude>
+    <ClInclude Include="Mainpage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">
