@@ -21,7 +21,7 @@ namespace pm
 
 		PhysicsSystem();
 
-		const float32 STEP = 0.017f;
+		const float32 STEP = 0.017f; // 60 times per second.
 
 		const int32 VELOC_ITERATION = 6;
 

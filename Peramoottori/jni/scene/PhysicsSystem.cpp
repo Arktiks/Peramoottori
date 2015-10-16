@@ -9,8 +9,7 @@ PhysicsSystem& PhysicsSystem::Instance()
 	return *instance;
 }
 
-PhysicsSystem::PhysicsSystem()
-: world(b2Vec2(0.0f, -10.0f))
+PhysicsSystem::PhysicsSystem() : world(b2Vec2(0.0f, -10.0f))
 {
 	
 }

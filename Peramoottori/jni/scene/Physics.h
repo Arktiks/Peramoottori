@@ -6,6 +6,12 @@
 #include <Box2D\Collision\Shapes\b2PolygonShape.h>
 #include <Box2D\Dynamics\b2Fixture.h>
 
+#include <scene\Transformable.h>
+#include <graphics\Rectangle.h>
+
+/** \internal Currently Transform and Rectangle components
+* need to be created before Physics component. */
+
 namespace pm
 {
 	class Physics : public Component
@@ -28,6 +34,10 @@ namespace pm
 		b2FixtureDef fixture;
 
 		bool dynamic;
+
+		pm::Transformable* Transform();
+
+		pm::Rectangle* Rectangle();
 	};
 }
 
