@@ -79,6 +79,7 @@
     <AndroidBuild Include="res\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Drawables.cpp" />
     <ClCompile Include="jni\main.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
@@ -87,6 +88,7 @@
     <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="Drawables.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
     <ClInclude Include="libs\lodepng.h" />

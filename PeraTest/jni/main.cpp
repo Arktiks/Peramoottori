@@ -1,5 +1,6 @@
 #include <core\Application.h>
 #include <core\Log.h>
+#include <core\Input.h>
 
 #include "..\Scene.h"
 #include "..\SceneManager.h"
@@ -19,6 +20,7 @@ void android_main(android_app* application)
 
 	Application* app = Application::GetInstance(); // For ease of use.
 	app->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
+	Input input;
 
 	SceneManager manager;
 	manager.AddScene(new Drawables());
@@ -30,6 +32,12 @@ void android_main(android_app* application)
 			manager.Update();
 			app->window.Clear();
 			app->Draw();
+
+			if (input.GetSingleTouch())
+			{
+				manager.DeleteScene("Drawables");
+				manager.AddScene(new Drawables());
+			}
 		}
 		else
 		{
