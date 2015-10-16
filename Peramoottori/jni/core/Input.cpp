@@ -36,7 +36,7 @@ glm::vec3 Input::GetAccelerometerData()
 
 bool Input::GetSingleTouch()
 {
-	if(touch == true && singleTouch == false)
+	if (touch == true && singleTouch == false)
 	{
 		singleTouch = true;
 		return true;
@@ -55,7 +55,7 @@ void Input::Update()
 {
 	lx = _x;
 	ly = _y;
-	
+
 	if (touch == false)
 	{
 		singleTouch = false;

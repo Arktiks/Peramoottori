@@ -170,11 +170,11 @@
     <ClCompile Include="jni\scene\CameraSystem.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
-    <ClCompile Include="jni\scene\Physics.cpp">
-      <Filter>jni\scene\components</Filter>
+    <ClCompile Include="jni\core\Pointer.cpp">
+      <Filter>jni\core</Filter>
     </ClCompile>
-    <ClCompile Include="jni\scene\PhysicsSystem.cpp">
-      <Filter>jni\scene</Filter>
+    <ClCompile Include="jni\core\GestureManager.cpp">
+      <Filter>jni\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1004,13 +1004,13 @@
     <ClInclude Include="jni\scene\CameraSystem.h">
       <Filter>jni\scene</Filter>
     </ClInclude>
+    <ClInclude Include="jni\core\Pointer.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\GestureManager.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
     <ClInclude Include="Mainpage.h" />
-    <ClInclude Include="jni\scene\Physics.h">
-      <Filter>jni\scene\components</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\scene\PhysicsSystem.h">
-      <Filter>jni\scene</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">

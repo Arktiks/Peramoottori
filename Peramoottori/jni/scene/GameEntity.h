@@ -42,14 +42,16 @@ namespace pm
 
 		/** \brief Return desired component from GameEntity.
 		*
-		* \note ComponentClass* componentName = <ComponentClass>GetComponent();
-		* Color* ColorComponent = <Color>GetComponent();
+		* \return Pointer to Component.
+		* \return nullptr if Component was not found.
+		*
+		* \note Color* example = GetComponent<Color>();
 		*/
 		template<typename T> T* GetComponent();
 
 		/**\brief Removes desired component from GameEntity.
 		*
-		* \note <Color>RemoveComponent();
+		* \note RemoveComponent<Color>();
 		*/
 		template<typename T> void RemoveComponent();
 
@@ -72,11 +74,18 @@ T* pm::GameEntity::GetComponent()
 template<typename T>
 void pm::GameEntity::RemoveComponent()
 {
-	ComponentList::const_iterator position =
-		components.find(&typeid(T));
+	ComponentList::iterator it = components.find(&typeid(T));
+	if (it != components.end())
+	{
+		delete it->second;
+		components.erase(it);
+	}
+
+	/* Remove rework.
+	ComponentList::const_iterator position = components.find(&typeid(T));
 	if (position == components.end())
 		return;
-	components.erase(position);
+	components.erase(position); */
 }
 
 #endif // GAMEENTITY_H

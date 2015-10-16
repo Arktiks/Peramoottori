@@ -49,6 +49,13 @@ namespace pm
 		/// Should be used when deleting previous scene.
 		void ClearAssetMap();
 
+
+		///
+		/// Deletes an asset from the assetMap.
+		///		\param filename : name of the file to be deleted.
+		///
+		void DeleteResource(std::string filename);
+
 	private:
 
 		///
@@ -118,6 +125,7 @@ namespace pm
 		assetMap assets;
 
 
+
 	protected: // These are handled in Application calls.
 
 		///
@@ -132,11 +140,7 @@ namespace pm
 		///
 		void DestroyInstance();
 
-		///
-		/// Deletes an asset from the assetMap.
-		///		\param filename : name of the file to be deleted.
-		///
-		void DeleteResource(std::string filename);
+
 
 		/// Destructor.
 		virtual ~ResourceManager();

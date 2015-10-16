@@ -9,7 +9,8 @@ namespace pm
 
 	/** \brief Class for controlling screen view.
 	*
-	* Description.
+	* Default camera is created if none is in use.
+	* Camera can be used to zoom, move and/or rotate view.
 	*
 	* \ingroup Scene
 	*/
@@ -84,6 +85,24 @@ namespace pm
 		* \return glm::mat4 inverse transformation of Camera.
 		*/
 		glm::mat4 GetInverseCameraMatrix();
+
+		/** \brief Get camera location coordinates.
+		*
+		* \return glm::vec2 camera xy coordinates.
+		*/
+		glm::vec2 GetCameraLocation();
+
+		/** \brief Get camera rotation angle.
+		*
+		* \return float camera rotation angle.
+		*/
+		float GetCameraRotation();
+
+		/** \brief Get camera zoom value.
+		*
+		* \return float camer zoom value.
+		*/
+		float GetCameraZoom();
 
 	private:
 

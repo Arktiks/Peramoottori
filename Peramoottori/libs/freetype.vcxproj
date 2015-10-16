@@ -39,8 +39,8 @@
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
     <AndroidNativeAPI>UseMin</AndroidNativeAPI>
-    <AndroidMinAPI>android-16</AndroidMinAPI>
-    <AndroidTargetAPI>android-16</AndroidTargetAPI>
+    <AndroidMinAPI>android-9</AndroidMinAPI>
+    <AndroidTargetAPI>android-9</AndroidTargetAPI>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Multithreaded|Tegra-Android'" Label="Configuration">
@@ -48,7 +48,7 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
-    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
     <AndroidMinAPI>android-16</AndroidMinAPI>
     <AndroidTargetAPI>android-16</AndroidTargetAPI>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
@@ -58,7 +58,7 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
-    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
     <AndroidMinAPI>android-16</AndroidMinAPI>
     <AndroidTargetAPI>android-16</AndroidTargetAPI>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
@@ -68,7 +68,7 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
-    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
     <AndroidMinAPI>android-16</AndroidMinAPI>
     <AndroidTargetAPI>android-16</AndroidTargetAPI>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
@@ -78,7 +78,7 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
-    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
     <AndroidMinAPI>android-16</AndroidMinAPI>
     <AndroidTargetAPI>android-16</AndroidTargetAPI>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
@@ -88,7 +88,7 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
-    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
     <AndroidMinAPI>android-16</AndroidMinAPI>
     <AndroidTargetAPI>android-16</AndroidTargetAPI>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
@@ -170,6 +170,8 @@
       <CompileAsManaged>false</CompileAsManaged>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <CppLanguageStandard>gnu++11</CppLanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -270,6 +272,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <CppLanguageStandard>gnu++11</CppLanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>

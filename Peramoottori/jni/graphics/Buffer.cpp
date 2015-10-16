@@ -3,11 +3,11 @@
 
 using namespace pm;
 
-void Buffer::CreateBuffer(bufferType type)
+void Buffer::CreateBuffer(BufferType type)
 {
 	DEBUG_GL_ERROR_CLEAR();
 
-	(this->type) = type; // Set buffer type.
+	this->type = type;
 	glGenBuffers(1, &index); // Generate buffer object names.
 	DEBUG_GL_ERROR();
 
@@ -22,9 +22,19 @@ void Buffer::CreateBuffer(bufferType type)
 void Buffer::BindBufferData(unsigned size, void *data)
 {
 	if (type == VERTEX)
+	{
+		if (bufferSize * 36 < size)
+			ResizeBuffer(size);
+
 		BindVertexData(size, data);
+	}
 	else if (type == INDEX)
+	{
+		if (bufferSize * 6 < size)
+			ResizeBuffer(size);
+
 		BindIndexData(size, data);
+	}
 	else
 		DEBUG_WARNING(("Trying to bind buffer data of unknown type."));
 }
@@ -40,7 +50,7 @@ void Buffer::InitializeVertexData()
 	glBindBuffer(GL_ARRAY_BUFFER, index);
 	DEBUG_GL_ERROR();
 
-	glBufferData(GL_ARRAY_BUFFER, 2000u, nullptr, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, bufferSize * 36 * sizeof(GLfloat), nullptr, GL_DYNAMIC_DRAW);
 	DEBUG_GL_ERROR();
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0u);
@@ -54,7 +64,7 @@ void Buffer::InitializeIndexData()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
 	DEBUG_GL_ERROR();
 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 1000u, nullptr, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, bufferSize * 6 * sizeof(GLushort), nullptr, GL_DYNAMIC_DRAW);
 	DEBUG_GL_ERROR();
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);
@@ -79,11 +89,41 @@ void Buffer::BindIndexData(unsigned size, void *data)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
 	DEBUG_GL_ERROR();
 
-	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0u, size * sizeof(GLushort), data);
+	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0u, size*sizeof(GLushort), data);
 	DEBUG_GL_ERROR();
+}
+
+void Buffer::ResizeBuffer(unsigned size)
+{
+	int typeSize;
+	if (type == VERTEX)
+		typeSize = 36;
+	else if (type == INDEX)
+		typeSize = 6;
+
+	while (bufferSize * typeSize < size)
+		bufferSize *= 2;
+
+	DeleteBuffer();
+	CreateBuffer(type);
+}
+
+void Buffer::DeleteBuffer()
+{
+	switch (type)
+	{
+	case VERTEX:
+		glBindBuffer(GL_ARRAY_BUFFER, 0u);
+		break;
+	case INDEX:
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);
+		break;
+	}
+	glDeleteBuffers(1, &index);
 }
 
 Buffer::~Buffer()
 {
 	// Handle cleaning up the buffers.
+	DeleteBuffer();
 }

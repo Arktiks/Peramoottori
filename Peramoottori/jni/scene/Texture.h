@@ -2,9 +2,11 @@
 #define TEXTURE_H
 
 #include <vector>
+#include <string>
 #include <GLES2\gl2.h>
 #include <scene\Component.h>
 #include <glm\vec2.hpp>
+
 
 namespace pm
 {
@@ -20,7 +22,9 @@ namespace pm
 	{
 	public:
 
-		Texture() : Component(), textureIndex(0), textureSize(glm::uvec2(0.0f, 0.0f)) {};
+		Texture();
+
+		Texture(std::string path);
 
 		/** \brief Set size of Texture.
 		*
@@ -48,11 +52,33 @@ namespace pm
 		*/
 		void SetId(GLuint textureId);
 
+		/** \brief Return Texturegroup.
+		*
+		* \return textureGroup that has been assigned.
+		*/
+		uint GetTextureGroup();
+
+		/** \brief Set texture Group.
+		*
+		* Approriate OpenGL should be called before assigning index.
+		*
+		* \param[in] TextureGroup new texture group assigned.
+		*/
+		void SetTextureGroup(uint TextureGroup);
+
+
+
 	private:
 
 		GLuint textureIndex;
 
 		glm::uvec2 textureSize;
+
+		uint textureGroup;
+
+
+
+
 	};
 }
 

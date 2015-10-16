@@ -18,7 +18,7 @@ namespace pm
 		friend class Camera;
 
 	public:
-		static CameraSystem* GetInstance();
+		static CameraSystem* GetInstance();///< Returns handle to CameraSystem singleton object
 
 		void SetActiveCamera(Camera* camera);/// Set active camera.
 		Camera* GetActiveCamera();///< Returns active camera.

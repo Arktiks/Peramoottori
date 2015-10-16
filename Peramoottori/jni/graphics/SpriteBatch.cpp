@@ -34,17 +34,29 @@ void SpriteBatch::DestroyInstance()
 
 void SpriteBatch::Draw()
 {
-	BatchComponents();
+	BatchOpaqueComponents();
 
+	//glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
+
+	batchVector.clear();
+	BatchTranslucentComponents();
+
+
+	glDepthMask(GL_FALSE);
+	glEnable(GL_BLEND);
+	for (int i = 0; i < batchVector.size(); i++)
+		RenderSystem::GetInstance()->Draw(&batchVector[i]);
+	glDepthMask(GL_TRUE);
 
 	gameEntityVector.clear();
 	opaqueGameEntityVector.clear();
 	batchVector.clear();
 }
 
-void SpriteBatch::AddGameEntity(GameEntity* gameEntity)
+void SpriteBatch::AddTranslucentGameEntity(GameEntity* gameEntity)
 {
 	gameEntityVector.push_back(gameEntity);
 }
@@ -78,7 +90,7 @@ bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
 		return gameEntity->GetComponent<Drawable>()->GetDrawState();
 }
 
-void SpriteBatch::BatchComponents()
+void SpriteBatch::BatchTranslucentComponents()
 {
 	for (int i = 0; i < gameEntityVector.size(); i++)
 	{
@@ -107,7 +119,10 @@ void SpriteBatch::BatchComponents()
 				batchVector.push_back(Batch(tempVertexData, tempIndexData, tempTransformMatrix, tempTextureIndex));
 		}
 	}
+}
 
+void SpriteBatch::BatchOpaqueComponents()
+{
 	// Somebody has to make this good.
 	for (int i = 0; i < opaqueGameEntityVector.size(); i++)
 	{
@@ -183,7 +198,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 		for (int i = 0; i < 8; i++)
 			vertexTexPos.push_back(0);
 
-		DEBUG_WARNING(("Gathering data from GameEntity without TEXTURE."));
+		// DEBUG_WARNING(("Gathering data from GameEntity without TEXTURE."));
 	}
 	else
 	{
@@ -220,7 +235,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	/// COLOR ///
 	if (gameEntity->GetComponent<Color>() == nullptr)
 	{
-		vertexColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+		vertexColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 	else
 	{
