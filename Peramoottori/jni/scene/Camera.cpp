@@ -103,5 +103,13 @@ float pm::Camera::GetCameraZoom()
 
 glm::mat4 pm::Camera::GetInverseCameraMatrix()
 {
-	return glm::inverse(cameraMatrix);
+	glm::mat4 inverse = glm::mat4(1);
+
+	inverse = glm::translate(glm::vec3(-origin, 0.0f)) * inverse;
+	inverse = glm::translate(glm::vec3(cameraPosition, 0.0f)) * inverse;
+	inverse = glm::scale(glm::vec3(1.0 / cameraZoom, 1.0 / cameraZoom, 0.0f)) * inverse;
+	inverse = glm::rotate(-cameraRotation * 3.14f / 180.0f, glm::vec3(0, 0, 1)) * inverse;
+	inverse = glm::translate(glm::vec3(origin, 0.0f)) * inverse;
+
+	return inverse;
 }
