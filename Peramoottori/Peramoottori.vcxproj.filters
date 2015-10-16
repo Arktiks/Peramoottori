@@ -176,6 +176,12 @@
     <ClCompile Include="jni\core\GestureManager.cpp">
       <Filter>jni\core</Filter>
     </ClCompile>
+    <ClCompile Include="jni\scene\PhysicsSystem.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\Physics.cpp">
+      <Filter>jni\scene\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -1011,6 +1017,12 @@
       <Filter>jni\core</Filter>
     </ClInclude>
     <ClInclude Include="Mainpage.h" />
+    <ClInclude Include="jni\scene\PhysicsSystem.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Physics.h">
+      <Filter>jni\scene\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">
