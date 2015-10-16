@@ -9,7 +9,7 @@
 
 /** \internal Work in progress.
 *
-* Olisko mahdollista saada asettaa koordinaatit välillä 0-1?
+* 
 */
 
 namespace pm
