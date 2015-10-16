@@ -89,7 +89,7 @@ void GameDemo::InitializeGameValues()
 	soundBool = false;
 	deltaTime = time.CalculateTimeInFrame();
 	fasterTimer = 2000000000;
-
+	
 	pm::Vector2<int> pmLimits = pm::Application::GetInstance()->window.GetResolution();
 	limits.x = pmLimits.x;
 	limits.y = pmLimits.y;
@@ -432,7 +432,9 @@ void GameDemo::CheckInput()
 	// Check if touchscreen is being touched
 	if (input.IsTouching())
 	{
+		
 		// Get current position of touch
+		//glm::vec4 touchxPosition = (inverseCameraMatrix * glm::vec4(input.GetTouchCoordinates(), 1, 1));
 		glm::vec2 touchPosition = input.GetTouchCoordinates();
 		// Check if touch sound has already been played
 		if (!soundBool)
@@ -485,6 +487,20 @@ bool GameDemo::CheckTouch(glm::vec2 touchPosition, SpriteObject *target)
 	}
 	else
 	return false;
+}
+
+bool GameDemo::CheckTouchCircle(glm::vec2 touchPosition, SpriteObject *target)
+{
+	glm::vec2 position = target->GetPosition();
+	glm::vec2 size = target->GetSize();
+
+	if (position.x < touchPosition.x && position.x + size.x > touchPosition.x &&
+		position.y < touchPosition.y && position.y + size.y > touchPosition.y)
+	{
+		return true;
+	}
+	else
+		return false;
 }
 
 // Check if touched area is inside the target area.

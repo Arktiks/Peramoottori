@@ -3343,7 +3343,7 @@
   {
     FT_UInt  result = 0;
 
-
+	 
     if ( face && face->charmap )
     {
       FT_CMap  cmap = FT_CMAP( face->charmap );

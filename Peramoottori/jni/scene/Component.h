@@ -6,26 +6,41 @@
 namespace pm
 {
 
-	class GameEntity; /// Fore declaration of GameEntity class.
+	/** \brief Base class for all components.
+	*
+	* Description.
+	*
+	* \ingroup Scene
+	*/
+
+	class GameEntity;
 
 	class Component
 	{
 	public:
 
-		/// Constructor.
 		Component() : parent(nullptr) {};
 
-		/// Constructor.
+		/** \brief Copy constuctor. */
 		Component(Component& component);
 
-		/// Constructor.
+		/** \brief Constructor that sets GameEntity as the components parent.
+		*
+		* \param[in] entity Pointer to GameEntity to be set as parent.
+		*/
 		Component(GameEntity* entity);
 		
-		/// Sets the parent.
+		/** \brief Set new parent for component.
+		*
+		* \param[in] entity Pointer to GameEntity to be set as parent.
+		*/
 		void SetParent(GameEntity* entity);
 
-		/// Return handle to components GameEntity parent.
-		GameEntity*  GetParent() { return parent; };
+		/** \brief Return handle to components GameEntity parent.
+		*
+		* \return GameEntity* To parent of component.
+		*/
+		GameEntity* GetParent() { return parent; };
 
 		virtual ~Component() {};
 		

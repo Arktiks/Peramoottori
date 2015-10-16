@@ -6,22 +6,40 @@
 
 namespace pm
 {
-	/// Color component that GameEntity uses to get different color entities.
+
+	/** \brief Color component that GameEntity uses to create color for entities.
+	*
+	* Description.
+	*
+	* \ingroup Scene
+	*/
 
 	class Color : public Component
 	{
 	public:
 
-		/// Default constructor.
+		/** \brief
+		*
+		* Default color is (0, 0, 0, 0) [RGBA].
+		*/
 		Color();
-
-		/// Constructor.
+		
+		/** \brief
+		*
+		* \param[in] color as glm::vec4 [Red, Green, Blue, Alpha].
+		*/
 		Color(glm::vec4 color);
 
-		/// Sets the color with glm float vec4 rgba.
+		/** \brief Set color.
+		*
+		* \param[in] newColor as glm::vec4 [Red, Green, Blue, Alpha].
+		*/
 		void SetColor(glm::vec4 newColor);
 
-		/// Returns glm vec4 that has the rgba values in float.
+		/** \brief Return color.
+		*
+		* \return glm::vec4 [Red, Green, Blue, Alpha].
+		*/
 		glm::vec4 GetColor();
 
 	private:
@@ -30,4 +48,4 @@ namespace pm
 	};
 }
 
-#endif //COLOR_H
+#endif // COLOR_H

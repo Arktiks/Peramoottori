@@ -6,7 +6,10 @@
 
 namespace pm
 {
-	/** \brief Core application system that handles communication with java side. */
+	/** \brief System that handles communication with java side.
+	*
+	* \ingroup Core
+	*/
 
 	class Application
 	{
@@ -15,10 +18,11 @@ namespace pm
 
 	public:
 
-		/** \brief Return reference to our Application. 
+		/** \brief Return instance of Application. 
 		*
 		* Application class uses singleton pattern to make sure only one
 		* instance of Application exists during runtime.
+		* \return Pointer to Application.
 		*/
 		static Application* GetInstance();
 
@@ -27,7 +31,7 @@ namespace pm
 		*/
 		///@{
 		/**
-		* \brief Deletes Application and all created resources.
+		* \brief Delete pm::Application and all created resources.
 		*
 		* Deleting application is already part of cleaning routine when application is shut down permanently.
 		* As such user will no need to call this unless for very specific reason.
@@ -35,23 +39,23 @@ namespace pm
 		void DestroyInstance();
 		///@}
 
-		/** \brief Initializes Peramoottori and its modules.
+		/** \brief Initialize Peramoottori and all modules.
 		*
 		*	Should be first function called when creating application.
-		*	\param application: pointer to android_application struct.
+		*	\param application pointer to android_application struct.
 		*/
 		void Initialize(android_app* application);
 
 		/** \brief Core update loop that polls android events and inputs.
 		*
 		* Recommended to be nested with while-statement.
-		* \return False if our main loop is put on halt.
+		* \return false if our main loop is put on halt.
 		*/
 		bool Update(); 
 
-		/** \brief Draw GameObjects contained in SpriteBatch.
+		/** \brief Draw stored in SpriteBatch.
 		*
-		* As SpriteBatch is also singleton class no parameters are required.
+		* Calls for SpriteBatch::Draw() and swaps frame buffers.
 		*/
 		void Draw();
 
@@ -59,14 +63,14 @@ namespace pm
 		* 
 		* When initializing the application it will take some time to get device context
 		* up and running.
-		* \return True if Application is ready to be updated and drawn
+		* \return true if Application is ready to be updated and drawn.
 		*/
 		bool IsReady();
 
 		/** \brief Check if our program is currently being used.
 		*
 		* Useful when you want to make sure our program has priority over other apps.
-		* \return True if Application is currently on focus.
+		* \return true if Application is currently focused.
 		*/
 		bool IsFocused();
 

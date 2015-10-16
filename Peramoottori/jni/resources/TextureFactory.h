@@ -6,10 +6,22 @@
 #include <string>
 #include <scene\Texture.h>
 
-
 namespace pm
 {
-	class Text;
+	/** \brief Makes all necessary OpenGL calls to create textures.
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
+
+	struct TextureStruct
+	{
+		GLuint ti; // GL textureIndex
+		uint sx; // texture size x
+		uint sy; // texture size y
+		uint tg; // texture group 
+	};
 	class TextureFactory
 	{
 
@@ -17,16 +29,20 @@ namespace pm
 
 	public:
 
-		/// Creates a texture.
+		/** \brief Create texture based on its filename.
+		*
+		* \param[in] fileName
+		*/
 		static Texture* CreateTexture(std::string fileName);
 
-
-		static void SaveText(Text* savedText);
+		static void RemoveTextureGroup(uint textureGroupToRemove);
 
 	private:
 
 		///	Function used in creating a texture 
 		static void CreateOGLTexture(std::string fileName, Texture* pointer);
+
+		static void CreateOGLTexture(std::string fileName, pm::TextureStruct* tempTS);
 
 		/// recreates OPENGL values after the application get focus again.
 		static void RecreateOGLTextures();
@@ -38,10 +54,7 @@ namespace pm
 
 		~TextureFactory();
 
-		static std::map<std::string, Texture*> generatedTextures;
-		static std::map<std::string, Text*> savedTexts;
-		static std::map<std::string, Text*> savedFonts;
+		static std::map<std::string, pm::TextureStruct*> generatedTextures;
 	};
 }
-
 #endif

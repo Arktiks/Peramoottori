@@ -22,6 +22,7 @@
     <AndroidTargetAPI>android-16</AndroidTargetAPI>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
     <AndroidMinAPI>android-16</AndroidMinAPI>
+    <AndroidStripLibrary>true</AndroidStripLibrary>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidTargetAPI>android-16</AndroidTargetAPI>

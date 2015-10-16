@@ -14,6 +14,8 @@ namespace pm
 	* Readying and destroying OpenGL context and objects depending on state of application.
 	*
 	* Destroying application and writing memory leaks using Memory class.
+	*
+	* \ingroup Core
 	*/
 
 	class CommandCenter

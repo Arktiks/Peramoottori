@@ -5,6 +5,14 @@
 
 namespace pm
 {
+
+	/** \brief
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
+
 	class TextResource : public Resource
 	{
 		friend class Text;
@@ -12,12 +20,11 @@ namespace pm
 		friend class ResourceManager;
 		friend class TextureFactory;
 
-	public: // WAS PRIVATE; TRYING TO GET IT WORKING, FIX!
-		TextResource(std::string data) :
-			textData(data)
-		{
-			SetName("text");
-		};
+		TextResource() = delete;
+
+		TextResource(std::string data) : textData(data) {};
+
+		/** \brief Return content of text as string. */
 		~TextResource() {};
 	private:
 		///

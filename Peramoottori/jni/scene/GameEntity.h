@@ -9,7 +9,13 @@
 
 namespace pm
 {
-	/// The base of entity component system that stores components.
+
+	/** \brief GameEntity stores components that detail its functionality.
+	*
+	* Description.
+	*
+	* \ingroup Scene
+	*/
 
 	class GameEntity
 	{
@@ -18,29 +24,37 @@ namespace pm
 
 	public:
 
-		/// Default constructor.
+		/** \brief Default constructor. 
+		*
+		* By default GameEntity stores no components.
+		*/
 		GameEntity() {};
 
 		~GameEntity();
 
-		/// Adds a new component to GameEntity
+		/** \brief Add new component to GameEntity.
+		*
+		* More details.
+		*
+		* \param[in] newComponent pointer to Component to be added.
+		*/
 		void AddComponent(Component* newComponent);
 
-		/**
-		* Return desired component from GameEntity.
-		* For example:
-		* Color* ColorComponent = <Color>GetComponent();
+		/** \brief Return desired component from GameEntity.
+		*
+		* \return Pointer to Component.
+		* \return nullptr if Component was not found.
+		*
+		* \note Color* example = GetComponent<Color>();
 		*/
 		template<typename T> T* GetComponent();
 
-		/**
-		* Removes desired component from GameEntity.
-		* For example:
-		* <Color>RemoveComponent();
-		* Does not work.
+		/**\brief Removes desired component from GameEntity.
+		*
+		* \note RemoveComponent<Color>();
 		*/
-		//template<typename T> void RemoveComponent();
 		template<typename T> void RemoveComponent();
+
 	private:
 
 		ComponentList components;
@@ -60,11 +74,18 @@ T* pm::GameEntity::GetComponent()
 template<typename T>
 void pm::GameEntity::RemoveComponent()
 {
-	ComponentList::const_iterator position =
-		components.find(&typeid(T));
+	ComponentList::iterator it = components.find(&typeid(T));
+	if (it != components.end())
+	{
+		delete it->second;
+		components.erase(it);
+	}
+
+	/* Remove rework.
+	ComponentList::const_iterator position = components.find(&typeid(T));
 	if (position == components.end())
 		return;
-	components.erase(position);
+	components.erase(position); */
 }
 
 #endif // GAMEENTITY_H

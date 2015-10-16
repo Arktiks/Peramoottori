@@ -21,7 +21,6 @@ namespace pm
 			size(size),
 			stride(stride),
 			offset(offset) {};
-
 	};
 }
 

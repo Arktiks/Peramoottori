@@ -4,7 +4,6 @@
 #include <core\Memory.h>
 #include <core\Passert.h>
 #include <core\Vector2.h>
-
 #include <core\Application.h> // Only needed for resolution at the moment.
 
 #include <glm\gtc\matrix_transform.hpp>
@@ -34,18 +33,24 @@ void RenderSystem::DestroyInstance()
 void RenderSystem::Initialize()
 {
 	DEBUG_GL_ERROR_CLEAR();
-
+	
 	Vector2<int> resolution = Application::GetInstance()->window.GetResolution(); // Get resolution of display.
 	float right = resolution.x; // Calculate limits.
 	float top = resolution.y;
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, -1.0f, 1.0f);
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, 1.0f, 0.0f);
 
 	vertexBuffer.CreateBuffer(VERTEX);
 	indexBuffer.CreateBuffer(INDEX);
 
 	CreateShaders();
 
-	GLint projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
+	transformMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "transformable");
+	DEBUG_GL_ERROR();
+
+	cameraMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "camera");
+	DEBUG_GL_ERROR();
+
+	projectionLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "unifProjectionTransform");
 	DEBUG_GL_ERROR();
 
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
@@ -53,6 +58,8 @@ void RenderSystem::Initialize()
 
 	initialized = true;
 	DEBUG_INFO(("RenderSystem initialize finished."));
+
+	cameraSystem = CameraSystem::GetInstance();
 }
 
 void RenderSystem::Draw(Batch* batch)
@@ -69,9 +76,10 @@ void RenderSystem::Draw(Batch* batch)
 	glBindTexture(GL_TEXTURE_2D, batch->textureIndex);
 	DEBUG_GL_ERROR();
 	
-	GLint transformMatrixLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "transformable");
+	glUniformMatrix4fv(cameraMatrixLocation, 1, GL_FALSE, value_ptr(cameraSystem->GetActiveCamera()->GetCameraMatrix()));
 	DEBUG_GL_ERROR();
-	
+
+
 	for (int i = 0; i < batch->GetTransformMatrixPointer()->size(); i++)
 	{
 		int tempInt = 6 * i * sizeof(GLushort);

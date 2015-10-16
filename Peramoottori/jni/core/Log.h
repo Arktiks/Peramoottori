@@ -6,11 +6,12 @@
 
 namespace pm
 {
-	/** \brief Tools used to print info into logcat. For proper use of this class see the following
-	* <a href="https://github.com/Grimcode/Peramoottori/wiki/Tutorial:-Debug-Tools">tutorial</a>.
+	/** \brief Tools used to print info into logcat.
 	*
 	* Logcat being android logging system.
-	* Log class functionality includes printing your own messages or catching possible OpenGL errors.
+	* %Log class functionality includes printing your own messages or catching possible OpenGL errors.
+	*
+	* \ingroup Debug
 	*/
 
 	class Log
@@ -19,21 +20,18 @@ namespace pm
 
 		/** @name Restricted Static Public Member Functions
 		*  User should not use following restricted functions unless he is 100% confident of their purpose.
-		* 
-		* These functions are utilized more effectively by predefined macros documented in the following
-		* <a href="https://github.com/Grimcode/Peramoottori/wiki/Tutorial:-Debug-Tools">tutorial</a>.
 		*/
 		///@{
 		/**
 		* \brief Writes messages into logcat under DEBUG_INFO.
 		*
-		* Works same as printf: PrintInfo("These are numbers: %i %f", int, float);
+		* Works same as printf --- PrintInfo("These are numbers: %i %f", int, float);
 		*/
 		static void PrintInfo(const char* text...);
 
 		/** \brief Write messages into logcat under DEBUG_WARNING.
 		*
-		* Works same as printf: PrintWarning("These are numbers: %i %f", int, float);
+		* Works same as printf --- PrintWarning("These are numbers: %i %f", int, float);
 		*/
 		static void PrintWarning(const char* text...);
 
@@ -57,7 +55,6 @@ namespace pm
 		static char* FormatMessage(const char* text...);
 	};
 }
-
 
 // Macros should be used instead of the direct functions.
 #define DEBUG_INFO(text) pm::Log::PrintInfo text ///< Macro to print info into logcat.

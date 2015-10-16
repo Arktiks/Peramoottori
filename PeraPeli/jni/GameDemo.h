@@ -1,5 +1,5 @@
 #pragma once
-
+#include "graphics\RenderSystem.h"
 
 #include "SpriteObject.h"
 #include "Enemy.h"
@@ -16,6 +16,7 @@
 #include <resources\ResourceManager.h>
 #include <resources\TextureFactory.h>
 #include <audio\Audio.h>
+#include <scene\Camera.h>
 #include <map>
 class GameDemo
 {
@@ -34,6 +35,7 @@ public:
 
 private:
 
+	glm::mat4 inverseCameraMatrix;
 	SpriteObject* winSprite, *logoSprite;
 	bool audioBool;
 	pm::Text* text;
@@ -67,6 +69,7 @@ private:
 	void OneTimeWinFunction();
 	
 	bool CheckTouch(glm::vec2 touchPosition, SpriteObject* target);
+	bool CheckTouchCircle(glm::vec2 touchPosition, SpriteObject* target);
 	bool CheckTouch(glm::vec2 touchPosition, glm::vec4 target);
 
 	void CheckInput();

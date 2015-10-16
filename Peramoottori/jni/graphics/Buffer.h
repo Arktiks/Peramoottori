@@ -5,44 +5,47 @@
 
 namespace pm
 {
-	enum bufferType
+	enum BufferType
 	{
-		NONE,
-		VERTEX,
-		INDEX
+		NONE,	///< Type has not been set.
+		VERTEX,	///< GL_ARRAY_BUFFER
+		INDEX	///< GL_ELEMENT_ARRAY_BUFFER
 	};
-
-	// Needs commentating!
 
 	class Buffer
 	{
-	public:
+		friend class RenderSystem;
+		friend class SpriteBatch;
 
-		Buffer() : index(0), type(NONE) {};
+	private:
 
-		void CreateBuffer(bufferType type);
+		Buffer() : index(0), type(BufferType::NONE), bufferSize(50) {};
+
+		void CreateBuffer(enum BufferType type);
 
 		void BindBufferData(unsigned size, void *data);
 
-		bufferType GetType() { return type; }
+		BufferType GetType() { return type; }
 
 		GLuint GetIndex() { return index; }
 
 		~Buffer();
 
-	private:
 
-		/// Used to initialize data storage for buffers.
+
 		void InitializeVertexData();
-
 		void InitializeIndexData();
 
 		void BindVertexData(unsigned size, void *data);
-
 		void BindIndexData(unsigned size, void *data);
 
+		void ResizeBuffer(unsigned size);
+		void DeleteBuffer();
+		
 		GLuint index;
-		bufferType type;
+		BufferType type;
+		unsigned int bufferSize;
+
 	};
 }
 

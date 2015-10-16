@@ -5,34 +5,43 @@
 #include <vector>
 #include <structs\MemoryTrack.h>
 
-
 // Uncomment these if there are linker errors.
-// #pragma comment(linker, "/nodefaultlib:libc.lib") 
-// #pragma comment(linker, "/nodefaultlib:libcd.lib")
-
+#pragma comment(linker, "/nodefaultlib:libc.lib") 
+#pragma comment(linker, "/nodefaultlib:libcd.lib")
 
 namespace pm
 {
-	/// Keeps track of memory usage during debugging.
+	/** \brief Debug tool designed to keep track of memory usage during debugging.
+	*
+	* \ingroup Debug
+	*/
+
 	class Memory
 	{
 	public:
-		/// Pushes MemoryTrack structs to memory vector.
-		///		\param track : MemoryTrack information.
+
+		/** \brief Make note of called operator new
+		*
+		* \param[in] track MemoryTrack information.
+		*/
 		static void AddTrack(MemoryTrack track);
 
-		/// Removes MemoryTrack structs from memory vector based on provided pointer.
-		///		\param pointer : void* universal pointer.
+		/** \brief Note that previously called new has been properly deleted.
+		* 
+		* \param pointer void* universal pointer.
+		*/
 		static void DeleteTrack(void* pointer);
 
-		/// Prints memory leaks to logcat.
-		/// Should be called when app is destroyed.
-		///		\return true if there are leaks.
+		/** \brief Print tracks that have not been deleted to logcat.
+		*
+		* Is called when Application closes without exceptions, but can also
+		* be called when you want.
+		*/
 		static void WriteLeaks();
 
 	private:
-		/// Vector keeping track of called new and delete operator.
-		static std::vector<MemoryTrack> memory; 
+
+		static std::vector<MemoryTrack> memory;  // Vector keeping track of called new and delete operator.
 	};
 }
 

@@ -23,33 +23,33 @@ namespace pm
 
 		/// Returns the current touch coordinates.
 		/**
-			\return Returns the last known touch coordinates as glm vec2.
+		\return Returns the last known touch coordinates as glm vec2.
 		*/
 		glm::vec2 GetTouchCoordinates();
-		
+
 		/// Returns the length vector from start of the drag to current touch position.
 		/**
-			\return Returns the drag vector that happened between last main loops as glm vec2.
+		\return Returns the drag vector that happened between last main loops as glm vec2.
 		*/
 		glm::vec2 GetDragVector();
 
 		/// Returns accelerometer data
 		/**
-			\return Returns accelerometer data as glm vec3.
+		\return Returns accelerometer data as glm vec3.
 		*/
 		glm::vec3 GetAccelerometerData();
 
 		/// Checks if its the first time calling GetSingleTouch during touch.
 		/**
-			Single touch will return true the first time called between touch down and touch up event.
-			Automatically resets the state when touch up is called by the Android API.
-			\return Returns true if called first time after a registered touch down event and before touch up event.
+		Single touch will return true the first time called between touch down and touch up event.
+		Automatically resets the state when touch up is called by the Android API.
+		\return Returns true if called first time after a registered touch down event and before touch up event.
 		*/
 		bool GetSingleTouch();
-		
+
 		/// Returns the current state of touch.
 		/**
-			\return Returns the current state of touch (up/down). Touching = true, not touching = false.
+		\return Returns the current state of touch (up/down). Touching = true, not touching = false.
 		*/
 		bool IsTouching();
 
@@ -84,7 +84,7 @@ namespace pm
 		*/
 		static void InputEventMovement(float x, float y);
 
-		/** \brief Called in Application::Update() to receive accelerometer data. 
+		/** \brief Called in Application::Update() to receive accelerometer data.
 		*
 		* \param accelerometer The accelerometer data to be given to Input.
 		*/

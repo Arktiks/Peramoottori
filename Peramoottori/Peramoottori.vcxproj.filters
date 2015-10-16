@@ -158,9 +158,23 @@
     <ClCompile Include="jni\graphics\Shader.cpp">
       <Filter>jni\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="jni\scene\TextureCoordinates.cpp">
       <Filter>jni\scene\components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\Camera.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\Hitbox.cpp">
+      <Filter>jni\scene\components</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\CameraSystem.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\Pointer.cpp">
+      <Filter>jni\core</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\core\GestureManager.cpp">
+      <Filter>jni\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -980,6 +994,23 @@
     <ClInclude Include="jni\scene\TextureCoordinates.h">
       <Filter>jni\scene\components</Filter>
     </ClInclude>
+    <ClInclude Include="jni\scene\Camera.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Groups.h" />
+    <ClInclude Include="jni\scene\Hitbox.h">
+      <Filter>jni\scene\components</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\CameraSystem.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\Pointer.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\core\GestureManager.h">
+      <Filter>jni\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Mainpage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">
