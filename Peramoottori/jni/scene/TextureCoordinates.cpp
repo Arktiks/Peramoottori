@@ -1,34 +1,25 @@
 #include <scene\TextureCoordinates.h>
 
-void pm::TextureCoordinates::ReserveSpace()
-{
-	// Temporary fix, make prettier later. There is no space reserved in vector.
-	textureCoordinates.push_back(0.0f);
-	textureCoordinates.push_back(0.0f);
-	textureCoordinates.push_back(0.0f);
-	textureCoordinates.push_back(0.0f);
-}
-
 pm::TextureCoordinates::TextureCoordinates()
 {
-	ReserveSpace();
+	textureCoordinates.resize(4);
 }
 
 pm::TextureCoordinates::TextureCoordinates(float left, float top, float right, float bottom)
 {
-	ReserveSpace();
+	textureCoordinates.resize(4);
 	SetTextureCoordinates(left, top, right, bottom);
 }
 
 pm::TextureCoordinates::TextureCoordinates(glm::vec2 leftTop, glm::vec2 rightBottom)
 {
-	ReserveSpace();
+	textureCoordinates.resize(4);
 	SetTextureCoordinates(leftTop[0], leftTop[1], rightBottom[0], rightBottom[1]);
 }
 
 pm::TextureCoordinates::TextureCoordinates(glm::vec4 coordinates)
 {
-	ReserveSpace();
+	textureCoordinates.resize(4);
 	SetTextureCoordinates(coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
 }
 

@@ -41,7 +41,6 @@ namespace pm
 		std::vector<GLfloat> GetTextureCoordinates() { return textureCoordinates; };
 
 	private:
-		void ReserveSpace();
 		std::vector<GLfloat> textureCoordinates;
 	};
 }
