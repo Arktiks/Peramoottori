@@ -23,6 +23,10 @@ namespace pm
 
 		void Update();
 
+		// Need to check later if these functions need further changes.
+		void SetDynamic();
+		void SetStatic();
+
 	private:
 
 		b2BodyDef bodyDefinition;
@@ -35,9 +39,11 @@ namespace pm
 
 		bool dynamic;
 
-		pm::Transformable* Transform();
+		bool initialised;
 
-		pm::Rectangle* Rectangle();
+		//pm::Transformable* GetTransform();
+
+		//pm::Rectangle* GetRectangle();
 	};
 }
 

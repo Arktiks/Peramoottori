@@ -53,6 +53,7 @@ namespace pm
 
 				objects[i]->AddComponent(NEW Rectangle(rectangle, rectangle));
 				objects[i]->AddComponent(NEW Drawable);
+				objects[i]->AddComponent(NEW Physics);
 
 				rectangle -= 30.0f;
 				location += 150.0f;
@@ -60,43 +61,30 @@ namespace pm
 				color -= 0.2f;
 			}
 
-			/*TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
-			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
-			texts.push_back(Text(font, file, 100, 100, 32, 32));*/
-
-			/*sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
-			sounds[0]->SetLooping(true);
-			sounds[0]->SetVolume(volume);
-			sounds[0]->Play();*/
-
-			sounds.push_back(NEW Audio("Push.ogg"));
-			sounds[0]->SetVolume(volume);
 		};
 
 		void Update()
 		{
-			rotation += 0.1f;
+			//rotation += 0.1f;
 			for (int i = 0; i < 5; i++)
 			{
-				objects[i]->GetComponent<Transformable>()->SetRotation(rotation);
-				SpriteBatch::GetInstance()->AddGameEntity(objects[i]);
+				//objects[i]->GetComponent<Transformable>()->SetRotation(rotation);
+				SpriteBatch::GetInstance()->AddOpaqueGameEntity(objects[i]);
+				//objects[i]->GetComponent<Physics>()->Update();
 			}
 		};
 
 		void Pause()
 		{
 			paused = true;
-			//sounds[0]->Pause();
 		};
 
 		void Unpause()
 		{
 			paused = false;
-			//sounds[0]->Play();
 		};
 
 		std::vector<GameEntity*> objects;
-		std::vector<Audio*> sounds;
 		float rotation, volume;
 		bool paused;
 		Input input;
@@ -133,7 +121,7 @@ void android_main(android_app* application)
 			if(access->paused == true)
 				access->Unpause();
 
-			timer += 1;
+			/*timer += 1;
 
 			if (access->input.GetSingleTouch() == true && access->objects.size() > 0)
 			{
@@ -146,9 +134,10 @@ void android_main(android_app* application)
 				access->objects[4]->GetComponent<Drawable>()->SetDrawState(false);
 				access->objects[2]->RemoveComponent<Texture>();
 				timer = 351;
-			}
+			}*/
 
 			access->Update();
+			PhysicsSystem::Instance().Update();
 			app->window.Clear();
 			app->Draw();
 		}

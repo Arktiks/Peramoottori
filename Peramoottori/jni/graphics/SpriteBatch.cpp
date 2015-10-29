@@ -44,7 +44,6 @@ void SpriteBatch::Draw()
 	batchVector.clear();
 	BatchTranslucentComponents();
 
-
 	glDepthMask(GL_FALSE);
 	glEnable(GL_BLEND);
 	for (int i = 0; i < batchVector.size(); i++)

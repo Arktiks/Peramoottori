@@ -7,19 +7,23 @@
 
 using namespace pm;
 
-Physics::Physics() : body(nullptr), dynamic(true)
+Physics::Physics() : body(nullptr), dynamic(true), initialised(false)
 {
 	bodyDefinition.type = b2_dynamicBody; // Need to create different construct for static objects.
 
 	/* Set starting size - doesn't take scale into account! */
-	Rectangle* rectangle = Rectangle();
-	glm::vec2 size = rectangle->GetSize();
+	//Rectangle* rectangle = GetRectangle();
+	//glm::vec2 size = rectangle->GetSize();
+	glm::vec2 size = parent->GetComponent<Rectangle>()->GetSize();
 	shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
 
 	/* Set starting position. */
-	Transformable* transform = Transform();
-	glm::vec2 position = transform->GetPosition();
+	//Transformable* transform = GetTransform();
+	//glm::vec2 position = transform->GetPosition();
+	glm::vec2 position = parent->GetComponent<Transformable>()->GetPosition();
 	bodyDefinition.position.Set(position.x, position.y);
+	//bodyDefinition.angle = transform->GetRotation();
+	bodyDefinition.angle = parent->GetComponent<Transformable>()->GetRotation();
 
 	/* Hardcoded fixture settings. */
 	fixture.shape = &shape;
@@ -38,28 +42,50 @@ void Physics::Update()
 {
 	/* Update possible size changes. Can be optimized to be more
 	* lightweight if there is performance problems. */
-	Rectangle* rectangle = Rectangle();
-	glm::vec2 size = rectangle->GetSize();
+	//Rectangle* rectangle = GetRectangle();
+	//glm::vec2 size = rectangle->GetSize();
+	glm::vec2 size = parent->GetComponent<Rectangle>()->GetSize();
 	shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
 	
 	/* Update positions and angle. */
-	Transformable* transform = Transform();
+	//Transformable* transform = GetTransform();
 	b2Vec2 position = body->GetPosition();
 	float32 angle = body->GetAngle();
-	transform->SetPosition(position.x, position.y);
-	transform->SetRotation(angle);
+	//transform->SetPosition(position.x, position.y);
+	//transform->SetRotation(angle);
+	parent->GetComponent<Transformable>()->SetPosition(position.x, position.y);
+	parent->GetComponent<Transformable>()->SetRotation(angle);
 }
 
-Transformable* Physics::Transform()
+void Physics::SetDynamic()
+{
+	dynamic = true;
+	bodyDefinition.type = b2_dynamicBody;
+}
+
+void Physics::SetStatic()
+{
+	dynamic = false;
+	bodyDefinition.type = b2_staticBody;
+}
+
+///// GetComponent is generating errors.
+/*Transformable* Physics::GetTransform()
 {
 	Transformable* transform = parent->GetComponent<Transformable>();
-	ASSERT_NEQUAL(transfrom, nullptr);
+	//ASSERT_EQUAL(transform, nullptr);
+	if(transform == nullptr)
+		DEBUG_WARNING(("Physics component using null Transform!"));
+
 	return transform;
 }
 
-Rectangle* Physics::Rectangle()
+Rectangle* Physics::GetRectangle()
 {
 	Rectangle* rectangle = parent->GetComponent<Rectangle>();
-	ASSERT_NEQUAL(rectangle, nullptr);
+	//ASSERT_EQUAL(rectangle, nullptr);
+	if(rectangle == nullptr)
+		DEBUG_WARNING(("Physics component using null Rectangle!"));
+
 	return rectangle;
-}
+}*/
