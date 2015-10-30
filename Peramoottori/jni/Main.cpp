@@ -59,6 +59,7 @@ namespace pm
 				location += 150.0f;
 				size -= 0.1f;
 				color -= 0.2f;
+				PhysicsSystem::Instance().AddGameEntity(objects[i]);
 			}
 
 		};
@@ -108,9 +109,6 @@ void android_main(android_app* application)
 		app->saveData = (void*)game;
 		GameClass::first = true;
 	}
-
-	Time time;
-	int timer = 0;
 
 	while (app->Update())
 	{

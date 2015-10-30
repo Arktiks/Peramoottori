@@ -16,12 +16,15 @@ namespace pm
 {
 	class Physics : public Component
 	{
+
+		friend class PhysicsSystem;
+
 	public:
 
 		Physics();
 		~Physics();
 
-		void Update();
+		//void Update();
 
 		// Need to check later if these functions need further changes.
 		void SetDynamic();

@@ -4,6 +4,13 @@
 #include <scene\GameEntity.h>
 #include <Box2D\Dynamics\b2World.h>
 #include <vector>
+#include "Physics.h"
+#include "Transformable.h"
+#include <graphics\Rectangle.h>
+
+/** \internal There is soon going to be need for general game-engine manager
+* that manages all the systems. 
+*/
 
 namespace pm
 {
@@ -19,6 +26,8 @@ namespace pm
 
 		void AddGameEntity(pm::GameEntity* entity);
 
+		void UpdateEntity(pm::GameEntity* entity);
+
 		b2World world;
 
 	private:
@@ -33,6 +42,11 @@ namespace pm
 
 		std::vector<pm::GameEntity*> entities;
 
+		Physics* ValidatePhysics(pm::GameEntity* entity);
+
+		Transformable* ValidateTransform(pm::GameEntity* entity);
+
+		Rectangle* ValidateRectangle(pm::GameEntity* entity);
 	};
 }
 

@@ -14,16 +14,16 @@ Physics::Physics() : body(nullptr), dynamic(true), initialised(false)
 	/* Set starting size - doesn't take scale into account! */
 	//Rectangle* rectangle = GetRectangle();
 	//glm::vec2 size = rectangle->GetSize();
-	glm::vec2 size = parent->GetComponent<Rectangle>()->GetSize();
-	shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
+	//glm::vec2 size = parent->GetComponent<Rectangle>()->GetSize();
+	//shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
 
 	/* Set starting position. */
 	//Transformable* transform = GetTransform();
 	//glm::vec2 position = transform->GetPosition();
-	glm::vec2 position = parent->GetComponent<Transformable>()->GetPosition();
-	bodyDefinition.position.Set(position.x, position.y);
+	//glm::vec2 position = parent->GetComponent<Transformable>()->GetPosition();
+	//bodyDefinition.position.Set(position.x, position.y);
 	//bodyDefinition.angle = transform->GetRotation();
-	bodyDefinition.angle = parent->GetComponent<Transformable>()->GetRotation();
+	//bodyDefinition.angle = parent->GetComponent<Transformable>()->GetRotation();
 
 	/* Hardcoded fixture settings. */
 	fixture.shape = &shape;
@@ -31,23 +31,23 @@ Physics::Physics() : body(nullptr), dynamic(true), initialised(false)
 	fixture.friction = 0.3f;
 
 	body->CreateFixture(&fixture);
-	body = PhysicsSystem::Instance().world.CreateBody(&bodyDefinition);
+	//body = PhysicsSystem::Instance().world.CreateBody(&bodyDefinition);
 }
 
 Physics::~Physics()
 {
 }
 
-void Physics::Update()
+/*void Physics::Update()
 {
 	/* Update possible size changes. Can be optimized to be more
-	* lightweight if there is performance problems. */
+	* lightweight if there is performance problems. 
 	//Rectangle* rectangle = GetRectangle();
 	//glm::vec2 size = rectangle->GetSize();
 	glm::vec2 size = parent->GetComponent<Rectangle>()->GetSize();
 	shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
 	
-	/* Update positions and angle. */
+	/* Update positions and angle. 
 	//Transformable* transform = GetTransform();
 	b2Vec2 position = body->GetPosition();
 	float32 angle = body->GetAngle();
@@ -55,7 +55,7 @@ void Physics::Update()
 	//transform->SetRotation(angle);
 	parent->GetComponent<Transformable>()->SetPosition(position.x, position.y);
 	parent->GetComponent<Transformable>()->SetRotation(angle);
-}
+}*/
 
 void Physics::SetDynamic()
 {
