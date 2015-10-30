@@ -8,7 +8,7 @@ namespace pm
 	
 	/** \brief Base class to all resource types.
 	*
-	* Long description.
+	* Used by resource classes.
 	*
 	* \ingroup Resources
 	*/

@@ -90,11 +90,6 @@ pm::Resource* pm::ResourceManager::LoadAsset(std::string fileName)
 	}
 }
 
-void pm::ResourceManager::ClearAssetMap()
-{
-	assets.clear();
-}
-
 /// Private Functions ///
 
 std::string pm::ResourceManager::ReadText(std::string fileName)
@@ -105,9 +100,6 @@ std::string pm::ResourceManager::ReadText(std::string fileName)
 	{
 		std::vector<char> tempBuffer = ReadChar(tempAsset); // Buffer containing text content.
 		std::string tempString(tempBuffer.begin(), tempBuffer.end()); // Create string from buffer.
-
-		//AAsset_close(tempAsset);
-		//DEBUG_INFO((tempString.c_str())); // Prints processed text as confirmation.
 
 		return tempString;
 	}

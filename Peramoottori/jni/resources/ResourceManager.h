@@ -44,12 +44,6 @@ namespace pm
 		///	\return pointer to created or loaded Resource.
 		Resource* LoadAsset(std::string fileName);
 
-		/// \brief Simple public function to delete all assets.
-		///
-		/// Should be used when deleting previous scene.
-		void ClearAssetMap();
-
-
 		///
 		/// Deletes an asset from the assetMap.
 		///		\param filename : name of the file to be deleted.
