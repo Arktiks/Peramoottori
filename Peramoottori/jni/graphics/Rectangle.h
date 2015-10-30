@@ -8,7 +8,7 @@ namespace pm
 
 	/** \brief Drawable rectangle shape derived from Shape class.
 	*
-	* Description.
+	* Component for rectangle shape. Contains position, size and origin.
 	*
 	* \ingroup Scene
 	*/
