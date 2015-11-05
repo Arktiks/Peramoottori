@@ -88,18 +88,58 @@ void CommandCenter::UpdateSensors(int identity)
 
 void CommandCenter::Start()
 {
+	StartFunction *tempFunctionPointer = Application::GetInstance()->getStartFunction();
+
+	if (tempFunctionPointer != nullptr)
+	{
+		(*tempFunctionPointer)();
+	}
+	else
+	{
+		DEBUG_WARNING(("Start function pointer not defined"));
+	}
 }
 
 void CommandCenter::Resume()
 {
+	ResumeFunction *tempFunctionPointer = Application::GetInstance()->getResumeFunction();
+
+	if (tempFunctionPointer != nullptr)
+	{
+		(*tempFunctionPointer)();
+	}
+	else
+	{
+		DEBUG_WARNING(("Resume function pointer not defined"));
+	}
 }
 
 void CommandCenter::Pause()
 {
+	PauseFunction *tempFunctionPointer = Application::GetInstance()->getPauseFunction();
+
+	if (tempFunctionPointer != nullptr)
+	{
+		(*tempFunctionPointer)();
+	}
+	else
+	{
+		DEBUG_WARNING(("Pause function pointer not defined"));
+	}
 }
 
 void CommandCenter::Stop()
 {
+	StopFunction *tempFunctionPointer = Application::GetInstance()->getStopFunction();
+
+	if (tempFunctionPointer != nullptr)
+	{
+		(*tempFunctionPointer)();
+	}
+	else
+	{
+		DEBUG_WARNING(("Stop function pointer not defined"));
+	}
 }
 
 void CommandCenter::Destroy()
