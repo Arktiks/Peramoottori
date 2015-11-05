@@ -43,6 +43,7 @@ namespace pm
 		*/
 		TextureCoordinates(float left, float top, float right, float bottom);
 		
+		
 		/** \brief Constructor for textureCoordinates with vec2 as parameters.
 		*
 		* Creates TextureCoordinates with given parameters
@@ -86,11 +87,22 @@ namespace pm
 		*/
 		void SetTextureCoordinates(glm::vec4 leftTopRightBottom);
 		
+		/** \brief Sets textureCoordinates with coordinates and dimensions as parameters
+		*
+		* Creates TextureCoordinates with given parameters
+		* \param[in] left x-coordinate
+		* \param[in] top y-coordinate
+		* \param[in] width of the texture area
+		* \param[in] height of the texture area
+		*/
+		void SetTextureDimensions(float left, float top, float width, float height);
+
 		/** \brief returns textureCoordinates as vector<GLfloat>
 		*
 		* Return textureCoordinates in order left(x), top(y), right(x), bottom(y)
 		* \return All textureCoordinates as std::vector<GLfloat>
 		*/
+
 		std::vector<GLfloat> GetTextureCoordinates() { return textureCoordinates; };
 		
 		/** \brief returns textureCoordinates glm::vec4

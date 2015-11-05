@@ -34,17 +34,13 @@ namespace pm
 		* \param[in] rotation as float.
 		*/
 
-		//This Transformable constructor does not set position correctly!
-		//Transformable(glm::vec2 position, glm::vec2 scale, float rotation) :
-		//	position(position), scale(scale), rotation(rotation), depthBuffer(0) {};
-
-		Transformable(glm::vec2 position, glm::vec2 scale, float rotation)
+		Transformable(glm::vec2 position, glm::vec2 scale, float rotation) :
+			position(position), scale(scale), rotation(rotation), depthBuffer(0) 
 		{
-			this->position = position;
-			this->scale = scale;
-			this->rotation = rotation;
-			depthBuffer = 0;
+			CalculateMatrix();
 		};
+
+		
 
 		~Transformable() {};
 
