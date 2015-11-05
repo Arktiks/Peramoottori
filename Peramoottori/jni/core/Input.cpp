@@ -11,76 +11,74 @@ void Input::AndroidEventHandler(AInputEvent* aEvent)
 {
 	int32_t action = AMotionEvent_getAction(aEvent);
 
-	if (AInputEvent_getSource(aEvent) == AINPUT_SOURCE_TOUCHSCREEN)
+	switch (action & AMOTION_EVENT_ACTION_MASK)
 	{
-		switch (action & AMOTION_EVENT_ACTION_MASK)
-		{
-		case AMOTION_EVENT_ACTION_DOWN:
-		case AMOTION_EVENT_ACTION_POINTER_DOWN:
-		{
-			int idx = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
-				>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+	case AMOTION_EVENT_ACTION_DOWN:
+	case AMOTION_EVENT_ACTION_POINTER_DOWN:
+	{
+		int idx = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
+			>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
 
-			if (idx >= maxInputs)
-				break;
-
-			pointerCount++;
-
-			if (incrPointerID > 10000)
-				incrPointerID = 1;
-			incrPointerID++;
-
-			pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
-			pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
-			pointers[idx].index = idx;
-			pointers[idx].id = incrPointerID;
-			pointers[idx].tap = false;
-			pointers[idx].singleTouch = true;
-			pointers[idx].touch = true;
-		}
-		break;
-		case AMOTION_EVENT_ACTION_MOVE:
-		{
-			const int count = AMotionEvent_getPointerCount(aEvent);
-
-			for (int idx = 0; idx < count && idx < maxInputs; idx++)
-			{
-				pointers[idx].pos.x = AMotionEvent_getX(aEvent, idx);
-				pointers[idx].pos.y = AMotionEvent_getY(aEvent, idx);
-
-			}
-		}
-		break;
-		case AMOTION_EVENT_ACTION_UP:
-		case AMOTION_EVENT_ACTION_POINTER_UP:
-		case AMOTION_EVENT_ACTION_CANCEL:
-		case AMOTION_EVENT_ACTION_OUTSIDE:
-		{
-			int idx = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
-				>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-
-			if (idx >= maxInputs)
-				break;
-
-			pointerCount--;
-
-			pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
-			pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
-
-			if (!pointers[idx].tap)
-			{
-				for (unsigned int i = idx; i < maxInputs - 1; i++)
-				{
-					pointers[i].index = pointers[i + 1].index;
-					pointers[i].sPos = pointers[i + 1].sPos;
-				}
-			}
-		}
-		break;
-		default:
+		if (idx >= maxInputs)
 			break;
+
+		pointerCount++;
+
+		if (incrPointerID > 10000)
+			incrPointerID = 1;
+		incrPointerID++;
+
+		pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
+		pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
+		pointers[idx].index = idx;
+		pointers[idx].id = incrPointerID;
+		pointers[idx].tap = false;
+		pointers[idx].singleTouch = true;
+		pointers[idx].touch = true;
+	}
+		break;
+	case AMOTION_EVENT_ACTION_MOVE:
+	{
+		const int count = AMotionEvent_getPointerCount(aEvent);
+
+		for (int idx = 0; idx < count && idx < maxInputs; idx++)
+		{
+			pointers[idx].pos.x = AMotionEvent_getX(aEvent, idx);
+			pointers[idx].pos.y = AMotionEvent_getY(aEvent, idx);
+
 		}
 	}
+		break;
+	case AMOTION_EVENT_ACTION_UP:
+	case AMOTION_EVENT_ACTION_POINTER_UP:
+	case AMOTION_EVENT_ACTION_CANCEL:
+	case AMOTION_EVENT_ACTION_OUTSIDE:
+	{
+		int idx = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
+			>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+
+		if (idx >= maxInputs)
+			break;
+
+		pointerCount--;
+
+		pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
+		pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
+
+		if (!pointers[idx].tap)
+		{
+			for (unsigned int i = idx; i < maxInputs - 1; i++)
+			{
+				pointers[i].index = pointers[i + 1].index;
+				pointers[i].sPos = pointers[i + 1].sPos;
+			}
+		}
+	}
+		break;
+	default:
+		break;
+	}
+
 }
 int Input::GetPointerCount()
 {

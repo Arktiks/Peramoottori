@@ -6,12 +6,6 @@
 
 namespace pm
 {
-	//Defining function pointers
-	typedef void(*StartFunction)();
-	typedef void(*ResumeFunction)();
-	typedef void(*PauseFunction)(); 
-	typedef void(*StopFunction)();
-
 	/** \brief System that handles communication with java side.
 	*
 	* \ingroup Core
@@ -21,7 +15,6 @@ namespace pm
 	{
 
 		friend class EventHandler; // Required for static android_native_app_glue functions.
-		
 
 	public:
 
@@ -92,60 +85,6 @@ namespace pm
 		*/
 		void* saveData;
 
-
-
-		// function pointer setup
-
-		/** \brief User generated pause function setter
-		*
-		* Users can create their own start fuctions in main and pass it as a pointer to the engine.
-		*/
-		void setStartFunction(void(*StartFunction)()) { startFunction = &StartFunction; };
-
-		/** \brief User generated pause function getter
-		*
-		* Start function getter
-		*/
-		StartFunction *getStartFunction() { return startFunction; };
-
-		/** \brief User generated pause function setter
-		*
-		* Users can create their own resume fuctions in main and pass it as a pointer to the engine.
-		*/
-		void setResumeFunction(void(*ResumeFunction)()) { resumeFunction = &ResumeFunction; };
-
-		/** \brief User generated pause function getter
-		*
-		* Resume function getter
-		*/
-		ResumeFunction *getResumeFunction() { return resumeFunction; };
-
-		/** \brief User generated pause function setter
-		*
-		* Users can create their own pause fuctions in main and pass it as a pointer to the engine.
-		*/
-		void setPauseFunction(void(*PauseFunction)()) { pauseFunction = &PauseFunction; };
-
-		/** \brief User generated pause function getter
-		*
-		* Pause function getter
-		*/
-		PauseFunction *getPauseFunction() { return pauseFunction; };
-
-		/** \brief User generated pause function setter
-		*
-		* Users can create their own stop fuctions in main and pass it as a pointer to the engine.
-		*/
-		void setStopFunction(void(*StopFunction)()) { stopFunction = &StopFunction; };
-
-		/** \brief User generated pause function getter
-		*
-		* Stop function getter
-		*/
-		StopFunction *getStopFunction() { return stopFunction; };
-
-
-
 	private:
 
 		/// Print warning messages if trying to use Application without initializing.
@@ -158,11 +97,6 @@ namespace pm
 		/// Private destructor prevents delete.
 		/// Class needs to be cleaned up with DestroyInstance.
 		~Application() {};
-
-		StartFunction *startFunction;
-		ResumeFunction *resumeFunction;
-		PauseFunction *pauseFunction;
-		StopFunction *stopFunction;
 
 		android_app* application; ///< Pointer to android application.
 
