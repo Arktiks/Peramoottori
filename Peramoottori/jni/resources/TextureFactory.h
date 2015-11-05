@@ -39,6 +39,8 @@ namespace pm
 
 		static void RemoveTextureGroup(uint textureGroupToRemove);
 
+		static void RemoveTexture(std::string);
+
 	private:
 
 		///	Function used in creating a texture 

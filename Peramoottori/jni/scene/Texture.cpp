@@ -8,6 +8,7 @@ pm::Texture::Texture() : Component()
 
 pm::Texture::Texture(std::string path) : Component()
 {
+	file = path;
 	Texture* tempTexture = TextureFactory::CreateTexture(path);
 	this->SetId(tempTexture->GetId());
 	this->SetTextureSize(tempTexture->GetTextureSize());

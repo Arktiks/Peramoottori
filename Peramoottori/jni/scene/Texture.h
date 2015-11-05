@@ -84,6 +84,8 @@ namespace pm
 		void SetTextureGroup(uint TextureGroup);
 
 		
+		std::string GetFile(){ return file; };
+
 
 	private:
 		GLuint textureIndex;
@@ -93,7 +95,7 @@ namespace pm
 
 		uint textureGroup;
 
-
+		std::string file;
 
 
 	};
