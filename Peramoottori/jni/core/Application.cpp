@@ -37,6 +37,11 @@ void Application::DestroyInstance()
 
 void Application::Initialize(android_app* application)
 {
+	startFunction = nullptr;
+	resumeFunction = nullptr;
+	pauseFunction = nullptr;
+	stopFunction = nullptr;
+
 	DEBUG_INFO(("Starting Application initialization."));
 	ASSERT_NEQUAL(application, nullptr); // Make sure application pointer is legit.
 
@@ -63,6 +68,7 @@ void Application::Initialize(android_app* application)
 	RenderSystem::GetInstance()->Initialize();
 	DEBUG_INFO(("RenderSystem done."));
 	DEBUG_INFO(("Application has been initialized."));
+
 }
 
 bool Application::Update()
