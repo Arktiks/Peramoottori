@@ -11,9 +11,8 @@ PhysicsSystem& PhysicsSystem::Instance()
 	return *instance;
 }
 
-PhysicsSystem::PhysicsSystem() : world(b2Vec2(0.0f, -10.0f))
+PhysicsSystem::PhysicsSystem() : world(b2Vec2(0.0f, 10.0f))
 {
-	
 }
 
 PhysicsSystem::~PhysicsSystem()
@@ -34,14 +33,17 @@ void PhysicsSystem::Update()
 			Transformable* transform = ValidateTransform((*it));
 			Rectangle* rectangle = ValidateRectangle((*it));
 
-			glm::vec2 size = rectangle->GetSize();
-			physics->shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
-
 			glm::vec2 position = transform->GetPosition();
 			physics->bodyDefinition.position.Set(position.x, position.y);
 			physics->bodyDefinition.angle = transform->GetRotation();
 
 			physics->body = world.CreateBody(&(physics->bodyDefinition));
+
+			glm::vec2 size = rectangle->GetSize();
+			physics->shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
+
+			CreateFixture(physics);
+
 			physics->initialised = true;
 		}
 
@@ -49,8 +51,6 @@ void PhysicsSystem::Update()
 	}
 
 	world.Step(STEP, VELOC_ITERATION, POS_ITERATION);
-
-	
 }
 
 void PhysicsSystem::AddGameEntity(pm::GameEntity* entity)
@@ -71,6 +71,14 @@ void PhysicsSystem::UpdateEntity(pm::GameEntity* entity)
 	float32 angle = physics->body->GetAngle();
 	transform->SetPosition(position.x, position.y);
 	transform->SetRotation(angle);
+}
+
+void PhysicsSystem::CreateFixture(Physics* component, float density, float friction)
+{
+	component->fixture.shape = &(component->shape);
+	component->fixture.density = density;
+	component->fixture.friction = friction;
+	component->body->CreateFixture(&(component->fixture));
 }
 
 Physics* PhysicsSystem::ValidatePhysics(pm::GameEntity* entity)

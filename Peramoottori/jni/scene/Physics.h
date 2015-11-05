@@ -24,29 +24,30 @@ namespace pm
 		Physics();
 		~Physics();
 
-		//void Update();
-
 		// Need to check later if these functions need further changes.
 		void SetDynamic();
 		void SetStatic();
 
 	private:
 
+		/* BodyDef defines the initial position of the body and the
+		type of the body (static, dynamic or kinematic). Static basically
+		means that the body may never move. Dynamic means that the body
+		can interact with other bodies. Kinematic means the body can move
+		but it will not be affected by other bodies (for example, an elevator perhaps). */
 		b2BodyDef bodyDefinition;
 
 		b2Body* body;
 
+		/* Shape of b2Body. Peramoottori only supports rectangles currently. */
 		b2PolygonShape shape;
 
+		/* Properties of b2Body. */
 		b2FixtureDef fixture;
 
 		bool dynamic;
 
 		bool initialised;
-
-		//pm::Transformable* GetTransform();
-
-		//pm::Rectangle* GetRectangle();
 	};
 }
 

@@ -40,7 +40,14 @@ namespace pm
 
 		const int32 POS_ITERATION = 2;
 
+		/*  We need to divide the pixel positions by SCALE because Box2D doesn’t use pixel coordinates.
+		Instead, it uses real world measurement units. So whenever we want to specify a position in the
+		Box2D world, we need to convert to coordinates into the one that Box2D uses. */
+		const float SCALE = 30.0f;
+
 		std::vector<pm::GameEntity*> entities;
+
+		void CreateFixture(Physics* component, float density = 1.0f, float friction = 0.3f);
 
 		Physics* ValidatePhysics(pm::GameEntity* entity);
 
