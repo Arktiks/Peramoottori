@@ -97,6 +97,9 @@ namespace pm
 		*/
 		void SetTextureDimensions(float left, float top, float width, float height);
 
+		void SetTextureDimensions(glm::vec2 leftTop, glm::vec2 WidthHeight);
+
+		void SetTextureDimensions(glm::vec4 leftTopWidthHeight);
 		/** \brief returns textureCoordinates as vector<GLfloat>
 		*
 		* Return textureCoordinates in order left(x), top(y), right(x), bottom(y)
