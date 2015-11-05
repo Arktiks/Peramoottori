@@ -67,6 +67,8 @@ namespace pm
 		void SetTextureGroup(uint TextureGroup);
 
 
+		std::string GetFile(){ return file; };
+
 
 	private:
 
@@ -76,7 +78,7 @@ namespace pm
 
 		uint textureGroup;
 
-
+		std::string file;
 
 
 	};

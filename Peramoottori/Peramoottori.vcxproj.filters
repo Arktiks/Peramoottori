@@ -170,6 +170,12 @@
     <ClCompile Include="jni\scene\CameraSystem.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
+    <ClCompile Include="jni\scene\Scene.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\scene\SceneManager.cpp">
+      <Filter>jni\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -999,6 +1005,12 @@
       <Filter>jni\scene</Filter>
     </ClInclude>
     <ClInclude Include="Mainpage.h" />
+    <ClInclude Include="jni\scene\Scene.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\SceneManager.h">
+      <Filter>jni\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\glm\detail\func_common.inl">

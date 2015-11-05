@@ -225,6 +225,16 @@ void pm::TextureFactory::RemoveTextureGroup(uint textureGroupToRemove)
 	}
 }
 
+void pm::TextureFactory::RemoveTexture(std::string path)
+{
+	std::map<std::string, pm::TextureStruct*>::iterator it = generatedTextures.find(path);
+	if (it != generatedTextures.end())
+	{
+		ResourceManager::GetInstance()->DeleteResource(it->first);
+		it = generatedTextures.erase(it);
+	}
+}
+
 void pm::TextureFactory::RecreateOGLTextures()
 {
 	if (!generatedTextures.empty())
