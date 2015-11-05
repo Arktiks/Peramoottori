@@ -38,12 +38,6 @@ namespace pm
 
 	protected:
 
-		struct GameEntityStruct
-		{
-			int scene;
-			pm::GameEntity* gameEntity;
-		};
-
 		struct AudioStruct
 		{
 			std::string path;
@@ -60,23 +54,17 @@ namespace pm
 			int num;
 		};
 
-
 	private:
 
 		SceneManager() { sceneSum = 0; }; ///< Neccessary for singleton.
 
 		~SceneManager() {}; ///< Can't be deleted without calling DestroyInstance.
 
-
-
 		std::vector<TextureStruct> textureVector;
 		std::vector<TextureStruct>::iterator TMI;
 
 		std::vector<AudioStruct> audioVector;
 		std::vector<AudioStruct>::iterator AMI;
-
-		std::vector<GameEntityStruct> gameEntityVector;
-		std::vector<GameEntityStruct>::iterator GEVI;
 
 		int sceneSum;
 

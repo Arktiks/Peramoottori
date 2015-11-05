@@ -11,6 +11,12 @@ Scene::Scene()
 Scene::~Scene()
 {
 	SceneManager::GetInstance()->DeleteScene(sceneNumber);
+
+	for (GEVI = gameEntityVector.begin(); GEVI != gameEntityVector.end();)
+	{
+		delete *GEVI;
+		GEVI = gameEntityVector.erase(GEVI);
+	}
 }
 
 void Scene::AddAudio(pm::Audio* audio)
@@ -25,7 +31,7 @@ void Scene::AddTexture(pm::Texture* texture)
 
 void Scene::AddGameEntity(pm::GameEntity* gameEntity)
 {
-	SceneManager::GetInstance()->AddGameEntity(gameEntity, sceneNumber);
+	gameEntityVector.push_back(gameEntity);
 }
 
 pm::Audio* Scene::GetAudio(std::string path)

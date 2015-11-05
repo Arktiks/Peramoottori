@@ -66,6 +66,7 @@ void SceneManager::DeleteScene(int inScenenumber)
 				delete TMI->texture;
 				TextureFactory::RemoveTexture(TMI->path);
 				TMI = textureVector.erase(TMI);
+				TMI--;
 			}
 			else
 				TMI->num--;
@@ -80,18 +81,10 @@ void SceneManager::DeleteScene(int inScenenumber)
 			{
 				delete AMI->audio;
 				AMI = audioVector.erase(AMI);
+				AMI--;
 			}
 			else
 				AMI->num--;
-		}
-	}
-
-	for (GEVI = gameEntityVector.begin(); GEVI != gameEntityVector.end(); GEVI++)
-	{
-		if (GEVI->scene == sceneNum)
-		{
-			delete GEVI->gameEntity;
-			GEVI = gameEntityVector.erase(GEVI);
 		}
 	}
 }
@@ -131,12 +124,4 @@ void SceneManager::AddTexture(pm::Texture* texture, int scene)
 	TS.scene = scene;
 	TS.path = texture->GetFile();
 	textureVector.push_back(TS);
-}
-
-void SceneManager::AddGameEntity(pm::GameEntity* gameEntity, int scene)
-{
-	GameEntityStruct GES;
-	GES.scene = scene;
-	GES.gameEntity = gameEntity;
-	gameEntityVector.push_back(GES);
 }
