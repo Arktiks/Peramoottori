@@ -11,10 +11,6 @@ PhysicsSystem& PhysicsSystem::Instance()
 	return *instance;
 }
 
-PhysicsSystem::PhysicsSystem() : world(b2Vec2(0.0f, 10.0f))
-{
-}
-
 PhysicsSystem::~PhysicsSystem()
 {
 }
@@ -34,13 +30,13 @@ void PhysicsSystem::Update()
 			Rectangle* rectangle = ValidateRectangle((*it));
 
 			glm::vec2 position = transform->GetPosition();
-			physics->bodyDefinition.position.Set(position.x, position.y);
+			physics->bodyDefinition.position.Set(position.x / SCALE, position.y / SCALE);
 			physics->bodyDefinition.angle = transform->GetRotation();
 
 			physics->body = world.CreateBody(&(physics->bodyDefinition));
 
 			glm::vec2 size = rectangle->GetSize();
-			physics->shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
+			physics->shape.SetAsBox((size.x * 0.5f) / SCALE, (size.y * 0.5f) / SCALE);
 
 			CreateFixture(physics);
 
@@ -58,19 +54,23 @@ void PhysicsSystem::AddGameEntity(pm::GameEntity* entity)
 	entities.push_back(entity);
 }
 
+PhysicsSystem::PhysicsSystem() : world(b2Vec2(0.0f, 10.0f))
+{
+}
+
 void PhysicsSystem::UpdateEntity(pm::GameEntity* entity)
 {
 	Physics* physics = ValidatePhysics(entity);
 	Transformable* transform = ValidateTransform(entity);
 	Rectangle* rectangle = ValidateRectangle(entity);
 
-	glm::vec2 size = rectangle->GetSize();
-	physics->shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
+	//glm::vec2 size = rectangle->GetSize();
+	//physics->shape.SetAsBox(size.x * 0.5f, size.y * 0.5f);
 
 	b2Vec2 position = physics->body->GetPosition();
 	float32 angle = physics->body->GetAngle();
-	transform->SetPosition(position.x, position.y);
-	transform->SetRotation(angle);
+	transform->SetPosition(position.x * SCALE, position.y * SCALE);
+	transform->SetRotation(angle * 180 / b2_pi);
 }
 
 void PhysicsSystem::CreateFixture(Physics* component, float density, float friction)

@@ -1385,5 +1385,8 @@
     <None Include="assets\TEXT.txt">
       <Filter>assets</Filter>
     </None>
+    <None Include="assets\BOX.png">
+      <Filter>assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

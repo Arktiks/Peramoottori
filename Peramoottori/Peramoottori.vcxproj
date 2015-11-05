@@ -476,6 +476,7 @@
     <None Include="assets\Applause.ogg" />
     <None Include="assets\Arial.ttf" />
     <None Include="assets\Audio Credits.txt" />
+    <None Include="assets\BOX.png" />
     <None Include="assets\DEF_FRAGMENT_SHADER.txt" />
     <None Include="assets\DEF_LOGO.png" />
     <None Include="assets\DEF_TEXTURE.png" />

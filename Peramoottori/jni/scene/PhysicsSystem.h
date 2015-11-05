@@ -22,17 +22,31 @@ namespace pm
 		
 		~PhysicsSystem();
 
+		/** \brief Update GameEntities and step world physics.
+		*
+		* ---
+		*/
 		void Update();
 
+		/** \brief Add GameEntity to be updated in PhysicsSystem.
+		*
+		* ---
+		*/
 		void AddGameEntity(pm::GameEntity* entity);
 
-		void UpdateEntity(pm::GameEntity* entity);
+		
 
 		b2World world;
 
 	private:
 
 		PhysicsSystem();
+
+		/** \brief Update Transform and Rectangle components based on Physics component state.
+		*
+		* ---
+		*/
+		void UpdateEntity(pm::GameEntity* entity);
 
 		const float32 STEP = 0.017f; // 60 times per second.
 
@@ -47,12 +61,15 @@ namespace pm
 
 		std::vector<pm::GameEntity*> entities;
 
-		void CreateFixture(Physics* component, float density = 1.0f, float friction = 0.3f);
+		/** \brief Create fixture for Physics component.
+		*
+		* ---
+		*/
+		void CreateFixture(Physics* component, float density = 1.0f, float friction = 0.5f);
 
+		/* Validate presence of necessary components before updating Physics. */
 		Physics* ValidatePhysics(pm::GameEntity* entity);
-
 		Transformable* ValidateTransform(pm::GameEntity* entity);
-
 		Rectangle* ValidateRectangle(pm::GameEntity* entity);
 	};
 }

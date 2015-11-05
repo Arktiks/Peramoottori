@@ -42,12 +42,11 @@ namespace pm
 			objects[0]->AddComponent(NEW Transformable(glm::vec2(location, 650), glm::vec2(1.0f, 1.0f), 0.0f));
 			objects[0]->AddComponent(NEW Color(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
 			objects[0]->AddComponent(NEW Rectangle(resolution.x, resolution.y * 0.1f));
-			objects[0]->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE_SMALL.png"));
+			objects[0]->AddComponent(TextureFactory::CreateTexture("BOX.png"));
 			objects[0]->AddComponent(NEW Drawable);
 			objects[0]->AddComponent(NEW Physics);
 			objects[0]->GetComponent<Physics>()->SetStatic();
 			PhysicsSystem::Instance().AddGameEntity(objects[0]);
-			
 
 			float size = 1.0f;
 			float color = 1.0f;
@@ -58,12 +57,7 @@ namespace pm
 				objects.push_back(NEW GameEntity());
 				objects[i]->AddComponent(NEW Transformable(glm::vec2(location, 0), glm::vec2(size, size), 0.0f));
 				objects[i]->AddComponent(NEW Color(glm::vec4(color, color, color, 1.0f)));
-
-				if((i % 2) == 0)
-					objects[i]->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE_SMALL.png"));
-				else
-					objects[i]->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE.png"));
-
+				objects[i]->AddComponent(TextureFactory::CreateTexture("BOX.png"));
 				objects[i]->AddComponent(NEW Rectangle(rectangle, rectangle));
 				objects[i]->AddComponent(NEW Drawable);
 				objects[i]->AddComponent(NEW Physics);
@@ -85,7 +79,7 @@ namespace pm
 				objects.back()->AddComponent(NEW Transformable(glm::vec2(input.GetTouchCoordinates().x, input.GetTouchCoordinates().y), glm::vec2(1.0f, 1.0f), 0.0f));
 				objects.back()->AddComponent(NEW Color(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
 				objects.back()->AddComponent(NEW Rectangle(100, 100));
-				objects.back()->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE_SMALL.png"));
+				objects.back()->AddComponent(TextureFactory::CreateTexture("BOX.png"));
 				objects.back()->AddComponent(NEW Drawable);
 				objects.back()->AddComponent(NEW Physics);
 				PhysicsSystem::Instance().AddGameEntity(objects.back());
