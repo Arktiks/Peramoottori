@@ -16,6 +16,8 @@
 namespace pm
 {
 
+
+
 	/** \brief Scene class contains scenes that can store Audio, Textures and GameObjects.
 	*
 	* \ingroup Scene
@@ -23,6 +25,9 @@ namespace pm
 	class Scene
 	{
 	protected:
+
+	//using gameEntityVector =  std::vector<GameEntity*>;
+	//using GEVI = std::vector<GameEntity*>::iterator;
 
 		struct GameEntityStruct
 		{
@@ -32,8 +37,14 @@ namespace pm
 
 	public:
 
+		/** \brief Scene constructor
+		* Sets unique sceneNumber from SceneManager
+		*/
 		Scene();
 
+		/** \brief Scene destructor
+		* Deletes all stored GameEntitys and removes 
+		*/
 		~Scene();
 
 		/** \brief Adds new Audio object.
@@ -68,6 +79,12 @@ namespace pm
 		*/
 		pm::Texture* GetTexture(std::string);
 
+		/** \brief Creates new T pointer.
+		* Used for creating T pointer and stores it.
+		* \return T pointer.
+		*/
+		template<typename T> T* Create();
+
 		/** \brief Returns int scene number.
 		* Used for getting scene number.
 		* \return int scene number.
@@ -77,9 +94,9 @@ namespace pm
 		/** \brief Returns vector of GameEntitys.
 		* Used for getting vector of GameEntitys.
 		* \return vector of GameEntitys.
-		*/
-		std::vector<GameEntity*> GetGameEntityVector(){ return gameEntityVector; };
-
+		*/		
+		const std::vector<GameEntity*> GetGameEntityVector() const
+		{ return gameEntityVector; };
 
 	private:
 
@@ -87,7 +104,15 @@ namespace pm
 
 		std::vector<GameEntity*> gameEntityVector;
 		std::vector<GameEntity*>::iterator GEVI;
-
 	};
 };
+
+template<typename T>
+T* pm::Scene::Create()
+{
+	T* tempTemplate = NEW T();
+	gameEntityVector.push_back(tempTemplate);
+	return tempTemplate;
+}
+
 #endif
