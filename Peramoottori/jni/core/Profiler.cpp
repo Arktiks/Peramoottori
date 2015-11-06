@@ -6,12 +6,12 @@ using namespace pm;
 
 Profiler::Profiler(std::string functionName) : name(functionName)
 {
-	clock.CalculateTimeInFrame();
+	clock.Start();
 }
 
 Profiler::~Profiler()
 {
-	long double time = clock.CalculateTimeInFrame();
+	long double time = clock.GetElapsedTime(Time::SECONDS);
 	ProfilerManager::GatherData(name, time);
-	DEBUG_INFO(("Time spent in %s is: %f", name.c_str(), time));
+	DEBUG_INFO(("Time spent in %s is: %f seconds", name.c_str(), time));
 }

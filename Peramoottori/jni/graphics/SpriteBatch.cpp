@@ -204,31 +204,49 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	{
 		*textureIndex = gameEntity->GetComponent<Texture>()->GetId();
 
+		//if (gameEntity->GetComponent<TextureCoordinates>() == nullptr)
+		//{
+		//	for (int i = 0; i < 2; i++)
+		//		for (int j = 0; j < 2; j++)
+		//		{
+		//			vertexTexPos.push_back(i);
+		//			vertexTexPos.push_back(j);
+		//		}
+		//}
+
 		if (gameEntity->GetComponent<TextureCoordinates>() == nullptr)
 		{
-			for (int i = 0; i < 2; i++)
-				for (int j = 0; j < 2; j++)
-				{
-					vertexTexPos.push_back(i);
-					vertexTexPos.push_back(j);
-				}
+			glm::fvec2 tempTextureSize = gameEntity->GetComponent<Texture>()->GetTextureSize();
+			glm::fvec2 tempVec = gameEntity->GetComponent<Texture>()->GetTrueSize();
+
+			vertexTexPos.push_back(0.0f);
+			vertexTexPos.push_back(0.0f);
+
+			vertexTexPos.push_back(0.0f);
+			vertexTexPos.push_back((tempVec.y / tempTextureSize.y));
+
+			vertexTexPos.push_back((tempVec.x / tempTextureSize.x));
+			vertexTexPos.push_back(0.0f);
+
+			vertexTexPos.push_back((tempVec.x / tempTextureSize.x));
+			vertexTexPos.push_back((tempVec.y / tempTextureSize.y));
 		}
 		else
 		{
-			glm::uvec2 tempTextureSize = gameEntity->GetComponent<Texture>()->GetTextureSize();;
+			glm::uvec2 tempTextureSize = gameEntity->GetComponent<Texture>()->GetTextureSize();
 			std::vector<GLfloat> tempVec = gameEntity->GetComponent<TextureCoordinates>()->GetTextureCoordinates();
 
 			vertexTexPos.push_back(tempVec[0] / tempTextureSize.x);
-			vertexTexPos.push_back(1 - (tempVec[3] / tempTextureSize.y));
+			vertexTexPos.push_back((tempVec[3] / tempTextureSize.y));
 
 			vertexTexPos.push_back(tempVec[0] / tempTextureSize.x);
-			vertexTexPos.push_back(1 - (tempVec[1] / tempTextureSize.y));
+			vertexTexPos.push_back((tempVec[1] / tempTextureSize.y));
 
 			vertexTexPos.push_back(tempVec[2] / tempTextureSize.x);
-			vertexTexPos.push_back(1 - (tempVec[3] / tempTextureSize.y));
+			vertexTexPos.push_back((tempVec[3] / tempTextureSize.y));
 
 			vertexTexPos.push_back(tempVec[2] / tempTextureSize.x);
-			vertexTexPos.push_back(1 - (tempVec[1] / tempTextureSize.y));
+			vertexTexPos.push_back((tempVec[1] / tempTextureSize.y));
 		}
 	}
 

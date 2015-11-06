@@ -32,6 +32,12 @@ namespace pm
 		*/
 		void SetTextureSize(glm::uvec2 textureSize);
 
+		/** \brief Set the true size of Texture.
+		*
+		* \param[in] textureSize glm::uvec2 [width, height].
+		*/
+		void SetTrueSize(glm::uvec2 textureSize);
+
 		/** \brief Return texture ID OpenGL has assigned for Texture.
 		*
 		* \return 0 if ID has not been assigned.
@@ -40,10 +46,21 @@ namespace pm
 
 		/** \brief Return size of texture.
 		*
+		* This is the size of the openGL texture in memory.
+		* If the original texture dimensions were not a power of two, this differs from "true size".
+		*
 		* \return glm::uvec2(0.0f, 0.0f) if size has not been set.
 		*/
 		glm::uvec2 GetTextureSize();
 
+		/** \brief Return the loaded size of texture.
+		*
+		* True size is always the original size of the texture (file) that was loaded to memory.
+		* 
+		* \return 
+		*/
+		glm::uvec2 GetTrueSize();
+		
 		/** \brief Set texture ID.
 		*
 		* Approriate OpenGL should be called before assigning index.
@@ -66,15 +83,15 @@ namespace pm
 		*/
 		void SetTextureGroup(uint TextureGroup);
 
-
+		
 		std::string GetFile(){ return file; };
 
 
 	private:
-
 		GLuint textureIndex;
 
 		glm::uvec2 textureSize;
+		glm::uvec2 trueSize;
 
 		uint textureGroup;
 
