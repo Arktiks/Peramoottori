@@ -34,26 +34,37 @@ void SpriteBatch::DestroyInstance()
 
 void SpriteBatch::Draw()
 {
-	BatchOpaqueComponents();
+	//for (int i = 0; i < layers.size(); i++)
+	{
+	//Change the Z buffer to i;
 
-	//glEnable(GL_DEPTH_TEST);
+	BatchOpaqueComponents(); //with depth i
+
+	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
+	glDepthMask(GL_TRUE);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
 
 	batchVector.clear();
-	BatchTranslucentComponents();
+	BatchTranslucentComponents(); //with depth i
 
 
-	glDepthMask(GL_FALSE);
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
+	glDepthMask(GL_FALSE);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
+
+
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
 	glDepthMask(GL_TRUE);
 
 	gameEntityVector.clear();
 	opaqueGameEntityVector.clear();
 	batchVector.clear();
+	}
 }
 
 void SpriteBatch::AddTranslucentGameEntity(GameEntity* gameEntity)
@@ -130,7 +141,7 @@ void SpriteBatch::BatchOpaqueComponents()
 		std::vector<GLushort> tempIndexData;
 		glm::mat4 tempTransformMatrix = glm::mat4();
 		GLuint tempTextureIndex;
-		bool newBatch = true;
+		bool newBatch = true; 
 
 		if (IsDrawable(opaqueGameEntityVector[i]))
 		{
@@ -160,7 +171,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	GLuint* textureIndex)
 {
 	std::vector<GLfloat> vertexPos;
-	GLfloat depth = 0;
+	int depth = 0;
 	std::vector<GLfloat> vertexTexPos;
 	glm::vec4 vertexColor;
 
@@ -264,7 +275,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	{
 		vertexData->push_back(vertexPos[i * 2]);
 		vertexData->push_back(vertexPos[i * 2 + 1]);
-		vertexData->push_back(depth);
+		vertexData->push_back(0);
 
 		vertexData->push_back(vertexColor.x);
 		vertexData->push_back(vertexColor.y);

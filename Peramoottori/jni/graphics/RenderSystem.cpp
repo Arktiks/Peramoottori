@@ -62,6 +62,46 @@ void RenderSystem::Initialize()
 	cameraSystem = CameraSystem::GetInstance();
 }
 
+void RenderSystem::CreateShaders()
+{
+	DEBUG_GL_ERROR_CLEAR();
+
+	bool tempCheck = shaderProgram.AddShader("DEF_VERTEX_SHADER.txt", GL_VERTEX_SHADER); // Create default vertex shader.
+	DEBUG_GL_ERROR();
+	//ASSERT(tempCheck);
+
+	tempCheck = shaderProgram.AddShader("DEF_FRAGMENT_SHADER.txt", GL_FRAGMENT_SHADER); // Create default fragment shader.
+	DEBUG_GL_ERROR();
+	//ASSERT(tempCheck);
+
+	shaderProgram.AddVertexAttribPointer("attrPosition", 3, 9, 0); // Vertex attributes defined by default shaders.
+	shaderProgram.AddVertexAttribPointer("attrColor", 4, 9, 3);
+	shaderProgram.AddVertexAttribPointer("texPosition", 2, 9, 7);
+
+	shaderProgram.LinkProgram();
+	shaderProgram.UseProgram();
+
+	glEnable(GL_BLEND);
+	DEBUG_GL_ERROR();
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	DEBUG_GL_ERROR();
+
+	glEnable(GL_DEPTH_TEST);
+	glClearDepthf(1.0);
+
+	glDepthFunc(GL_LEQUAL);
+	DEBUG_GL_ERROR();
+
+	GLint tempLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "image");
+	DEBUG_GL_ERROR();
+
+	glUniform1i(tempLocation, 0);
+	DEBUG_GL_ERROR();
+
+	DEBUG_INFO(("Default shaders done!"));
+}
+
 void RenderSystem::Draw(Batch* batch)
 {
 	shaderProgram.UseProgram();
@@ -105,45 +145,6 @@ void RenderSystem::BindBuffers(Batch* batch)
 {
 	vertexBuffer.BindBufferData(batch->GetVertexDataPointer()->size(), batch->GetVertexDataPointer()->data());
 	indexBuffer.BindBufferData(batch->GetIndexDataPointer()->size(), batch->GetIndexDataPointer()->data());
-}
-
-void RenderSystem::CreateShaders()
-{
-	DEBUG_GL_ERROR_CLEAR();
-
-	bool tempCheck = shaderProgram.AddShader("DEF_VERTEX_SHADER.txt", GL_VERTEX_SHADER); // Create default vertex shader.
-	DEBUG_GL_ERROR();
-	//ASSERT(tempCheck);
-
-	tempCheck = shaderProgram.AddShader("DEF_FRAGMENT_SHADER.txt", GL_FRAGMENT_SHADER); // Create default fragment shader.
-	DEBUG_GL_ERROR();
-	//ASSERT(tempCheck);
-
-	shaderProgram.AddVertexAttribPointer("attrPosition", 3, 9, 0); // Vertex attributes defined by default shaders.
-	shaderProgram.AddVertexAttribPointer("attrColor", 4, 9, 3);
-	shaderProgram.AddVertexAttribPointer("texPosition", 2, 9, 7);
-
-	shaderProgram.LinkProgram();
-	shaderProgram.UseProgram();
-
-	glEnable(GL_BLEND);	
-	DEBUG_GL_ERROR();
-
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	DEBUG_GL_ERROR();
-	
-	glEnable(GL_DEPTH_TEST);
-	glClearDepthf(1.0);
-	glDepthFunc(GL_LEQUAL);
-	DEBUG_GL_ERROR();
-
-	GLint tempLocation = glGetUniformLocation(shaderProgram.GetShaderProgramLocation(), "image");
-	DEBUG_GL_ERROR();
-
-	glUniform1i(tempLocation, 0);
-	DEBUG_GL_ERROR();
-
-	DEBUG_INFO(("Default shaders done!"));
 }
 
 RenderSystem::~RenderSystem()
