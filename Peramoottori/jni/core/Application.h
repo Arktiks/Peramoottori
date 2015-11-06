@@ -100,49 +100,49 @@ namespace pm
 		*
 		* Users can create their own start fuctions in main and pass it as a pointer to the engine.
 		*/
-		void setStartFunction(void(*StartFunction)()) { startFunction = &StartFunction; };
+		void setStartFunction(void(*StartFunction)()) { startFunction = StartFunction; };
 
 		/** \brief User generated pause function getter
 		*
 		* Start function getter
 		*/
-		StartFunction *getStartFunction() { return startFunction; };
+		StartFunction getStartFunction() { return startFunction; };
 
 		/** \brief User generated pause function setter
 		*
 		* Users can create their own resume fuctions in main and pass it as a pointer to the engine.
 		*/
-		void setResumeFunction(void(*ResumeFunction)()) { resumeFunction = &ResumeFunction; };
+		void setResumeFunction(void(*ResumeFunction)()) { resumeFunction = ResumeFunction; };
 
 		/** \brief User generated pause function getter
 		*
 		* Resume function getter
 		*/
-		ResumeFunction *getResumeFunction() { return resumeFunction; };
+		ResumeFunction getResumeFunction() { return resumeFunction; };
 
 		/** \brief User generated pause function setter
 		*
 		* Users can create their own pause fuctions in main and pass it as a pointer to the engine.
 		*/
-		void setPauseFunction(void(*PauseFunction)()) { pauseFunction = &PauseFunction; };
+		void setPauseFunction(void(*PauseFunction)()) { pauseFunction = PauseFunction; };
 
 		/** \brief User generated pause function getter
 		*
 		* Pause function getter
 		*/
-		PauseFunction *getPauseFunction() { return pauseFunction; };
+		PauseFunction getPauseFunction() { return pauseFunction; };
 
 		/** \brief User generated pause function setter
 		*
 		* Users can create their own stop fuctions in main and pass it as a pointer to the engine.
 		*/
-		void setStopFunction(void(*StopFunction)()) { stopFunction = &StopFunction; };
+		void setStopFunction(void(*StopFunction)()) { stopFunction = StopFunction; };
 
 		/** \brief User generated pause function getter
 		*
 		* Stop function getter
 		*/
-		StopFunction *getStopFunction() { return stopFunction; };
+		StopFunction getStopFunction() { return stopFunction; };
 
 
 
@@ -159,10 +159,10 @@ namespace pm
 		/// Class needs to be cleaned up with DestroyInstance.
 		~Application() {};
 
-		StartFunction *startFunction;
-		ResumeFunction *resumeFunction;
-		PauseFunction *pauseFunction;
-		StopFunction *stopFunction;
+		StartFunction startFunction;
+		ResumeFunction resumeFunction;
+		PauseFunction pauseFunction;
+		StopFunction stopFunction;
 
 		android_app* application; ///< Pointer to android application.
 
