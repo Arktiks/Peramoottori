@@ -9,6 +9,7 @@ using namespace pm;
 Physics::Physics() : body(nullptr), dynamic(true), initialised(false)
 {
 	bodyDefinition.type = b2_dynamicBody; // Need to create different construct for static objects.
+	// PhysicsSystem::Instance().AddGameEntity(parent);
 }
 
 Physics::~Physics()

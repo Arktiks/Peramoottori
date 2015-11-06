@@ -10,6 +10,8 @@
 
 /** \internal There is soon going to be need for general game-engine manager
 * that manages all the systems. 
+*
+* Physics component changes Rectangle components origin.
 */
 
 namespace pm
@@ -33,8 +35,6 @@ namespace pm
 		* ---
 		*/
 		void AddGameEntity(pm::GameEntity* entity);
-
-		
 
 		b2World world;
 

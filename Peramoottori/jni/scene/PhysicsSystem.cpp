@@ -29,6 +29,11 @@ void PhysicsSystem::Update()
 			Transformable* transform = ValidateTransform((*it));
 			Rectangle* rectangle = ValidateRectangle((*it));
 
+			// Testcase to fix physics, should be remade to take original origin
+			// into account later.
+			rectangle->SetOrigin(rectangle->GetSize().x * 0.5f,
+				rectangle->GetSize().y * 0.5f);
+
 			glm::vec2 position = transform->GetPosition();
 			physics->bodyDefinition.position.Set(position.x / SCALE, position.y / SCALE);
 			physics->bodyDefinition.angle = transform->GetRotation();
