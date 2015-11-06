@@ -81,6 +81,7 @@ namespace pm
 
 		/** \brief Creates new T pointer.
 		* Used for creating T pointer and stores it.
+		* T can be GameEntity or any class inherited from it.
 		* \return T pointer.
 		*/
 		template<typename T> T* Create();
@@ -110,9 +111,17 @@ namespace pm
 template<typename T>
 T* pm::Scene::Create()
 {
-	T* tempTemplate = NEW T();
-	gameEntityVector.push_back(tempTemplate);
-	return tempTemplate;
+	if (&typeid(T) == &typeid(Audio))
+	{
+
+
+	}
+	else
+	{
+		T* tempTemplate = NEW T();
+		gameEntityVector.push_back(tempTemplate);
+		return tempTemplate;
+	}
 }
 
 #endif
