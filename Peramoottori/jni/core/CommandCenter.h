@@ -79,7 +79,7 @@ namespace pm
 		*
 		* \note Reference given to android_native_app_glue.
 		*/
-		static int HandleInput(android_app* application, AInputEvent* event);
+		static int32_t HandleInput(android_app* application, AInputEvent* event);
 
 		/** \brief Handles application command processing.
 		*
