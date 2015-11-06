@@ -105,7 +105,9 @@ void CommandCenter::Stop()
 void CommandCenter::Destroy()
 {
 	Application::GetInstance()->DestroyInstance(); // Application takes care of cleaning up rest of modules.
+	#ifdef _DEBUG 
 	Memory::WriteLeaks(); // Write memory leaks to LogCat.
+	#endif
 	DEBUG_INFO(("Application has been destroyed!"));
 }
 
