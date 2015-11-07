@@ -88,7 +88,7 @@ void CommandCenter::UpdateSensors(int identity)
 
 void CommandCenter::Start()
 {
-	StartFunction *tempFunctionPointer = Application::GetInstance()->getStartFunction();
+	StartFunction tempFunctionPointer = Application::GetInstance()->getStartFunction();
 
 	if (tempFunctionPointer != nullptr)
 	{
@@ -102,7 +102,7 @@ void CommandCenter::Start()
 
 void CommandCenter::Resume()
 {
-	ResumeFunction *tempFunctionPointer = Application::GetInstance()->getResumeFunction();
+	ResumeFunction tempFunctionPointer = Application::GetInstance()->getResumeFunction();
 
 	if (tempFunctionPointer != nullptr)
 	{
@@ -116,7 +116,7 @@ void CommandCenter::Resume()
 
 void CommandCenter::Pause()
 {
-	PauseFunction *tempFunctionPointer = Application::GetInstance()->getPauseFunction();
+	PauseFunction tempFunctionPointer = Application::GetInstance()->getPauseFunction();
 
 	if (tempFunctionPointer != nullptr)
 	{
@@ -130,7 +130,7 @@ void CommandCenter::Pause()
 
 void CommandCenter::Stop()
 {
-	StopFunction *tempFunctionPointer = Application::GetInstance()->getStopFunction();
+	StopFunction tempFunctionPointer = Application::GetInstance()->getStopFunction();
 
 	if (tempFunctionPointer != nullptr)
 	{
