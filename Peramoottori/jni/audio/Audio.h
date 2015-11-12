@@ -75,6 +75,9 @@ namespace pm
 		* of this Audio object can be played simultaneously.
 		*/
 		void SetMaxPlayerCount(unsigned newMaxCount);
+
+
+		std::string GetFile(){ return file; };
 		
 	private:
 

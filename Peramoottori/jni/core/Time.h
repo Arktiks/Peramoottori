@@ -1,7 +1,7 @@
 #ifndef TIME_H
 #define TIME_H
 
-#include <time.h>
+#include <ctime>
 
 namespace pm
 {
@@ -13,25 +13,38 @@ namespace pm
 	class Time
 	{
 	public:
-		
-		Time() : inFrame(false), timeInFrame(0) { clock_gettime(CLOCK_MONOTONIC, &startTimer); };
+		enum FRACTION
+		{
+			SECONDS, MILLISECONDS, MICROSECONDS
+		};
+
+		Time(void){};
+		Time(std::clock_t start);
+		~Time();
+		/**
+		* Function for restarting time
+		*/
+		double Restart();
+		double Restart(FRACTION fraction);
+		/**
+		* Function for starting timer
+		*/
+		void Start();
 
 		/** When called for the first time Time objects internal timer starts ticking.
 		* When called second time and onward elapsed time between calls is calculated.
 		* \return Elapsed time between calls in milliseconds.
 		*/
-		double CalculateTimeInFrame();
-		
-		double GetCurrentTime();
+		double GetElapsedTime(FRACTION time);
 
-
+		bool operator==(const Time rhs)
+		{
+			if (this->_start == rhs._start)
+				return true;
+			return false;
+		}
 	private:
-
-		double timeInFrame;
-		struct timespec startTimer;
-		struct timespec startFrameTimer;
-		struct timespec endFrameTimer;
-		bool inFrame;
+		std::clock_t _start;
 	};
 }
 

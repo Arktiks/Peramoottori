@@ -24,6 +24,7 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 		{
 			tempTexture->SetId(it->second->ti);
 			tempTexture->SetTextureSize(glm::uvec2((it->second->sx), (it->second->sy)));
+			tempTexture->SetTrueSize(glm::uvec2((it->second->tsx), (it->second->tsy)));
 			return tempTexture;
 		}
 	}
@@ -36,6 +37,8 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 	tempTS->ti = tempTexture->GetId();
 	tempTS->sx = (uint)tempTexture->GetTextureSize().x;
 	tempTS->sy = (uint)tempTexture->GetTextureSize().y;
+	tempTS->tsx = (uint)tempTexture->GetTrueSize().x;
+	tempTS->tsy = (uint)tempTexture->GetTrueSize().y;
 
 	generatedTextures[fileName] = tempTS;
 
@@ -96,10 +99,7 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 				image.insert(it, fillerVec.begin(), fillerVec.end());
 			}
 		}
-
-		sizex = xpo2;
-		sizey = ypo2;
-
+		
 		GLuint textureIndex;
 		glGenTextures(1, &textureIndex);
 		DEBUG_GL_ERROR();
@@ -122,7 +122,8 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 		glBindTexture(GL_TEXTURE_2D, 0);
 		DEBUG_GL_ERROR();
 
-		pointer->SetTextureSize(glm::uvec2(sizex, sizey));
+		pointer->SetTextureSize(glm::uvec2(xpo2, ypo2));
+		pointer->SetTrueSize(glm::uvec2(sizex, sizey));
 		pointer->SetId(textureIndex);
 	}
 }
@@ -182,9 +183,6 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::TextureStruc
 			}
 		}
 
-		sizex = xpo2;
-		sizey = ypo2;
-
 		GLuint textureIndex;
 		glGenTextures(1, &textureIndex);
 		DEBUG_GL_ERROR();
@@ -207,8 +205,10 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::TextureStruc
 		glBindTexture(GL_TEXTURE_2D, 0);
 		DEBUG_GL_ERROR();
 
-		tempTS->sx = sizex;
-		tempTS->sy = sizey;
+		tempTS->sx = xpo2;
+		tempTS->sy = ypo2;
+		tempTS->tsx = sizex;
+		tempTS->tsy = sizey;
 		tempTS->ti = textureIndex;
 	}
 }
@@ -222,6 +222,16 @@ void pm::TextureFactory::RemoveTextureGroup(uint textureGroupToRemove)
 			ResourceManager::GetInstance()->DeleteResource(it->first);
 			it = generatedTextures.erase(it);
 		}
+	}
+}
+
+void pm::TextureFactory::RemoveTexture(std::string path)
+{
+	std::map<std::string, pm::TextureStruct*>::iterator it = generatedTextures.find(path);
+	if (it != generatedTextures.end())
+	{
+		ResourceManager::GetInstance()->DeleteResource(it->first);
+		it = generatedTextures.erase(it);
 	}
 }
 

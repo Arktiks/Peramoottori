@@ -4,7 +4,6 @@
 #include <scene\Component.h>
 #include <unordered_map>
 #include <typeinfo>
-#include <scene\Texture.h>
 #include <unordered_map>
 
 namespace pm

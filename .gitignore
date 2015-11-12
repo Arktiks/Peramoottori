@@ -237,3 +237,4 @@ PeraLib/PeraLib.ntskip
 Peramoottori/libs/freetype.ntskip
 Peramoottori/Peramoottori.ntskip
 PeraPeli/PeraPeli.ntskip
+Peramoottori/jni/Main.cpp

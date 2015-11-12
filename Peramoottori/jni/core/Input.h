@@ -66,7 +66,7 @@ namespace pm
 		/** \brief Handles the aEvent received from android API
 		* \param aEvent the android input event received from android API.
 		*/
-		static void AndroidEventHandler(AInputEvent* aEvent);
+		static int32_t AndroidEventHandler(AInputEvent* aEvent);
 
 		/** \brief Updates touchState conditions at start of each engine main loop.
 		* 

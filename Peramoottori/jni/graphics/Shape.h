@@ -6,14 +6,13 @@
 #include <glm\vec2.hpp>
 #include <vector>
 
-static const double PI = 3.141;
-
 namespace pm
 {
 
 	/** \brief Base class for all drawable shapes.
 	*
-	* Description.
+	* Undetermined shape, contains vertex & index data and origin.
+	* Used in more advanced shapes.
 	*
 	* \ingroup Scene
 	*/

@@ -20,6 +20,8 @@ namespace pm
 		GLuint ti; // GL textureIndex
 		uint sx; // texture size x
 		uint sy; // texture size y
+		uint tsx; // texture size x
+		uint tsy; // texture size y
 		uint tg; // texture group 
 	};
 	class TextureFactory
@@ -36,6 +38,8 @@ namespace pm
 		static Texture* CreateTexture(std::string fileName);
 
 		static void RemoveTextureGroup(uint textureGroupToRemove);
+
+		static void RemoveTexture(std::string);
 
 	private:
 
