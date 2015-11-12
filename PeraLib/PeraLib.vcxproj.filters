@@ -91,6 +91,9 @@
     <ClCompile Include="..\Peramoottori\jni\scene\Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Peramoottori\jni\core\Profiler.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\core\ProfilerManager.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -224,5 +227,7 @@
     <ClInclude Include="..\Peramoottori\jni\scene\Physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Peramoottori\jni\core\Profiler.h" />
+    <ClInclude Include="..\Peramoottori\jni\core\ProfilerManager.h" />
   </ItemGroup>
 </Project>
