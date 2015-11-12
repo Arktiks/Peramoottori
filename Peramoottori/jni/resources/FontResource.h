@@ -69,6 +69,7 @@ namespace pm
 			else
 				return NEW Texture;
 		}
+
 		float Getasd(char c)
 		{
 			if (dataMap.find(c) != dataMap.end())
@@ -111,6 +112,8 @@ namespace pm
 			color.push_back(blue);
 			color.push_back(alpha);
 		};
+
+	private:
 
 		void CharTexture(std::vector<FT_Byte> ttfData)
 		{

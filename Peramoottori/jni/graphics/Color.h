@@ -9,7 +9,7 @@ namespace pm
 
 	/** \brief Color component that GameEntity uses to create color for entities.
 	*
-	* Description.
+	* Uses RGBA-colors. Use values between 0.0f-1.0f.
 	*
 	* \ingroup Scene
 	*/

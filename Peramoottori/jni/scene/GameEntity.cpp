@@ -25,7 +25,7 @@ pm::GameEntity::~GameEntity()
 void pm::GameEntity::AddComponent(Component* newComponent)
 {
 	RemoveComponent<Component>();
-	newComponent->SetParent(this);
+	newComponent->SetParent(this); // GameEntity* const this : cannot change what the pointer points to
 	components[&typeid(*newComponent)] = newComponent;
 
 	// If this component exists, delete it and add new one.

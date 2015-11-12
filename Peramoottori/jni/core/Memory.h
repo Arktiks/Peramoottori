@@ -64,13 +64,13 @@ extern void operator delete[](void* ptr);
 
 namespace pm
 {
-	class Memory
-	{
-	public:
-
-		static void WriteLeaks() {}; // Temporary fix to compiler errors.
-
-	};
+	//class Memory
+	//{
+	//public:
+	//
+	//	static void WriteLeaks() {}; // Temporary fix to compiler errors.
+	//
+	//};
 }
 
 #define NEW new

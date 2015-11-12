@@ -1,30 +1,55 @@
 #include "Time.h"
-#define BILLION 1000000000L
 
-double pm::Time::CalculateTimeInFrame()
+
+
+pm::Time::Time(std::clock_t start)
 {
-	if (inFrame == false) // Enters here only once, starting the timer.
-	{	
-		clock_gettime(CLOCK_MONOTONIC, &startFrameTimer);
-		
-		inFrame = true;
-
-		return 0;
-	}
-
-	else if (inFrame == true) // Calculates the time difference since last call.
-	{
-		clock_gettime(CLOCK_MONOTONIC, &endFrameTimer);
-		timeInFrame = BILLION * (endFrameTimer.tv_sec - startFrameTimer.tv_sec) + (endFrameTimer.tv_nsec - startFrameTimer.tv_nsec);
-		startFrameTimer = endFrameTimer;
-	
-		return timeInFrame;
-	}
-	return 0;
+	_start = start;
 }
 
-double pm::Time::GetCurrentTime()
+
+pm::Time::~Time()
 {
-	double tempCurrent = clock_gettime(CLOCK_REALTIME, &startTimer);
-	return tempCurrent = (tempCurrent - clock_gettime(CLOCK_MONOTONIC, &startTimer)) / BILLION;
+}
+
+double pm::Time::Restart()
+{
+	return Restart(SECONDS);
+}
+
+double pm::Time::Restart(FRACTION fraction)
+{
+	double tempTime = GetElapsedTime(fraction);
+	_start = std::clock();
+
+	return tempTime;
+}
+
+void pm::Time::Start()
+{
+	_start = std::clock();
+}
+
+double pm::Time::GetElapsedTime(FRACTION time)
+{
+	double tempElapsed;
+	switch (time)
+	{
+
+	case SECONDS:
+		tempElapsed = (std::clock() - _start) / (double)CLOCKS_PER_SEC;
+		return tempElapsed;
+		break;
+
+	case MILLISECONDS:
+		tempElapsed = (std::clock() - _start) / (double)(CLOCKS_PER_SEC / 1000.0);
+		return tempElapsed;
+		break;
+
+	case MICROSECONDS:
+		tempElapsed = (std::clock() - _start) / (double)(CLOCKS_PER_SEC / 1000000.0);
+		return tempElapsed;
+		break;
+	}
+
 }

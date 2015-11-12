@@ -45,24 +45,24 @@
     <ClCompile>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\include\;$(SolutionDir)\libs\Android2D\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\freetype</AdditionalLibraryDirectories>
+      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype;Box2D</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\freetype;$(SolutionDir)$(Platform)\$(Configuration)\Android2D</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ClCompile>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;NDEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\libs\;$(SolutionDir)\jni\;$(SolutionDir)\libs\include\;$(SolutionDir)\libs\Android2D\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\freetype</AdditionalLibraryDirectories>
+      <AdditionalDependencies>android;EGL;GLESv2;OpenSLES;freetype;Box2D</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\freetype;$(SolutionDir)$(Platform)\$(Configuration)\Android2D</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -116,7 +116,6 @@
     </ClCompile>
     <ClCompile Include="jni\Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jni\resources\ResourceManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
@@ -133,6 +132,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\scene\Physics.cpp" />
+    <ClCompile Include="jni\scene\PhysicsSystem.cpp" />
     <ClCompile Include="jni\scene\Texture.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
@@ -221,6 +222,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\scene\Physics.h" />
+    <ClInclude Include="jni\scene\PhysicsSystem.h" />
     <ClInclude Include="jni\scene\Texture.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
@@ -469,6 +472,7 @@
     <None Include="assets\Applause.ogg" />
     <None Include="assets\Arial.ttf" />
     <None Include="assets\Audio Credits.txt" />
+    <None Include="assets\BOX.png" />
     <None Include="assets\DEF_FRAGMENT_SHADER.txt" />
     <None Include="assets\DEF_LOGO.png" />
     <None Include="assets\DEF_TEXTURE.png" />

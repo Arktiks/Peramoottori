@@ -19,6 +19,9 @@
 #include <scene\Transformable.h>
 #include <audio\Audio.h>
 
+#include <scene\Physics.h>
+#include <scene\PhysicsSystem.h>
+
 #include <chrono>
 #include <thread>
 
@@ -32,68 +35,68 @@ namespace pm
 	public:
 		GameClass() : rotation(0.0f), volume(50.0f), paused(false)
 		{
-			float location = 50.0f;
+			pm::Vector2<int> resolution = Application::GetInstance()->window.GetResolution();
+			float location = resolution.x * 0.5f;
+
+			objects.push_back(NEW GameEntity());
+			objects[0]->AddComponent(NEW Transformable(glm::vec2(location, 650), glm::vec2(1.0f, 1.0f), 0.0f));
+			objects[0]->AddComponent(NEW Color(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
+			objects[0]->AddComponent(NEW Rectangle(resolution.x, resolution.y * 0.1f));
+			objects[0]->AddComponent(TextureFactory::CreateTexture("BOX.png"));
+			objects[0]->AddComponent(NEW Drawable);
+			objects[0]->AddComponent(NEW Physics);
+			objects[0]->GetComponent<Physics>()->SetStatic();
+			PhysicsSystem::Instance().AddGameEntity(objects[0]);
+
 			float size = 1.0f;
 			float color = 1.0f;
 			float rectangle = 200.0f;
 
-			for (int i = 0; i < 5; i++)
+			for (int i = 1; i < 10; i++)
 			{
 				objects.push_back(NEW GameEntity());
-				objects[i]->AddComponent(NEW Transformable(glm::vec2(location, location), glm::vec2(size, size), 0.0f));
+				objects[i]->AddComponent(NEW Transformable(glm::vec2(location, 0), glm::vec2(size, size), 0.0f));
 				objects[i]->AddComponent(NEW Color(glm::vec4(color, color, color, 1.0f)));
-
-				if((i % 2) == 0)
-					objects[i]->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE_SMALL.png"));
-				else
-					objects[i]->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE.png"));
-
+				objects[i]->AddComponent(TextureFactory::CreateTexture("BOX.png"));
 				objects[i]->AddComponent(NEW Rectangle(rectangle, rectangle));
 				objects[i]->AddComponent(NEW Drawable);
+				objects[i]->AddComponent(NEW Physics);
 
-				rectangle -= 30.0f;
-				location += 150.0f;
-				size -= 0.1f;
-				color -= 0.2f;
+				rectangle -= 10.0f;
+				color -= 0.05f;
+				PhysicsSystem::Instance().AddGameEntity(objects[i]);
 			}
-
-			/*TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
-			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
-			texts.push_back(Text(font, file, 100, 100, 32, 32));*/
-
-			/*sounds.push_back(NEW Audio("Midnight_Ride.ogg"));
-			sounds[0]->SetLooping(true);
-			sounds[0]->SetVolume(volume);
-			sounds[0]->Play();*/
-
-			sounds.push_back(NEW Audio("Push.ogg"));
-			sounds[0]->SetVolume(volume);
 		};
 
 		void Update()
 		{
-			rotation += 0.1f;
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < objects.size(); i++)
+				SpriteBatch::GetInstance()->AddOpaqueGameEntity(objects[i]);
+
+			if(input[0].GetSingleTouch())
 			{
-				objects[i]->GetComponent<Transformable>()->SetRotation(rotation);
-				SpriteBatch::GetInstance()->AddTranslucentGameEntity(objects[i]);
+				objects.push_back(NEW GameEntity());
+				objects.back()->AddComponent(NEW Transformable(glm::vec2(input[0].GetPos().x, input[0].GetPos().y), glm::vec2(1.0f, 1.0f), 0.0f));
+				objects.back()->AddComponent(NEW Color(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
+				objects.back()->AddComponent(NEW Rectangle(100, 100));
+				objects.back()->AddComponent(TextureFactory::CreateTexture("BOX.png"));
+				objects.back()->AddComponent(NEW Drawable);
+				objects.back()->AddComponent(NEW Physics);
+				PhysicsSystem::Instance().AddGameEntity(objects.back());
 			}
 		};
 
 		void Pause()
 		{
 			paused = true;
-			//sounds[0]->Pause();
 		};
 
 		void Unpause()
 		{
 			paused = false;
-			//sounds[0]->Play();
 		};
 
 		std::vector<GameEntity*> objects;
-		std::vector<Audio*> sounds;
 		float rotation, volume;
 		bool paused;
 		Input input;
@@ -118,9 +121,6 @@ void android_main(android_app* application)
 		GameClass::first = true;
 	}
 
-	Time time;
-	int timer = 0;
-
 	while (app->Update())
 	{
 		GameClass* access = (GameClass*)app->saveData;
@@ -130,16 +130,8 @@ void android_main(android_app* application)
 			if(access->paused == true)
 				access->Unpause();
 
-			timer += 1;
-
-			if (timer >= 300 && timer < 350)
-			{
-				access->objects[4]->GetComponent<Drawable>()->SetDrawState(false);
-				access->objects[2]->RemoveComponent<Texture>();
-				timer = 351;
-			}
-
 			access->Update();
+			PhysicsSystem::Instance().Update();
 			app->window.Clear();
 			app->Draw();
 		}

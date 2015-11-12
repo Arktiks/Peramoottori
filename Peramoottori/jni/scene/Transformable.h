@@ -33,8 +33,14 @@ namespace pm
 		* \param[in] scale glm::vec2 [x,y].
 		* \param[in] rotation as float.
 		*/
+
 		Transformable(glm::vec2 position, glm::vec2 scale, float rotation) :
-			position(position), scale(scale), rotation(rotation), depthBuffer(0) {};
+			position(position), scale(scale), rotation(rotation), depthBuffer(0) 
+		{
+			CalculateMatrix();
+		};
+
+		
 
 		~Transformable() {};
 
@@ -65,11 +71,11 @@ namespace pm
 		/** \brief Set depth of GameEntity.
 		*
 		* Base depth of drawables is 0. As the you increase depth objects
-		* will be drawn over objects with lesser depth.
+		* will be drawn over objects with lesser depth. Depth is between 0-10.
 		*
 		* \param[in] newDepthValue as float.
 		*/
-		void SetDepth(float newDepthValue);
+		void SetDepth(int newDepthValue);
 
 		/** \brief Get transformation applied to GameEntity.
 		*
@@ -97,9 +103,10 @@ namespace pm
 
 		/** \brief Get depth of GameEntity.
 		*
-		* \return float depth.
+		* Depth is between 0-10. 
+		* \return int depth.
 		*/
-		float GetDepth();
+		int GetDepth();
 
 	private:
 
@@ -110,7 +117,7 @@ namespace pm
 		glm::vec2 position;
 		glm::vec2 scale;
 
-		float depthBuffer;
+		int depthBuffer;
 		
 		float rotation;
 	};

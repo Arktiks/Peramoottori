@@ -2,6 +2,7 @@
 #include <core\Profiler.h>
 #include <core\Log.h>
 
+#ifdef _DEBUG 
 using namespace pm;
 using namespace std;
 
@@ -38,3 +39,4 @@ void ProfilerManager::AdvPrint()
 		DEBUG_INFO(("Time spent in %s is: %f, which is %f percentage of total time.", it->first.c_str(), it->second, percentage));
 	}
 }
+#endif

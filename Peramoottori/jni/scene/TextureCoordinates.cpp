@@ -26,9 +26,33 @@ pm::TextureCoordinates::TextureCoordinates(glm::vec4 coordinates)
 void pm::TextureCoordinates::SetTextureCoordinates(float left, float top, float right, float bottom)
 {
 	textureCoordinates[0] = left;
-	textureCoordinates[1] = top;
+	textureCoordinates[1] = bottom;
 	textureCoordinates[2] = right;
-	textureCoordinates[3] = bottom;
+	textureCoordinates[3] = top;
+}
+
+void pm::TextureCoordinates::SetTextureDimensions(float left, float top, float width, float height) //Should this be more clear?
+{
+	textureCoordinates[0] = left;
+	textureCoordinates[1] = top+height;
+	textureCoordinates[2] = left+width;
+	textureCoordinates[3] = top;
+}
+
+void  pm::TextureCoordinates::SetTextureDimensions(glm::vec2 leftTop, glm::vec2 widthHeight)
+{
+	textureCoordinates[0] = leftTop.x;
+	textureCoordinates[1] = leftTop.y + widthHeight.y;
+	textureCoordinates[2] = leftTop.x + widthHeight.x;
+	textureCoordinates[3] = leftTop.y;
+}
+
+void  pm::TextureCoordinates::SetTextureDimensions(glm::vec4 leftTopWidthHeight)
+{
+	textureCoordinates[0] = leftTopWidthHeight.x;
+	textureCoordinates[1] = leftTopWidthHeight.y + leftTopWidthHeight.w;
+	textureCoordinates[2] = leftTopWidthHeight.x + leftTopWidthHeight.z;
+	textureCoordinates[3] = leftTopWidthHeight.y;
 }
 
 void pm::TextureCoordinates::SetTextureCoordinates(glm::vec2 leftTop, glm::vec2 rightBottom)
