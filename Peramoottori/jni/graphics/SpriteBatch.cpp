@@ -34,37 +34,25 @@ void SpriteBatch::DestroyInstance()
 
 void SpriteBatch::Draw()
 {
-	//for (int i = 0; i < layers.size(); i++)
-	{
-	//Change the Z buffer to i;
+	BatchOpaqueComponents();
 
-	BatchOpaqueComponents(); //with depth i
-
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
-	glDepthMask(GL_TRUE);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
 
 	batchVector.clear();
-	BatchTranslucentComponents(); //with depth i
+	BatchTranslucentComponents();
 
-
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
 	glDepthMask(GL_FALSE);
+	glEnable(GL_BLEND);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
-
-
-	glEnable(GL_DEPTH_TEST);
-	glDisable(GL_BLEND);
 	glDepthMask(GL_TRUE);
 
 	gameEntityVector.clear();
 	opaqueGameEntityVector.clear();
 	batchVector.clear();
-	}
 }
 
 void SpriteBatch::AddTranslucentGameEntity(GameEntity* gameEntity)
@@ -141,7 +129,7 @@ void SpriteBatch::BatchOpaqueComponents()
 		std::vector<GLushort> tempIndexData;
 		glm::mat4 tempTransformMatrix = glm::mat4();
 		GLuint tempTextureIndex;
-		bool newBatch = true; 
+		bool newBatch = true;
 
 		if (IsDrawable(opaqueGameEntityVector[i]))
 		{
@@ -171,7 +159,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	GLuint* textureIndex)
 {
 	std::vector<GLfloat> vertexPos;
-	int depth = 0;
+	GLfloat depth = 0;
 	std::vector<GLfloat> vertexTexPos;
 	glm::vec4 vertexColor;
 
@@ -215,49 +203,31 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	{
 		*textureIndex = gameEntity->GetComponent<Texture>()->GetId();
 
-		//if (gameEntity->GetComponent<TextureCoordinates>() == nullptr)
-		//{
-		//	for (int i = 0; i < 2; i++)
-		//		for (int j = 0; j < 2; j++)
-		//		{
-		//			vertexTexPos.push_back(i);
-		//			vertexTexPos.push_back(j);
-		//		}
-		//}
-
 		if (gameEntity->GetComponent<TextureCoordinates>() == nullptr)
 		{
-			glm::fvec2 tempTextureSize = gameEntity->GetComponent<Texture>()->GetTextureSize();
-			glm::fvec2 tempVec = gameEntity->GetComponent<Texture>()->GetTrueSize();
-
-			vertexTexPos.push_back(0.0f);
-			vertexTexPos.push_back(0.0f);
-
-			vertexTexPos.push_back(0.0f);
-			vertexTexPos.push_back((tempVec.y / tempTextureSize.y));
-
-			vertexTexPos.push_back((tempVec.x / tempTextureSize.x));
-			vertexTexPos.push_back(0.0f);
-
-			vertexTexPos.push_back((tempVec.x / tempTextureSize.x));
-			vertexTexPos.push_back((tempVec.y / tempTextureSize.y));
+			for (int i = 0; i < 2; i++)
+				for (int j = 0; j < 2; j++)
+				{
+					vertexTexPos.push_back(i);
+					vertexTexPos.push_back(j);
+				}
 		}
 		else
 		{
-			glm::uvec2 tempTextureSize = gameEntity->GetComponent<Texture>()->GetTextureSize();
+			glm::uvec2 tempTextureSize = gameEntity->GetComponent<Texture>()->GetTextureSize();;
 			std::vector<GLfloat> tempVec = gameEntity->GetComponent<TextureCoordinates>()->GetTextureCoordinates();
 
 			vertexTexPos.push_back(tempVec[0] / tempTextureSize.x);
-			vertexTexPos.push_back((tempVec[3] / tempTextureSize.y));
+			vertexTexPos.push_back(1 - (tempVec[3] / tempTextureSize.y));
 
 			vertexTexPos.push_back(tempVec[0] / tempTextureSize.x);
-			vertexTexPos.push_back((tempVec[1] / tempTextureSize.y));
+			vertexTexPos.push_back(1 - (tempVec[1] / tempTextureSize.y));
 
 			vertexTexPos.push_back(tempVec[2] / tempTextureSize.x);
-			vertexTexPos.push_back((tempVec[3] / tempTextureSize.y));
+			vertexTexPos.push_back(1 - (tempVec[3] / tempTextureSize.y));
 
 			vertexTexPos.push_back(tempVec[2] / tempTextureSize.x);
-			vertexTexPos.push_back((tempVec[1] / tempTextureSize.y));
+			vertexTexPos.push_back(1 - (tempVec[1] / tempTextureSize.y));
 		}
 	}
 
@@ -275,7 +245,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	{
 		vertexData->push_back(vertexPos[i * 2]);
 		vertexData->push_back(vertexPos[i * 2 + 1]);
-		vertexData->push_back(0);
+		vertexData->push_back(depth);
 
 		vertexData->push_back(vertexColor.x);
 		vertexData->push_back(vertexColor.y);
