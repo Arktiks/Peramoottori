@@ -103,6 +103,9 @@
     <Image Include="assets\DEF_TEXTURE.png" />
     <Image Include="assets\DEF_TEXTURE_SMALL.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\BOX.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

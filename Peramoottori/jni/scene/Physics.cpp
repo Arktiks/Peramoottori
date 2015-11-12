@@ -1,19 +1,23 @@
 #include "Physics.h"
 #include "PhysicsSystem.h"
-#include "GameEntity.h"
-#include <core\Log.h>
-#include <core\Passert.h>
-
 using namespace pm;
 
 Physics::Physics() : Component(), body(nullptr), dynamic(true), initialised(false)
 {
-	bodyDefinition.type = b2_dynamicBody; // Need to create different construct for static objects.
-	//PhysicsSystem::Instance().AddGameEntity(GetParent());
+	bodyDefinition.type = b2_dynamicBody;
+}
+
+Physics::Physics(bool dynamic) : Component(), body(nullptr), dynamic(true), initialised(false)
+{
+	if(dynamic)
+		SetDynamic();
+	SetStatic();
 }
 
 Physics::~Physics()
 {
+	// Body needs to be destroyed from Box2D simulation.
+	PhysicsSystem::Instance().world.DestroyBody(body); 
 }
 
 void Physics::SetDynamic()

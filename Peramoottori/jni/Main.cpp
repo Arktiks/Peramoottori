@@ -1,27 +1,16 @@
 #include <core\Application.h>
 #include <core\Log.h>
-#include <core\Passert.h>
 #include <core\Memory.h>
-#include <core\Time.h>
 #include <core\Input.h>
-
-#include <resources\ResourceManager.h>
 #include <resources\TextureFactory.h>
-
-#include <graphics\Text.h>
 #include <graphics\SpriteBatch.h>
 #include <graphics\Rectangle.h>
 #include <graphics\Drawable.h>
-#include <graphics\SpriteBatch.h>
 #include <graphics\Color.h>
-
 #include <scene\GameEntity.h>
 #include <scene\Transformable.h>
-#include <audio\Audio.h>
-
 #include <scene\Physics.h>
 #include <scene\PhysicsSystem.h>
-
 #include <chrono>
 #include <thread>
 

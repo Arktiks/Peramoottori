@@ -10,6 +10,7 @@ using namespace pm;
 #include <graphics\Drawable.h>
 #include <scene\Transformable.h>
 #include <resources\TextureFactory.h>
+#include <scene\CameraSystem.h>
 
 #include <cstdlib> // Random generation.
 #include <ctime>
@@ -31,20 +32,22 @@ Drawables::Drawables() : Scene("Drawables"), rotation(0.0f)
 	for (int i = 0; i < SQUARES; i++)
 	{
 		entities.push_back(NEW GameEntity());
-		entities[i]->AddComponent(NEW Transformable(glm::vec2(location_x, location_y), glm::vec2(scale_x, scale_y), 0.0f));
 		entities[i]->AddComponent(NEW Color(glm::vec4(Random(), Random(), Random(), Random())));
+		entities[i]->AddComponent(NEW Rectangle(size_x, size_y));
+		entities[i]->GetComponent<Rectangle>()->SetOrigin(size_x * 0.5f, size_y * 0.5f);
+		entities[i]->AddComponent(NEW Drawable);
+		entities[i]->AddComponent(NEW Transformable(glm::vec2(location_x, location_y), glm::vec2(scale_x, scale_y), 0.0f));
 
 		if ((i % 2) == 0)
 			entities[i]->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE_SMALL.png"));
+		else if ((i % 3) == 0)
+			entities[i]->AddComponent(TextureFactory::CreateTexture("BOX.png"));
 		else
 			entities[i]->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE.png"));
 
-		entities[i]->AddComponent(NEW Rectangle(size_x, size_y));
-		entities[i]->AddComponent(NEW Drawable);
-
 		location_x += MAX_WIDTH;
-		scale_x = Random() + Random();
-		scale_y = Random() + Random();
+		//scale_x = Random();
+		//scale_y = Random();
 		size_x = MAX_WIDTH - Random(50);
 		size_y = MAX_HEIGHT - Random(50);
 
@@ -57,6 +60,8 @@ Drawables::Drawables() : Scene("Drawables"), rotation(0.0f)
 		if (location_y >= WIN_Y)
 			break;
 	}
+
+
 }
 
 Drawables::~Drawables()
