@@ -34,7 +34,7 @@ namespace pm
 		{
 			float location = 50.0f;
 			float size = 1.0f;
-			float color = 1.0f;
+			float color = 0.3f;
 			float rectangle = 200.0f;
 
 			for (int i = 0; i < 2; i++)
@@ -46,7 +46,7 @@ namespace pm
 
 				objects.push_back(NEW GameEntity());
 				objects[i]->AddComponent(NEW Transformable(glm::vec2(location, location), glm::vec2(size, size), 0.0f));
-				objects[i]->AddComponent(NEW Color(glm::vec4(color, color, color, 1.0f)));
+				objects[i]->AddComponent(NEW Color(glm::vec4(color*i, color*i, color, 1.0f)));
 
 				//if((i % 2) == 0)
 					objects[i]->AddComponent(NEW Texture("DEF_TEXTURE_SMALL.png"));
@@ -61,7 +61,7 @@ namespace pm
 				size -= 0.1f;
 				color -= 0.2f;
 			}
-			objects[0]->GetComponent<Transformable>()->SetDepth(-1);
+			objects[0]->GetComponent<Transformable>()->SetDepth(2);
 			objects[1]->GetComponent<Transformable>()->SetDepth(1);
 			/*TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
 			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
@@ -143,8 +143,8 @@ void android_main(android_app* application)
 
 			if (timer >= 300 && timer < 350)
 			{
-				access->objects[0]->GetComponent<Transformable>()->SetDepth(0);
-				access->objects[1]->GetComponent<Transformable>()->SetDepth(-1);
+				access->objects[0]->GetComponent<Transformable>()->SetDepth(1);
+				access->objects[1]->GetComponent<Transformable>()->SetDepth(2);
 				
 				//access->objects[4]->GetComponent<Drawable>()->SetDrawState(false);
 				//access->objects[2]->RemoveComponent<Texture>();
