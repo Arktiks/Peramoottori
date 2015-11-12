@@ -170,12 +170,6 @@
     <ClCompile Include="jni\scene\CameraSystem.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
-    <ClCompile Include="jni\core\Pointer.cpp">
-      <Filter>jni\core</Filter>
-    </ClCompile>
-    <ClCompile Include="jni\core\GestureManager.cpp">
-      <Filter>jni\core</Filter>
-    </ClCompile>
     <ClCompile Include="jni\scene\PhysicsSystem.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
@@ -1009,12 +1003,6 @@
     </ClInclude>
     <ClInclude Include="jni\scene\CameraSystem.h">
       <Filter>jni\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\core\Pointer.h">
-      <Filter>jni\core</Filter>
-    </ClInclude>
-    <ClInclude Include="jni\core\GestureManager.h">
-      <Filter>jni\core</Filter>
     </ClInclude>
     <ClInclude Include="Mainpage.h" />
     <ClInclude Include="jni\scene\PhysicsSystem.h">

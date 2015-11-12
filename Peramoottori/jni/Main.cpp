@@ -73,10 +73,10 @@ namespace pm
 			for (int i = 0; i < objects.size(); i++)
 				SpriteBatch::GetInstance()->AddOpaqueGameEntity(objects[i]);
 
-			if(input.GetSingleTouch())
+			if(input[0].GetSingleTouch())
 			{
 				objects.push_back(NEW GameEntity());
-				objects.back()->AddComponent(NEW Transformable(glm::vec2(input.GetTouchCoordinates().x, input.GetTouchCoordinates().y), glm::vec2(1.0f, 1.0f), 0.0f));
+				objects.back()->AddComponent(NEW Transformable(glm::vec2(input[0].GetPos().x, input[0].GetPos().y), glm::vec2(1.0f, 1.0f), 0.0f));
 				objects.back()->AddComponent(NEW Color(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
 				objects.back()->AddComponent(NEW Rectangle(100, 100));
 				objects.back()->AddComponent(TextureFactory::CreateTexture("BOX.png"));
