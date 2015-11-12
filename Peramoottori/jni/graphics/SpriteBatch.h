@@ -32,21 +32,23 @@ namespace pm
 
 		/** \brief Render all objects that have been queued to be drawn.
 		*
-		* \sa AddGameEntity(), AddOpaqueGameEntity() and AddText().
+		* \sa AddGameEntity(), AddtranslucentGameEntity() and AddText().
 		*/
 		void Draw();
+
+		void Draw2();
 
 		/** @name Batching Functions
 		* \brief Store GameEntity objects to be drawn.
 		*/
 		///@{
 		/** \param[in] gameEntity Pointer to GameEntity object. */
-		void AddTranslucentGameEntity(GameEntity* gameEntity);
+		void AddOpaqueGameEntity(GameEntity* gameEntity);
 
 		/** \brief Add GameEntity object that contains transparency.
 		* \param[in] gameEntity Pointer to GameEntity object.
 		*/
-		void AddOpaqueGameEntity(GameEntity* gameEntity);
+		void AddTranslucentGameEntity(GameEntity* gameEntity);
 
 		/** \brief Add std::vector of GameEntity objects that contains transparency.
 		* \param[in] entityVector Pointer to std::vector<GameEntity*>.
@@ -61,13 +63,19 @@ namespace pm
 
 	private:
 
-		SpriteBatch() {}; ///< Neccessary for singleton.
+		SpriteBatch() { Layers.resize(11); opaqueLayerBatchVector.resize(11); translucentLayerBatchVector.resize(11); }; ///< Neccessary for singleton.
 
 		~SpriteBatch() {}; ///< Can't be deleted without calling DestroyInstance.
 
 		bool IsDrawable(GameEntity* gameEntity); ///< Check if GameEntity is drawable.
 		
-		void BatchOpaqueComponents();///< Makes final opaque batch.
+		void CreateLayers();
+		
+		void BatchLayerComponents(int layer, bool type);
+
+		void BatchAllLayers();
+
+		void BatchOpaqueComponents();///< Makes final translucent batch.
 
 		void BatchTranslucentComponents();///< Makes final translucent batch.
 
@@ -78,11 +86,20 @@ namespace pm
 			glm::mat4* transformMatrix,
 			GLuint* textureIndex);
 
-		std::vector<GameEntity*> gameEntityVector;
 		std::vector<GameEntity*> opaqueGameEntityVector;
+		std::vector<GameEntity*> translucentGameEntityVector;
 		std::vector<Batch> batchVector; ///< Contains all batched draw data.
-
+		
+		std::vector<std::vector<Batch>> opaqueLayerBatchVector;// Info for all layers, separated by layer. size 11, opaque first, translucent secound
+		std::vector<std::vector<Batch>> translucentLayerBatchVector;
 		static SpriteBatch* instance;
+
+		struct Layer
+		{
+			std::vector<GameEntity*> translucentGO;
+			std::vector<GameEntity*> opaqueGO;
+		};
+		std::vector<Layer> Layers;
 	};
 }
 

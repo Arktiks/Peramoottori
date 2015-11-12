@@ -75,7 +75,7 @@ namespace pm
 		*
 		* \param[in] newDepthValue as float.
 		*/
-		void SetDepth(int newDepthValue);
+		void SetDepth(unsigned int newDepthValue);
 
 		/** \brief Get transformation applied to GameEntity.
 		*

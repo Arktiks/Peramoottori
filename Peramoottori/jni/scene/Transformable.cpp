@@ -32,8 +32,10 @@ void pm::Transformable::SetRotation(float newRotation)
 	CalculateMatrix();
 }
 
-void pm::Transformable::SetDepth(float newDepthValue)
+void pm::Transformable::SetDepth(unsigned int newDepthValue)
 {
+	if (newDepthValue > 10)
+		newDepthValue = 10;
 	depthBuffer = newDepthValue;
 }
 
