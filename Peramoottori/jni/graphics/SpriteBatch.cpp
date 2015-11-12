@@ -212,7 +212,7 @@ void SpriteBatch::BatchAllLayers()
 		// Batch TranslucentGO
 		BatchLayerComponents(i, false);
 	}
-	for (int i = 0; Layers.size(); i++)
+	for (int i = 0;i < Layers.size(); i++)
 	{
 		Layers[i].opaqueGO.clear();
 		Layers[i].translucentGO.clear();
