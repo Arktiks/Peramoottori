@@ -35,7 +35,11 @@ namespace pm
 		* \sa AddGameEntity(), AddtranslucentGameEntity() and AddText().
 		*/
 		void Draw();
-
+		/** \brief Old Draw()-function
+		*
+		*  Included in case of bugs in new Draw();
+		*
+		*/
 		void DrawOld();
 
 		/** @name Batching Functions
@@ -63,17 +67,18 @@ namespace pm
 
 	private:
 
-		SpriteBatch() { Layers.resize(11); opaqueLayerBatchVector.resize(11); translucentLayerBatchVector.resize(11); }; ///< Neccessary for singleton.
+		SpriteBatch() {
+			Layers.resize(11); opaqueLayerBatchVector.resize(11); translucentLayerBatchVector.resize(11); }; ///< Neccessary for singleton.
 
 		~SpriteBatch() {}; ///< Can't be deleted without calling DestroyInstance.
 
 		bool IsDrawable(GameEntity* gameEntity); ///< Check if GameEntity is drawable.
 		
-		void CreateLayers();
+		void CreateLayers(); // Sorts gameEntityVectors on different layers.
 		
-		void BatchLayerComponents(int layer, bool type);
+		void BatchLayerComponents(int layer, bool type); // Batches one layer, type selects if opaque or translucent vector is used.
 
-		void BatchAllLayers();
+		void BatchAllLayers(); // calls CreateLayers() and calls BatchLayerComponents() for every layer.
 
 		void BatchOpaqueComponents();///< Makes final translucent batch.
 
@@ -86,20 +91,21 @@ namespace pm
 			glm::mat4* transformMatrix,
 			GLuint* textureIndex);
 
-		std::vector<GameEntity*> opaqueGameEntityVector;
-		std::vector<GameEntity*> translucentGameEntityVector;
-		std::vector<Batch> batchVector; ///< Contains all batched draw data.
+
+		std::vector<GameEntity*> opaqueGameEntityVector; // Vector for all opaque GameEntities that are added during draw cycle.
+		std::vector<GameEntity*> translucentGameEntityVector;// Vector for all translucent GameEntities that are added during draw cycle.
+		std::vector<Batch> batchVector; ///< Contains all batched draw data. Used in DrawOld(), no use in new draw.
 		
-		std::vector<std::vector<Batch>> opaqueLayerBatchVector;// Info for all layers, separated by layer. size 11, opaque first, translucent secound
-		std::vector<std::vector<Batch>> translucentLayerBatchVector;
+		std::vector<std::vector<Batch>> opaqueLayerBatchVector; // Vectors of batched opaque GameEntities, sorted by layer.
+		std::vector<std::vector<Batch>> translucentLayerBatchVector; // Vectors of batched translucent GameEntities, sorted by layer.
 		static SpriteBatch* instance;
 
-		struct Layer
+		struct Layer // storage for layers GameEntities
 		{
 			std::vector<GameEntity*> translucentGO;
 			std::vector<GameEntity*> opaqueGO;
 		};
-		std::vector<Layer> Layers;
+		std::vector<Layer> Layers; // storage for every layer.
 	};
 }
 

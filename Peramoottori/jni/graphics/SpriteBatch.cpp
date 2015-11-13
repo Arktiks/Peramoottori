@@ -36,12 +36,13 @@ void SpriteBatch::DestroyInstance()
 
 void SpriteBatch::Draw()
 {
-	glEnable(GL_DEPTH_TEST); // siirrä init
-
+	// Prepare layers for drawing.
 	BatchAllLayers();
 
+	// Draw all gameEntities on every eleven layers. (0-10)
 	for (int i = 0; i < 10; i++)
 	{
+		// Disable blend and set depthMask true for opaqueGameEntities.
 		glDisable(GL_BLEND);
 		glDepthMask(GL_TRUE);
 
@@ -50,17 +51,19 @@ void SpriteBatch::Draw()
 			RenderSystem::GetInstance()->Draw(&opaqueLayerBatchVector[i].at(j));
 		}
 
+		// Enable blend and set depthMask false for translucentGameEntities.
 		glEnable(GL_BLEND);
 		glDepthMask(GL_FALSE);
 
-		for (int j = 0; j < translucentLayerBatchVector.at(i).size(); j++)
+		for (int j = 0; j < translucentLayerBatchVector[i].size(); j++)
 		{
 			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j));
 		}
-
+		// Clear gameEntities from current layer.
 		opaqueLayerBatchVector[i].clear();
 		translucentLayerBatchVector[i].clear();
 	}
+	// Clear vectors for gameEntities added during draw cycle.
 	opaqueGameEntityVector.clear();
 	translucentGameEntityVector.clear();
 }
@@ -136,6 +139,8 @@ bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
 
 void SpriteBatch::CreateLayers()
 {
+	// Store each gameEntity on a layer according to it's depth.
+
 	for (int i = 0; i < opaqueGameEntityVector.size(); i++)
 	{
 		int depth = opaqueGameEntityVector[i]->GetComponent<Transformable>()->GetDepth();
@@ -151,10 +156,11 @@ void SpriteBatch::CreateLayers()
 
 void SpriteBatch::BatchLayerComponents(int layer, bool type)
 {
-	// Batch this layer opaqueGameEntities
+	// Vectors to make code bit cleaner.
 	std::vector<GameEntity*>* lp;
 	std::vector<Batch>* blp;
-	// Select if batched GameEntities will be opaque or not.
+
+	// Select if batched GameEntities will be opaque or translucent.
 	if (type)
 	{
 		lp = &Layers[layer].opaqueGO;
@@ -166,22 +172,25 @@ void SpriteBatch::BatchLayerComponents(int layer, bool type)
 		blp = &translucentLayerBatchVector[layer];
 	}
 
-	// Make code seem clearer
+	// Less vectors to be called, cleaning a bit.
 	std::vector<GameEntity*>& gameEntityVector = *lp;
 	std::vector<Batch>& batchVector = *blp;
 
 
-
+	// Go throught all layers to find data to be used on current batch
 	for (int i = 0; i < gameEntityVector.size(); i++)
 	{
+		// Create temporary storages for data gathered from current gameEntity.
 		std::vector<GLfloat> tempVertexData;
 		std::vector<GLushort> tempIndexData;
 		glm::mat4 tempTransformMatrix = glm::mat4();
 		GLuint tempTextureIndex;
+		// Creates new batch if there is no batch created yet for the texture.
 		bool newBatch = true;
 
 		if (IsDrawable(gameEntityVector[i]))
 		{
+			// Gather data to from current gameEntity to other parameters.
 			ParseData(gameEntityVector[i], &tempVertexData, &tempIndexData, &tempTransformMatrix, &tempTextureIndex);
 
 			for (unsigned k = 0; k < batchVector.size(); k++)
@@ -189,12 +198,13 @@ void SpriteBatch::BatchLayerComponents(int layer, bool type)
 				// If there is texture with same index as new one, add data to batch.
 				if (batchVector[k].textureIndex == tempTextureIndex)
 				{
+					// Add found data to batch with same texture.
 					batchVector[k].AddData(tempVertexData, tempIndexData, tempTransformMatrix);
 					newBatch = false;
 					break;
 				}
 			}
-			// If no batches with same texture were found, create new batch and add data to it.
+			// If no batches with same texture were found, create new batch and add found data to it.
 			if (newBatch)
 				batchVector.push_back(Batch(tempVertexData, tempIndexData, tempTransformMatrix, tempTextureIndex));
 		}
@@ -203,6 +213,7 @@ void SpriteBatch::BatchLayerComponents(int layer, bool type)
 
 void SpriteBatch::BatchAllLayers()
 {
+	// Create layers for this batch.
 	CreateLayers();
 
 	for (int i = 0; i < Layers.size(); i++)
@@ -214,6 +225,7 @@ void SpriteBatch::BatchAllLayers()
 	}
 	for (int i = 0;i < Layers.size(); i++)
 	{
+		// clear layers created in CreateLayers();
 		Layers[i].opaqueGO.clear();
 		Layers[i].translucentGO.clear();
 	}
