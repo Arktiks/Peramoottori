@@ -156,7 +156,7 @@ void CommandCenter::ReadyWindow(android_app* application)
 	ASSERT_NEQUAL(android_application->window, nullptr); // Make sure INIT_WINDOW call is legit.
 	bool testSucces = Application::GetInstance()->window.LoadDisplay(android_application); // WindowHandler creates display, surface and context.
 	ASSERT(testSucces);
-	//Application::GetInstance()->Initialize(application);//Old way of initializing. Led to double init.
+	Application::GetInstance()->Initialize(application);
 	TextureFactory::RecreateOGLTextures(); // Currently no confirmation everything was successful.
 }
 
