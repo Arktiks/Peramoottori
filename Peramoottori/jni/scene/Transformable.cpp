@@ -34,8 +34,8 @@ void pm::Transformable::SetRotation(float newRotation)
 
 void pm::Transformable::SetDepth(unsigned int newDepthValue)
 {
-	if (newDepthValue > 10)
-		newDepthValue = 10;
+	if (newDepthValue > 9)
+		newDepthValue = 9;
 	depthBuffer = newDepthValue;
 }
 

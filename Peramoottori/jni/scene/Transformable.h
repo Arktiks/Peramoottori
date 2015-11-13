@@ -71,7 +71,7 @@ namespace pm
 		/** \brief Set depth of GameEntity.
 		*
 		* Base depth of drawables is 0. As the you increase depth objects
-		* will be drawn over objects with lesser depth. Depth is between 0-10.
+		* will be drawn over objects with lesser depth. Depth is between 0-9.
 		*
 		* \param[in] newDepthValue as float.
 		*/
