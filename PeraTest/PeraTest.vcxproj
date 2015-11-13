@@ -44,7 +44,7 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs;$(ProjectDir)\jni;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs;$(ProjectDir)\jni;$(SolutionDir)\libs\Android2D\</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -56,7 +56,7 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;NDEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs;$(ProjectDir)\jni;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs;$(ProjectDir)\jni;$(SolutionDir)\libs\Android2D\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>PeraLib;android;EGL;GLESv2;OpenSLES;freetype</AdditionalDependencies>
@@ -67,7 +67,7 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs;$(ProjectDir)\jni;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\jni;$(SolutionDir)\libs\include;$(SolutionDir)\libs;$(ProjectDir)\jni;$(SolutionDir)\libs\Android2D\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>PeraLib;android;EGL;GLESv2;OpenSLES;freetype</AdditionalDependencies>
@@ -102,6 +102,9 @@
   <ItemGroup>
     <Image Include="assets\DEF_TEXTURE.png" />
     <Image Include="assets\DEF_TEXTURE_SMALL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\BOX.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
