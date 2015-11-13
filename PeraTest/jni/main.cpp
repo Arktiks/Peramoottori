@@ -1,6 +1,8 @@
 #include <core\Application.h>
 #include <core\Log.h>
+#include <core\Memory.h>
 #include <core\Input.h>
+#include <core\Time.h>
 
 #include "..\Scene.h"
 #include "..\SceneManager.h"
@@ -21,9 +23,11 @@ void android_main(android_app* application)
 	Application* app = Application::GetInstance(); // For ease of use.
 	app->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
 	Input input;
+	Time clock;
+	clock.Restart();
 
 	SceneManager manager;
-	manager.AddScene(new Drawables());
+	manager.AddScene(NEW Drawables());
 
 	while (app->Update())
 	{
@@ -33,11 +37,13 @@ void android_main(android_app* application)
 			app->window.Clear();
 			app->Draw();
 
-			/*if (input.GetSingleTouch())
+			if (clock.GetElapsedTime(Time::FRACTION::SECONDS) >= 5.f)
 			{
-				manager.DeleteScene("Drawables");
-				manager.AddScene(new Drawables());
-			}*/
+				//manager.DeleteScene("Drawables");
+				//manager.AddScene(new Drawables());
+				manager.ChangeScene(NEW Drawables());
+				clock.Restart();
+			}
 		}
 		else
 		{

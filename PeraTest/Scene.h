@@ -11,7 +11,7 @@ class Scene
 public:
 	Scene() = delete;
 	Scene(std::string name) : name(name), pause(false) {};
-	~Scene();
+	virtual ~Scene();
 
 	virtual void Pause();
 	virtual void Resume();
