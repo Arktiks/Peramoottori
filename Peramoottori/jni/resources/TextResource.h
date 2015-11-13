@@ -6,9 +6,9 @@
 namespace pm
 {
 
-	/** \brief
+	/** \brief Text resource containing text data.
 	*
-	* Long description.
+	* Inengine use only.
 	*
 	* \ingroup Resources
 	*/
@@ -20,28 +20,16 @@ namespace pm
 		friend class ResourceManager;
 		friend class TextureFactory;
 
+	protected:
+
 		TextResource() = delete;
 
 		TextResource(std::string data) : textData(data) {};
 
-		/** \brief Return content of text as string. */
 		~TextResource() {};
-	private:
-		///
-		///Constructor
-		///		\param data : string of the text data
-		///
-		
 
 
-		///
-		/// Returns test data as a string
-		///		\return text data as string
-		///
 		std::string GetTextData() { return textData; }
-
-	
-
 		std::string textData;
 
 	};

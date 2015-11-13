@@ -102,7 +102,8 @@ namespace pm
 		std::string GetFileName() { return fileName; };
 		
 		~FontResource() {};
-		
+
+	private:
 
 		/// Sets color of the font.
 		void SetColor(float red, float green, float blue, float alpha)
@@ -112,8 +113,6 @@ namespace pm
 			color.push_back(blue);
 			color.push_back(alpha);
 		};
-
-	private:
 
 		void CharTexture(std::vector<FT_Byte> ttfData)
 		{

@@ -34,19 +34,24 @@ namespace pm
 		{
 			float location = 50.0f;
 			float size = 1.0f;
-			float color = 1.0f;
+			float color = 0.3f;
 			float rectangle = 200.0f;
 
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 2; i++)
 			{
+
+				//scene->createobject("nimi");
+
+				//scene->deleteobject();
+
 				objects.push_back(NEW GameEntity());
 				objects[i]->AddComponent(NEW Transformable(glm::vec2(location, location), glm::vec2(size, size), 0.0f));
-				objects[i]->AddComponent(NEW Color(glm::vec4(color, color, color, 1.0f)));
+				objects[i]->AddComponent(NEW Color(glm::vec4(color*i, color*i, color, 1.0f)));
 
-				if((i % 2) == 0)
-					objects[i]->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE_SMALL.png"));
-				else
-					objects[i]->AddComponent(TextureFactory::CreateTexture("DEF_TEXTURE.png"));
+				//if((i % 2) == 0)
+					objects[i]->AddComponent(NEW Texture("DEF_TEXTURE_SMALL.png"));
+				//else						
+					objects[i]->AddComponent(NEW Texture("DEF_TEXTURE.png"));
 
 				objects[i]->AddComponent(NEW Rectangle(rectangle, rectangle));
 				objects[i]->AddComponent(NEW Drawable);
@@ -56,7 +61,8 @@ namespace pm
 				size -= 0.1f;
 				color -= 0.2f;
 			}
-
+			objects[0]->GetComponent<Transformable>()->SetDepth(2);
+			objects[1]->GetComponent<Transformable>()->SetDepth(1);
 			/*TextResource* file = (TextResource*)ResourceManager::GetInstance()->LoadAsset("TEXT.txt");
 			FontResource* font = (FontResource*)ResourceManager::GetInstance()->LoadAsset("arial.ttf");
 			texts.push_back(Text(font, file, 100, 100, 32, 32));*/
@@ -73,11 +79,14 @@ namespace pm
 		void Update()
 		{
 			rotation += 0.1f;
-			for (int i = 0; i < 5; i++)
+			//objects[0]->GetComponent<Transformable>()->SetDepth(-objects[0]->GetComponent<Transformable>()->GetDepth());
+			//objects[1]->GetComponent<Transformable>()->SetDepth(-objects[0]->GetComponent<Transformable>()->GetDepth());
+			for (int i = 0; i < 2; i++)
 			{
-				objects[i]->GetComponent<Transformable>()->SetRotation(rotation);
+				//objects[i]->GetComponent<Transformable>()->SetRotation(rotation);
 				SpriteBatch::GetInstance()->AddTranslucentGameEntity(objects[i]);
 			}
+
 		};
 
 		void Pause()
@@ -134,8 +143,11 @@ void android_main(android_app* application)
 
 			if (timer >= 300 && timer < 350)
 			{
-				access->objects[4]->GetComponent<Drawable>()->SetDrawState(false);
-				access->objects[2]->RemoveComponent<Texture>();
+				access->objects[0]->GetComponent<Transformable>()->SetDepth(1);
+				access->objects[1]->GetComponent<Transformable>()->SetDepth(2);
+				
+				//access->objects[4]->GetComponent<Drawable>()->SetDrawState(false);
+				//access->objects[2]->RemoveComponent<Texture>();
 				timer = 351;
 			}
 

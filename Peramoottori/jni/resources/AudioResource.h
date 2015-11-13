@@ -25,7 +25,7 @@ namespace pm
 		/* I assume default constructor is not supported. */
 		AudioResource() = delete;
 
-		/**\brief The numbers, Mason! What do they mean?
+		/**\brief Audio resource constructor.
 		*
 		* \param[in] fileDescriptorData Identifier that AudioManager uses to define files.
 		* \param[in] aLength Length of the AudioResourse.

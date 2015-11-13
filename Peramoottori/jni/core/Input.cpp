@@ -7,11 +7,11 @@ Input::Pointer Input::pointers[8];
 int Input::pointerCount = 0;
 int Input::incrPointerID = 1;
 
-void Input::AndroidEventHandler(AInputEvent* aEvent)
+int32_t Input::AndroidEventHandler(AInputEvent* aEvent)
 {
 	int32_t action = AMotionEvent_getAction(aEvent);
-
 	if (AInputEvent_getSource(aEvent) == AINPUT_SOURCE_TOUCHSCREEN)
+	{
 	{
 		switch (action & AMOTION_EVENT_ACTION_MASK)
 		{
@@ -81,6 +81,20 @@ void Input::AndroidEventHandler(AInputEvent* aEvent)
 			break;
 		}
 	}
+	else if (AInputEvent_getSource(aEvent) == AINPUT_SOURCE_CLASS_BUTTON)
+	{
+		int key_code = AKeyEvent_getKeyCode(aEvent);
+		switch (key_code)
+		{
+			case AKEYCODE_BACK:
+				//Overriding System Back Button
+				return 1;
+				break;
+			default:
+				break;
+		}
+	}
+	return 0;
 }
 int Input::GetPointerCount()
 {

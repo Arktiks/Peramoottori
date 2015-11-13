@@ -17,6 +17,8 @@
 using namespace pm;
 using namespace std;
 
+
+
 SpriteBatch* SpriteBatch::instance = nullptr;
 
 SpriteBatch* SpriteBatch::GetInstance()
@@ -34,31 +36,73 @@ void SpriteBatch::DestroyInstance()
 
 void SpriteBatch::Draw()
 {
-	BatchOpaqueComponents();
+	glEnable(GL_DEPTH_TEST); // siirrä init
 
-	//glEnable(GL_DEPTH_TEST);
+	BatchAllLayers();
+
+	for (int i = 0; i < 10; i++)
+	{
+		glDisable(GL_BLEND);
+		glDepthMask(GL_TRUE);
+
+		for (int j = 0; j < opaqueLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&opaqueLayerBatchVector[i].at(j));
+		}
+
+		glEnable(GL_BLEND);
+		glDepthMask(GL_FALSE);
+
+		for (int j = 0; j < translucentLayerBatchVector.at(i).size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j));
+		}
+
+		opaqueLayerBatchVector[i].clear();
+		translucentLayerBatchVector[i].clear();
+	}
+	opaqueGameEntityVector.clear();
+	translucentGameEntityVector.clear();
+}
+
+void SpriteBatch::Draw2()
+{
+	//for (int i = 0; i < layers.size(); i++)
+	{
+	//Change the Z buffer to i;
+
+	BatchOpaqueComponents(); //with depth i
+
+	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
+	glDepthMask(GL_TRUE);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
 
 	batchVector.clear();
-	BatchTranslucentComponents();
+	BatchTranslucentComponents(); //with depth i
 
 
-	glDepthMask(GL_FALSE);
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
+	glDepthMask(GL_FALSE);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
+
+
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
 	glDepthMask(GL_TRUE);
 
-	gameEntityVector.clear();
 	opaqueGameEntityVector.clear();
+	translucentGameEntityVector.clear();
 	batchVector.clear();
+	}
 }
 
 void SpriteBatch::AddTranslucentGameEntity(GameEntity* gameEntity)
 {
-	gameEntityVector.push_back(gameEntity);
+	translucentGameEntityVector.push_back(gameEntity);
 }
 
 void SpriteBatch::AddOpaqueGameEntity(GameEntity* gameEntity)
@@ -77,7 +121,7 @@ void SpriteBatch::AddOpaqueGameEntity(std::vector<GameEntity*> entityVector)
 void SpriteBatch::AddText(Text* textEntity)
 {
 	for (int i = 0; i < textEntity->GetTextVector().size(); i++)
-		opaqueGameEntityVector.push_back(textEntity->GetTextVector().at(i));
+		translucentGameEntityVector.push_back(textEntity->GetTextVector().at(i));
 }
 
 bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
@@ -90,8 +134,44 @@ bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
 		return gameEntity->GetComponent<Drawable>()->GetDrawState();
 }
 
-void SpriteBatch::BatchTranslucentComponents()
+void SpriteBatch::CreateLayers()
 {
+	for (int i = 0; i < opaqueGameEntityVector.size(); i++)
+	{
+		int depth = opaqueGameEntityVector[i]->GetComponent<Transformable>()->GetDepth();
+		Layers[depth].translucentGO.push_back(opaqueGameEntityVector[i]);
+	}
+
+	for (int i = 0;i < translucentGameEntityVector.size(); i++)
+	{
+		int depth = translucentGameEntityVector[i]->GetComponent<Transformable>()->GetDepth();
+		Layers[depth].translucentGO.push_back(translucentGameEntityVector[i]);
+	}
+}
+
+void SpriteBatch::BatchLayerComponents(int layer, bool type)
+{
+	// Batch this layer opaqueGameEntities
+	std::vector<GameEntity*>* lp;
+	std::vector<Batch>* blp;
+	// Select if batched GameEntities will be opaque or not.
+	if (type)
+	{
+		lp = &Layers[layer].opaqueGO;
+		blp = &opaqueLayerBatchVector[layer];
+	}
+	else
+	{
+		lp = &Layers[layer].translucentGO;
+		blp = &translucentLayerBatchVector[layer];
+	}
+
+	// Make code seem clearer
+	std::vector<GameEntity*>& gameEntityVector = *lp;
+	std::vector<Batch>& batchVector = *blp;
+
+
+
 	for (int i = 0; i < gameEntityVector.size(); i++)
 	{
 		std::vector<GLfloat> tempVertexData;
@@ -121,9 +201,26 @@ void SpriteBatch::BatchTranslucentComponents()
 	}
 }
 
+void SpriteBatch::BatchAllLayers()
+{
+	CreateLayers();
+
+	for (int i = 0; i < Layers.size(); i++)
+	{
+		// Batch opaqueGO
+		BatchLayerComponents(i, true);
+		// Batch TranslucentGO
+		BatchLayerComponents(i, false);
+	}
+	for (int i = 0;i < Layers.size(); i++)
+	{
+		Layers[i].opaqueGO.clear();
+		Layers[i].translucentGO.clear();
+	}
+}
+
 void SpriteBatch::BatchOpaqueComponents()
 {
-	// Somebody has to make this good.
 	for (int i = 0; i < opaqueGameEntityVector.size(); i++)
 	{
 		std::vector<GLfloat> tempVertexData;
@@ -153,6 +250,38 @@ void SpriteBatch::BatchOpaqueComponents()
 	}
 }
 
+void SpriteBatch::BatchTranslucentComponents()
+{
+	// Somebody has to make this good.
+	for (int i = 0; i < translucentGameEntityVector.size(); i++)
+	{
+		std::vector<GLfloat> tempVertexData;
+		std::vector<GLushort> tempIndexData;
+		glm::mat4 tempTransformMatrix = glm::mat4();
+		GLuint tempTextureIndex;
+		bool newBatch = true; 
+
+		if (IsDrawable(translucentGameEntityVector[i]))
+		{
+			ParseData(translucentGameEntityVector[i], &tempVertexData, &tempIndexData, &tempTransformMatrix, &tempTextureIndex);
+
+			for (unsigned k = 0; k < batchVector.size(); k++)
+			{
+				// If there is texture with same index as new one, add data to batch.
+				if (batchVector[k].textureIndex == tempTextureIndex)
+				{
+					batchVector[k].AddData(tempVertexData, tempIndexData, tempTransformMatrix);
+					newBatch = false;
+					break;
+				}
+			}
+			// If no batches with same texture were found, create new batch and add data to it.
+			if (newBatch)
+				batchVector.push_back(Batch(tempVertexData, tempIndexData, tempTransformMatrix, tempTextureIndex));
+		}
+	}
+}
+
 void SpriteBatch::ParseData(GameEntity* gameEntity,
 	std::vector<GLfloat>* vertexData,
 	std::vector<GLushort>* indexData,
@@ -160,7 +289,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	GLuint* textureIndex)
 {
 	std::vector<GLfloat> vertexPos;
-	GLfloat depth = 0;
+	int depth = 0;
 	std::vector<GLfloat> vertexTexPos;
 	glm::vec4 vertexColor;
 
@@ -264,7 +393,7 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	{
 		vertexData->push_back(vertexPos[i * 2]);
 		vertexData->push_back(vertexPos[i * 2 + 1]);
-		vertexData->push_back(depth);
+		vertexData->push_back(0);
 
 		vertexData->push_back(vertexColor.x);
 		vertexData->push_back(vertexColor.y);

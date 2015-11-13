@@ -145,7 +145,9 @@ void CommandCenter::Stop()
 void CommandCenter::Destroy()
 {
 	Application::GetInstance()->DestroyInstance(); // Application takes care of cleaning up rest of modules.
+	#ifdef _DEBUG 
 	Memory::WriteLeaks(); // Write memory leaks to LogCat.
+	#endif
 	DEBUG_INFO(("Application has been destroyed!"));
 }
 
@@ -154,7 +156,7 @@ void CommandCenter::ReadyWindow(android_app* application)
 	ASSERT_NEQUAL(android_application->window, nullptr); // Make sure INIT_WINDOW call is legit.
 	bool testSucces = Application::GetInstance()->window.LoadDisplay(android_application); // WindowHandler creates display, surface and context.
 	ASSERT(testSucces);
-	Application::GetInstance()->Initialize(application);
+	//Application::GetInstance()->Initialize(application);//Old way of initializing. Led to double init.
 	TextureFactory::RecreateOGLTextures(); // Currently no confirmation everything was successful.
 }
 
@@ -178,10 +180,9 @@ void CommandCenter::LostFocus()
 	DisableSensors();
 }
 
-int CommandCenter::HandleInput(android_app* application, AInputEvent* _event)
+int32_t CommandCenter::HandleInput(android_app* application, AInputEvent* _event)
 {
-	Input::AndroidEventHandler(_event);
-	return 0; // Return 0 for any default dispatching.
+	return Input::AndroidEventHandler(_event);
 }
 
 void CommandCenter::ProcessCommand(android_app* application, int32_t command)

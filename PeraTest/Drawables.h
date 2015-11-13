@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include <scene\Camera.h>
 
 class Drawables : public Scene
 {
@@ -7,18 +8,19 @@ public:
 	Drawables();
 	~Drawables();
 
-	void Pause();
-	void Resume();
-	void Update();
-	void Initialise();
+	void Pause() override;
+	void Resume() override;
+	void Update() override;
+	void Initialise() override;
 
-	const unsigned int SQUARES = 25;
+	const unsigned int SQUARES = 100;
 	const unsigned int MAX_WIDTH = 110;
 	const unsigned int MAX_HEIGHT = 100;
 
 private:
-	float Random(int max); // Number between 1 and max.
-	float Random();
+	float Random(int max); // Integer between 1 and max.
+	float Random(); // Float between 0 and 1.
 
 	float rotation;
+	pm::Camera* camera;
 };

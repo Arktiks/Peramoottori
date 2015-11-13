@@ -1,0 +1,58 @@
+
+Layers 10
+
+		Objekteja
+
+For (Layers)
+{
+	Swap Z Buffer;	
+
+	For (OpaqueObjects)
+		Draw Object i;
+	For (NonOpaqueObjects)
+		Draw Object j;
+}
+
+
+
+
+
+
+// Pelin puolelta tulee kaksi vektoria, OpaqueVector ja TranslucentVector. Näillä on myös depth 0-10.
+// Vektorit täytyy piirtää taso kerrallaan Translucent ensin ja sitten Opaque, eestä taakse <--- TARKISTA FAKTAT
+
+// Layers on varannut [11] paikkaa ([0]-[10])
+// Täytyy tarkistaa ettei syvyyttä ole asetettu yli arvojen. x > 10 -> x = 10; x < 0 -> x = 0;
+
+// Luodaan Layer-objecti joka pitää listaa sen tason GameObjeckteista.
+Struct Layer
+{
+	vector<GameObject> TranslucentGO;
+	vector<GameObject> OpaqueGO;
+}
+
+// Luodaan tasojen verran Layereita.
+Layer Layers[11];
+//tai
+vector<Layer> Layers;
+Layers.resize(11);
+
+// Käydään läpi sisään otettu läpinäkymättömien GameObjecktien lista, ja lajitellaan tason mukaan layereille.
+for(OpaqueVector.size i = 0 i++)
+{
+	depth = OpaqueVector[i]->Depth;
+	Layers[depth].OpaqueGO.push_back(OpaqueVector[i]);
+}
+
+// Käydään läpi sisään otettu läpinäkyvien GameObjecktien lista, ja lajitellaan tason mukaan layereille.
+for(TranslucentVector.size i = 0 i++)
+{
+	depth = TranslucentVector[i]->Depth;
+	Layers[depth].TranslucentGO.push_back(NonOpaqueVector[i]);
+}
+
+// Tämän jälkeen meillä on tasokohtaiset listat jokaisesta GameObjektista. Seuraavaksi täytyy piirtää GameObjektit jokaisesta tasosta.
+// Tällä hetkellä moottorissa on BatchOpaqueComponents ja BatchTranslucenComponents(). Näiden tilale voitaisiin tehdä funktio, joka batchaa
+// Yhden vector<GameObjecti>:n kerrallaan, ja palauttaa jokaista tasoa kohden batchVectorin.
+
+// Seuraavaksi piirrossa piirretään jokaisen tason batchVector, läpinäkyvä ja läpinäkymätön oikeassa järjestyksessä. Ja tietenkin oikeassa tasojärjestyksessä.
