@@ -132,6 +132,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="jni\scene\Name.cpp" />
     <ClCompile Include="jni\scene\Physics.cpp" />
     <ClCompile Include="jni\scene\PhysicsSystem.cpp" />
     <ClCompile Include="jni\scene\Scene.cpp" />
@@ -224,6 +225,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="jni\scene\Name.h" />
     <ClInclude Include="jni\scene\Physics.h" />
     <ClInclude Include="jni\scene\PhysicsSystem.h" />
     <ClInclude Include="jni\scene\Scene.h" />

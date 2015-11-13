@@ -182,6 +182,9 @@
     <ClCompile Include="jni\scene\SceneManager.cpp">
       <Filter>jni\scene</Filter>
     </ClCompile>
+    <ClCompile Include="jni\scene\Name.cpp">
+      <Filter>jni\scene\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -1022,6 +1025,9 @@
     </ClInclude>
     <ClInclude Include="jni\scene\SceneManager.h">
       <Filter>jni\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\scene\Name.h">
+      <Filter>jni\scene\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

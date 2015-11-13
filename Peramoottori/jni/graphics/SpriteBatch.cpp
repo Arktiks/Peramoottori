@@ -143,13 +143,21 @@ void SpriteBatch::CreateLayers()
 
 	for (int i = 0; i < opaqueGameEntityVector.size(); i++)
 	{
-		int depth = opaqueGameEntityVector[i]->GetComponent<Transformable>()->GetDepth();
+		int depth = 9; // In case there is no transformable component.
+		if (opaqueGameEntityVector[i]->GetComponent<Transformable>() != nullptr)
+		{
+			depth = opaqueGameEntityVector[i]->GetComponent<Transformable>()->GetDepth();
+		}
 		Layers[depth].translucentGO.push_back(opaqueGameEntityVector[i]);
 	}
 
 	for (int i = 0;i < translucentGameEntityVector.size(); i++)
 	{
-		int depth = translucentGameEntityVector[i]->GetComponent<Transformable>()->GetDepth();
+		int depth = 9;
+		if (translucentGameEntityVector[i]->GetComponent<Transformable>() != nullptr)
+		{
+			depth = translucentGameEntityVector[i]->GetComponent<Transformable>()->GetDepth();
+		}
 		Layers[depth].translucentGO.push_back(translucentGameEntityVector[i]);
 	}
 }
