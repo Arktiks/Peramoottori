@@ -8,28 +8,36 @@
 
 namespace pm
 {
-	/** \brief %Input is a static class for handling Input received from Android Api.
-	* Basic functions work for the primary pointer, if you want to implement multitouch,
+	/** \brief %Input is static class for handling input received from Android API.
+	*
+	* Basic functions work for the primary pointer. If you want to implement multitouch
 	* you will have to use the pointers and handle them separately.
+	*
 	* \ingroup Core
 	*/
 
 	class Input
 	{
-
 	private:
 
+		/** \internal Nolla comments nolla nothing.
+		*
+		* Inputti bugittaa, vaikka painaa vaan kerran niin input[0] palauttaa
+		* singleTouchista true koko ajan.
+		*
+		* Ihan kätevä silleen että piilottaa Pointer luokan käyttäjältä vissiin.
+		*/
 		class Pointer
 		{
 			friend class Input;
 		private:
-			int index;
+			int index; // Mikä ero indexillä ja ID:llä?
 			int id;
-			glm::vec2 sPos;
+			glm::vec2 sPos; // Start position?
 			glm::vec2 pos;
-			bool tap;
+			bool tap; // Mikä ero tap ja singleTouch?
 			bool singleTouch;
-			bool touch;
+			bool touch; // Touch on vissiin pysyvä kosketus?
 
 		public:
 			int GetID();
@@ -47,13 +55,15 @@ namespace pm
 
 	public:
 
-
-		/** \brief Returns the number of pointers currently active.
-		* \return Number of pointers active.
+		/** \brief Returns the amount of currently active pointers.
+		*
+		* \return Number of active pointers.
 		*/
 		static int GetPointerCount();
-		/** \brief Operator [] overload for accessing pointers.
-		* \parm index Index of the pointer you want to access.
+
+		/** \brief Operator[] overload for accessing pointers.
+		*
+		* \param index Index of the pointer you want to access.
 		* \return Returns the pointer in the param index.
 		*/
 		Pointer& operator[](int index);
@@ -64,6 +74,7 @@ namespace pm
 		*/
 		///@{
 		/** \brief Handles the aEvent received from android API
+		*
 		* \param aEvent the android input event received from android API.
 		*/
 		static int32_t AndroidEventHandler(AInputEvent* aEvent);

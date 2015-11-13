@@ -41,6 +41,14 @@ void SceneManager::DeleteScene(std::string name)
 	}
 }
 
+void SceneManager::ChangeScene(Scene* scene)
+{
+	for (std::vector<Scene*>::iterator it = scenes.begin(); it != scenes.end(); it++)
+		delete *it;
+	scenes.clear();
+	AddScene(scene);
+}
+
 Scene* SceneManager::GetScene(std::string name)
 {
 	for (std::vector<Scene*>::iterator it = scenes.begin(); it != scenes.end(); it++)
