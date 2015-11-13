@@ -46,7 +46,7 @@ namespace pm
 		///	Function used in creating a texture 
 		static void CreateOGLTexture(std::string fileName, Texture* pointer);
 
-		static void CreateOGLTexture(std::string fileName, pm::TextureStruct* tempTS);
+		static void CreateOGLTexture(std::string fileName, pm::TextureStruct tempTS);
 
 		/// recreates OPENGL values after the application get focus again.
 		static void RecreateOGLTextures();
@@ -58,7 +58,7 @@ namespace pm
 
 		~TextureFactory();
 
-		static std::map<std::string, pm::TextureStruct*> generatedTextures;
+		static std::map<std::string, pm::TextureStruct> generatedTextures;
 	};
 }
 #endif

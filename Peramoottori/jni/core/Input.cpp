@@ -12,7 +12,6 @@ int32_t Input::AndroidEventHandler(AInputEvent* aEvent)
 	int32_t action = AMotionEvent_getAction(aEvent);
 	if (AInputEvent_getSource(aEvent) == AINPUT_SOURCE_TOUCHSCREEN)
 	{
-	{
 		switch (action & AMOTION_EVENT_ACTION_MASK)
 		{
 		case AMOTION_EVENT_ACTION_DOWN:
