@@ -7,12 +7,6 @@
 #include <scene\Component.h>
 #include <vector>
 
-/** \brief description short
-*
-* Class to display only part of texture using
-* 
-*/
-
 namespace pm
 {
 
@@ -82,7 +76,7 @@ namespace pm
 		
 		/** \brief Sets TextureCoordinates with with vec4 as parameter.
 		*
-		*\param[in] textureCoordinates All textureCoordinates needed in order: left(x), top(y), right(x), bottom(y)
+		* \param[in] leftTopRightBottom All textureCoordinates needed in order: left(x), top(y), right(x), bottom(y)
 		*
 		*/
 		void SetTextureCoordinates(glm::vec4 leftTopRightBottom);

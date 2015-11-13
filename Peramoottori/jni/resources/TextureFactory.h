@@ -8,13 +8,6 @@
 
 namespace pm
 {
-	/** \brief Makes all necessary OpenGL calls to create textures.
-	*
-	* Long description.
-	*
-	* \ingroup Resources
-	*/
-
 	struct TextureStruct
 	{
 		GLuint ti; // GL textureIndex
@@ -24,6 +17,14 @@ namespace pm
 		uint tsy; // texture size y
 		uint tg; // texture group 
 	};
+
+	/** \brief Makes all necessary OpenGL calls to create textures.
+	*
+	* Long description.
+	*
+	* \ingroup Resources
+	*/
+
 	class TextureFactory
 	{
 

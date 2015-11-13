@@ -5,6 +5,7 @@
 
 namespace pm
 {
+	class GameEntity;
 
 	/** \brief Base class for all components.
 	*
@@ -12,8 +13,6 @@ namespace pm
 	*
 	* \ingroup Scene
 	*/
-
-	class GameEntity;
 
 	class Component
 	{
