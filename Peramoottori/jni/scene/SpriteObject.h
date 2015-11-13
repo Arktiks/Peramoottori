@@ -8,8 +8,9 @@
 
 namespace pm
 { 
-	/** \brief GameEntity that has wrapped graphical drawing components.
+	/** \brief GameEntity that has wrapped graphical drawing components. SpriteObject will change to a component. Do not use.
 	*
+	* SpriteObject will change to a component. Do not use.
 	* SpriteObject is a GameEntity that holds components and has wrapped drawing functions for easy use. 
 	*
 	* \ingroup Scene

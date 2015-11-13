@@ -36,7 +36,7 @@ namespace pm
 		*/
 		void Draw();
 
-		void Draw2();
+		void DrawOld();
 
 		/** @name Batching Functions
 		* \brief Store GameEntity objects to be drawn.

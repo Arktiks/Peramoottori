@@ -65,7 +65,7 @@ void SpriteBatch::Draw()
 	translucentGameEntityVector.clear();
 }
 
-void SpriteBatch::Draw2()
+void SpriteBatch::DrawOld()
 {
 	//for (int i = 0; i < layers.size(); i++)
 	{
