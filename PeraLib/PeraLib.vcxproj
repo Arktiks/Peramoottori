@@ -44,6 +44,8 @@
     <ClCompile Include="..\Peramoottori\jni\scene\GameEntity.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Physics.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\PhysicsSystem.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Scene.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\SceneManager.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Texture.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\TextureCoordinates.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Transformable.cpp" />
@@ -87,6 +89,8 @@
     <ClInclude Include="..\Peramoottori\jni\scene\GameEntity.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Physics.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\PhysicsSystem.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Scene.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\SceneManager.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Texture.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\TextureCoordinates.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Transformable.h" />
