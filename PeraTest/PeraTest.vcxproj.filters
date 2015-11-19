@@ -48,6 +48,9 @@
     <ClCompile Include="Audio.cpp">
       <Filter>jni\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="pmScene.cpp">
+      <Filter>jni\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -66,6 +69,9 @@
       <Filter>jni\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Audio.h">
+      <Filter>jni\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="pmScene.h">
       <Filter>jni\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

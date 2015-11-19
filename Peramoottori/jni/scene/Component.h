@@ -33,7 +33,7 @@ namespace pm
 		*
 		* \param[in] entity Pointer to GameEntity to be set as parent.
 		*/
-		void SetParent(GameEntity* entity);
+		virtual void SetParent(GameEntity* entity);
 
 		/** \brief Return handle to components GameEntity parent.
 		*

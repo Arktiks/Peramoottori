@@ -85,6 +85,7 @@
     <ClCompile Include="jni\main.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
     <ClCompile Include="libs\lodepng.cpp" />
+    <ClCompile Include="pmScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
@@ -93,6 +94,7 @@
     <ClInclude Include="Drawables.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
     <ClInclude Include="libs\lodepng.h" />
+    <ClInclude Include="pmScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>

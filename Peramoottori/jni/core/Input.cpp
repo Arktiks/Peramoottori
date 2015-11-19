@@ -52,21 +52,12 @@ int32_t Input::AndroidEventHandler(AInputEvent* aEvent)
 		break;
 		case AMOTION_EVENT_ACTION_UP:
 		case AMOTION_EVENT_ACTION_POINTER_UP:
-		{
-			// VESA SORKKI SAATTAA VETÄÄ ASIAT pieleen MUTTA TEINPÄ NYT NÄIN :)
-			int idx = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
-				>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-			if (idx >= maxInputs)
-				break;
-
-			pointers[idx].touch = false;
-		}
 		case AMOTION_EVENT_ACTION_CANCEL:
 		case AMOTION_EVENT_ACTION_OUTSIDE:
 		{
 			int idx = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
 				>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-
+			pointers[idx].touch = false;
 			if (idx >= maxInputs)
 				break;
 
