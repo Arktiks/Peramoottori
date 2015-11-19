@@ -10,15 +10,15 @@
 #include <lodepng.h>
 #include <graphics\Text.h>
 
-pm::TextureStruct TS;
-std::map<std::string, pm::TextureStruct> pm::TextureFactory::generatedTextures = { { "MapInit", TS } };
+pm::SavedTextureStruct TS;
+std::map<std::string, pm::SavedTextureStruct> pm::TextureFactory::generatedTextures = { { "MapInit", TS } };
 
 pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 {
 	
 	pm::Texture* tempTexture = NEW pm::Texture;
 
-	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
 		if (it->first == fileName)
 		{
@@ -32,7 +32,7 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 
 	CreateOGLTexture(fileName, tempTexture);
 
-	pm::TextureStruct tempTS;// = (pm::TextureStruct*)malloc(sizeof(*tempTS));
+	pm::SavedTextureStruct tempTS;// = (pm::TextureStruct*)malloc(sizeof(*tempTS));
 
 	tempTS.ti = tempTexture->GetId();
 	tempTS.sx = (uint)tempTexture->GetTextureSize().x;
@@ -128,7 +128,7 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 	}
 }
 
-void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::TextureStruct tempTS)
+void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTextureStruct tempTS)
 {
 	if (fileName.empty() || fileName == "MapInit")
 	{
@@ -215,7 +215,7 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::TextureStruc
 
 void pm::TextureFactory::RemoveTextureGroup(uint textureGroupToRemove)
 {
-	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
 		if (it->second.tg == textureGroupToRemove)
 		{
@@ -227,7 +227,7 @@ void pm::TextureFactory::RemoveTextureGroup(uint textureGroupToRemove)
 
 void pm::TextureFactory::RemoveTexture(std::string path)
 {
-	std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.find(path);
+	std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.find(path);
 	if (it != generatedTextures.end())
 	{
 		ResourceManager::GetInstance()->DeleteResource(it->first);
@@ -239,7 +239,7 @@ void pm::TextureFactory::RecreateOGLTextures()
 {
 	if (!generatedTextures.empty())
 	{
-		for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+		for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 			CreateOGLTexture(it->first, it->second);
 	}
 }
@@ -271,7 +271,7 @@ void pm::TextureFactory::DestroyOGLTextures()
 pm::TextureFactory::~TextureFactory()
 {
 	DEBUG_GL_ERROR_CLEAR();
-	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
 		GLuint reference = it->second.ti;
 		glDeleteTextures(1, &reference);

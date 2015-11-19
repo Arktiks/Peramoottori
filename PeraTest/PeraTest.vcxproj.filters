@@ -19,6 +19,9 @@
     <Filter Include="jni\Scenes">
       <UniqueIdentifier>{44673615-5def-407e-99c9-f0b87e37a802}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\Scenes\pmScene">
+      <UniqueIdentifier>{0f91566f-2146-464f-8cc0-a7aca768b2e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="AndroidManifest.xml" />
@@ -49,7 +52,10 @@
       <Filter>jni\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="pmScene.cpp">
-      <Filter>jni\Scenes</Filter>
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>jni\Scenes\pmScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +78,10 @@
       <Filter>jni\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="pmScene.h">
-      <Filter>jni\Scenes</Filter>
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>jni\Scenes\pmScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

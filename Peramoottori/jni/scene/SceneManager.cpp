@@ -38,18 +38,26 @@ Audio* SceneManager::GetAudio(std::string path)
 
 Texture* SceneManager::GetTexture(std::string path)
 {
-	pm::Texture* temp = nullptr;
+	pm::Texture* temp;// = nullptr;
 	for (TMI = textureVector.begin(); TMI != textureVector.end(); TMI++)
 	{
 		if (TMI->path == path)
 		{
+			if (TMI->texture == nullptr)
+				break;
 			temp = TMI->texture;
+			std::string asd = temp->GetFile();
+
 			return temp;
 		}
-		else
-		{
-			return temp;
-		}
+		temp = NEW Texture(path);
+		TextureStruct TS;
+		TS.num = TMI->num;
+		TS.scene = TMI->scene;
+		TS.texture = temp;
+		TS.path = path;
+		textureVector.push_back(TS);
+		return temp;
 	}
 }
 
@@ -101,7 +109,7 @@ void SceneManager::AddAudio(pm::Audio* audio, int scene)
 	}
 
 	AudioStruct AS;
-	AS.audio;
+	AS.audio = audio;
 	AS.num = 1;
 	AS.scene = scene;
 	AS.path = audio->GetFile();
@@ -119,7 +127,7 @@ void SceneManager::AddTexture(pm::Texture* texture, int scene)
 	}
 
 	TextureStruct TS;
-	TS.texture;
+	TS.texture = texture;
 	TS.num = 1;
 	TS.scene = scene;
 	TS.path = texture->GetFile();

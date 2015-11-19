@@ -49,13 +49,25 @@ namespace pm
 		*
 		* Audio is stored in a vector.
 		*/
-		void AddAudio(Audio*);
+		void AddAudio(Audio* audio);
 
 		/** \brief Adds new Texture object.
 		*
 		* Texture is stored in a vector.
 		*/
-		void AddTexture(Texture*);
+		void AddTexture(Texture* texture);
+
+		/** \brief Adds new GameEntity object.
+		*
+		* GameEntity is stored in a vector.
+		*/
+		void AddAudio(std::string filepath);
+
+		/** \brief Adds new Texture object.
+		*
+		* Texture is stored in a vector.
+		*/
+		void AddTexture(std::string filepath);
 
 		/** \brief Adds new GameEntity object.
 		*

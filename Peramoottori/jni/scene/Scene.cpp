@@ -34,6 +34,18 @@ void Scene::AddGameEntity(pm::GameEntity* gameEntity)
 	gameEntityVector.push_back(gameEntity);
 }
 
+void Scene::AddAudio(std::string filepath)
+{
+	pm::Audio* audio = NEW Audio(filepath);
+	AddAudio(audio);
+}
+
+void Scene::AddTexture(std::string filepath)
+{
+	pm::Texture* texture = NEW Texture(filepath);
+	AddTexture(texture);
+}
+
 void Scene::RemoveGameEntity(pm::GameEntity* gameEntity)
 {
 
