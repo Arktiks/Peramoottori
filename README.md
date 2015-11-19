@@ -2,7 +2,7 @@
 2D Android game engine created for learning purposes. We are adding new tutorials and content into our  [wiki](https://github.com/Grimcode/Peramoottori/wiki/Tutorials) almost weekly.
 
 # Developement Kit
-**Current version:** 1.031
+**Current version:** 1.032
 
 Perämoottori Developement Kit is the fastest way to start using Perämoottori, download newest one from [Releases](https://github.com/Grimcode/Peramoottori/releases). See [Tutorial: Setup](https://github.com/Grimcode/Peramoottori/wiki/Tutorial:-Setup) for more instructions.
 
