@@ -1,7 +1,6 @@
 #include <scene\CameraSystem.h>
 #include <core\Memory.h>
 
-
 pm::CameraSystem* pm::CameraSystem::instance = nullptr;
 
 pm::CameraSystem* pm::CameraSystem::GetInstance()
@@ -11,7 +10,7 @@ pm::CameraSystem* pm::CameraSystem::GetInstance()
 	return instance;
 }
 
-void pm::CameraSystem::SetActiveCamera(Camera* camera)/// Set active camera.
+void pm::CameraSystem::SetActiveCamera(Camera* camera) // Set active camera.
 {
 	if (defaultCamera)
 	{
@@ -21,7 +20,13 @@ void pm::CameraSystem::SetActiveCamera(Camera* camera)/// Set active camera.
 	activeCamera = camera;
 }
 
-pm::Camera* pm::CameraSystem::GetActiveCamera()///< Returns active camera.
+void pm::CameraSystem::CreateDefaultCamera()
+{
+	activeCamera = NEW Camera();
+	defaultCamera = true;
+}
+
+pm::Camera* pm::CameraSystem::GetActiveCamera() // Returns active camera.
 {
 	return activeCamera;
 }

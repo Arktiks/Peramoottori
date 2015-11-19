@@ -17,7 +17,7 @@ using namespace pm;
 #include <ctime>
 #include <vector>
 
-Drawables::Drawables() : Scene("Drawables"), rotation(0.0f), camera_direction(1), zoom_direction(1)
+Drawables::Drawables() : Scene("Drawables"), rotation(0.0f), camera_direction(1), zoom_direction(1), camera(nullptr)
 {
 	// Initialise variables.
 	std::srand(std::time(0));
@@ -76,10 +76,15 @@ Drawables::Drawables() : Scene("Drawables"), rotation(0.0f), camera_direction(1)
 
 Drawables::~Drawables()
 {
-	for (std::vector<GameEntity*>::iterator it = entities.begin(); it != entities.end(); it++)
+	DEBUG_INFO(("Clearing GameEntities."));
+	for (auto it = entities.begin(); it != entities.end(); it++)
 		delete (*it);
-	//CameraSystem::GetInstance()->SetActiveCamera(NEW Camera());
-	//delete camera;
+
+	DEBUG_INFO(("Creating new default Camera."));
+	CameraSystem::GetInstance()->CreateDefaultCamera();
+
+	DEBUG_INFO(("Deleting Drawables old Camera."));
+	delete camera;
 }
 
 void Drawables::Pause()
