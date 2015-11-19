@@ -1,12 +1,10 @@
 #include "pmScene.h"
 
-
 pmScene::pmScene()
 {
 	pm::Application* app = pm::Application::GetInstance();
 	spriteBatch = pm::SpriteBatch::GetInstance();
 }
-
 
 pmScene::~pmScene()
 {
@@ -14,7 +12,6 @@ pmScene::~pmScene()
 
 void pmScene::Update()
 {
-	
 }
 
 void pmScene::Draw()
@@ -29,9 +26,10 @@ void pmScene::Draw()
 	}
 	app->Draw();
 }
+
 void pmScene::AddGameEntity(pm::GameEntity* drawableGameEntity, TRANSLUCENCY type)
 {
-	AddGameEntity(drawableGameEntity);
+	Scene::AddGameEntity(drawableGameEntity);
 	if (type == TRANSLUCENT)
 	{
 		translucentGameEntityVector.push_back(drawableGameEntity);
@@ -42,9 +40,10 @@ void pmScene::AddGameEntity(pm::GameEntity* drawableGameEntity, TRANSLUCENCY typ
 	}
 	else
 	{
-		DEBUG_INFO("Added unknown drawable type of GameEntity, it wont be drawn.");
+		DEBUG_INFO(("Added unknown drawable type of GameEntity, it wont be drawn."));
 	}
 }
+
 void pmScene::RemoveDrawableGameEntity(pm::GameEntity* gameEntity)
 {
 	for (std::vector<pm::GameEntity*>::iterator it = gameEntityVector.begin(); it != gameEntityVector.end();)

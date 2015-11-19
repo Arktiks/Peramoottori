@@ -5,12 +5,14 @@
 #include <graphics\SpriteBatch.h>
 #include <core\Log.h>
 #include <vector>
+
 enum TRANSLUCENCY
 {
 	TRANSLUCENT,
 	OPAQUE,
 };
-class pmScene:public pm::Scene
+
+class pmScene : public pm::Scene
 {
 public:
 	pmScene();
@@ -21,10 +23,10 @@ public:
 
 	void AddGameEntity(pm::GameEntity* gameEntity, TRANSLUCENCY type);
 	void RemoveDrawableGameEntity(pm::GameEntity* gameEntity);
+
 private:
 	pm::SpriteBatch* spriteBatch;
 	pm::Application* app;
 	std::vector<pm::GameEntity*> translucentGameEntityVector;
 	std::vector<pm::GameEntity*> opaqueGameEntityVector;
 };
-
