@@ -60,7 +60,7 @@ namespace pm
 
 		void CreateShaders(); // May be changed.
 		
-		CameraSystem* cameraSystem;
+		//CameraSystem* cameraSystem;
 		
 		GLint transformMatrixLocation;
 		GLint cameraMatrixLocation;

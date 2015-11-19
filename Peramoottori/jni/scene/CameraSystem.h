@@ -10,7 +10,7 @@ namespace pm
 
 	/** \brief Work in progress.
 	*
-	* Description.
+	*
 	*/
 
 	class CameraSystem
@@ -18,10 +18,22 @@ namespace pm
 		friend class Camera;
 
 	public:
-		static CameraSystem* GetInstance();///< Returns handle to CameraSystem singleton object
+		static CameraSystem* GetInstance(); ///< Returns handle to CameraSystem singleton object.
 
-		void SetActiveCamera(Camera* camera);/// Set active camera.
-		Camera* GetActiveCamera();///< Returns active camera.
+		/** \brief Set active Camera.
+		*
+		* \param[in] camera Pointer to new Camera.
+		* \note When called CameraSystems default camera will be deleted.
+		*/
+		void SetActiveCamera(Camera* camera);
+
+		/** \brief Set active camera back to default.
+		*
+		*
+		*/
+		void CreateDefaultCamera();
+
+		Camera* GetActiveCamera(); ///< Returns active camera.
 
 	private:
 		static CameraSystem* instance;
@@ -33,6 +45,5 @@ namespace pm
 
 	};
 }
-
 
 #endif //CAMERASYSTEM_H

@@ -33,6 +33,8 @@ namespace pm
 
 		/** \brief Can be used to set values of Text object. */
 		void ReText(FontResource* font, TextResource* text, float x, float y, float w, float h);
+		/** \brief Can be used to set values of Text object. */
+		void ReText(float x, float y, float w, float h);
 
 		~Text();
 
@@ -54,7 +56,9 @@ namespace pm
 
 		/** \internal Made following four functions private .
 		* If they are indeed only for engine use we can just make TextureFactory friend class.
-		*/
+		*/	
+		FontResource* GetFontResource(){ return savedFont; };
+
 	private:
 
 		/**
@@ -79,7 +83,9 @@ namespace pm
 		* 
 		* For inner engine use only!
 		*/
-		FontResource* GetFontResource(){ return savedFont; };
+	
+
+
 
 	private:
 

@@ -1,4 +1,7 @@
 #include "SceneManager.h"
+#include <core\Log.h>
+#include <chrono>
+#include <thread>
 using namespace pm;
 
 SceneManager::SceneManager() : sceneChanged(false)
@@ -44,9 +47,15 @@ void SceneManager::DeleteScene(std::string name)
 void SceneManager::ChangeScene(Scene* scene)
 {
 	for (std::vector<Scene*>::iterator it = scenes.begin(); it != scenes.end(); it++)
-		delete *it;
+	{
+		std::string scene = (*it)->name;
+		DEBUG_INFO(("Trying to delete scene: (%s)", scene.c_str()));
+		delete (*it);
+		DEBUG_INFO(("Deleted scene: (%s)", scene.c_str()));
+	}
 	scenes.clear();
 	AddScene(scene);
+	sceneChanged = true;
 }
 
 Scene* SceneManager::GetScene(std::string name)

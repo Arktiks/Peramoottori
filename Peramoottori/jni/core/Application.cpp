@@ -69,6 +69,9 @@ void Application::Initialize(android_app* application)
 	DEBUG_INFO(("RenderSystem done."));
 	DEBUG_INFO(("Application has been initialized."));
 
+
+	window.SetClearColor(0, 1, 0);
+
 }
 
 bool Application::Update()
@@ -112,7 +115,9 @@ bool Application::IsFocused()
 	if (application == nullptr || !window.HasContext() || CommandCenter::focus == false)
 		return false;
 	else
+	{ 
 		return true;
+	}
 }
 
 void Application::Wait()

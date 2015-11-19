@@ -62,6 +62,10 @@ namespace pm
 			color.at(3) = alpha;
 		};
 
+		/** \brief Get texture for char.
+		*
+		* \param[in] char
+		*/
 		Texture* GetTexture(char c)
 		{
 			if (dataMap.find(c) != dataMap.end())
@@ -70,7 +74,11 @@ namespace pm
 				return NEW Texture;
 		}
 
-		float Getasd(char c)
+		/** \brief Get widht of char
+		*
+		* \param[in] char
+		*/
+		float GetCharacterWidth(char c)
 		{
 			if (dataMap.find(c) != dataMap.end())
 				return dataMap[c].cw;
@@ -78,7 +86,11 @@ namespace pm
 				return 1;
 		}
 
-		float Getasda(char c)
+		/** \brief Get height of char
+		*
+		* \param[in] newName
+		*/
+		float GetCharacterHeight(char c)
 		{
 			if (dataMap.find(c) != dataMap.end())
 				return dataMap[c].ch;
@@ -86,6 +98,10 @@ namespace pm
 				return 1;
 		}
 
+		/** \brief Get color.
+		*
+		* \return std::vector
+		*/
 		std::vector<float> GetColor() { return color; };
 
 		/** \brief Set name of file that contains TTF data.
@@ -102,6 +118,12 @@ namespace pm
 		std::string GetFileName() { return fileName; };
 		
 		~FontResource() {};
+
+		void RecreateTexture()
+		{
+			dataMap.clear();
+			CharTexture(ttfData);
+		};
 
 	private:
 
@@ -128,7 +150,7 @@ namespace pm
 
 			FT_UInt glyph_index;
 	
-			std::string str("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUWXYZ1234567890!'#¤%&/()=?,.;:-^_{}|[]~@£$");
+			std::string str("abcdefghijklmnopqrstuvwxyzäöABCDEFGHIJKLMNOPQRSTUWXYZÖÄ1234567890!'#¤%&/()=?,.;:-^_{}|[]~@£$");
 
 			for (int i = 0; i < str.size(); i++)
 			{                                                      

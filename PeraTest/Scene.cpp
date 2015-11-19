@@ -3,8 +3,9 @@ using namespace pm;
 
 Scene::~Scene()
 {
-	for (std::vector<GameEntity*>::iterator it = entities.begin(); it != entities.end(); it++)
-		delete (*it);
+	// May cause problems.
+	//for (std::vector<GameEntity*>::iterator it = entities.begin(); it != entities.end(); it++)
+		//delete (*it);
 }
 
 void Scene::Pause()

@@ -1,6 +1,5 @@
 #include "pmScene.h"
 #include <core\Time.h>
-
 pmScene::pmScene()
 {
 	pm::Application* app = pm::Application::GetInstance();
@@ -120,6 +119,7 @@ void pmScene::Draw()
 	}
 	
 }
+
 void pmScene::AddGameEntity(pm::GameEntity* drawableGameEntity, TRANSLUCENCY type)
 {
 	Scene::AddGameEntity(drawableGameEntity);
@@ -136,6 +136,7 @@ void pmScene::AddGameEntity(pm::GameEntity* drawableGameEntity, TRANSLUCENCY typ
 		DEBUG_INFO(("Added unknown drawable type of GameEntity, it wont be drawn."));
 	}
 }
+
 void pmScene::RemoveDrawableGameEntity(pm::GameEntity* gameEntity)
 {
 	std::vector<pm::GameEntity*>::iterator it;

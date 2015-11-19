@@ -59,7 +59,7 @@ void RenderSystem::Initialize()
 	initialized = true;
 	DEBUG_INFO(("RenderSystem initialize finished."));
 
-	cameraSystem = CameraSystem::GetInstance();
+	//cameraSystem = CameraSystem::GetInstance();
 }
 
 void RenderSystem::CreateShaders()
@@ -116,7 +116,7 @@ void RenderSystem::Draw(Batch* batch)
 	glBindTexture(GL_TEXTURE_2D, batch->textureIndex);
 	DEBUG_GL_ERROR();
 	
-	glUniformMatrix4fv(cameraMatrixLocation, 1, GL_FALSE, value_ptr(cameraSystem->GetActiveCamera()->GetCameraMatrix()));
+	glUniformMatrix4fv(cameraMatrixLocation, 1, GL_FALSE, value_ptr(CameraSystem::GetInstance()->GetActiveCamera()->GetCameraMatrix()));
 	DEBUG_GL_ERROR();
 
 

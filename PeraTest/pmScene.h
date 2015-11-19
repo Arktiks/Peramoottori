@@ -20,6 +20,7 @@ enum TRANSLUCENCY
 	TRANSLUCENT,
 	OPAQUE
 };
+
 class pmScene : public pm::Scene
 {
 public:
@@ -34,6 +35,7 @@ public:
 
 	void AddGameEntity(pm::GameEntity* gameEntity, TRANSLUCENCY type);
 	void RemoveDrawableGameEntity(pm::GameEntity* gameEntity);
+
 private:
 	pm::SpriteBatch* spriteBatch;
 	pm::Application* app;
@@ -46,5 +48,4 @@ private:
 	float animTime;
 	int frameDir = 1;
 };
-
 #endif

@@ -43,7 +43,7 @@ namespace pm
 		/** \brief Scene destructor
 		* Deletes all stored GameEntitys and removes 
 		*/
-		~Scene();
+		virtual ~Scene();
 
 		/** \brief Adds new Audio object.
 		*
@@ -80,6 +80,7 @@ namespace pm
 		* GameEntity is removed from vector and deleted.
 		*/
 		void RemoveGameEntity(pm::GameEntity*);
+
 		/** \brief Returns the Audio pointer with path param .
 		* \param[in] string audioPath.
 		* Used for getting Audio pointer with the param path.
