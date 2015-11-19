@@ -16,8 +16,6 @@
 namespace pm
 {
 
-
-
 	/** \brief Scene class contains scenes that can store Audio, Textures and GameObjects.
 	*
 	* \ingroup Scene
@@ -65,6 +63,11 @@ namespace pm
 		*/
 		void AddGameEntity(pm::GameEntity*);
 
+		/** \brief Removes GameEntity object.
+		*
+		* GameEntity is removed from vector and deleted.
+		*/
+		void RemoveGameEntity(pm::GameEntity*);
 		/** \brief Returns the Audio pointer with path param .
 		* \param[in] string audioPath.
 		* Used for getting Audio pointer with the param path.
@@ -99,11 +102,10 @@ namespace pm
 		const std::vector<GameEntity*> GetGameEntityVector() const
 		{ return gameEntityVector; };
 
-	private:
-
-		int sceneNumber;
-
+	protected:
 		std::vector<GameEntity*> gameEntityVector;
+	private:
+		int sceneNumber;
 		std::vector<GameEntity*>::iterator GEVI;
 	};
 };

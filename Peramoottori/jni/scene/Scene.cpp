@@ -34,6 +34,22 @@ void Scene::AddGameEntity(pm::GameEntity* gameEntity)
 	gameEntityVector.push_back(gameEntity);
 }
 
+void Scene::RemoveGameEntity(pm::GameEntity* gameEntity)
+{
+
+	for (std::vector<pm::GameEntity*>::iterator it = gameEntityVector.begin(); it != gameEntityVector.end();)
+	{
+		if (*it == gameEntity)
+		{
+			delete *it;
+			it = gameEntityVector.erase(it);
+			break;
+		}
+		else
+			it++;
+	}
+}
+
 pm::Audio* Scene::GetAudio(std::string path)
 {
 	return SceneManager::GetInstance()->GetAudio(path);
