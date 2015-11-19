@@ -50,6 +50,24 @@ namespace pm
 		///
 		void DeleteResource(std::string filename);
 
+
+		///
+		/// returns Resource vector of all assets that are the same.
+		///		\param std::string fileExtension : fileExtension of the assets to be gotten.
+		///
+		template<typename T> std::vector<T> GetResources(std::string fileExtension)
+		{
+			std::string tempFileExtension = fileExtension;
+			std::map<std::string, Resource*>::iterator resourceIterator;
+			std::vector<T> assetVector;
+			for (resourceIterator = assets.begin(); resourceIterator != assets.end(); resourceIterator++)
+			{
+				if (resourceIterator->first.substr(resourceIterator->first.size() - 4).compare(tempFileExtension) == 0)
+					assetVector.push_back((T)resourceIterator->second);
+			}
+			return assetVector;
+		};
+
 	private:
 
 		///

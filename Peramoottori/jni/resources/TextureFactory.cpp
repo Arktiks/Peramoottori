@@ -15,7 +15,6 @@ std::map<std::string, pm::TextureStruct> pm::TextureFactory::generatedTextures =
 
 pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 {
-	
 	pm::Texture* tempTexture = NEW pm::Texture;
 
 	for (std::map<std::string, pm::TextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)

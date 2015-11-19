@@ -44,71 +44,7 @@ namespace pm
 			}
 			else
 			{
-				if      (text->GetTextData()[i] == 'a'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'c'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'e'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'm'){ y0 += h * .2; y = 1; z = -2; }
-				else if (text->GetTextData()[i] == 'n'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'o'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'p'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'g'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'q'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'i'){ z = 1; }
-				else if (text->GetTextData()[i] == 'j'){ z = 1; }
-				else if (text->GetTextData()[i] == 'r'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 's'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'u'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'ä'){ y0 += h * .1; y = 4;}
-				else if (text->GetTextData()[i] == 'ö'){ y0 += h * .1; y = 4;}
-				else if (text->GetTextData()[i] == 't'){ z = 1; }
-				else if (text->GetTextData()[i] == 'l'){ z = 1; }
-				else if (text->GetTextData()[i] == 'v'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'w'){ y0 += h * .2; y = 1; z = -2; }
-				else if (text->GetTextData()[i] == 'x'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'y'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'z'){ y0 += h * .2; y = 1;}
-				else if (text->GetTextData()[i] == 'I'){ z = 1; }
-				else if (text->GetTextData()[i] == 'J'){ y = 1; }
-				else if (text->GetTextData()[i] == 'G'){ z = -2; }
-				else if (text->GetTextData()[i] == 'A'){ z = -2; }
-				else if (text->GetTextData()[i] == 'Å'){ z = -2; }
-				else if (text->GetTextData()[i] == 'C'){ z = -2; }
-				
-				else if (text->GetTextData()[i] == 'W'){ z = -1; y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'O'){ z = -2; y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'M'){ z = -2; y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'Q'){ z = -2; y0 += h * .2; y = 1; }
-				
-				else if (text->GetTextData()[i] == 'K'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'L'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'N'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'P'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'R'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'S'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'T'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'U'){ y0 += h * .2; y = 1; z = -2; }
-				else if (text->GetTextData()[i] == 'V'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'X'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'Y'){ y0 += h * .2; y = 1; }
-				else if (text->GetTextData()[i] == 'Z'){ y0 += h * .2; y = 1; }
-				
-				else if (text->GetTextData()[i] == '.'){ y0 += h * .6; y = 2; }
-				else if (text->GetTextData()[i] == ','){ y0 += h * .6; y = 2; }
-				else if (text->GetTextData()[i] == '+'){ y0 += h * .2 ; y = 1; }
-				else if (text->GetTextData()[i] == '-'){ y0 += h * .35; y = 3; }
-				else if (text->GetTextData()[i] == '*'){ y0 += h * .2 ; y = 1; }
-				else if (text->GetTextData()[i] == '='){ y0 += h * .2 ; y = 1; }
-				//
-				//
-				//
 				Character(font, text->GetTextData()[i], x0, y0, w, h);
-				if (y == 1)y0 -= h * .2;
-				if (y == 2)y0 -= h * .55;
-				if (y == 3)y0 -= h * .35;
-				if (y == 4)y0 -= h * .1;
-				if (z == 1)x0 -= w * .5;
-				if (z == -1)x0 += w * .5;
-				if (z == -2)x0 += w * .25;
 			}
 
 		}
@@ -150,12 +86,43 @@ namespace pm
 				Character(font, text->GetTextData()[i], x0, y0, w, h);
 		}
 	}
+	void Text::ReText(float x, float y, float w, float h)
+	{
+		for (int i = 0; i < textVector.size(); i++)
+			textVector.at(i)->~GameEntity();
+		textVector.clear();
+		float x0 = x;
+
+		X = x;
+		Y = y;
+		HEIGHT = h;
+		WIDTH = w;
+
+		name = savedFont->GetName();
+		float y0 = y;
+		int size = savedText->GetTextData().size();
+		for (int i = 0; i < size; i++)
+		{
+			x0 += w * 1.125;
+			if (savedText->GetTextData()[i + 1] == '\n')
+			{
+				x0 = x;
+				y0 += h * 1.125;
+				i++;
+			}
+			else if (savedText->GetTextData()[i] == ' ')
+			{
+				x0 -= w * 0.5;
+			}
+			else
+				Character(savedFont, savedText->GetTextData()[i], x0, y0, w, h);
+		}
+	}
 
 	void Text::ReintializeFont(std::string s)
 	{
 		savedFont = (FontResource*)ResourceManager::GetInstance()->LoadAsset(s);
 	}
-
 
 	void Text::ReintializeText(std::string s)
 	{
@@ -261,85 +228,21 @@ namespace pm
 
 	void Text::Character(FontResource* font, char c, float x, float y, float w, float h)
 	{
-		////
-		FT_Library  library;
+		float uw = font->GetCharacterWidth(c); 
+		float uh = font->GetCharacterHeight(c);
 
-		FT_Error error = FT_Init_FreeType(&library);
-		if (error)
-			DEBUG_INFO(("Failed to initialize freetype library!"));
+		Texture *textTexture = font->GetTexture(c);
+		textTexture->SetTrueSize(glm::vec2(uw, uh));
+		textTexture->SetTextureSize(glm::vec2(uw, uh));
+		//
 
-		std::vector<FT_Byte> ttf = font->GetTTFData();
-
-		FT_Face face;
-
-		FT_UInt glyph_index;
-
-		error = FT_New_Memory_Face(library,
-			&ttf[0],
-			ttf.size(),
-			0,
-			&face);
-		if (error == FT_Err_Unknown_File_Format)
-		{
-			DEBUG_INFO(("The font file could be opened and read, but it appears that its font format is unsupported"));
-		}
-		else if (error)
-		{
-			DEBUG_INFO(("Font file could not be opened or read, or it is broken"));
-		}
-
-		FT_GlyphSlot  slot = face->glyph;
-
-		error = FT_Set_Char_Size(
-			face,						/* handle to face object           */
-			0,							/* char_width in 1/64th of points  */
-			32 * 64,					/* char_height in 1/64th of points */
-			1280,						/* horizontal device resolution    */
-			720);						/* vertical device resolution      */
-
-
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-		glyph_index = FT_Get_Char_Index(face, c);
-
-		glGenTextures(1, &textId);
-		glActiveTexture(textId);
-		glBindTexture(GL_TEXTURE_2D, textId);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		float ux = slot->bitmap_left;
-		float uy = slot->bitmap_top;
-
-
-
-
-		FT_Load_Glyph(face, glyph_index, FT_LOAD_RENDER);
-
-		FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, slot->bitmap.width, slot->bitmap.rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, slot->bitmap.buffer);
-
-		float uw = slot->bitmap.width;
-		float uh = slot->bitmap.rows;
-
-
-
-		Texture *textTexture = NEW Texture();
-		textTexture->SetId(textId);
-		textTexture->SetTextureSize(glm::vec2(slot->bitmap.width, slot->bitmap.rows));
-
-		///
 		GameEntity* GE = NEW GameEntity();
 
 		glm::vec2 position(x, y);
 
 		GE->AddComponent(NEW Rectangle(w,h));
+		GE->GetComponent<Rectangle>()->SetOrigin(w/2,h/2);
 		GE->AddComponent(NEW Transformable());
-		
 
 		GE->GetComponent<Transformable>()->SetScale(uw / (450 / (w / 20)), uh / (450 / (h / 20)));
 
@@ -351,9 +254,9 @@ namespace pm
 
 		GE->AddComponent(textTexture);
 
-		std::vector<float> clr = font->GetColor();
+		//std::vector<float> clr = font->GetColor();
 
-		GE->AddComponent(NEW Color(glm::vec4(clr[0], clr[1], clr[2], 0.5)));
+		GE->AddComponent(NEW Color(glm::vec4(1,0,0,1)));
 
 		glActiveTexture(0);
 		glBindTexture(GL_TEXTURE_2D, 0);

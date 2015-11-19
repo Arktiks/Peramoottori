@@ -7,6 +7,8 @@
 #include <core\Application.h>
 #include <resources\TextureFactory.h>
 #include <graphics\RenderSystem.h>
+#include <resources\ResourceManager.h>
+#include <resources\FontResource.h>
 
 using namespace pm;
 using namespace std;
@@ -158,6 +160,10 @@ void CommandCenter::ReadyWindow(android_app* application)
 	ASSERT(testSucces);
 	Application::GetInstance()->Initialize(application);
 	TextureFactory::RecreateOGLTextures(); // Currently no confirmation everything was successful.
+	///go thru the texts and recreate
+	std::vector<FontResource*> fonts = ResourceManager::GetInstance()->GetResources<FontResource*>(".ttf");
+	for (int i = 0; i < fonts.size(); i++)
+		fonts.at(i)->RecreateTexture();
 }
 
 void CommandCenter::TerminateWindow()
