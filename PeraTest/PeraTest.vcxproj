@@ -89,6 +89,7 @@
     <ClCompile Include="pmScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Texts.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="pmScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Texts.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\DEF_FRAGMENT_SHADER.txt" />

@@ -1,11 +1,12 @@
 #version 110
 
 precision mediump float;
+
 varying vec4 varyColor;
 varying vec2 varyPosition;
 uniform sampler2D image;
 
 void main(void)  
 {     
-	gl_FragColor = (texture2D(image, varyPosition)+vec4(varyColor.xyz, 0.0))*vec4(1.0,1.0,1.0,varyColor.w);
+	gl_FragColor = (texture2D(image, varyPosition) + varyColor);
 }

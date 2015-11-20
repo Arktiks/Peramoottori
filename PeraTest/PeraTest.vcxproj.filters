@@ -57,6 +57,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>jni\Scenes\pmScene</Filter>
     </ClCompile>
+    <ClCompile Include="Texts.cpp">
+      <Filter>jni\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -83,6 +86,7 @@
     <ClInclude Include="Animation.h">
       <Filter>jni\Scenes\pmScene</Filter>
     </ClInclude>
+    <ClInclude Include="Texts.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\DEF_FRAGMENT_SHADER.txt">
