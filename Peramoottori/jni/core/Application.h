@@ -60,11 +60,6 @@ namespace pm
 		*/
 		bool Update(); 
 
-		/** \brief Draw stored in SpriteBatch.
-		*
-		* Calls for SpriteBatch::Draw() and swaps frame buffers.
-		*/
-		void Draw();
 
 		/** \brief Check if Application is done initializing.
 		* 
@@ -92,7 +87,11 @@ namespace pm
 		*/
 		void* saveData;
 
-
+		/** \brief Draw stored in SpriteBatch.
+		*
+		* Calls for SpriteBatch::Draw() and swaps frame buffers.
+		*/
+		void Draw();
 
 		// function pointer setup
 
