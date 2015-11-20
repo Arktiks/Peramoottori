@@ -30,6 +30,15 @@ namespace pm
 		* \param[in] h height of Text.
 		*/
 		Text(FontResource* font, TextResource* text, float x, float y, float w, float h);
+		/**
+		* \param[in] font Pointer to FontResource.
+		* \param[in] std::string text.
+		* \param[in] x location on x-axis.
+		* \param[in] y location on y-axis.
+		* \param[in] w width of Text.
+		* \param[in] h height of Text.
+		*/
+		Text(FontResource* font, std::string text, float x, float y, float w, float h);
 
 		/** \brief Can be used to set values of Text object. */
 		void ReText(TextResource* text);
@@ -82,7 +91,7 @@ namespace pm
 		* 
 		* For inner engine use only!
 		*/
-		TextResource* GetTextResource(){ return savedText; };
+		std::string GetTextResource(){ return savedText; };
 
 		/**
 		* 
@@ -103,7 +112,7 @@ namespace pm
 		float Y;
 
 		FontResource* savedFont;
-		TextResource* savedText;
+		std::string savedText;
 
 		GLuint textId;
 		FT_GlyphSlot  slot;

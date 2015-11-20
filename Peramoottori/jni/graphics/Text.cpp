@@ -12,7 +12,7 @@
 
 namespace pm
 {
-	Text::Text(FontResource* font, TextResource* text, float x, float y, float w, float h)
+	Text::Text(FontResource* font, std::string text, float x, float y, float w, float h)
 	{
 		float x0 = x;
 
@@ -23,36 +23,39 @@ namespace pm
 
 		savedFont = font;
 		savedText = text;
-
 		name = font->GetName();
 		float y0 = y;
-		int size = text->GetTextData().size();
+		int size = text.size();
 		for (int i = 0; i < size; i++)
 		{
 			int y = 0;
 			int z = 0;
 			x0 += w * 1.125;
-			if (text->GetTextData()[i + 1] == '\n')
+			if (text[i + 1] == '\n')
 			{
 				x0 = x;
 				y0 += h * 1.125;
 				i++;
 			}
-			else if (text->GetTextData()[i] == ' ')
+			else if (text[i] == ' ')
 			{
 				x0 -= w * 0.5;
 			}
 			else
 			{
-				Character(font, text->GetTextData()[i], x0, y0, w, h);
+				Character(font, text[i], x0, y0, w, h);
 			}
 
 		}
 
 	}
+	Text::Text(FontResource* font, TextResource* text, float x, float y, float w, float h)
+	{
+		Text(font, text->GetTextData(), x, y, w,  h);
+	}
 	void Text::ReText(TextResource* text)
 	{
-		savedText = text;
+		savedText = text->GetTextData();
 
 		ReText(savedFont, text, X, Y, WIDTH, HEIGHT);
 
@@ -60,7 +63,7 @@ namespace pm
 	void Text::ReText(FontResource* font, TextResource* text, float x, float y, float w, float h)
 	{
 		savedFont = font;
-		savedText = text;
+		savedText = text->GetTextData();;
 
 		ReText(x, y, w, h);
 	}
@@ -79,22 +82,22 @@ namespace pm
 
 		name = savedFont->GetName();
 		float y0 = y;
-		int size = savedText->GetTextData().size();
+		int size = savedText.size();
 		for (int i = 0; i < size; i++)
 		{
 			x0 += w * 1.125;
-			if (savedText->GetTextData()[i + 1] == '\n')
+			if (savedText[i + 1] == '\n')
 			{
 				x0 = x;
 				y0 += h * 1.125;
 				i++;
 			}
-			else if (savedText->GetTextData()[i] == ' ')
+			else if (savedText[i] == ' ')
 			{
 				x0 -= w * 0.5;
 			}
 			else
-				Character(savedFont, savedText->GetTextData()[i], x0, y0, w, h);
+				Character(savedFont, savedText[i], x0, y0, w, h);
 		}
 	}
 
