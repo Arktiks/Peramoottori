@@ -76,6 +76,7 @@ void Application::Initialize(android_app* application)
 
 bool Application::Update()
 {
+	window.SwapBuffers();
 	int tempIdent = 0; // See what looper is calling.
 	android_poll_source* tempEventSource = nullptr; // Contains reference to executable command.
 
@@ -95,7 +96,7 @@ bool Application::Update()
 
 void Application::Draw()
 {
-	if(Warning(__func__))
+	if (Warning(__func__))
 		return;
 
 	SpriteBatch::GetInstance()->Draw();

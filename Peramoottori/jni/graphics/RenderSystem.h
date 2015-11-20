@@ -49,6 +49,8 @@ namespace pm
 
 		void Initialize(); ///< RenderSystem should be initialized when context is ready.
 		
+
+		void Draw(Batch* batch, Shader* shader);///< renders one patch.
 		void Draw(Batch* batch); ///< renders one patch.
 
 		bool IsInitialized();

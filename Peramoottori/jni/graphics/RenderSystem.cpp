@@ -104,11 +104,16 @@ void RenderSystem::CreateShaders()
 
 void RenderSystem::Draw(Batch* batch)
 {
-	shaderProgram.UseProgram();
+	Draw(batch, &shaderProgram);
+}
+
+void RenderSystem::Draw(Batch* batch, Shader* shader)
+{
+	shader->UseProgram();
 
 	BindBuffers(batch);
 
-	shaderProgram.UseVertexAttribs();
+	shader->UseVertexAttribs();
 
 	glActiveTexture(GL_TEXTURE0);
 	DEBUG_GL_ERROR();

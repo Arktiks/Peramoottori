@@ -86,10 +86,12 @@
     <ClCompile Include="jni\main.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
     <ClCompile Include="libs\lodepng.cpp" />
+    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="pmScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Texts.cpp" />
+    <ClCompile Include="UpdateRate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -97,10 +99,12 @@
     <ClInclude Include="Drawables.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
     <ClInclude Include="libs\lodepng.h" />
+    <ClInclude Include="Physics.h" />
+    <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="pmScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Texts.h" />
+    <ClInclude Include="UpdateRate.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\DEF_FRAGMENT_SHADER.txt" />

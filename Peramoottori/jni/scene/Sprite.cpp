@@ -30,7 +30,7 @@ void pm::Sprite::SetParent(GameEntity* entity)
 	parent->AddComponent(NEW Transformable());
 	parent->AddComponent(NEW Color());
 	
-	if (!strcmp(fP.c_str(), "noFilePath"))
+	if (strcmp(fP.c_str(), "noFilePath") != 0)
 	{
 		Texture* tempTexture = NEW Texture(fP);
 		parent->AddComponent(tempTexture);

@@ -19,13 +19,23 @@ namespace pm
 	public:
 		/* \brief
 		*
-		* Default constructor for Sprite component. No texture will be added.
+		* Default constructor for Sprite component. Following components will be added:
+		* Drawable 
+		* Rectangle
+		* Transformable
+		* Color
 		*/
 		Sprite();
 		
 		/* \brief
 		*
-		* Constructor for Sprite component. Texture and TextureCoordinates will be added.
+		* Constructor for Sprite component. Following components will be added:
+		* Drawable 
+		* Rectangle
+		* Transformable
+		* Color
+		* Texture
+		* TextureCoordinates
 		*/
 		Sprite(std::string filePath);
 
