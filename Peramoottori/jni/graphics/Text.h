@@ -32,6 +32,8 @@ namespace pm
 		Text(FontResource* font, TextResource* text, float x, float y, float w, float h);
 
 		/** \brief Can be used to set values of Text object. */
+		void ReText(TextResource* text);
+		/** \brief Can be used to set values of Text object. */
 		void ReText(FontResource* font, TextResource* text, float x, float y, float w, float h);
 		/** \brief Can be used to set values of Text object. */
 		void ReText(float x, float y, float w, float h);
@@ -59,7 +61,6 @@ namespace pm
 		*/	
 		FontResource* GetFontResource(){ return savedFont; };
 
-	private:
 
 		/**
 		* Reinitializes Text after the app is in focus again.
@@ -72,6 +73,10 @@ namespace pm
 		* For inner engine use only!
 		*/
 		void ReintializeText(std::string s);
+
+
+	private:
+
 
 		/**
 		* 
