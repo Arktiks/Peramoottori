@@ -35,6 +35,7 @@ namespace pm
 		* \sa AddGameEntity(), AddtranslucentGameEntity() and AddText().
 		*/
 		void Draw();
+
 		/** \brief Old Draw()-function
 		*
 		*  Included in case of bugs in new Draw();
@@ -46,6 +47,14 @@ namespace pm
 		* \brief Store GameEntity objects to be drawn.
 		*/
 		///@{
+
+		/** \brief Add GameEntity to be drawn.
+		*
+		* \param[in] entity Pointer to GameEntity.
+		* \param[in] transparent Boolean if GameEntity contains transparency.
+		*/
+		void AddGameEntity(GameEntity* entity, bool transparent);
+
 		/** \param[in] gameEntity Pointer to GameEntity object. */
 		void AddOpaqueGameEntity(GameEntity* gameEntity);
 
@@ -67,8 +76,7 @@ namespace pm
 
 	private:
 
-		SpriteBatch() {
-			Layers.resize(11); opaqueLayerBatchVector.resize(11); translucentLayerBatchVector.resize(11); }; ///< Neccessary for singleton.
+		SpriteBatch(); ///< Neccessary for singleton.
 
 		~SpriteBatch() {}; ///< Can't be deleted without calling DestroyInstance.
 
@@ -78,12 +86,11 @@ namespace pm
 		
 		void BatchLayerComponents(int layer, bool type); // Batches one layer, type selects if opaque or translucent vector is used.
 
-		void BatchAllLayers(); // calls CreateLayers() and calls BatchLayerComponents() for every layer.
+		void BatchAllLayers(); // Calls CreateLayers() and calls BatchLayerComponents() for every layer.
 
-		void BatchOpaqueComponents();///< Makes final translucent batch.
+		void BatchOpaqueComponents(); ///< Makes final translucent batch.
 
-		void BatchTranslucentComponents();///< Makes final translucent batch.
-
+		void BatchTranslucentComponents(); ///< Makes final translucent batch.
 
 		void ParseData(GameEntity* gameEntity, // GameEntity is gutted to form data matrises that can be assimilated into Batch.
 			std::vector<GLfloat>* vertexData, 
@@ -91,21 +98,21 @@ namespace pm
 			glm::mat4* transformMatrix,
 			GLuint* textureIndex);
 
-
 		std::vector<GameEntity*> opaqueGameEntityVector; // Vector for all opaque GameEntities that are added during draw cycle.
-		std::vector<GameEntity*> translucentGameEntityVector;// Vector for all translucent GameEntities that are added during draw cycle.
+		std::vector<GameEntity*> translucentGameEntityVector; // Vector for all translucent GameEntities that are added during draw cycle.
 		std::vector<Batch> batchVector; ///< Contains all batched draw data. Used in DrawOld(), no use in new draw.
 		
 		std::vector<std::vector<Batch>> opaqueLayerBatchVector; // Vectors of batched opaque GameEntities, sorted by layer.
 		std::vector<std::vector<Batch>> translucentLayerBatchVector; // Vectors of batched translucent GameEntities, sorted by layer.
 		static SpriteBatch* instance;
 
-		struct Layer // storage for layers GameEntities
+		struct Layer // Storage for layers GameEntities.
 		{
 			std::vector<GameEntity*> translucentGO;
 			std::vector<GameEntity*> opaqueGO;
 		};
-		std::vector<Layer> Layers; // storage for every layer.
+
+		std::vector<Layer> Layers; // Storage for every layer.
 	};
 }
 
