@@ -137,6 +137,7 @@
     <ClCompile Include="jni\scene\PhysicsSystem.cpp" />
     <ClCompile Include="jni\scene\Scene.cpp" />
     <ClCompile Include="jni\scene\SceneManager.cpp" />
+    <ClCompile Include="jni\scene\Sprite.cpp" />
     <ClCompile Include="jni\scene\Texture.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
@@ -230,6 +231,7 @@
     <ClInclude Include="jni\scene\PhysicsSystem.h" />
     <ClInclude Include="jni\scene\Scene.h" />
     <ClInclude Include="jni\scene\SceneManager.h" />
+    <ClInclude Include="jni\scene\Sprite.h" />
     <ClInclude Include="jni\scene\Texture.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">false</ExcludedFromBuild>
