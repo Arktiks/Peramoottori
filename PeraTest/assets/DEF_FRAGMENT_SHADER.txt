@@ -8,5 +8,5 @@ uniform sampler2D image;
 
 void main(void)  
 {     
-	gl_FragColor = (texture2D(image, varyPosition) + varyColor);
+	gl_FragColor = (texture2D(image, varyPosition) * varyColor);
 }

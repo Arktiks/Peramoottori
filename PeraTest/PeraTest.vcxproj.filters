@@ -57,6 +57,15 @@
     <ClCompile Include="Animation.cpp">
       <Filter>jni\Scenes\pmScene</Filter>
     </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateRate.cpp">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -81,6 +90,15 @@
       <Filter>jni\Scenes\pmScene</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateRate.h">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
       <Filter>jni\Scenes\pmScene</Filter>
     </ClInclude>
   </ItemGroup>
