@@ -13,14 +13,24 @@ public:
 	~PhysicsManager();
 	
 	void AddGameEntity(pm::GameEntity* gameEntity);
+	void AddPhysics(pm::GameEntity* target);
 	void RemoveGameEntity();
 	void Update(float time);
+	void UpdateComponent(float time);
+
 	void UpdateGameObject(pm::GameEntity* entity);
+	void UpdatePhysics(Physics* physics);
+
 	glm::vec2 SetPosition(pm::GameEntity* entity);
+	glm::vec2 SetPosition(Physics* physics);
+
 	void KeepInsideScreen(pm::GameEntity* entity);
+	void KeepInsideScreen(Physics* physics);
+
 	glm::vec2 CheckLimits(glm::vec2 position);
 
 private:
+	std::vector<Physics*> physicsVector;
 	std::vector<pm::GameEntity*> gameEntityVector;
 	float physicsUpdateRate;
 	float physicsTime;

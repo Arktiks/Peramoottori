@@ -87,4 +87,6 @@ void pm::GameEntity::RemoveComponent()
 	components.erase(position); */
 }
 
+
+
 #endif // GAMEENTITY_H

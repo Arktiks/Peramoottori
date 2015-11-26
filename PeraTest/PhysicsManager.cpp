@@ -28,6 +28,21 @@ void PhysicsManager::AddGameEntity(pm::GameEntity* gameEntity)
 	}
 	gameEntityVector.push_back(gameEntity);
 }
+void PhysicsManager::AddPhysics(pm::GameEntity* target)
+{
+	if (target->GetComponent<pm::Transformable>() == nullptr)
+	{
+		target->AddComponent(NEW pm::Transformable);
+	}
+	if (target->GetComponent<pm::Rectangle>() == nullptr)
+	{
+		target->AddComponent(NEW pm::Rectangle);
+	}
+	Physics* physics = NEW Physics;
+	target->AddComponent(physics);
+	
+	physicsVector.push_back(physics);
+}
 void PhysicsManager::Update(float time)
 {
 	physicsTime += time;
@@ -39,19 +54,45 @@ void PhysicsManager::Update(float time)
 		}
 	}
 }
+
+void PhysicsManager::UpdateComponent(float time)
+{
+	if (physicsTime > physicsUpdateRate)
+	{
+		for (int i = 0; i < physicsVector.size(); i++)
+		{
+			UpdatePhysics(physicsVector[i]);
+		}
+	}
+}
+
 void PhysicsManager::UpdateGameObject(pm::GameEntity* entity)
 {
 	Physics* physics = entity->GetComponent<Physics>();
-	pm::Transformable* transformable = entity->GetComponent<pm::Transformable>();
 
 	SetPosition(entity);
 	KeepInsideScreen(entity);
 
 }
+void PhysicsManager::UpdatePhysics(Physics* physics)
+{
+	SetPosition(physics);
+}
 glm::vec2 PhysicsManager::SetPosition(pm::GameEntity* entity)
 {
 	Physics* physics = entity->GetComponent<Physics>();
 	pm::Transformable* transformable = entity->GetComponent<pm::Transformable>();
+	glm::vec2 currentPosition = transformable->GetPosition();
+	glm::vec2 currentSpeed = physics->speed;
+
+	currentPosition.x += currentSpeed.x;
+	currentPosition.y += currentSpeed.y;
+	transformable->SetPosition(currentPosition);
+}
+
+glm::vec2 PhysicsManager::SetPosition(Physics* physics)
+{
+	pm::Transformable* transformable = physics->GetParent()->GetComponent<pm::Transformable>();
 	glm::vec2 currentPosition = transformable->GetPosition();
 	glm::vec2 currentSpeed = physics->speed;
 
@@ -68,6 +109,46 @@ void PhysicsManager::KeepInsideScreen(pm::GameEntity* entity)
 	glm::vec2 respond = CheckLimits(transformable->GetPosition());
 	// OVER LIMITS
 	glm::vec2 currentPosition = transformable->GetPosition();
+	if (respond.x != 0)
+	{
+		if (respond.x == 1)
+		{
+			physics->speed.x = physics->speed.x * -1;
+			currentPosition.x = worldLimits.x;
+		}
+		// UNDER LIMITS
+		else if (respond.x == -1)
+		{
+			physics->speed.x = physics->speed.x * -1;
+			currentPosition.x = 0;
+		}
+	}
+
+	if (respond.y != 0)
+	{
+		// OVER LIMITS
+		if (respond.y == 1)
+		{
+			physics->speed.y = physics->speed.y * -1;
+			currentPosition.y = worldLimits.y;
+		}
+		// UNDER LIMITS
+		else if (respond.y == -1)
+		{
+			physics->speed.y = physics->speed.y * -1;
+			currentPosition.y = worldLimits.y;
+		}
+	}
+	transformable->SetPosition(currentPosition);
+}
+
+void PhysicsManager::KeepInsideScreen(Physics* physics)
+{
+	pm::Transformable* transformable = physics->GetParent()->GetComponent<pm::Transformable>();
+	glm::vec2 respond = CheckLimits(transformable->GetPosition());
+
+	glm::vec2 currentPosition = transformable->GetPosition();
+
 	if (respond.x != 0)
 	{
 		if (respond.x == 1)

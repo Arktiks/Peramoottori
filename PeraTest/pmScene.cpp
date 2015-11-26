@@ -59,7 +59,7 @@ void pmScene::InitializeGameEntities()
 	ge2->GetComponent<Animation>()->SetValues(140,230,0,14,7,2);
 	ge2->GetComponent<Animation>()->GenerateCoords();
 	ge2->AddComponent(NEW Physics(glm::vec2(3, 4)));
-	physicsManager.AddGameEntity(ge2);
+	physicsManager.AddPhysics(ge2);
 	AddGameEntity(ge2, TRANSLUCENT);
 	animGEVector.push_back(ge2);
 	
@@ -78,7 +78,7 @@ void pmScene::InitializeGameEntities()
 	ge3->GetComponent<Animation>()->SetValues(140, 230, 0, 14, 7, 2);
 	ge3->GetComponent<Animation>()->GenerateCoords();
 	ge3->AddComponent(NEW Physics(glm::vec2(-2, 1)));
-	physicsManager.AddGameEntity(ge3);
+	physicsManager.AddPhysics(ge3);
 	AddGameEntity(ge3, TRANSLUCENT);
 	animGEVector.push_back(ge3);
 
@@ -95,7 +95,7 @@ void pmScene::InitializeGameEntities()
 	ge4->GetComponent<Animation>()->SetValues(140, 230, 0, 14, 7, 2);
 	ge4->GetComponent<Animation>()->GenerateCoords();
 	ge4->AddComponent(NEW Physics(glm::vec2(2, -1)));
-	physicsManager.AddGameEntity(ge4);
+	physicsManager.AddPhysics(ge4);
 	AddGameEntity(ge4, TRANSLUCENT);
 	animGEVector.push_back(ge4);
 
