@@ -35,7 +35,7 @@ void android_main(android_app* application)
 
 	SceneManager manager;
 	//manager.AddScene(NEW Drawables());
-	manager.AddScene(NEW Input());
+	//manager.AddScene(NEW Input());
 
 	while (app->Update())
 	{
