@@ -8,6 +8,7 @@
 
 namespace pm
 {
+	/** \cond HIDDEN_SYMBOLS */
 	struct SavedTextureStruct
 	{
 		GLuint ti; // GL textureIndex
@@ -17,6 +18,7 @@ namespace pm
 		uint tsy; // texture size y
 		uint tg; // texture group 
 	};
+	/** \endcond */
 
 	/** \brief Makes all necessary OpenGL calls to create textures.
 	*

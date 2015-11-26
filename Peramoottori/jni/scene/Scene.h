@@ -95,6 +95,7 @@ namespace pm
 		*/
 		pm::Texture* GetTexture(std::string);
 
+
 		/** \brief Creates new T pointer.
 		* Used for creating T pointer and stores it.
 		* T can be GameEntity or any class inherited from it.
@@ -102,11 +103,13 @@ namespace pm
 		*/
 		template<typename T> T* Create();
 
+		/** \cond HIDDEN_SYMBOLS */
 		/** \brief Returns int scene number.
 		* Used for getting scene number.
 		* \return int scene number.
 		*/
 		int GetSceneNumber(){ return sceneNumber; };
+		/**\endcond */
 
 		/** \brief Returns vector of GameEntitys.
 		* Used for getting vector of GameEntitys.
