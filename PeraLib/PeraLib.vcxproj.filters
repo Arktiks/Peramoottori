@@ -96,6 +96,9 @@
     <ClCompile Include="..\Peramoottori\jni\Main.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Scene.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\SceneManager.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Name.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -233,5 +236,8 @@
     <ClInclude Include="..\Peramoottori\jni\core\ProfilerManager.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Scene.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\SceneManager.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Name.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

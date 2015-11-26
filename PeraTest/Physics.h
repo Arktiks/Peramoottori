@@ -7,10 +7,12 @@ class Physics :public pm::Component
 {
 public:
 
-	Physics(glm::vec2 speed);
+	Physics(glm::vec2 speed, glm::vec2 force);
 	Physics();
 	~Physics();
 	void SetParent(pm::GameEntity* entity);
 	glm::vec2 speed;
+	float mass;
+	glm::vec2 force;
 };
 #endif

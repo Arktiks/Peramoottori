@@ -9,15 +9,18 @@
 #include <graphics\Rectangle.h>
 #include <graphics\Drawable.h>
 #include <graphics\Color.h>
-#include "PhysicsManager.h"
 #include "Physics.h"
 #include "UpdateRate.h"
+#include "Animation.h"
+
+
+#include "PhysicsManager.h"
 #include <resources\ResourceManager.h>
 #include <core\Log.h>
 #include <core\Time.h>
 #include <vector>
 
-#include "Animation.h"
+
 enum TRANSLUCENCY
 {
 	TRANSLUCENT,
@@ -25,27 +28,30 @@ enum TRANSLUCENCY
 };
 
 
-
+class GameEntityFactory;
 class pmScene : public pm::Scene
 {
+	
 public:
 	pmScene();
 	~pmScene();
 
 	void Update();
+	void Draw();
+	void AddGameEntity(pm::GameEntity* gameEntity, TRANSLUCENCY type);
+	void AddAnimationGameEntity(pm::GameEntity* gameEntity, TRANSLUCENCY type);
+	void RemoveDrawableGameEntity(pm::GameEntity* gameEntity);
+	PhysicsManager physicsManager;
+private:
+	void InitializeResources();
+	void InitializeGameEntities();
+
 	void UpdateAnimation(pm::GameEntity* gameEntity);
 	void UpdateScaleRotation(pm::GameEntity* gameEntity);
 	void UpdateGameEntities(float time);
 
-	void Draw();
-	void InitializeResources();
-	void InitializeGameEntities();
-
-	void AddGameEntity(pm::GameEntity* gameEntity, TRANSLUCENCY type);
-	void RemoveDrawableGameEntity(pm::GameEntity* gameEntity);
+	GameEntityFactory* gameEntityFactory;
 	
-private:
-	PhysicsManager physicsManager;
 	pm::SpriteBatch* spriteBatch;
 	pm::Application* app;
 	std::vector<pm::GameEntity*> translucentGameEntityVector;

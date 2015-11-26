@@ -66,7 +66,9 @@
     <ClCompile Include="PhysicsManager.cpp">
       <Filter>jni\Scenes\pmScene</Filter>
     </ClCompile>
-    <ClCompile Include="GameEntityFactory.cpp" />
+    <ClCompile Include="GameEntityFactory.cpp">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -102,7 +104,9 @@
     <ClInclude Include="PhysicsManager.h">
       <Filter>jni\Scenes\pmScene</Filter>
     </ClInclude>
-    <ClInclude Include="GameEntityFactory.h" />
+    <ClInclude Include="GameEntityFactory.h">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\DEF_FRAGMENT_SHADER.txt">

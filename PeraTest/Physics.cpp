@@ -6,10 +6,12 @@
 Physics::Physics()
 {
 	speed = glm::vec2(0, 0);
+	force = glm::vec2(0, 0);
 }
-Physics::Physics(glm::vec2 speed)
+Physics::Physics(glm::vec2 speed, glm::vec2 force)
 {
 	this->speed = speed;
+	this->force = force;
 }
 
 

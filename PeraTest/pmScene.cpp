@@ -2,11 +2,19 @@
 #include <audio\Audio.h>
 #include <core\Time.h>
 #include <core\Vector2.h>
+#include "GameEntityFactory.h"
 pmScene::pmScene()
 {
 	pm::Application* app = pm::Application::GetInstance();
 	spriteBatch = pm::SpriteBatch::GetInstance();
 	time.Start();
+
+	pm::Vector2<int> asd = app->window.GetResolution();
+	limits.x = asd.x;
+	limits.y = asd.y;
+
+	physicsManager = PhysicsManager(limits, 0.01);
+	gameEntityFactory = NEW GameEntityFactory(this);
 
 	InitializeResources();
 	InitializeGameEntities();
@@ -15,11 +23,6 @@ pmScene::pmScene()
 	audio->SetLooping(true);
 	audio->Play();
 
-	pm::Vector2<int> asd =app->window.GetResolution();
-
-	limits.x = asd.x;
-	limits.y = asd.y;
-	physicsManager = PhysicsManager(limits, 0.01);
 }
 
 pmScene::~pmScene()
@@ -45,60 +48,9 @@ void pmScene::InitializeGameEntities()
 	ge->GetComponent<pm::Transformable>()->SetDepth(1);
 	AddGameEntity(ge, OPAQUE);
 
-	pm::GameEntity* ge2 = NEW pm::GameEntity();
-	ge2->AddComponent(GetTexture("space/hero.png"));
-	ge2->AddComponent(NEW pm::Transformable(glm::vec2(400, 600), glm::vec2(1, 1), 30));
-	ge2->GetComponent<pm::Transformable>()->SetDepth(2);
-	ge2->AddComponent(NEW pm::Rectangle(125, 250));
-	ge2->GetComponent<pm::Rectangle>()->SetOrigin(62.5, 125);
-	ge2->AddComponent(NEW pm::Drawable);
-	ge2->AddComponent(NEW pm::TextureCoordinates);
-	ge2->GetComponent<pm::TextureCoordinates>()->SetTextureCoordinates(0, 0, 140, 230);
-	ge2->AddComponent(NEW pm::Color(glm::vec4(0.8,0.8,0.8,0.8)));
-	ge2->AddComponent(NEW Animation(0.3));
-	ge2->GetComponent<Animation>()->SetValues(140,230,0,14,7,2);
-	ge2->GetComponent<Animation>()->GenerateCoords();
-	ge2->AddComponent(NEW Physics(glm::vec2(3, 4)));
-	physicsManager.AddPhysics(ge2);
-	AddGameEntity(ge2, TRANSLUCENT);
-	animGEVector.push_back(ge2);
-	
-
-	pm::GameEntity* ge3 = NEW pm::GameEntity();
-	ge3->AddComponent(GetTexture("space/hero.png"));
-	ge3->AddComponent(NEW pm::Transformable(glm::vec2(600, 400), glm::vec2(1, 1), -10));
-	ge3->AddComponent(NEW pm::Rectangle(100, 200));
-	ge3->GetComponent<pm::Rectangle>()->SetOrigin(50, 100);
-	ge3->AddComponent(NEW pm::Drawable);
-	ge3->AddComponent(NEW pm::TextureCoordinates);
-	ge3->GetComponent<pm::TextureCoordinates>()->SetTextureCoordinates(0, 0, 140, 230);
-	ge3->AddComponent(NEW pm::Color(glm::vec4(1, 1, 1, 1)));
-	ge3->GetComponent<pm::Transformable>()->SetDepth(2);
-	ge3->AddComponent(NEW Animation(0.5));
-	ge3->GetComponent<Animation>()->SetValues(140, 230, 0, 14, 7, 2);
-	ge3->GetComponent<Animation>()->GenerateCoords();
-	ge3->AddComponent(NEW Physics(glm::vec2(-2, 1)));
-	physicsManager.AddPhysics(ge3);
-	AddGameEntity(ge3, TRANSLUCENT);
-	animGEVector.push_back(ge3);
-
-	pm::GameEntity* ge4 = NEW pm::GameEntity();
-	ge4->AddComponent(GetTexture("space/hero.png"));
-	ge4->AddComponent(NEW pm::Transformable(glm::vec2(500,500),glm::vec2(1,1),10));
-	ge4->AddComponent(NEW pm::Rectangle(300,300));
-	ge4->GetComponent<pm::Rectangle>()->SetOrigin(150, 150);
-	ge4->AddComponent(NEW pm::Drawable);
-	ge4->AddComponent(NEW pm::TextureCoordinates);
-	ge4->GetComponent<pm::TextureCoordinates>()->SetTextureCoordinates(0, 0, 140, 230);
-	ge4->GetComponent<pm::Transformable>()->SetDepth(2);
-	ge4->AddComponent(NEW Animation(0.1));
-	ge4->GetComponent<Animation>()->SetValues(140, 230, 0, 14, 7, 2);
-	ge4->GetComponent<Animation>()->GenerateCoords();
-	ge4->AddComponent(NEW Physics(glm::vec2(2, -1)));
-	physicsManager.AddPhysics(ge4);
-	AddGameEntity(ge4, TRANSLUCENT);
-	animGEVector.push_back(ge4);
-
+	gameEntityFactory->CreateHero(glm::vec2(300, 300), 2, glm::vec2(200, 400), glm::vec2(100, 30), 0.1);
+	gameEntityFactory->CreateHero(glm::vec2(600, 500), 3, glm::vec2(150, 300), glm::vec2(205, 125), 0.05);
+	gameEntityFactory->CreateHero(glm::vec2(100, 200), 4, glm::vec2(100, 200), glm::vec2(50, 50), 0.01);
 }
 void pmScene::Update()
 {
@@ -123,6 +75,7 @@ void pmScene::UpdateGameEntities(float time)
 			updateRate->time = 0;
 		}
 	}
+	
 	physicsManager.Update(time);
 }
 
@@ -191,6 +144,26 @@ void pmScene::AddGameEntity(pm::GameEntity* drawableGameEntity, TRANSLUCENCY typ
 	}
 }
 
+
+void pmScene::AddAnimationGameEntity(pm::GameEntity* gameEntity, TRANSLUCENCY type)
+{
+	Scene::AddGameEntity(gameEntity);
+	if (type == TRANSLUCENT)
+	{
+		translucentGameEntityVector.push_back(gameEntity);
+	}
+	else if (type == OPAQUE)
+	{
+		opaqueGameEntityVector.push_back(gameEntity);
+	}
+	else
+	{
+		DEBUG_INFO(("Added unknown drawable type of GameEntity, it wont be drawn."));
+	}
+	animGEVector.push_back(gameEntity);
+
+
+}
 void pmScene::RemoveDrawableGameEntity(pm::GameEntity* gameEntity)
 {
 	std::vector<pm::GameEntity*>::iterator it;
