@@ -8,6 +8,7 @@
 #include "..\SceneManager.h"
 #include "..\Drawables.h"
 #include "..\Texts.h"
+#include "..\Input.h"
 
 #include "..\pmScene.h"
 #include <scene\Scene.h>
@@ -34,7 +35,7 @@ void android_main(android_app* application)
 
 	SceneManager manager;
 	//manager.AddScene(NEW Drawables());
-	manager.AddScene(NEW Texts());
+	manager.AddScene(NEW Input());
 
 	while (app->Update())
 	{

@@ -21,26 +21,38 @@ namespace pm
 
 	public:
 
-		/**
-		* \param[in] font Pointer to FontResource.
-		* \param[in] text Pointer to TextResource.
-		* \param[in] x location on x-axis. 
-		* \param[in] y location on y-axis.
-		* \param[in] w width of Text.
-		* \param[in] h height of Text.
+		/** \brief Constructor which text is set through TextResource.
+		*
+		* \param[in] font	pointer to FontResource.
+		* \param[in] text	pointer to TextResource.
+		* \param[in] x		location on x-axis. 
+		* \param[in] y		location on y-axis.
+		* \param[in] w		width of single letter.
+		* \param[in] h		height of single letter.
 		*/
 		Text(FontResource* font, TextResource* text, float x, float y, float w, float h);
 
-		/**
-		* \param[in] font Pointer to FontResource.
-		* \param[in] std::string text.
-		* \param[in] x location on x-axis.
-		* \param[in] y location on y-axis.
-		* \param[in] w width of Text.
-		* \param[in] h height of Text.
+		/** \brief Constructor which text is set through string.
+		*
+		* \param[in] font	pointer to FontResource.
+		* \param[in] text	as string.
+		* \param[in] x		location on x-axis.
+		* \param[in] y		location on y-axis.
+		* \param[in] w		width of single letter.
+		* \param[in] h		height of single letter.
 		*/
 		Text(FontResource* font, std::string text, float x, float y, float w, float h);
 
+		/** \brief Constructor which takes font and text as Resource objects.
+		*
+		* If 
+		* \param[in] font	pointer to Resource.
+		* \param[in] text	pointer to Resource.
+		* \param[in] x		location on x-axis.
+		* \param[in] y		location on y-axis.
+		* \param[in] w		width of single letter.
+		* \param[in] h		height of single letter.
+		*/
 		Text(Resource* font, Resource* text, float x, float y, float w, float h);
 
 		Text(Resource* font, std::string text, float x, float y, float w, float h);
