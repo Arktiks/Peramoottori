@@ -28,6 +28,21 @@ void PhysicsManager::AddGameEntity(pm::GameEntity* gameEntity)
 	}
 	gameEntityVector.push_back(gameEntity);
 }
+void PhysicsManager::AddPhysics(pm::GameEntity* target)
+{
+	if (target->GetComponent<pm::Transformable>() == nullptr)
+	{
+		target->AddComponent(NEW pm::Transformable);
+	}
+	if (target->GetComponent<pm::Rectangle>() == nullptr)
+	{
+		target->AddComponent(NEW pm::Rectangle);
+	}
+	Physics* physics = NEW Physics;
+	target->AddComponent(physics);
+	
+	physicsVector.push_back(physics);
+}
 void PhysicsManager::Update(float time)
 {
 	physicsTime += time;

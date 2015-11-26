@@ -13,6 +13,7 @@ public:
 	~PhysicsManager();
 	
 	void AddGameEntity(pm::GameEntity* gameEntity);
+	void AddPhysics(pm::GameEntity* target);
 	void RemoveGameEntity();
 	void Update(float time);
 	void UpdateComponent(float time);
