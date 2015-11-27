@@ -23,6 +23,10 @@ void PhysicsManager::AddPhysics(pm::GameEntity* target)
 	{
 		target->AddComponent(NEW pm::Rectangle);
 	}
+	if (target->GetComponent<pm::Name>() == nullptr)
+	{
+		target->AddComponent(NEW pm::Name("default"));
+	}
 	if (target->GetComponent<Physics>() == nullptr)
 	{
 		Physics* physics = NEW Physics;
@@ -48,8 +52,15 @@ void PhysicsManager::Update(float time)
 
 void PhysicsManager::UpdatePhysics(Physics* physics)
 {
-	SetPosition(physics);
-	KeepInsideScreen(physics);
+	if (physics->GetParent()->GetComponent<pm::Name>()->GetName() == "hero")
+	{
+		SetPosition(physics);
+		KeepInsideScreen(physics);
+	}
+	else if (physics->GetParent()->GetComponent<pm::Name>()->GetName() == "rospot")
+	{
+
+	}
 }
 
 glm::vec2 PhysicsManager::SetPosition(Physics* physics)
