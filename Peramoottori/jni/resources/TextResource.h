@@ -30,6 +30,7 @@ namespace pm
 
 
 		std::string GetTextData() { return textData; }
+		void SetTextData(std::string data) { textData = data; }
 		std::string textData;
 
 	};

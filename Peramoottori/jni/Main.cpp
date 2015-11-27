@@ -1,3 +1,5 @@
+/** \cond HIDDEN_SYMBOLS */
+
 #include <core\Application.h>
 #include <core\Log.h>
 #include <core\Passert.h>
@@ -167,3 +169,5 @@ void android_main(android_app* application)
 
 	DEBUG_INFO(("Exiting android_main."));
 }
+
+/** \endcond */

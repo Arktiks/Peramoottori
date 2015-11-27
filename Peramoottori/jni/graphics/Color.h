@@ -30,11 +30,25 @@ namespace pm
 		*/
 		Color(glm::vec4 color);
 
+		/** \brief Constructor for color.
+		*
+		* \param[in] color as four float values.
+		*/
+
+		Color(float red, float green, float blue, float alpha);
+
 		/** \brief Set color.
 		*
 		* \param[in] newColor as glm::vec4 [Red, Green, Blue, Alpha].
 		*/
 		void SetColor(glm::vec4 newColor);
+
+		/** \brief Set color.
+		*
+		* \param[in] color as four float values.
+		*/
+
+		void SetColor(float red, float green, float blue, float alpha);
 
 		/** \brief Return color.
 		*

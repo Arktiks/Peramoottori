@@ -57,6 +57,27 @@
     <ClCompile Include="Animation.cpp">
       <Filter>jni\Scenes\pmScene</Filter>
     </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateRate.cpp">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntityFactory.cpp">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Texts.cpp">
+      <Filter>jni\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>jni\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -83,6 +104,27 @@
     <ClInclude Include="Animation.h">
       <Filter>jni\Scenes\pmScene</Filter>
     </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateRate.h">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntityFactory.h">
+      <Filter>jni\Scenes\pmScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Texts.h">
+      <Filter>jni\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>jni\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\DEF_FRAGMENT_SHADER.txt">
@@ -102,6 +144,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\BOX.png">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\Push.ogg">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\Midnight_Ride.ogg">
       <Filter>assets</Filter>
     </None>
   </ItemGroup>

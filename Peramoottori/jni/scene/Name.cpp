@@ -2,12 +2,14 @@
 
 
 pm::Name::Name() 
-	: name("")
-{ }
+	: name(""), pm::Component()
+{
+}
 
 pm::Name::Name(std::string newName)
-	: name(newName)
-{ }
+	: name(newName), pm::Component()
+{ 
+}
 
 
 pm::Name::~Name()

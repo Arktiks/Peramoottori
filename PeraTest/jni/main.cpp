@@ -3,19 +3,21 @@
 #include <core\Memory.h>
 #include <core\Input.h>
 #include <core\Time.h>
-#include "..\pmScene.h"
 
 #include "..\Scene.h"
 #include "..\SceneManager.h"
 #include "..\Drawables.h"
-#include "scene\Scene.h"
+#include "..\Texts.h"
+#include "..\Input.h"
+#include "..\Audio.h"
 
+#include "..\pmScene.h"
+#include <scene\Scene.h>
 
 #include <chrono>
 #include <thread>
 
 using namespace std;
-
 
 void altMain(android_app *application);
 int sceneSelection = 0;
@@ -23,19 +25,20 @@ int sceneSelection = 0;
 void android_main(android_app* application)
 {
 	if (sceneSelection == 1)
-	{
-		DEBUG_INFO(("Starting android_altMain."));
 		altMain(application);
-	}
+
 	DEBUG_INFO(("Starting android_main."));
 	pm::Application* app = pm::Application::GetInstance(); // For ease of use.
 	app->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
-	pm::Input input;
+
 	pm::Time clock;
 	clock.Restart();
 
 	SceneManager manager;
+	manager.AddScene(NEW Texts());
 	manager.AddScene(NEW Drawables());
+	manager.AddScene(NEW Input());
+	manager.AddScene(NEW Audio());
 
 	while (app->Update())
 	{
@@ -45,11 +48,20 @@ void android_main(android_app* application)
 			app->window.Clear();
 			app->Draw();
 
-			if (clock.GetElapsedTime(pm::Time::FRACTION::SECONDS) >= 5.f)
+			if (clock.GetElapsedTime(pm::Time::FRACTION::SECONDS) >= 10.f)
 			{
-				//manager.DeleteScene("Drawables");
-				//manager.AddScene(new Drawables());
-				manager.ChangeScene(NEW Drawables());
+				Audio* audio = (Audio*)manager.GetScene("Audio");
+
+				if (audio->pause)
+					audio->Resume();
+				else
+					audio->Pause();
+
+				if(manager.GetScene("Texts") != nullptr)
+					manager.DeleteScene("Texts");
+
+				//manager.AddScene(new Texts());
+				
 				clock.Restart();
 			}
 		}
@@ -61,11 +73,11 @@ void android_main(android_app* application)
 	}
 
 	DEBUG_INFO(("Exiting android_main."));
-
 }
 
 void altMain(android_app *application)
 {
+	DEBUG_INFO(("Starting android_altMain."));
 	pm::Application* app = pm::Application::GetInstance(); // For ease of use.
 	app->Initialize(application); // Contains loop which makes sure to initialize OpenGL and all modules.
 
@@ -86,5 +98,4 @@ void altMain(android_app *application)
 	}
 
 	DEBUG_INFO(("Exiting android_altMain."));
-
 }

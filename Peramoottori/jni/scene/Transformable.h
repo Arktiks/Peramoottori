@@ -25,7 +25,10 @@ namespace pm
 		Transformable() : position(glm::vec2(0.0f, 0.0f)),
 			scale(glm::vec2(1.0f, 1.0f)),
 			rotation(0.0f),
-			depthBuffer(9) {};
+			depthBuffer(0)
+		{
+			CalculateMatrix();
+		}
 
 		/** \brief
 		*
@@ -38,9 +41,7 @@ namespace pm
 			position(position), scale(scale), rotation(rotation), depthBuffer(0) 
 		{
 			CalculateMatrix();
-		};
-
-		
+		}
 
 		~Transformable() {};
 

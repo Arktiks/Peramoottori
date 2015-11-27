@@ -34,7 +34,7 @@ void RenderSystem::Initialize()
 {
 	DEBUG_GL_ERROR_CLEAR();
 	
-	Vector2<int> resolution = Application::GetInstance()->window.GetResolution(); // Get resolution of display.
+	glm::vec2 resolution = Application::GetInstance()->window.GetResolution(); // Get resolution of display.
 	float right = resolution.x; // Calculate limits.
 	float top = resolution.y;
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, 1.0f, 0.0f);
@@ -104,11 +104,16 @@ void RenderSystem::CreateShaders()
 
 void RenderSystem::Draw(Batch* batch)
 {
-	shaderProgram.UseProgram();
+	Draw(batch, &shaderProgram);
+}
+
+void RenderSystem::Draw(Batch* batch, Shader* shader)
+{
+	shader->UseProgram();
 
 	BindBuffers(batch);
 
-	shaderProgram.UseVertexAttribs();
+	shader->UseVertexAttribs();
 
 	glActiveTexture(GL_TEXTURE0);
 	DEBUG_GL_ERROR();

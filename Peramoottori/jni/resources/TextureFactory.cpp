@@ -68,14 +68,28 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 	}
 	else
 	{
-
+		bool powerOfTwo = true;
+		bool translucent = false;
 		unsigned int xpo2 = 2;
 		while (xpo2 < sizex)
 			xpo2 *= 2;
 
+		if (xpo2 != sizex)
+		{
+			powerOfTwo = false;
+			bool translucent = true;
+		}
+
 		unsigned int ypo2 = 2;
 		while (ypo2 < sizey)
 			ypo2 *= 2;
+
+		if (xpo2 != sizey)
+		{
+			powerOfTwo = false;
+			bool translucent = true;
+		}
+
 
 		std::vector<unsigned char>::iterator it;
 
@@ -96,6 +110,18 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 				std::vector<unsigned char> fillerVec(xpo2 * 4, 0);
 
 				image.insert(it, fillerVec.begin(), fillerVec.end());
+			}
+		}
+
+		if (!powerOfTwo)
+		{
+			for (int i = 0; i < image.size() / 4; i++)
+			{
+				if (image[i * 4 + 3] < 255)
+				{
+					translucent = true;
+					break;
+				}
 			}
 		}
 		
@@ -124,6 +150,7 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 		pointer->SetTextureSize(glm::uvec2(xpo2, ypo2));
 		pointer->SetTrueSize(glm::uvec2(sizex, sizey));
 		pointer->SetId(textureIndex);
+		pointer->SetTranslucency(translucent == true ? Texture::TRANSLUCENT : Texture::OPAQUE);
 	}
 }
 
@@ -151,14 +178,27 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTexture
 	}
 	else
 	{
-
+		bool powerOfTwo = true;// if this is false the texture is translucent
+		bool translucent = false;
 		unsigned int xpo2 = 2;
 		while (xpo2 < sizex)
 			xpo2 *= 2;
 
+		if (xpo2 != sizex)// is the size x in power of two
+		{
+			powerOfTwo = false;
+			translucent = true;
+		}
+
 		unsigned int ypo2 = 2;
 		while (ypo2 < sizey)
 			ypo2 *= 2;
+
+		if (ypo2 != sizey)// is the size x in power of two
+		{
+			powerOfTwo = false;
+			translucent = true;
+		}
 
 		std::vector<unsigned char>::iterator it;
 
@@ -179,6 +219,18 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTexture
 				std::vector<unsigned char> fillerVec(xpo2 * 4, 0);
 
 				image.insert(it, fillerVec.begin(), fillerVec.end());
+			}
+		}
+
+		if (!powerOfTwo)
+		{
+			for (int i = 0; i < image.size()/4; i++)
+			{
+				if (image[i * 4 + 3] < 255)
+				{
+					translucent = true;
+					break;
+				}
 			}
 		}
 

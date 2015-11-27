@@ -13,11 +13,8 @@
 #include <scene\Transformable.h>
 #include <scene\TextureCoordinates.h>
 
-
 using namespace pm;
 using namespace std;
-
-
 
 SpriteBatch* SpriteBatch::instance = nullptr;
 
@@ -63,6 +60,45 @@ void SpriteBatch::Draw()
 		opaqueLayerBatchVector[i].clear();
 		translucentLayerBatchVector[i].clear();
 	}
+	for (int j = 0; j < translucentLayerBatchVector[10].size(); j++)
+	{
+		RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[10].at(j));
+	}
+
+	// Clear vectors for gameEntities added during draw cycle.
+	opaqueGameEntityVector.clear();
+	translucentGameEntityVector.clear();
+}
+
+void SpriteBatch::Draw(Shader* customShader)
+{
+	// Prepare layers for drawing.
+	BatchAllLayers();
+
+	// Draw all gameEntities on every eleven layers. (0-10)
+	for (int i = 0; i < 10; i++)
+	{
+		// Disable blend and set depthMask true for opaqueGameEntities.
+		glDisable(GL_BLEND);
+		glDepthMask(GL_TRUE);
+
+		for (int j = 0; j < opaqueLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&opaqueLayerBatchVector[i].at(j), customShader);
+		}
+
+		// Enable blend and set depthMask false for translucentGameEntities.
+		glEnable(GL_BLEND);
+		glDepthMask(GL_FALSE);
+
+		for (int j = 0; j < translucentLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j), customShader);
+		}
+		// Clear gameEntities from current layer.
+		opaqueLayerBatchVector[i].clear();
+		translucentLayerBatchVector[i].clear();
+	}
 	// Clear vectors for gameEntities added during draw cycle.
 	opaqueGameEntityVector.clear();
 	translucentGameEntityVector.clear();
@@ -70,10 +106,6 @@ void SpriteBatch::Draw()
 
 void SpriteBatch::DrawOld()
 {
-	//for (int i = 0; i < layers.size(); i++)
-	{
-	//Change the Z buffer to i;
-
 	BatchOpaqueComponents(); //with depth i
 
 	glEnable(GL_DEPTH_TEST);
@@ -81,17 +113,15 @@ void SpriteBatch::DrawOld()
 	glDepthMask(GL_TRUE);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
-
+	
 	batchVector.clear();
 	BatchTranslucentComponents(); //with depth i
-
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glDepthMask(GL_FALSE);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
-
 
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
@@ -100,7 +130,23 @@ void SpriteBatch::DrawOld()
 	opaqueGameEntityVector.clear();
 	translucentGameEntityVector.clear();
 	batchVector.clear();
-	}
+
+}
+
+void SpriteBatch::AddGameEntity(GameEntity* entity, bool transparent)
+{
+	if (transparent)
+		AddTranslucentGameEntity(entity);
+	else
+		AddOpaqueGameEntity(entity);
+}
+
+void SpriteBatch::AddGameEntity(GameEntity* entity)
+{
+	if (entity->GetComponent<Texture>()->GetTranslucency() == Texture::TRANSLUCENT)
+		AddTranslucentGameEntity(entity);
+	else
+		AddOpaqueGameEntity(entity);
 }
 
 void SpriteBatch::AddTranslucentGameEntity(GameEntity* gameEntity)
@@ -116,15 +162,21 @@ void SpriteBatch::AddOpaqueGameEntity(GameEntity* gameEntity)
 void SpriteBatch::AddOpaqueGameEntity(std::vector<GameEntity*> entityVector)
 {
 	for (int i = 0; i < entityVector.size(); i++)
-	{
 		opaqueGameEntityVector.push_back(entityVector.at(i));
-	}
 }
 
 void SpriteBatch::AddText(Text* textEntity)
 {
 	for (int i = 0; i < textEntity->GetTextVector().size(); i++)
 		translucentGameEntityVector.push_back(textEntity->GetTextVector().at(i));
+}
+
+SpriteBatch::SpriteBatch()
+{
+	// Shouldn't it be reserve instead of resize?
+	Layers.resize(11);
+	opaqueLayerBatchVector.resize(11);
+	translucentLayerBatchVector.resize(11);
 }
 
 bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
@@ -184,8 +236,7 @@ void SpriteBatch::BatchLayerComponents(int layer, bool type)
 	std::vector<GameEntity*>& gameEntityVector = *lp;
 	std::vector<Batch>& batchVector = *blp;
 
-
-	// Go throught all layers to find data to be used on current batch
+	// Go throught all layers to find data to be used on current batch.
 	for (int i = 0; i < gameEntityVector.size(); i++)
 	{
 		// Create temporary storages for data gathered from current gameEntity.
@@ -193,6 +244,7 @@ void SpriteBatch::BatchLayerComponents(int layer, bool type)
 		std::vector<GLushort> tempIndexData;
 		glm::mat4 tempTransformMatrix = glm::mat4();
 		GLuint tempTextureIndex;
+
 		// Creates new batch if there is no batch created yet for the texture.
 		bool newBatch = true;
 
@@ -233,7 +285,7 @@ void SpriteBatch::BatchAllLayers()
 	}
 	for (int i = 0;i < Layers.size(); i++)
 	{
-		// clear layers created in CreateLayers();
+		// Clear layers created in CreateLayers();
 		Layers[i].opaqueGO.clear();
 		Layers[i].translucentGO.clear();
 	}
