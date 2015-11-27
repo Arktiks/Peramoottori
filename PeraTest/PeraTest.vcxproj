@@ -82,8 +82,10 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Drawables.cpp" />
     <ClCompile Include="GameEntityFactory.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="jni\main.cpp" />
     <ClCompile Include="libs\android_native_app_glue.c" />
     <ClCompile Include="libs\lodepng.cpp" />
@@ -92,13 +94,16 @@
     <ClCompile Include="pmScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Texts.cpp" />
     <ClCompile Include="UpdateRate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Audio.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="Drawables.h" />
     <ClInclude Include="GameEntityFactory.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="libs\android_native_app_glue.h" />
     <ClInclude Include="libs\lodepng.h" />
     <ClInclude Include="Physics.h" />
@@ -106,6 +111,7 @@
     <ClInclude Include="pmScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Texts.h" />
     <ClInclude Include="UpdateRate.h" />
   </ItemGroup>
   <ItemGroup>
