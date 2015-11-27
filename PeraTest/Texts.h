@@ -8,6 +8,7 @@ class Texts : public Scene
 public:
 	Texts();
 	~Texts();
+
 	void Update() override;
 
 	std::vector<pm::Text*> texts;

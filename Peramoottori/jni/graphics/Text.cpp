@@ -54,6 +54,7 @@ void Text::ReText(float x, float y, float w, float h)
 
 	X = x;
 	Y = y;
+	
 	HEIGHT = h;
 	WIDTH = w;
 
@@ -97,11 +98,13 @@ void Text::Initialise(FontResource* font, std::string text, float x, float y, fl
 
 	X = x;
 	Y = y;
+
 	HEIGHT = height;
 	WIDTH = width;
 
 	savedFont = font;
 	savedText = text;
+
 	name = font->GetName();
 
 	for (int i = 0; i < text.size(); i++)
@@ -156,13 +159,14 @@ void Text::Character(FontResource* font, char c, float x, float y, float w, floa
 	GE->GetComponent<Transformable>()->SetScale(uw / (450 / (w / 20)), uh / (450 / (h / 20)));
 	GE->GetComponent<Transformable>()->SetPosition(position);
 	GE->GetComponent<Transformable>()->SetRotation(0);
+	GE->GetComponent<Transformable>()->SetDepth(10);
 
 	GE->AddComponent(NEW Drawable());
 	GE->GetComponent<Drawable>()->SetDrawState(true);
 
 	GE->AddComponent(textTexture);
 
-	GE->AddComponent(NEW Color(glm::vec4(1,0,0,1)));
+	GE->AddComponent(NEW Color(glm::vec4(1,1,1,1)));
 
 	glActiveTexture(0);
 	glBindTexture(GL_TEXTURE_2D, 0);

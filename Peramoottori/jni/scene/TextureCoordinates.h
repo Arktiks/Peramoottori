@@ -10,24 +10,22 @@
 namespace pm
 {
 
-	/** \brief Work in progress.
+	/** \brief Used to define what part of a texture is rendered.
 	*
 	* TextureCoordinates is used to define what part of texture is rendered.
-	* Useful for texture atlas, and for animation.
+	* Useful for texture atlas, and for animating from sprite sheets.
 	*/
 
 	class TextureCoordinates : public Component
 	{
 	public:
 
-		/** \brief Constructor for textureCoordinates
-		*
-		* 
-		*
+		/** \brief Constructor for TextureCoordinates
+		* Sets each coordinate as 0
 		*/
 		TextureCoordinates();
 		
-		/** \brief Constructor for textureCoordinates with coordinates as parameters
+		/** \brief Constructor for TextureCoordinates with coordinates as parameters
 		*
 		* Creates TextureCoordinates with given parameters
 		* \param[in] left first x-coordinate
@@ -38,7 +36,7 @@ namespace pm
 		TextureCoordinates(float left, float top, float right, float bottom);
 		
 		
-		/** \brief Constructor for textureCoordinates with vec2 as parameters.
+		/** \brief Constructor for TextureCoordinates with vec2 as parameters.
 		*
 		* Creates TextureCoordinates with given parameters
 		* \param[in] leftTop first x and y coordinates
@@ -46,24 +44,21 @@ namespace pm
 		*/
 		TextureCoordinates(glm::vec2 leftTop, glm::vec2 rightBottom);
 		
-		/** \brief Constructor for textureCoordinates with vec4 as parameter.
+		/** \brief Constructor for TextureCoordinates with vec4 as parameter.
 		*
 		* Creates TextureCoordinates with given parameters
-		* \param[in] textureCoordinates All textureCoordinates needed in order: left(x), top(y), right(x), bottom(y)
-		*
+		* \param[in] TextureCoordinates All TextureCoordinates needed in order: left(x), top(y), right(x), bottom(y)
 		*/
 		TextureCoordinates(glm::vec4 textureCoordinates);
 		
-		/** \brief Sets textureCoordinates with coordinates as parameters
+		/** \brief Sets TextureCoordinates with coordinates as parameters
 		* 
-		* Sets textureCoordinates with given parameters
+		* Sets TextureCoordinates with given parameters
 		* \param[in] left first x-coordinate
 		* \param[in] top first y-coordinate
 		* \param[in] right second x-coordinate
 		* \param[in] bottom second y-coordinate
-		*
 		*/
-		
 		void SetTextureCoordinates(float left, float top, float right, float bottom);
 		
 		/** \brief Sets TextureCoordinates with vec2 as parameters.
@@ -76,30 +71,41 @@ namespace pm
 		
 		/** \brief Sets TextureCoordinates with with vec4 as parameter.
 		*
-		* \param[in] leftTopRightBottom All textureCoordinates needed in order: left(x), top(y), right(x), bottom(y)
+		* \param[in] leftTopRightBottom All TextureCoordinates needed in order: left(x), top(y), right(x), bottom(y)
 		*
 		*/
 		void SetTextureCoordinates(glm::vec4 leftTopRightBottom);
 		
-		/** \brief Sets textureCoordinates with coordinates and dimensions as parameters
+		/** \brief Sets TextureCoordinates with leftTop coordinate and texture width and height
 		*
-		* Creates TextureCoordinates with given parameters
+		* Sets TextureCoordinates with given parameters
 		* \param[in] left x-coordinate
 		* \param[in] top y-coordinate
 		* \param[in] width of the texture area
 		* \param[in] height of the texture area
 		*/
 		void SetTextureDimensions(float left, float top, float width, float height);
-
-		void SetTextureDimensions(glm::vec2 leftTop, glm::vec2 WidthHeight);
-
+		
+		/** \brief Sets TextureCoordinates with leftTop coordinate and texture width and height
+		*
+		* Sets TextureCoordinates with given parameters
+		* \param[in] leftTop first x and y coordinates
+		* \param[in] widthHeight width and height of the texture area
+		*/
+		void SetTextureDimensions(glm::vec2 leftTop, glm::vec2 widthHeight);
+		
+		/** \brief Sets TextureCoordinates with leftTop coordinate and texture width and height
+		*
+		* Sets TextureCoordinates with given parameters
+		* \param[in] leftTopWidthHeight All TextureDimensions in order: left(x), top(y), width(x), height(y)
+		*/
 		void SetTextureDimensions(glm::vec4 leftTopWidthHeight);
+		
 		/** \brief returns textureCoordinates as vector<GLfloat>
 		*
 		* Return textureCoordinates in order left(x), top(y), right(x), bottom(y)
 		* \return All textureCoordinates as std::vector<GLfloat>
 		*/
-
 		std::vector<GLfloat> GetTextureCoordinates() { return textureCoordinates; };
 		
 		/** \brief returns textureCoordinates glm::vec4

@@ -1,5 +1,6 @@
 #include "Input.h"
 #include <core\Application.h>
+#include <core\Profiler.h>
 
 using namespace std;
 #define APP pm::Application::GetInstance()
@@ -9,33 +10,56 @@ Input::Input() : Scene("Input")
 	// Device screen dimensions.
 	const int SCREEN_X = APP->window.GetResolution().x;
 	const int SCREEN_Y = APP->window.GetResolution().y;
-	const int SPACE = 200.0f; // Space between Boxes.
-	const int BOXES = 20.0f; // Amount of Boxes to be drawn.
+	const float SPACE = 250.0f; // Space between Boxes.
+	const int BOXES = 10; // Amount of Boxes to be drawn.
 
-	int pos_x = SPACE; // Update position for new Boxes.
-	int pos_y = SPACE;
+	float pos_x = 100.f; // Update position for new Boxes.
+	float pos_y = 100.f;
 
-	for (int i = 0; i < BOXES; i++)
+	for (int i = 0; i < BOXES; i++) // Initialise touchable boxes.
 	{
-		boxes.push_back(Box());
-		boxes[i].Transform()->SetPosition(pos_x, pos_y);
-		//boxes[i].entity->GetComponent<pm::Transformable>()->SetPosition(pos_x, pos_y);
+		Box* box = new Box();
+		box->Transform()->SetPosition(pos_x, pos_y);
+		boxes.push_back(box);
+
 		pos_x += SPACE;
-		
-		if (pos_x >= SCREEN_X)
+		if (pos_x + 100.f >= SCREEN_X)
 		{
-			pos_x = SPACE;
+			pos_x = 100.f;
 			pos_y += SPACE;
 		}
 	}
+
+	box_amount = BOXES;
 }
 
 Input::~Input()
 {
+	for (auto it = boxes.begin(); it != boxes.end(); it++)
+		delete (*it);
 }
 
 void Input::Update()
 {
-	for (auto& box : boxes)
-		box.Draw();
+	/* Destroy boxes that are touched. */
+	for (int i = 0; i < input.GetPointerCount(); i++)
+	{
+		if (input[i].IsTouching())
+		{
+			for (auto it = boxes.begin(); it != boxes.end(); )
+			{
+				if ((*it)->Contains(input[i].GetPos()))
+				{
+					delete (*it);
+					it = boxes.erase(it);
+					box_amount--;
+				}
+				else
+					it++;
+			}
+		}
+	}
+
+	for (auto& box : boxes) // Draw boxes.
+		box->Draw();
 }

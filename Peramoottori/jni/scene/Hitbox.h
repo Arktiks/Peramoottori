@@ -15,17 +15,26 @@
 
 namespace pm
 {
-
-	/** \brief Work in progress.
-	*
-	*
+	/** \brief Used to see if touch hits the GameEntity.
+	* When added to a GameEntity, can be used to see if a touch is in the area of the GameEntity
 	*/
-
 	class Hitbox : public Component
 	{
 	public:
+		/**
+		* \brief Default constructor for Hitbox
+		*/
 		Hitbox(){};
+		/**
+		* \brief Default destructor for Hitbox
+		*/
 		~Hitbox(){};
+		/** \brief Check collision with touchCoordinates
+		* When called, returns collision confirmation with the touchCoordinates.
+		* Automatically calculates the Camera inversion to the touchCoordinates.
+		* \param[in] touchCoordinates TouchCoordinates from Input
+		* \return bool (true / false) 
+		*/
 		bool CheckCollision(glm::vec2 touchCoordinates);
 	};
 }

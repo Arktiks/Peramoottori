@@ -9,6 +9,7 @@
 #include "..\Drawables.h"
 #include "..\Texts.h"
 #include "..\Input.h"
+#include "..\Audio.h"
 
 #include "..\pmScene.h"
 #include <scene\Scene.h>
@@ -34,8 +35,10 @@ void android_main(android_app* application)
 	clock.Restart();
 
 	SceneManager manager;
-	//manager.AddScene(NEW Drawables());
+	manager.AddScene(NEW Texts());
+	manager.AddScene(NEW Drawables());
 	manager.AddScene(NEW Input());
+	manager.AddScene(NEW Audio());
 
 	while (app->Update())
 	{
@@ -45,11 +48,20 @@ void android_main(android_app* application)
 			app->window.Clear();
 			app->Draw();
 
-			if (clock.GetElapsedTime(pm::Time::FRACTION::SECONDS) >= 5.f)
+			if (clock.GetElapsedTime(pm::Time::FRACTION::SECONDS) >= 10.f)
 			{
-				//manager.DeleteScene("Drawables");
-				//manager.AddScene(new Drawables());
-				//manager.ChangeScene(NEW Drawables());
+				Audio* audio = (Audio*)manager.GetScene("Audio");
+
+				if (audio->pause)
+					audio->Resume();
+				else
+					audio->Pause();
+
+				if(manager.GetScene("Texts") != nullptr)
+					manager.DeleteScene("Texts");
+
+				//manager.AddScene(new Texts());
+				
 				clock.Restart();
 			}
 		}

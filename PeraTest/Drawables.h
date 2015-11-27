@@ -14,7 +14,7 @@ public:
 	void Update() override;
 	void Initialise() override;
 
-	const unsigned int SQUARES = 50;
+	const unsigned int SQUARES = 10;
 	const unsigned int MAX_WIDTH = 110;
 	const unsigned int MAX_HEIGHT = 100;
 

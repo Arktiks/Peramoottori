@@ -84,6 +84,12 @@ namespace pm
 		*/
 		glm::mat4 GetTransformMatrix() { return transformMatrix; }
 
+		/** \brief Get inverse transformable matrix.
+		*
+		* \return glm::mat4 inverse transformation of component.
+		*/
+		glm::mat4 GetInverseMatrix();
+		
 		/** \brief Get position of GameEntity.
 		*
 		* \return glm::vec2 position [x,y].

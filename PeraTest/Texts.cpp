@@ -31,6 +31,8 @@ Texts::Texts() : Scene("Texts")
 
 Texts::~Texts()
 {
+	for (auto it = texts.begin(); it != texts.end(); it++)
+		delete (*it);
 }
 
 void Texts::Update()
