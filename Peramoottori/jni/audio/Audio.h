@@ -41,6 +41,11 @@ namespace pm
 		*/
 		void Stop();
 
+		/** \brief Resumes all instances that are paused.
+		* Playing resumes from paused location.
+		* Does nothing if there are no AudioPlayers with paused playstate.
+		*/
+		void Resume();
 		/** \brief Pauses all the instances of this Audio object.
 		*
 		* Next time playing will resume from paused location.
