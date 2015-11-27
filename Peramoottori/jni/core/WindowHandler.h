@@ -3,6 +3,7 @@
 
 #include <EGL/egl.h>
 #include <android_native_app_glue.h>
+#include <glm/glm.hpp>
 #include <core/Vector2.h>
 #include <string>
 
@@ -27,7 +28,7 @@ namespace pm
 		*
 		* \return Vector2<int> screen width (x) and height (y).
 		*/
-		Vector2<int> GetResolution();
+		glm::vec2 GetResolution();
 
 		/// Clear display with set color.
 		void Clear();

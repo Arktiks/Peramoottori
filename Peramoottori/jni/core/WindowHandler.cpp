@@ -7,12 +7,12 @@
 using namespace pm;
 using namespace std;
 
-Vector2<int> WindowHandler::GetResolution()
+glm::vec2 WindowHandler::GetResolution()
 {
 	if(Warning(__func__))
-		return Vector2<int>(0, 0);
+		return glm::vec2(0, 0);
 	else
-		return Vector2<int>(width, height);
+		return glm::vec2(width, height);
 }
 
 void WindowHandler::Clear()

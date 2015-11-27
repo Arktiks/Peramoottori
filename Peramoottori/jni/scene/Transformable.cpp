@@ -52,6 +52,17 @@ glm::vec2 pm::Transformable::GetScale()
 float pm::Transformable::GetRotation()
 {
 	return rotation;
+
+}
+glm::mat4 pm::Transformable::GetInverseMatrix()
+{
+	glm::mat4 inverse = glm::mat4(1);
+
+	inverse = glm::translate(glm::vec3(-position, 0.0f)) * inverse;
+	inverse = glm::rotate(-rotation* 3.14f / 180.0f, glm::vec3(0, 0, 1)) * inverse;
+	inverse = glm::scale(glm::vec3(1.0 / scale.x, 1.0 / scale.y, 0.0f)) * inverse;
+
+	return inverse;
 }
 
 int pm::Transformable::GetDepth()
@@ -67,3 +78,4 @@ void pm::Transformable::CalculateMatrix()
 	transformMatrix = glm::rotate(rotation*3.14f / 180.0f, glm::vec3(0, 0, 1)) * transformMatrix;
 	transformMatrix = glm::translate(glm::vec3(position, 0)) * transformMatrix;
 }
+

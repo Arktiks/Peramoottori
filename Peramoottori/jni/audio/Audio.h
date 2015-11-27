@@ -41,6 +41,11 @@ namespace pm
 		*/
 		void Stop();
 
+		/** \brief Resumes all instances that are paused.
+		* Playing resumes from paused location.
+		* Does nothing if there are no AudioPlayers with paused playstate.
+		*/
+		void Resume();
 		/** \brief Pauses all the instances of this Audio object.
 		*
 		* Next time playing will resume from paused location.
@@ -76,9 +81,17 @@ namespace pm
 		*/
 		void SetMaxPlayerCount(unsigned newMaxCount);
 
-
+		/**
+		* \brief Work in progress. JP varmaan kommentoi kun lis‰‰ funktioita
+		*/
 		std::string GetFile(){ return file; };
 		
+		/** \brief Overloaded operator [] to gain access to singular AudioPlayers
+		* \param[in] index of the AudioPlayer
+		* \return Either AudioPlayer with index or last initialized AudioPlayer
+		*/
+		AudioPlayer* operator[](int index);
+
 	private:
 
 		Audio() = delete; // Forbid using default constructor.

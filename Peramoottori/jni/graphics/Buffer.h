@@ -5,6 +5,9 @@
 
 namespace pm
 {
+	/**
+	* \brief Used to define what kind of buffer is generated
+	*/
 	enum BufferType
 	{
 		NONE,	///< Type has not been set.
@@ -12,6 +15,10 @@ namespace pm
 		INDEX	///< GL_ELEMENT_ARRAY_BUFFER
 	};
 
+
+	/** \brief Buffer class for holding vertex or index data
+	* Class that holds the OpenGL buffers and is used for storing vertex or index data
+	*/
 	class Buffer
 	{
 		friend class RenderSystem;

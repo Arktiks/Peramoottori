@@ -10,11 +10,17 @@
 
 namespace pm
 {
+	enum LAYERTYPE
+	{
+		TRANSLUCENT,
+		OPAQUE,
+		TEXT
+	};
+
 	/** \brief Keeps track of Drawable GameEntity objects that have been queued to be drawn and optimizes rendering.
 	*
 	* \ingroup Graphics
 	*/
-
 	class SpriteBatch
 	{
 	public:
@@ -42,6 +48,8 @@ namespace pm
 		* \sa AddGameEntity(), AddtranslucentGameEntity() and AddText().
 		*/
 		void Draw(Shader* customShader);
+
+
 		/** \brief Old Draw()-function
 		*
 		*  Included in case of bugs in new Draw();
@@ -96,9 +104,11 @@ namespace pm
 
 		bool IsDrawable(GameEntity* gameEntity); ///< Check if GameEntity is drawable.
 		
+		static void CreateTextShader();
+
 		void CreateLayers(); // Sorts gameEntityVectors on different layers.
 		
-		void BatchLayerComponents(int layer, bool type); // Batches one layer, type selects if opaque or translucent vector is used.
+		void BatchLayerComponents(int layer, LAYERTYPE type); // Batches one layer, type selects if opaque or translucent vector is used.
 
 		void BatchAllLayers(); // Calls CreateLayers() and calls BatchLayerComponents() for every layer.
 
@@ -114,16 +124,21 @@ namespace pm
 
 		std::vector<GameEntity*> opaqueGameEntityVector; // Vector for all opaque GameEntities that are added during draw cycle.
 		std::vector<GameEntity*> translucentGameEntityVector; // Vector for all translucent GameEntities that are added during draw cycle.
+		std::vector<GameEntity*> textEntityVector; // Vector for all text GameEntities that are added during draw cycle.
 		std::vector<Batch> batchVector; ///< Contains all batched draw data. Used in DrawOld(), no use in new draw.
 		
 		std::vector<std::vector<Batch>> opaqueLayerBatchVector; // Vectors of batched opaque GameEntities, sorted by layer.
 		std::vector<std::vector<Batch>> translucentLayerBatchVector; // Vectors of batched translucent GameEntities, sorted by layer.
+		std::vector<std::vector<Batch>> textLayerBatchVector; // Vectors of batched text GameEntities, sorted by layer.
 		static SpriteBatch* instance;
+
+		Shader textShader;
 
 		struct Layer // Storage for layers GameEntities.
 		{
 			std::vector<GameEntity*> translucentGO;
 			std::vector<GameEntity*> opaqueGO;
+			std::vector<GameEntity*> textGO;
 		};
 
 		std::vector<Layer> Layers; // Storage for every layer.

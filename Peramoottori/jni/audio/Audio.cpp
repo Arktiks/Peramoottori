@@ -53,6 +53,16 @@ void pm::Audio::Stop()
 		player[i]->SetPlayState(SL_PLAYSTATE_STOPPED);
 }
 
+void pm::Audio::Resume()
+{
+	for (int i = 0; i < playerCount; i++)
+	{
+		SLuint32 temp = player.at(i)->GetPlayState();
+		if (temp == SL_PLAYSTATE_PAUSED)
+			player[i]->SetPlayState(SL_PLAYSTATE_PLAYING);
+	}
+}
+
 void pm::Audio::Pause()
 {
 	for (int i = 0; i < playerCount; i++)
@@ -118,4 +128,12 @@ pm::AudioPlayer* pm::Audio::GetAvailable()
 	}
 	else
 		return nullptr;
+}
+
+pm::AudioPlayer* pm::Audio::operator[](int index)
+{
+	if (index < playerCount)
+		return player[index];
+
+	return player[playerCount - 1];
 }

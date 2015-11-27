@@ -18,8 +18,6 @@ public:
 
 	pm::GameEntity* entity;
 
-	const float WIDTH	= 100.f;
-	const float HEIGHT	= 100.f;
-	const float SCALE_X = 1.f;
-	const float SCALE_Y = 1.f;
+	const float WIDTH = 200.f;
+	const float HEIGHT = 200.f;
 };
