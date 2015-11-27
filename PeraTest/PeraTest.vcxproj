@@ -124,6 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\BOX.png" />
+    <None Include="assets\Midnight_Ride.ogg" />
+    <None Include="assets\Push.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

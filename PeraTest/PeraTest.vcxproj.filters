@@ -146,5 +146,11 @@
     <None Include="assets\BOX.png">
       <Filter>assets</Filter>
     </None>
+    <None Include="assets\Push.ogg">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\Midnight_Ride.ogg">
+      <Filter>assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

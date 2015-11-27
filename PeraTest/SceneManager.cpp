@@ -21,6 +21,7 @@ void SceneManager::Update()
 			sceneChanged = false;
 			return;
 		}
+
 		if ((*it)->pause == false)
 			(*it)->Update();
 	}
