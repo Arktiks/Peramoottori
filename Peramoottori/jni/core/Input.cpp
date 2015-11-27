@@ -7,6 +7,7 @@ glm::vec3 Input::accelerometer = glm::vec3(0, 0, 0);
 Input::Pointer Input::pointers[8];
 int Input::pointerCount = 0;
 int Input::incrPointerID = 1;
+BackFunction Input::backFunction = nullptr;
 
 int32_t Input::AndroidEventHandler(AInputEvent* aEvent)
 {
@@ -30,6 +31,7 @@ int32_t Input::AndroidEventHandler(AInputEvent* aEvent)
 			if (incrPointerID > 10000)
 				incrPointerID = 1;
 			incrPointerID++;
+
 
 			pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
 			pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
@@ -78,25 +80,30 @@ int32_t Input::AndroidEventHandler(AInputEvent* aEvent)
 
 		}
 		break;
+
+
 		default:
 			break;
 		}
 	}
-	else if (AInputEvent_getSource(aEvent) == AINPUT_SOURCE_CLASS_BUTTON)
+	else if (AInputEvent_getSource(aEvent) != AINPUT_SOURCE_CLASS_BUTTON)
 	{
 		int key_code = AKeyEvent_getKeyCode(aEvent);
-		switch (key_code)
+		if (key_code == AKEYCODE_BACK)
 		{
-			case AKEYCODE_BACK:
-				//Overriding System Back Button
-				return 1;
-				break;
-			default:
-				break;
+				if (backFunction != nullptr)
+				{
+					backFunction();
+					return 1;
+				}
 		}
 	}
 	return 0;
 }
+
+
+
+
 int Input::GetPointerCount()
 {
 	return pointerCount;

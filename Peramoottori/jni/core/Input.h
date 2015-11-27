@@ -8,6 +8,9 @@
 
 namespace pm
 {
+	//Backbutton override function
+	typedef void(*BackFunction)();
+
 	/** \brief %Input is static class for handling input received from Android API.
 	*
 	* Basic functions work for the primary pointer. If you want to implement multitouch
@@ -47,10 +50,9 @@ namespace pm
 		static Pointer pointers[maxInputs];
 		static int pointerCount;
 		static int incrPointerID;
-
 		static glm::vec3 accelerometer;
 
-
+		static BackFunction backFunction;
 
 	public:
 
@@ -91,6 +93,11 @@ namespace pm
 		*/
 		static void InputEventAccelerometer(float x, float y, float z);
 		///@}
+
+		/** \brief Set function pointer to override Back Button functionality. 
+		* \param BackFunction pointer to the override function.
+		*/
+		static void setBackFunction(void(*BackFunction)()) { backFunction = BackFunction; };
 	};
 }
 
