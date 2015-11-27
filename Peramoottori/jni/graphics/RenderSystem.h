@@ -69,6 +69,7 @@ namespace pm
 		GLint projectionLocation;
 		
 		Shader shaderProgram;
+		Shader textShaderProgram;
 
 		Buffer vertexBuffer, indexBuffer;
 

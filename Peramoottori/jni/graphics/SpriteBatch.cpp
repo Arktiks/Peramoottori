@@ -21,7 +21,10 @@ SpriteBatch* SpriteBatch::instance = nullptr;
 SpriteBatch* SpriteBatch::GetInstance()
 {
 	if (instance == nullptr)
+	{
 		instance = NEW SpriteBatch();
+		CreateTextShader();
+	}
 	return instance;
 }
 
@@ -30,6 +33,46 @@ void SpriteBatch::DestroyInstance()
 	delete instance;
 	instance = nullptr;
 }
+
+void SpriteBatch::CreateTextShader()
+{
+	DEBUG_GL_ERROR_CLEAR();
+
+	bool tempCheck = GetInstance()->textShader.AddShader("DEF_VERTEX_SHADER.txt", GL_VERTEX_SHADER); // Create default vertex shader.
+	DEBUG_GL_ERROR();
+	//ASSERT(tempCheck);
+
+	tempCheck = GetInstance()->textShader.AddShader("DEF_TEXT_FRAGMENT_SHADER.txt", GL_FRAGMENT_SHADER); // Create default fragment shader.
+	DEBUG_GL_ERROR();
+	//ASSERT(tempCheck);
+
+	GetInstance()->textShader.AddVertexAttribPointer("attrPosition", 3, 9, 0); // Vertex attributes defined by default shaders.
+	GetInstance()->textShader.AddVertexAttribPointer("attrColor", 4, 9, 3);
+	GetInstance()->textShader.AddVertexAttribPointer("texPosition", 2, 9, 7);
+	
+	GetInstance()->textShader.LinkProgram();
+	GetInstance()->textShader.UseProgram();
+
+	glEnable(GL_BLEND);
+	DEBUG_GL_ERROR();
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	DEBUG_GL_ERROR();
+
+	glEnable(GL_DEPTH_TEST);
+	glClearDepthf(1.0);
+
+	glDepthFunc(GL_LEQUAL);
+	DEBUG_GL_ERROR();
+
+	GLint tempLocation = glGetUniformLocation(GetInstance()->textShader.GetShaderProgramLocation(), "image");
+	DEBUG_GL_ERROR();
+
+	glUniform1i(tempLocation, 0);
+	DEBUG_GL_ERROR();
+
+	DEBUG_INFO(("Text shaders done!"));
+};
 
 void SpriteBatch::Draw()
 {
@@ -56,18 +99,21 @@ void SpriteBatch::Draw()
 		{
 			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j));
 		}
+
+		for (int j = 0; j < textLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&textLayerBatchVector[i].at(j), &textShader);
+		}
 		// Clear gameEntities from current layer.
 		opaqueLayerBatchVector[i].clear();
 		translucentLayerBatchVector[i].clear();
-	}
-	for (int j = 0; j < translucentLayerBatchVector[10].size(); j++)
-	{
-		RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[10].at(j));
+		textLayerBatchVector[i].clear();
 	}
 
 	// Clear vectors for gameEntities added during draw cycle.
 	opaqueGameEntityVector.clear();
 	translucentGameEntityVector.clear();
+	textEntityVector.clear();
 }
 
 void SpriteBatch::Draw(Shader* customShader)
@@ -95,13 +141,20 @@ void SpriteBatch::Draw(Shader* customShader)
 		{
 			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j), customShader);
 		}
+
+		for (int j = 0; j < textLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&textLayerBatchVector[i].at(j), &textShader);
+		}
 		// Clear gameEntities from current layer.
 		opaqueLayerBatchVector[i].clear();
 		translucentLayerBatchVector[i].clear();
+		textLayerBatchVector[i].clear();
 	}
 	// Clear vectors for gameEntities added during draw cycle.
 	opaqueGameEntityVector.clear();
 	translucentGameEntityVector.clear();
+	textEntityVector.clear();
 }
 
 void SpriteBatch::DrawOld()
@@ -168,7 +221,7 @@ void SpriteBatch::AddOpaqueGameEntity(std::vector<GameEntity*> entityVector)
 void SpriteBatch::AddText(Text* textEntity)
 {
 	for (int i = 0; i < textEntity->GetTextVector().size(); i++)
-		translucentGameEntityVector.push_back(textEntity->GetTextVector().at(i));
+		textEntityVector.push_back(textEntity->GetTextVector().at(i));
 }
 
 SpriteBatch::SpriteBatch()
@@ -177,6 +230,7 @@ SpriteBatch::SpriteBatch()
 	Layers.resize(11);
 	opaqueLayerBatchVector.resize(11);
 	translucentLayerBatchVector.resize(11);
+	textLayerBatchVector.resize(11);
 }
 
 bool SpriteBatch::IsDrawable(GameEntity* gameEntity)
@@ -212,24 +266,39 @@ void SpriteBatch::CreateLayers()
 		}
 		Layers[depth].translucentGO.push_back(translucentGameEntityVector[i]);
 	}
+
+	for (int i = 0; i < textEntityVector.size(); i++)
+	{
+		int depth = 9;
+		if (textEntityVector[i]->GetComponent<Transformable>() != nullptr)
+		{
+			depth = textEntityVector[i]->GetComponent<Transformable>()->GetDepth();
+		}
+		Layers[depth].translucentGO.push_back(textEntityVector[i]);
+	}
 }
 
-void SpriteBatch::BatchLayerComponents(int layer, bool type)
+void SpriteBatch::BatchLayerComponents(int layer, LAYERTYPE type)
 {
 	// Vectors to make code bit cleaner.
 	std::vector<GameEntity*>* lp;
 	std::vector<Batch>* blp;
 
 	// Select if batched GameEntities will be opaque or translucent.
-	if (type)
+	if (type == OPAQUE)
 	{
 		lp = &Layers[layer].opaqueGO;
 		blp = &opaqueLayerBatchVector[layer];
 	}
-	else
+	else if (type == TRANSLUCENT)
 	{
 		lp = &Layers[layer].translucentGO;
 		blp = &translucentLayerBatchVector[layer];
+	}
+	else
+	{
+		lp = &Layers[layer].textGO;
+		blp = &textLayerBatchVector[layer];
 	}
 
 	// Less vectors to be called, cleaning a bit.
@@ -279,15 +348,18 @@ void SpriteBatch::BatchAllLayers()
 	for (int i = 0; i < Layers.size(); i++)
 	{
 		// Batch opaqueGO
-		BatchLayerComponents(i, true);
+		BatchLayerComponents(i, OPAQUE);
 		// Batch TranslucentGO
-		BatchLayerComponents(i, false);
+		BatchLayerComponents(i, TRANSLUCENT);
+		// Batch TextGO
+		BatchLayerComponents(i, TEXT);
 	}
 	for (int i = 0;i < Layers.size(); i++)
 	{
 		// Clear layers created in CreateLayers();
 		Layers[i].opaqueGO.clear();
 		Layers[i].translucentGO.clear();
+		Layers[i].textGO.clear();
 	}
 }
 
