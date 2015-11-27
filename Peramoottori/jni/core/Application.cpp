@@ -100,7 +100,6 @@ void Application::Draw()
 		return;
 
 	SpriteBatch::GetInstance()->Draw();
-	window.SwapBuffers();
 }
 
 bool Application::IsReady()

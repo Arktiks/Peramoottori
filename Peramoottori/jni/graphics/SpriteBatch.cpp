@@ -60,6 +60,45 @@ void SpriteBatch::Draw()
 		opaqueLayerBatchVector[i].clear();
 		translucentLayerBatchVector[i].clear();
 	}
+	for (int j = 0; j < translucentLayerBatchVector[10].size(); j++)
+	{
+		RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[10].at(j));
+	}
+
+	// Clear vectors for gameEntities added during draw cycle.
+	opaqueGameEntityVector.clear();
+	translucentGameEntityVector.clear();
+}
+
+void SpriteBatch::Draw(Shader* customShader)
+{
+	// Prepare layers for drawing.
+	BatchAllLayers();
+
+	// Draw all gameEntities on every eleven layers. (0-10)
+	for (int i = 0; i < 10; i++)
+	{
+		// Disable blend and set depthMask true for opaqueGameEntities.
+		glDisable(GL_BLEND);
+		glDepthMask(GL_TRUE);
+
+		for (int j = 0; j < opaqueLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&opaqueLayerBatchVector[i].at(j), customShader);
+		}
+
+		// Enable blend and set depthMask false for translucentGameEntities.
+		glEnable(GL_BLEND);
+		glDepthMask(GL_FALSE);
+
+		for (int j = 0; j < translucentLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j), customShader);
+		}
+		// Clear gameEntities from current layer.
+		opaqueLayerBatchVector[i].clear();
+		translucentLayerBatchVector[i].clear();
+	}
 	// Clear vectors for gameEntities added during draw cycle.
 	opaqueGameEntityVector.clear();
 	translucentGameEntityVector.clear();
@@ -67,10 +106,6 @@ void SpriteBatch::Draw()
 
 void SpriteBatch::DrawOld()
 {
-	//for (int i = 0; i < layers.size(); i++)
-	{
-	//Change the Z buffer to i;
-
 	BatchOpaqueComponents(); //with depth i
 
 	glEnable(GL_DEPTH_TEST);
@@ -78,7 +113,7 @@ void SpriteBatch::DrawOld()
 	glDepthMask(GL_TRUE);
 	for (int i = 0; i < batchVector.size(); i++)
 		RenderSystem::GetInstance()->Draw(&batchVector[i]);
-
+	
 	batchVector.clear();
 	BatchTranslucentComponents(); //with depth i
 
@@ -95,14 +130,23 @@ void SpriteBatch::DrawOld()
 	opaqueGameEntityVector.clear();
 	translucentGameEntityVector.clear();
 	batchVector.clear();
-	}
+
 }
 
 void SpriteBatch::AddGameEntity(GameEntity* entity, bool transparent)
 {
 	if (transparent)
 		AddTranslucentGameEntity(entity);
-	AddOpaqueGameEntity(entity);
+	else
+		AddOpaqueGameEntity(entity);
+}
+
+void SpriteBatch::AddGameEntity(GameEntity* entity)
+{
+	if (entity->GetComponent<Texture>()->GetTranslucency() == Texture::TRANSLUCENT)
+		AddTranslucentGameEntity(entity);
+	else
+		AddOpaqueGameEntity(entity);
 }
 
 void SpriteBatch::AddTranslucentGameEntity(GameEntity* gameEntity)

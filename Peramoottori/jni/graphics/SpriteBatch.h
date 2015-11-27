@@ -6,6 +6,7 @@
 #include <scene\GameEntity.h>
 #include <vector>
 #include <graphics\Text.h>
+#include <graphics\Shader.h>
 
 namespace pm
 {
@@ -35,13 +36,20 @@ namespace pm
 		* \sa AddGameEntity(), AddtranslucentGameEntity() and AddText().
 		*/
 		void Draw();
-
+		
+		/** \brief Render all objects with specific shader program.
+		*
+		* \sa AddGameEntity(), AddtranslucentGameEntity() and AddText().
+		*/
+		void Draw(Shader* customShader);
 		/** \brief Old Draw()-function
 		*
 		*  Included in case of bugs in new Draw();
 		*
 		*/
 		void DrawOld();
+
+		void DrawText();
 
 		/** @name Batching Functions
 		* \brief Store GameEntity objects to be drawn.
@@ -54,6 +62,12 @@ namespace pm
 		* \param[in] transparent Boolean if GameEntity contains transparency.
 		*/
 		void AddGameEntity(GameEntity* entity, bool transparent);
+
+		/** \brief Add GameEntity to be drawn.
+		*
+		* \param[in] entity Pointer to GameEntity.
+		*/
+		void AddGameEntity(GameEntity* entity);
 
 		/** \param[in] gameEntity Pointer to GameEntity object. */
 		void AddOpaqueGameEntity(GameEntity* gameEntity);
