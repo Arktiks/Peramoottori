@@ -35,7 +35,12 @@ namespace pm
 		* \sa AddGameEntity(), AddtranslucentGameEntity() and AddText().
 		*/
 		void Draw();
-
+		
+		/** \brief Render all objects with specific shader program.
+		*
+		* \sa AddGameEntity(), AddtranslucentGameEntity() and AddText().
+		*/
+		void Draw(Shader* customShader);
 		/** \brief Old Draw()-function
 		*
 		*  Included in case of bugs in new Draw();

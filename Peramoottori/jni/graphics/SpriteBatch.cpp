@@ -70,6 +70,40 @@ void SpriteBatch::Draw()
 	translucentGameEntityVector.clear();
 }
 
+void SpriteBatch::Draw(Shader* customShader)
+{
+	// Prepare layers for drawing.
+	BatchAllLayers();
+
+	// Draw all gameEntities on every eleven layers. (0-10)
+	for (int i = 0; i < 10; i++)
+	{
+		// Disable blend and set depthMask true for opaqueGameEntities.
+		glDisable(GL_BLEND);
+		glDepthMask(GL_TRUE);
+
+		for (int j = 0; j < opaqueLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&opaqueLayerBatchVector[i].at(j), customShader);
+		}
+
+		// Enable blend and set depthMask false for translucentGameEntities.
+		glEnable(GL_BLEND);
+		glDepthMask(GL_FALSE);
+
+		for (int j = 0; j < translucentLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j), customShader);
+		}
+		// Clear gameEntities from current layer.
+		opaqueLayerBatchVector[i].clear();
+		translucentLayerBatchVector[i].clear();
+	}
+	// Clear vectors for gameEntities added during draw cycle.
+	opaqueGameEntityVector.clear();
+	translucentGameEntityVector.clear();
+}
+
 void SpriteBatch::DrawOld()
 {
 	BatchOpaqueComponents(); //with depth i

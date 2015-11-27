@@ -1,4 +1,5 @@
 #include "Input.h"
+#include <core\Log.h>
 using namespace pm;
 
 //Static member variables
@@ -23,6 +24,7 @@ int32_t Input::AndroidEventHandler(AInputEvent* aEvent)
 			if (idx >= maxInputs)
 				break;
 
+
 			pointerCount++;
 
 			if (incrPointerID > 10000)
@@ -33,9 +35,8 @@ int32_t Input::AndroidEventHandler(AInputEvent* aEvent)
 			pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
 			pointers[idx].index = idx;
 			pointers[idx].id = incrPointerID;
-			pointers[idx].tap = false;
 			pointers[idx].singleTouch = true;
-			pointers[idx].touch = true;
+			pointers[idx].touching = true;
 		}
 		break;
 		case AMOTION_EVENT_ACTION_MOVE:
@@ -57,23 +58,24 @@ int32_t Input::AndroidEventHandler(AInputEvent* aEvent)
 		{
 			int idx = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
 				>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-			pointers[idx].touch = false;
+
 			if (idx >= maxInputs)
 				break;
 
+
 			pointerCount--;
 
+			pointers[idx].touching = false;
+			pointers[idx].id = 0;
 			pointers[idx].sPos.x = AMotionEvent_getX(aEvent, idx);
 			pointers[idx].sPos.y = AMotionEvent_getY(aEvent, idx);
 
-			if (!pointers[idx].tap)
+			for (unsigned int i = idx; i < maxInputs - 1; i++)
 			{
-				for (unsigned int i = idx; i < maxInputs - 1; i++)
-				{
-					pointers[i].index = pointers[i + 1].index;
-					pointers[i].sPos = pointers[i + 1].sPos;
-				}
+				pointers[i].index = pointers[i + 1].index;
+				pointers[i].sPos = pointers[i + 1].sPos;
 			}
+
 		}
 		break;
 		default:
@@ -106,7 +108,6 @@ Input::Pointer& Input::operator[](int index)
 		return pointers[index];
 	return pointers[maxInputs - 1];
 }
-
 bool Input::Pointer::GetSingleTouch()
 {
 	return singleTouch;
@@ -125,8 +126,24 @@ int Input::Pointer::GetID()
 }
  bool Input::Pointer::IsTouching()
  {
-	 return touch;
+	 return touching;
  }
+
+ bool Input::UpdatePointer(int uniqueID, Input::Pointer& touch)
+ {
+	 for (int i = 0; i < maxInputs; i++)
+	 {
+		 if (pointers[i].GetID() == uniqueID)
+		 {
+			 touch = pointers[i];
+			 return true;
+		 }
+	 }
+	//pointer not found...
+	touch = Pointer();
+	return false;
+ }
+
 	 /**** Below are static functions used in Application.cpp ****/
 
 void Input::InputEventAccelerometer(float x, float y, float z)
@@ -141,11 +158,13 @@ void Input::Update()
 
 	for (int i = 0; i < maxInputs; i++)
 	{
-		if (!pointers[i].touch)
+
+		if (!pointers[i].touching)
 			for (unsigned int j = i; j < maxInputs - 1; j++)
 			{
 				pointers[j].index = pointers[j + 1].index;
 				pointers[j].sPos = pointers[j + 1].sPos;
+				pointers[j].id = pointers[j + 1].id;
 				pointers[j].singleTouch = false;
 			}
 	}

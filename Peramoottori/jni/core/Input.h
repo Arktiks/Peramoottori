@@ -18,26 +18,19 @@ namespace pm
 
 	class Input
 	{
-	private:
-
+	public:
 		/** \internal Nolla comments nolla nothing.
-		*
-		* Inputti bugittaa, vaikka painaa vaan kerran niin input[0] palauttaa
-		* singleTouchista true koko ajan.
-		*
-		* Ihan kätevä silleen että piilottaa Pointer luokan käyttäjältä vissiin.
 		*/
 		class Pointer
 		{
 			friend class Input;
 		private:
-			int index; // Mikä ero indexillä ja ID:llä?
-			int id;
-			glm::vec2 sPos; // Start position?
-			glm::vec2 pos;
-			bool tap; // Mikä ero tap ja singleTouch?
+			int index; //Current index of pointer.
+			int id; //Unique ID of pointer
+			glm::vec2 sPos; // Start position
+			glm::vec2 pos; 
 			bool singleTouch;
-			bool touch; // Touch on vissiin pysyvä kosketus?
+			bool touching;
 
 		public:
 			int GetID();
@@ -45,7 +38,11 @@ namespace pm
 			bool IsTouching();
 			glm::vec2 GetPos();
 			glm::vec2 GetStartPos();
+			
+			Pointer() : index(0), id(0), sPos(0, 0), pos(0, 0), singleTouch(false), touching(false) {};
 		};
+
+	private:
 		static const int maxInputs = 8;
 		static Pointer pointers[maxInputs];
 		static int pointerCount;
@@ -53,8 +50,11 @@ namespace pm
 
 		static glm::vec3 accelerometer;
 
+
+
 	public:
 
+		static bool UpdatePointer(int uniqueID, Input::Pointer& touch);
 		/** \brief Returns the amount of currently active pointers.
 		*
 		* \return Number of active pointers.
