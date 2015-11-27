@@ -15,11 +15,9 @@
 namespace pm
 {
 
-	/** \internal Functions should be described with more detail. */
-
-	/** \brief
+	/** \brief Stores font resource char*
 	*
-	* Long description.
+	* Stores font resource char pointer.
 	*
 	* \ingroup Resources
 	*/
@@ -37,7 +35,7 @@ namespace pm
 
 		FontResource() = delete;
 
-		/** \brief
+		/** \FontResoure constructor.
 		*
 		* \param[in] ttfData 
 		*/
@@ -47,13 +45,16 @@ namespace pm
 			CharTexture(ttfData);
 		};
 
-		/** \brief
+		/** \Font data getter.
 		*
 		* \return Vector<FT_Byte> data of the font.
 		*/
 		std::vector<FT_Byte> GetTTFData() { return ttfData; }
 
-		/** \brief Change color of the font. */
+		/** \brief Change color of the font.
+		*
+		* \param[i] float red, float green, float blue, float alpha
+		*/
 		void ChangeColor(float red, float green, float blue, float alpha)
 		{
 			color.at(0) = red;
@@ -110,15 +111,19 @@ namespace pm
 		*/
 		void SetFileName(std::string newName) { fileName = newName; };
 
-		/** \brief Return name of file.
+		/** \brief Return name of the font file.
 		*
 		* \return string Name of file.
 		*
 		*/
 		std::string GetFileName() { return fileName; };
 		
+
+		/** \brief FontResource destructor */
 		~FontResource() {};
 
+
+		/** \brief Recreates the texture*/
 		void RecreateTexture()
 		{
 			dataMap.clear();
@@ -127,7 +132,7 @@ namespace pm
 
 	private:
 
-		/// Sets color of the font.
+		/** \brief Sets color of the font. */
 		void SetColor(float red, float green, float blue, float alpha)
 		{
 			color.push_back(red);
@@ -136,6 +141,12 @@ namespace pm
 			color.push_back(alpha);
 		};
 
+
+		/** \brief  Freetype initialization
+		*
+		*	\param[i]in std::vector<FT_Byte> font file data.
+		*
+		*/
 		void CharTexture(std::vector<FT_Byte> ttfData)
 		{
 			FT_Library  library;

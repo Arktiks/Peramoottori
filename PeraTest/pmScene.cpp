@@ -9,7 +9,7 @@ pmScene::pmScene()
 	spriteBatch = pm::SpriteBatch::GetInstance();
 	time.Start();
 
-	pm::Vector2<int> asd = app->window.GetResolution();
+	glm::vec2 asd = app->window.GetResolution();
 	limits.x = asd.x;
 	limits.y = asd.y;
 
