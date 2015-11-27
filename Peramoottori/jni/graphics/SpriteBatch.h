@@ -43,6 +43,8 @@ namespace pm
 		*/
 		void DrawOld();
 
+		void DrawText();
+
 		/** @name Batching Functions
 		* \brief Store GameEntity objects to be drawn.
 		*/
@@ -54,6 +56,12 @@ namespace pm
 		* \param[in] transparent Boolean if GameEntity contains transparency.
 		*/
 		void AddGameEntity(GameEntity* entity, bool transparent);
+
+		/** \brief Add GameEntity to be drawn.
+		*
+		* \param[in] entity Pointer to GameEntity.
+		*/
+		void AddGameEntity(GameEntity* entity);
 
 		/** \param[in] gameEntity Pointer to GameEntity object. */
 		void AddOpaqueGameEntity(GameEntity* gameEntity);

@@ -20,7 +20,18 @@ namespace pm
 
 	class Texture : public Component
 	{
+
+
 	public:
+
+		/** \cond HIDDEN_SYMBOLS */
+		/// enum translucency (translucent/opaque)
+		enum TRANSLUCENCY
+		{
+			TRANSLUCENT = 0,
+			OPAQUE = 1
+		};
+		/** \endcond */
 
 		Texture();
 
@@ -83,11 +94,27 @@ namespace pm
 		*/
 		void SetTextureGroup(uint TextureGroup);
 
+		/** \brief Set translucency.
+		*
+		* Approriate OpenGL should be called before assigning enum.
+		*
+		* \param[in] translucency new translucency assigned.
+		*/
+		void SetTranslucency(TRANSLUCENCY translucency){};
+
+		/** \brief Get translucency.
+		*
+		* Get the translucency of texture.
+		*
+		* \return translucency assigned.
+		*/
+		TRANSLUCENCY GetTranslucency(){ this->translucency = translucency; };
 		
 		std::string GetFile(){ return file; };
 
 
 	private:
+
 		GLuint textureIndex;
 
 		glm::uvec2 textureSize;
@@ -96,6 +123,10 @@ namespace pm
 		uint textureGroup;
 
 		std::string file;
+
+		TRANSLUCENCY translucency;
+
+
 
 
 	};
