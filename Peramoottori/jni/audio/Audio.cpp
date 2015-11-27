@@ -119,3 +119,11 @@ pm::AudioPlayer* pm::Audio::GetAvailable()
 	else
 		return nullptr;
 }
+
+pm::AudioPlayer* pm::Audio::operator[](int index)
+{
+	if (index < playerCount)
+		return player[index];
+
+	return player[playerCount - 1];
+}

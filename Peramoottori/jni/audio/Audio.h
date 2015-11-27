@@ -76,9 +76,17 @@ namespace pm
 		*/
 		void SetMaxPlayerCount(unsigned newMaxCount);
 
-
+		/**
+		* \brief Work in progress. JP varmaan kommentoi kun lis‰‰ funktioita
+		*/
 		std::string GetFile(){ return file; };
 		
+		/** \brief Overloaded operator [] to gain access to singular AudioPlayers
+		* \param[in] index of the AudioPlayer
+		* \return Either AudioPlayer with index or last initialized AudioPlayer
+		*/
+		AudioPlayer* operator[](int index);
+
 	private:
 
 		Audio() = delete; // Forbid using default constructor.

@@ -18,16 +18,30 @@ namespace pm
 			SECONDS, MILLISECONDS, MICROSECONDS
 		};
 
+		/**
+		* \brief Default constructor.
+		*/
 		Time(void){};
+		/**
+		* \brief Custom constructor.
+		*/
 		Time(std::clock_t start);
+		/**
+		* \brief Default destructor.
+		*/
 		~Time();
 		/**
-		* Function for restarting time
+		* Function for restarting time.
 		*/
 		double Restart();
+		/**
+		* Function for restarting time.
+		* \param[in] fraction in what format elapsed time is returned (seconds, milliseconds, microseconds).
+		* \return Elapsed time as double.
+		*/
 		double Restart(FRACTION fraction);
 		/**
-		* Function for starting timer
+		* \brief Function for starting timer.
 		*/
 		void Start();
 
@@ -37,6 +51,9 @@ namespace pm
 		*/
 		double GetElapsedTime(FRACTION time);
 
+		/**
+		* Overloaded '==' operator to compare timers.
+		*/
 		bool operator==(const Time rhs)
 		{
 			if (this->_start == rhs._start)
