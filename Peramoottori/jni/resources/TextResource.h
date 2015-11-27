@@ -22,7 +22,7 @@ namespace pm
 
 	protected:
 
-		TextResource();
+		TextResource() = delete;
 
 		TextResource(std::string data) : textData(data) {};
 

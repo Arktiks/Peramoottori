@@ -6,6 +6,7 @@
 #include <scene\GameEntity.h>
 #include <vector>
 #include <graphics\Text.h>
+#include <graphics\Shader.h>
 
 namespace pm
 {
