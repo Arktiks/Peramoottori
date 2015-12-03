@@ -20,6 +20,7 @@ namespace pm
 	};
 	/** \endcond */
 
+	/** \internal Functions should be described with more detail. */
 	/** \brief Makes all necessary OpenGL calls to create textures.
 	*
 	* Long description.

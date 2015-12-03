@@ -5,7 +5,7 @@
 
 namespace pm
 {
-
+	/** \internal Class description should be written with more detail. */
 	/** \brief Text resource containing text data.
 	*
 	* Inengine use only.

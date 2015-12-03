@@ -18,6 +18,7 @@ namespace pm
 
 	/** \brief Buffer class for holding vertex or index data
 	* Class that holds the OpenGL buffers and is used for storing vertex or index data
+	* \ingroup Graphics
 	*/
 	class Buffer
 	{

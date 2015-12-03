@@ -12,7 +12,7 @@
 
 namespace pm
 {
-
+	/** \internal Class description should be written with more detail. */
 	/** \brief
 	*
 	* Long description.

@@ -4,6 +4,8 @@
 #include <scene\Component.h>
 namespace pm
 {
+	/** \internal No commentation what so ever
+	*/
 	class Name : public Component
 	{
 	public:

@@ -31,11 +31,11 @@ namespace pm
 		*/
 		~Time();
 		/**
-		* Function for restarting time.
+		* \brief Function for restarting time.
 		*/
 		double Restart();
 		/**
-		* Function for restarting time.
+		* \brief Function for getting elapsed time and restarting time.
 		* \param[in] fraction in what format elapsed time is returned (seconds, milliseconds, microseconds).
 		* \return Elapsed time as double.
 		*/
@@ -45,7 +45,8 @@ namespace pm
 		*/
 		void Start();
 
-		/** When called for the first time Time objects internal timer starts ticking.
+		/** \brief Returns elapsed time since starting the timer.
+		* When called for the first time Time objects internal timer starts ticking.
 		* When called second time and onward elapsed time between calls is calculated.
 		* \return Elapsed time between calls in milliseconds.
 		*/

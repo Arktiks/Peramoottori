@@ -9,7 +9,7 @@ namespace pm
 
 	/** \brief Base class for all components.
 	*
-	* Description.
+	* Virtual base class for all components to allow GameEntities having all components in same map
 	*
 	* \ingroup Scene
 	*/
@@ -17,7 +17,9 @@ namespace pm
 	class Component
 	{
 	public:
-
+		
+		/** \brief Default constructor.
+		*/
 		Component() : parent(nullptr) {};
 
 		/** \brief Copy constuctor. */
@@ -30,7 +32,8 @@ namespace pm
 		Component(GameEntity* entity);
 		
 		/** \brief Set new parent for component.
-		*
+		* Virtual function to allow automatic actions when adding a component
+		* to a GameEntity (example class Sprite : public Component)
 		* \param[in] entity Pointer to GameEntity to be set as parent.
 		*/
 		virtual void SetParent(GameEntity* entity);
@@ -41,6 +44,10 @@ namespace pm
 		*/
 		GameEntity* GetParent() { return parent; };
 
+		/** \brief Virtual destructor.
+		* Component has a virtual destructor to enable the Run Time Type Identification
+		* of its' child classes.
+		*/
 		virtual ~Component() {};
 		
 	protected:

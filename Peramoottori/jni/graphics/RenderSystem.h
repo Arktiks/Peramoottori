@@ -33,14 +33,6 @@ namespace pm
 		*/
 		static RenderSystem* GetInstance();
 
-		/** \brief Set active pm::Camera for rendering.
-		* \param[in] camera Pointer to pm::Camera.
-		void SetActiveCamera(Camera* camera) { (this->activeCamera) = camera; } */
-		
-		/** \brief Return handle to pm::Camera currently being used.
-		* \return Pointer to pm::Camera.
-		Camera* GetActiveCamera() { return activeCamera; } */
-
 		/** \internal Following four functions set private as not to confuse user.
 		* For example RenderSystem and SpriteBatch both have Draw().
 		* Also public Initialize function might imply user needs to initialize RenderSystem himself. */

@@ -23,6 +23,8 @@ namespace pm
 	public:
 		
 		/* I assume default constructor is not supported. */
+		/** \brief Disabled default constructor.
+		*/
 		AudioResource() = delete;
 
 		/**\brief Audio resource constructor.
@@ -52,6 +54,8 @@ namespace pm
 		*/
 		off_t GetStart(){ return start; };
 
+		/** \brief Default destructor.
+		*/
 		~AudioResource() {};
 
 	private:

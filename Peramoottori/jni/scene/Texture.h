@@ -33,8 +33,13 @@ namespace pm
 		};
 		/** \endcond */
 
+		/** \brief Default constructor 
+		*/
 		Texture();
 
+		/** \brief Custom constructor
+		/* \param[in] path file path of the texture
+		*/
 		Texture(std::string path);
 
 		/** \brief Set size of Texture.
@@ -110,6 +115,9 @@ namespace pm
 		*/
 		TRANSLUCENCY GetTranslucency(){ this->translucency = translucency; };
 		
+		/** \brief Get the file path this Texture was created from
+		* \return File path of the file
+		*/
 		std::string GetFile(){ return file; };
 
 

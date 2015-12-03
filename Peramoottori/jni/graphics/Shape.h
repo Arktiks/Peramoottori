@@ -21,6 +21,9 @@ namespace pm
 	{
 	public:
 
+		/** \brief Default constructor
+		* Origin is set to (0, 0)
+		*/
 		Shape() : Component(), origin(glm::vec2(0.0, 0.0)) {};
 
 		/** \brief Set origin from which transformations are applied to Shape.

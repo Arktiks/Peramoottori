@@ -17,7 +17,7 @@ namespace pm
 	class Sprite : public Component
 	{
 	public:
-		/* \brief
+		/* \brief Default constructor, no texture
 		*
 		* Default constructor for Sprite component. Following components will be added:
 		* Drawable 
@@ -27,7 +27,7 @@ namespace pm
 		*/
 		Sprite();
 		
-		/* \brief
+		/* \brief Constructor with texture
 		*
 		* Constructor for Sprite component. Following components will be added:
 		* Drawable 
@@ -39,13 +39,13 @@ namespace pm
 		*/
 		Sprite(std::string filePath);
 
-		/* \brief
+		/* \brief Default destructor
 		*
 		* Destructor for Sprite component.
 		*/
 		~Sprite();
 
-		/* \brief
+		/* \brief Overloaded Component class function
 		*
 		* Overloaded Component class function. Sets a parent GameEntity for the Sprite 
 		* Component and adds the other components for the parent GameEntity.

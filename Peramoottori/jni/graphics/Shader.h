@@ -20,6 +20,9 @@ namespace pm
 	{
 	public:
 		
+		/** \brief Default constructor
+		* Creates incomplete shader object
+		*/
 		Shader() : created(false), shaderProgram(0), vertex(0), fragment(0) {};
 
 		/** \internal Shader index is set @ AddShader().
@@ -80,6 +83,8 @@ namespace pm
 		*/
 		GLuint GetShaderProgramLocation() { return shaderProgram; };
 
+		/** \brief Default destructor
+		*/
 		~Shader();
 
 	private:

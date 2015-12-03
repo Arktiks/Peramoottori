@@ -9,7 +9,7 @@ namespace pm
 {
 	/** \brief Component that stores data for translation, transformation and rotation.
 	*
-	* Description.
+	* Used to move GameEntities in the scene
 	*
 	* \ingroup Scene
 	*/
@@ -18,7 +18,7 @@ namespace pm
 	{
 	public:
 
-		/** \brief
+		/** \brief Default constructor
 		*
 		* Default values are set to position(0,0) | scale(1,1) | rotation(0) | depth(0).
 		*/
@@ -30,7 +30,7 @@ namespace pm
 			CalculateMatrix();
 		}
 
-		/** \brief
+		/** \brief Custom constructor
 		*
 		* \param[in] position glm::vec2 [x,y].
 		* \param[in] scale glm::vec2 [x,y].
@@ -43,6 +43,8 @@ namespace pm
 			CalculateMatrix();
 		}
 
+		/** \brief Default destructor
+		*/
 		~Transformable() {};
 
 		/** \brief Set position of GameEntity.
@@ -51,7 +53,10 @@ namespace pm
 		*/
 		void SetPosition(glm::vec2 newPosition);
 
-		/** \brief Set position of GameEntity. */
+		/** \brief Set position of GameEntity. 
+		* \param[in] newPositionX float, x coordinate
+		* \param[in] newPositionY float, y coordinate
+		*/
 		void SetPosition(float newPositionX, float newPositionY);
 
 		/** \brief Set scale of GameEntity.
@@ -60,7 +65,10 @@ namespace pm
 		*/
 		void SetScale(glm::vec2 newScale);
 
-		/** \brief Set scale of GameEntity. */
+		/** \brief Set scale of GameEntity. 
+		* \param[in] newScaleX float, x scale
+		* \param[in] newScaleY float, y scale
+		*/
 		void SetScale(float newScaleX, float newScaleY);
 
 		/** \brief Set rotation of GameEntity.

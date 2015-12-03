@@ -16,6 +16,7 @@ namespace pm
 	public:
 
 		/** \brief Return instace of AudioManager.
+		* \return Handle to the singleton AudioManager object
 		*/
 		static AudioManager* GetInstance();
 
