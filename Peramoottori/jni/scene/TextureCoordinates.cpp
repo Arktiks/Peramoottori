@@ -5,7 +5,7 @@
 pm::TextureCoordinates::TextureCoordinates()
 {
 	textureCoordinates.resize(4);
-	SetTextureCoordinates(0, 0, 0, 0);		
+	SetTextureCoordinates(-1, -1, 1, 1);		
 }
 
 pm::TextureCoordinates::TextureCoordinates(float left, float top, float right, float bottom)
@@ -38,7 +38,7 @@ void pm::TextureCoordinates::SetParent(GameEntity* parent)
 {
 	this->parent = parent;
 	Texture* tempTexturePointer = parent->GetComponent<Texture>();
-	if (tempTexturePointer != nullptr)
+	if (tempTexturePointer != nullptr && textureCoordinates[0] == -1)
 		SetTextureCoordinates(0, 0, tempTexturePointer->GetTrueSize().x, tempTexturePointer->GetTrueSize().y);
 }
 
