@@ -63,13 +63,14 @@ void GameEntityFactory::AddSpriteComponents(pm::GameEntity* gameEntity, std::str
 	gameEntity->GetComponent<pm::Transformable>()->SetDepth(depth);
 	gameEntity->AddComponent(NEW pm::Rectangle(size));
 	gameEntity->AddComponent(NEW pm::Color(color));
-	gameEntity->AddComponent(NEW pm::Drawable);
+	gameEntity->AddComponent(NEW pm::Drawable());
 }
 
 void GameEntityFactory::AddAnimationComponents(pm::GameEntity* gameEntity, glm::vec4 textureCoordinates, float animationFrameTime, glm::vec2 frameSize,
 	glm::vec2 frameAmounts, int frameAmount, int startFrame)
 {
-	gameEntity->AddComponent(NEW pm::TextureCoordinates);
+	pm::TextureCoordinates* o = NEW pm::TextureCoordinates();
+	gameEntity->AddComponent(o);
 	gameEntity->GetComponent<pm::TextureCoordinates>()->SetTextureCoordinates(textureCoordinates);
 	gameEntity->AddComponent(NEW Animation(animationFrameTime));
 	gameEntity->GetComponent<Animation>()->SetValues(frameSize.x, frameSize.y, startFrame, frameAmount, frameAmounts.x, frameAmounts.y);
