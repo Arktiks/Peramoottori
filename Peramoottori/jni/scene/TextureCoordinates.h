@@ -51,6 +51,13 @@ namespace pm
 		*/
 		TextureCoordinates(glm::vec4 textureCoordinates);
 		
+		/* \brief
+		*
+		* Overloaded Component class function. Sets a parent GameEntity for the TextureCoordinates 
+		* Component and has other functionality compared to default.
+		*/
+		void SetParent(GameEntity* entity);
+		
 		/** \brief Sets TextureCoordinates with coordinates as parameters
 		* 
 		* Sets TextureCoordinates with given parameters
