@@ -1,7 +1,7 @@
 #include "PhysicsManager.h"
+#include <glm\glm.hpp>
 
-
-PhysicsManager::PhysicsManager(glm::vec2 worldLimits, float physicUpdateRate)
+PhysicsManager::PhysicsManager(glm::vec2 worldLimits, float physicsUpdateRate)
 {
 	this->worldLimits = worldLimits;
 	this->physicsUpdateRate = physicsUpdateRate;
@@ -59,7 +59,9 @@ void PhysicsManager::UpdatePhysics(Physics* physics)
 	}
 	else if (physics->GetParent()->GetComponent<pm::Name>()->GetName() == "rospot")
 	{
-
+		TargetCenter(physics);
+		SetPosition(physics);
+		RepeatMovement(physics);
 	}
 }
 
@@ -124,17 +126,95 @@ void PhysicsManager::KeepInsideScreen(Physics* physics)
 	transformable->SetPosition(currentPosition);
 
 }
+
+void PhysicsManager::RepeatMovement(Physics* physics)
+{
+	pm::Transformable* transformable = physics->GetParent()->GetComponent<pm::Transformable>();
+	pm::Rectangle* rectangle = physics->GetParent()->GetComponent<pm::Rectangle>();
+	glm::vec2 respond = CheckLimits(transformable->GetPosition());
+
+	glm::vec2 currentPosition = transformable->GetPosition();
+
+	if (respond.x != 0)
+	{
+		// OVER LIMITS
+		if (respond.x == 1)
+		{
+			// IF OBJECT'S DIRECTION IS AWAY FROM LIMITS
+			if (physics->speed.x > 0)
+			{
+				physics->speed.x = 0;
+				currentPosition.x = -rectangle->GetSize().x;
+			}
+		}
+		// UNDER LIMITS
+		else if (respond.x == -1)
+		{
+			// IF OBJECT'S DIRECTION IS AWAY FROM LIMITS
+			if (physics->speed.x < 0)
+			{
+				physics->speed.x = 0;
+				currentPosition.x = worldLimits.x + rectangle->GetSize().x;
+			}
+		}
+	}
+
+	if (respond.y != 0)
+	{
+		// OVER LIMITS
+		if (respond.y == 1)
+		{
+			// IF OBJECT'S DIRECTION IS AWAY FROM LIMITS
+			if (physics->speed.y > 0)
+			{
+				physics->speed.y = 0;
+				currentPosition.y = -rectangle->GetSize().y;
+			}
+		}
+		// UNDER LIMITS
+		else if (respond.y == -1)
+		{
+			// IF OBJECT'S DIRECTION IS AWAY FROM LIMITS
+			if (physics->speed.y < 0)
+			{
+				physics->speed.y = 0;
+				currentPosition.y = worldLimits.y + rectangle->GetSize().y;		
+			}
+		}
+	}
+	transformable->SetPosition(currentPosition);
+
+}
+
+void PhysicsManager::TargetCenter(Physics* physics)
+{
+	pm::Transformable* transformable = physics->GetParent()->GetComponent<pm::Transformable>();
+	pm::Transformable* targetTransformable = physicsVector[3]->GetParent()->GetComponent<pm::Transformable>();
+	glm::vec2 target = glm::vec2(targetTransformable->GetPosition());
+	glm::vec2 position = transformable->GetPosition();
+
+	glm::vec2 forceDir = target - position;
+	
+	glm::vec2 normalizedForce = glm::vec2(forceDir.x / (sqrt(pow(forceDir.x, 2) + pow(forceDir.y, 2))),
+		forceDir.y / (sqrt(pow(forceDir.x, 2) + pow(forceDir.y, 2))));
+
+	physics->force = physics->force + normalizedForce * glm::vec2(0.01,0.01);
+}
+
 glm::vec2 PhysicsManager::CheckLimits(glm::vec2 position)
 {
 	glm::vec2 respond;
+	// Check if position is more than limits; respond with 1
 	if (position.x > worldLimits.x)
 	{
 		respond.x = 1;
 	}
+	// Check if position is less than limits; respond with -1
 	else if (position.x < 0)
 	{
 		respond.x = -1;
 	}
+	// else respond that it is within limits (0)
 	else
 	{
 		respond.x = 0;

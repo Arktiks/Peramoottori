@@ -51,6 +51,7 @@ void pmScene::InitializeGameEntities()
 	gameEntityFactory->CreateHero(glm::vec2(300, 300), 2, glm::vec2(200, 400), glm::vec2(100, 30), 0.1);
 	gameEntityFactory->CreateHero(glm::vec2(600, 500), 3, glm::vec2(150, 300), glm::vec2(205, 125), 0.05);
 	gameEntityFactory->CreateHero(glm::vec2(100, 200), 4, glm::vec2(100, 200), glm::vec2(50, 50), 0.01);
+	gameEntityFactory->CreateRospot(glm::vec2(300, 200), 5, glm::vec2(200, 200), glm::vec2(60, 00));
 }
 void pmScene::Update()
 {

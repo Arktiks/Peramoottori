@@ -10,7 +10,7 @@ class PhysicsManager
 {
 public:
 	PhysicsManager(){ physicsUpdateRate = 0.1; physicsTime = 0; };
-	PhysicsManager(glm::vec2 worldLimits, float physicUpdateRate);
+	PhysicsManager(glm::vec2 worldLimits, float physicsUpdateRate);
 	~PhysicsManager();
 	
 	void AddPhysics(pm::GameEntity* target);
@@ -26,6 +26,8 @@ public:
 	glm::vec2 SetPosition(Physics* physics);
 	
 	void KeepInsideScreen(Physics* physics);
+	void RepeatMovement(Physics* physics);
+	void TargetCenter(Physics* physics);
 
 	glm::vec2 CheckLimits(glm::vec2 position);
 

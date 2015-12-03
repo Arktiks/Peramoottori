@@ -37,21 +37,16 @@ pm::GameEntity* GameEntityFactory::CreateHero(glm::vec2 position, int depth, glm
 }
 
 pm::GameEntity* GameEntityFactory::CreateRospot(glm::vec2 position, int depth, glm::vec2 size,
-	glm::vec2 force, float animationFrameTime)
+	glm::vec2 force)
 {
 	pm::GameEntity* rospotGameEntity = NEW pm::GameEntity();
 	rospotGameEntity->AddComponent(NEW pm::Name("rospot"));
 	
-	AddSpriteComponents(rospotGameEntity, "space/hero.png", position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 1, 1, 0.6));
-	AddAnimationComponents(rospotGameEntity, glm::vec4(0, 0, 140, 230), animationFrameTime, glm::vec2(140, 230),
-		glm::vec2(7, 2), 14, 0);
+	AddSpriteComponents(rospotGameEntity, "space/rospot.png", position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 1, 1, 0.5));
 
-
-	// Add default physics to GameEntity.
+	// Add physics to GameEntity.
 	scene->physicsManager.AddPhysics(rospotGameEntity);
-	// Add gameEntity on pmScene's animGEVector, and in drawVector, Translucent because we know hero.png is translucent image.
-	scene->AddAnimationGameEntity(rospotGameEntity, TRANSLUCENT);
-
+	scene->AddGameEntity(rospotGameEntity, TRANSLUCENT);
 	return rospotGameEntity;
 }
 

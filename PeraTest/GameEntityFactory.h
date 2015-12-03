@@ -12,7 +12,7 @@ public:
 	pm::GameEntity* CreateHero(glm::vec2 position, int depth, glm::vec2 size,
 		glm::vec2 force, float animationFrameTime);
 	pm::GameEntity* CreateRospot(glm::vec2 position, int depth, glm::vec2 size,
-		glm::vec2 force, float animationFrameTime);
+		glm::vec2 force);
 	
 private:
 	// Adds transformable, rectangle, color and drawable
