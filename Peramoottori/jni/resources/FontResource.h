@@ -26,13 +26,17 @@ namespace pm
 	{
 	public:
 
+		/** \brief Holds char information
+		* Structure that stores texture, width and height of individual characters
+		*/
 		struct fontData
 		{
 			Texture* tex;
 			float cw, ch;
 		};
 
-
+		/** \brief Disabled default constructor.
+		*/
 		FontResource() = delete;
 
 		/** \FontResoure constructor.

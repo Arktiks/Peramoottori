@@ -6,7 +6,7 @@
 
 namespace pm
 {
-
+	/** \internal Functions should be described with more detail. */
 	/** \brief
 	*
 	* Long description.
@@ -20,6 +20,8 @@ namespace pm
 
 	public:
 
+		/** \brief Disabled default constructor
+		*/
 		ImageResource() = delete;
 		
 		/** \brief

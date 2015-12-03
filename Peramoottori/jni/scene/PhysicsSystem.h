@@ -32,6 +32,8 @@ namespace pm
 
 		static PhysicsSystem& Instance();
 		
+		/** \brief Default destructor
+		*/
 		~PhysicsSystem();
 
 		/** \brief Initialise Physics components, update GameEntities and step world physics. */

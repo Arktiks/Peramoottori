@@ -8,9 +8,8 @@
 namespace pm
 {
 
-	/** \brief Work in progress.
-	*
-	*
+	/** \brief System that handles the camera changes.
+	* To switch views you can switch cameras with the CameraSystem.
 	*/
 
 	class CameraSystem
@@ -18,7 +17,11 @@ namespace pm
 		friend class Camera;
 
 	public:
-		static CameraSystem* GetInstance(); ///< Returns handle to CameraSystem singleton object.
+		
+		/** \brief Gain acess to CameraSystem.
+		* \return Returns handle to CameraSystem singleton object.
+		*/
+		static CameraSystem* GetInstance(); 
 
 		/** \brief Set active Camera.
 		*
@@ -28,12 +31,14 @@ namespace pm
 		void SetActiveCamera(Camera* camera);
 
 		/** \brief Set active camera back to default.
-		*
-		*
+		* Creates a new default camera object.
 		*/
 		void CreateDefaultCamera();
-
-		Camera* GetActiveCamera(); ///< Returns active camera.
+		
+		/** \brief Get pointer to active camera.
+		* \return Pointer to active camera.
+		*/
+		Camera* GetActiveCamera();
 
 	private:
 		static CameraSystem* instance;

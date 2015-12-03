@@ -29,6 +29,8 @@ namespace pm
 		*/
 		GameEntity() {};
 
+		/** \brief Default destructor
+		*/
 		~GameEntity();
 
 		/** \brief Add new component to GameEntity.

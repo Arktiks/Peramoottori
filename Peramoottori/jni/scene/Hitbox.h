@@ -21,14 +21,17 @@ namespace pm
 	class Hitbox : public Component
 	{
 	public:
+		
 		/**
-		* \brief Default constructor for Hitbox
+		* \brief Default constructor
 		*/
 		Hitbox(){};
+		
 		/**
-		* \brief Default destructor for Hitbox
+		* \brief Default destructor
 		*/
 		~Hitbox(){};
+
 		/** \brief Check collision with touchCoordinates
 		* When called, returns collision confirmation with the touchCoordinates.
 		* Automatically calculates the Camera inversion to the touchCoordinates.

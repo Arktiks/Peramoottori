@@ -18,19 +18,19 @@ namespace pm
 	{
 	public:
 
-		/** \brief
+		/** \brief Default Constructor
 		*
-		* Default color is (0, 0, 0, 0) [RGBA].
+		* Default color is (1.0f, 1.0f, 1.0f, 1.0f) [RGBA].
 		*/
 		Color();
 		
-		/** \brief
+		/** \brief Custom constructor
 		*
 		* \param[in] color as glm::vec4 [Red, Green, Blue, Alpha].
 		*/
 		Color(glm::vec4 color);
 
-		/** \brief Constructor for color.
+		/** \brief Custom constructor
 		*
 		* \param[in] color as four float values.
 		*/

@@ -17,11 +17,13 @@ namespace pm
 	{
 	public:
 
-		/**
-		* \param[in] fileName Name of file you wish to create Audio object from - for example "Push.ogg".
+		/** \brief Constructor for Audio
+		* \param[in] fileName Name of file you wish to create Audio object from - for example "music.ogg".
 		*/
 		Audio(std::string fileName);
 
+		/** \brief Default destructor
+		*/
 		~Audio();
 
 		/** \brief Starts playing audio.
@@ -46,6 +48,7 @@ namespace pm
 		* Does nothing if there are no AudioPlayers with paused playstate.
 		*/
 		void Resume();
+
 		/** \brief Pauses all the instances of this Audio object.
 		*
 		* Next time playing will resume from paused location.
@@ -55,7 +58,7 @@ namespace pm
 		/** \brief Returns the playback head position of first AudioPlayer.
 		*
 		* Mainly used for getting the playback head position of file.
-		* \return ---
+		* \return Playback head position of the first AudioPlayer in milliseconds.
 		*/
 		SLuint32 GetPlaybackPosition();
 
@@ -81,8 +84,8 @@ namespace pm
 		*/
 		void SetMaxPlayerCount(unsigned newMaxCount);
 
-		/**
-		* \brief Work in progress. JP varmaan kommentoi kun lis‰‰ funktioita
+		/** \brief Get the file path this Audio was created from
+		* \return File path of the .ogg file
 		*/
 		std::string GetFile(){ return file; };
 		

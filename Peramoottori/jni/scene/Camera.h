@@ -27,7 +27,8 @@ namespace pm
 		Camera();
 
 		/** \brief Moves Camera by given values in x and y directions.
-		*
+		* \param[in] x ammount camera should be moved horizontally
+		* \param[in] y ammount camera should be moved vertically
 		*/
 		void MoveCamera(float x, float y);
 
@@ -38,12 +39,12 @@ namespace pm
 		void MoveCamera(glm::vec2 moveXY);
 
 		/** \brief Rotates Camera by given value in degrees.
-		*
+		* \param[in] rotation how many degrees camera should be rotated
 		*/
 		void RotateCamera(float rotation);
 
 		/** \brief Zooms Camera by given value.
-		*
+		* \param[in] zoom how much to zoom
 		*/
 		void ZoomCamera(float zoom);
 
@@ -54,7 +55,8 @@ namespace pm
 		void SetCameraMatrix(glm::mat4 newCameraMatrix);
 		
 		/** \brief Set Camera position to given coordinates.
-		*
+		* \param[in] xPosition x coordinate
+		* \param[in] yPosition y coordinate
 		*/
 		void SetCameraPosition(float xPosition, float yPosition);
 		
@@ -65,12 +67,16 @@ namespace pm
 		void SetCameraPosition(glm::vec2 newPosition);
 		
 		/** \brief Set Camera rotation.
-		* 
+		*  \param[in] newRotation angle in degrees
 		*/
 		void SetCameraRotation(float newRotation);
 		
 		/** \brief Set Camera Zoom.
-		* 
+		* zoom is a multiplier
+		* 1.0 will show the original size
+		* 2.0 will show everything twice the size of the original
+		* 0.5 will show everything half the size of the original
+		* \param[in] newZoom 
 		*/
 		void SetCameraZoom(float newZoom);
 		

@@ -10,6 +10,8 @@
 
 namespace pm
 {
+	/** \brief Used to define what kind of layer SpriteBatch is using
+	*/
 	enum LAYERTYPE
 	{
 		TRANSLUCENT,

@@ -27,6 +27,8 @@ namespace pm
 	//using gameEntityVector =  std::vector<GameEntity*>;
 	//using GEVI = std::vector<GameEntity*>::iterator;
 
+		/** \brief Stores information of what scene is a gameEntity part of
+		*/
 		struct GameEntityStruct
 		{
 			int scene;

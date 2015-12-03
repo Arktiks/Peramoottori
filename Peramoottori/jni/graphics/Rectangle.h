@@ -17,19 +17,22 @@ namespace pm
 	{
 	public:
 
+		/** \brief Default constructor
+		* Rectangle width and height are set to 0
+		*/
 		Rectangle() : width(0), height(0)
 		{ 
 			SetIndices();
 			SetVertices();
 		}
 
-		/**
+		/** \brief Custom constructor
 		* \param[in] width of Rectangle.
 		* \param[in] height of Rectangle.
 		*/
 		Rectangle(float width, float height);
 
-		/**
+		/** \brief Custom constructor
 		* \param[in] size glm::vec2 [width, height].
 		*/
 		Rectangle(glm::vec2 size);

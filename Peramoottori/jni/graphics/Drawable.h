@@ -16,7 +16,7 @@ namespace pm
 	{
 	public:
 
-		/** \brief
+		/** \brief Default constructor
 		*
 		* By default Drawable is set to be drawn.
 		*/

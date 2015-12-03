@@ -37,6 +37,8 @@ namespace pm
 			: audioResource(player->audioResource) {};
 		///@}
 
+		/** \brief Default destructor
+		*/
 		~AudioPlayer();
 
 		/** \brief Get current playstate from AudioPlayer.
@@ -73,7 +75,7 @@ namespace pm
 		*/
 		void SetVolume(float volPercentage);
 
-		/**
+		/** \brief Get AudioResource pointer
 		* \return Handle to AudioResource.
 		*/
 		AudioResource* GetAudioResource() { return audioResource; }
