@@ -13,10 +13,14 @@
 namespace pm
 {
 	/** \internal Class description should be written with more detail. */
-	/** \brief
+	/** \brief Manages resources
 	*
-	* Long description.
-	*
+	* All resources that are loaded are stored here so that they can be reused if needed.
+	* Supported resource types:
+	* - sound .ogg
+	* - image .png
+	* - text .txt
+	* - font .ttf
 	* \ingroup Resources
 	*/
 

@@ -111,6 +111,7 @@ namespace pm
 		* \return int scene number.
 		*/
 		int GetSceneNumber(){ return sceneNumber; };
+
 		/**\endcond */
 
 		/** \brief Returns vector of GameEntitys.
