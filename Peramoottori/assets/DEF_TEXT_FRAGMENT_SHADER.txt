@@ -8,6 +8,5 @@ uniform sampler2D image;
 //gl_FragColor = (texture2D(image, varyPosition)+vec4(varyColor.xyz, 0.0))*vec4(1.0,1.0,1.0,varyColor.w);
 void main(void)  
 {     
-	//gl_FragColor = (texture2D(image, varyPosition) * varyColor);
 	gl_FragColor = (texture2D(image, varyPosition)+vec4(varyColor.xyz, 0.0))*vec4(1.0,1.0,1.0,varyColor.w);
 }

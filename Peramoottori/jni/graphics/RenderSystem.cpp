@@ -111,6 +111,24 @@ void RenderSystem::Draw(Batch* batch, Shader* shader)
 {
 	shader->UseProgram();
 
+	glm::vec2 resolution = Application::GetInstance()->window.GetResolution(); // Get resolution of display.
+	float right = resolution.x; // Calculate limits.
+	float top = resolution.y;
+	
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, right, top, 0.0f, 1.0f, 0.0f);
+	
+	transformMatrixLocation = glGetUniformLocation(shader->GetShaderProgramLocation(), "transformable");
+	DEBUG_GL_ERROR();
+	
+	cameraMatrixLocation = glGetUniformLocation(shader->GetShaderProgramLocation(), "camera");
+	DEBUG_GL_ERROR();
+	
+	projectionLocation = glGetUniformLocation(shader->GetShaderProgramLocation(), "unifProjectionTransform");
+	DEBUG_GL_ERROR();
+	
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	DEBUG_GL_ERROR();
+
 	BindBuffers(batch);
 
 	shader->UseVertexAttribs();

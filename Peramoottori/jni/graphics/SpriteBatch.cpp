@@ -79,12 +79,33 @@ void SpriteBatch::Draw()
 	// Prepare layers for drawing.
 	BatchAllLayers();
 
-	// Draw all gameEntities on every eleven layers. (0-10)
+
+	//static laýer nro 10
+	for (int j = 0; j < textLayerBatchVector[10].size(); j++)
+	{
+		RenderSystem::GetInstance()->Draw(&textLayerBatchVector[10].at(j), &textShader);
+	}
+	for (int j = 0; j < opaqueLayerBatchVector[10].size(); j++)
+	{
+		RenderSystem::GetInstance()->Draw(&opaqueLayerBatchVector[10].at(j));
+	}
+	for (int j = 0; j < translucentLayerBatchVector[10].size(); j++)
+	{
+		RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[10].at(j));
+	}
+	//end static laýer nro 10
+
+	// Draw all gameEntities on every ten layers. (0-9)
 	for (int i = 0; i < 10; i++)
 	{
 		// Disable blend and set depthMask true for opaqueGameEntities.
 		glDisable(GL_BLEND);
 		glDepthMask(GL_TRUE);
+
+		for (int j = 0; j < textLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&textLayerBatchVector[i].at(j), &textShader);
+		}
 
 		for (int j = 0; j < opaqueLayerBatchVector[i].size(); j++)
 		{
@@ -100,10 +121,6 @@ void SpriteBatch::Draw()
 			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j));
 		}
 
-		for (int j = 0; j < textLayerBatchVector[i].size(); j++)
-		{
-			RenderSystem::GetInstance()->Draw(&textLayerBatchVector[i].at(j), &textShader);
-		}
 		// Clear gameEntities from current layer.
 		opaqueLayerBatchVector[i].clear();
 		translucentLayerBatchVector[i].clear();
@@ -121,7 +138,23 @@ void SpriteBatch::Draw(Shader* customShader)
 	// Prepare layers for drawing.
 	BatchAllLayers();
 
-	// Draw all gameEntities on every eleven layers. (0-10)
+
+	//static laýer nro 10
+	for (int j = 0; j < textLayerBatchVector[10].size(); j++)
+	{
+		RenderSystem::GetInstance()->Draw(&textLayerBatchVector[10].at(j), &textShader);
+	}
+	for (int j = 0; j < opaqueLayerBatchVector[10].size(); j++)
+	{
+		RenderSystem::GetInstance()->Draw(&opaqueLayerBatchVector[10].at(j), customShader);
+	}
+	for (int j = 0; j < translucentLayerBatchVector[10].size(); j++)
+	{
+		RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[10].at(j), customShader);
+	}
+	//end static laýer nro 10
+
+	// Draw all gameEntities on every ten layers. (0-9)
 	for (int i = 0; i < 10; i++)
 	{
 		// Disable blend and set depthMask true for opaqueGameEntities.
@@ -146,6 +179,7 @@ void SpriteBatch::Draw(Shader* customShader)
 		{
 			RenderSystem::GetInstance()->Draw(&textLayerBatchVector[i].at(j), &textShader);
 		}
+
 		// Clear gameEntities from current layer.
 		opaqueLayerBatchVector[i].clear();
 		translucentLayerBatchVector[i].clear();
@@ -194,6 +228,16 @@ void SpriteBatch::AddGameEntity(GameEntity* entity, bool transparent)
 		AddOpaqueGameEntity(entity);
 }
 
+void SpriteBatch::AddStaticGameEntity(GameEntity* entity)
+{
+	if (entity->GetComponent<Texture>()->GetTranslucency() == Texture::TRANSLUCENT)
+		Layers[10].translucentGO.push_back(entity);
+	else
+	{
+		Layers[10].opaqueGO.push_back(entity);
+	}
+}
+
 void SpriteBatch::AddGameEntity(GameEntity* entity)
 {
 	if (entity->GetComponent<Texture>()->GetTranslucency() == Texture::TRANSLUCENT)
@@ -228,6 +272,7 @@ SpriteBatch::SpriteBatch()
 {
 	// Shouldn't it be reserve instead of resize?
 	Layers.resize(11);
+
 	opaqueLayerBatchVector.resize(11);
 	translucentLayerBatchVector.resize(11);
 	textLayerBatchVector.resize(11);
@@ -254,7 +299,7 @@ void SpriteBatch::CreateLayers()
 		{
 			depth = opaqueGameEntityVector[i]->GetComponent<Transformable>()->GetDepth();
 		}
-		Layers[depth].translucentGO.push_back(opaqueGameEntityVector[i]);
+		Layers[depth].opaqueGO.push_back(opaqueGameEntityVector[i]);
 	}
 
 	for (int i = 0;i < translucentGameEntityVector.size(); i++)
@@ -274,7 +319,7 @@ void SpriteBatch::CreateLayers()
 		{
 			depth = textEntityVector[i]->GetComponent<Transformable>()->GetDepth();
 		}
-		Layers[depth].translucentGO.push_back(textEntityVector[i]);
+		Layers[depth].textGO.push_back(textEntityVector[i]);
 	}
 }
 
@@ -295,7 +340,7 @@ void SpriteBatch::BatchLayerComponents(int layer, LAYERTYPE type)
 		lp = &Layers[layer].translucentGO;
 		blp = &translucentLayerBatchVector[layer];
 	}
-	else
+	else if (type == TEXT)
 	{
 		lp = &Layers[layer].textGO;
 		blp = &textLayerBatchVector[layer];
