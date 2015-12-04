@@ -123,6 +123,7 @@
     <Image Include="assets\DEF_TEXTURE_SMALL.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Peramoottori\assets\DEF_TEXT_FRAGMENT_SHADER.txt" />
     <None Include="assets\BOX.png" />
     <None Include="assets\Midnight_Ride.ogg" />
     <None Include="assets\Push.ogg" />

@@ -152,5 +152,8 @@
     <None Include="assets\Midnight_Ride.ogg">
       <Filter>assets</Filter>
     </None>
+    <None Include="..\Peramoottori\assets\DEF_TEXT_FRAGMENT_SHADER.txt">
+      <Filter>assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

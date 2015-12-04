@@ -96,10 +96,10 @@
     <ClCompile Include="..\Peramoottori\jni\Main.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Scene.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\SceneManager.cpp" />
-    <ClCompile Include="..\Peramoottori\jni\scene\Name.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Peramoottori\jni\scene\Hitbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Peramoottori\jni\scene\Name.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -243,7 +243,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Peramoottori\jni\scene\Hitbox.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

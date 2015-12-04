@@ -1,4 +1,11 @@
 #include <scene\Hitbox.h>
+#include <vector>
+#include <glm\gtc\matrix_transform.hpp>
+#include <graphics\Rectangle.h>
+#include <scene\CameraSystem.h>
+#include <scene\GameEntity.h>
+
+/** \internal Zero comments on the math. */
 
 bool pm::Hitbox::CheckCollision(glm::vec2 touchCoordinates)
 {
@@ -14,7 +21,6 @@ bool pm::Hitbox::CheckCollision(glm::vec2 touchCoordinates)
 	glm::mat4 tempCamMat = CameraSystem::GetInstance()->GetActiveCamera()->GetInverseCameraMatrix();
 	tempTouch = tempCamMat * tempTouch;
 	
-
 	Transformable* tempTrans = parent->GetComponent<Transformable>();
 	if (tempTrans != nullptr)
 	{
@@ -22,10 +28,8 @@ bool pm::Hitbox::CheckCollision(glm::vec2 touchCoordinates)
 		tempTouch = tempTransformMat * tempTouch;
 	}
 
-
 	if ((tempTouch.x > left) && (tempTouch.x < right) && (tempTouch.y > top) && (tempTouch.y < bot))
 		return true;
-	else
-		return false;
 
+	return false;
 }

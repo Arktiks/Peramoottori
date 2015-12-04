@@ -75,3 +75,9 @@ void pm::TextureCoordinates::SetTextureCoordinates(glm::vec4 coordinates)
 {
 	SetTextureCoordinates(coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
 }
+
+glm::vec4 pm::TextureCoordinates::GetTextureCoordinatesVec4()
+{
+	glm::vec4 coordinates = glm::vec4(textureCoordinates[0], textureCoordinates[1], textureCoordinates[2], textureCoordinates[3]);
+	return coordinates;
+}
