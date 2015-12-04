@@ -148,6 +148,9 @@ void Text::Character(FontResource* font, char c, float x, float y, float w, floa
 	textTexture->SetTrueSize(glm::vec2(uw, uh));
 	textTexture->SetTextureSize(glm::vec2(uw, uh));
 
+	glm::vec2 vec = textTexture->GetTrueSize();
+	glm::vec2 veci = textTexture->GetTextureSize();
+
 	GameEntity* GE = NEW GameEntity();
 
 	glm::vec2 position(x, y);
@@ -159,17 +162,17 @@ void Text::Character(FontResource* font, char c, float x, float y, float w, floa
 	GE->GetComponent<Transformable>()->SetScale(uw / (450 / (w / 20)), uh / (450 / (h / 20)));
 	GE->GetComponent<Transformable>()->SetPosition(position);
 	GE->GetComponent<Transformable>()->SetRotation(0);
-	GE->GetComponent<Transformable>()->SetDepth(10);
+	GE->GetComponent<Transformable>()->SetDepth(9);
 
 	GE->AddComponent(NEW Drawable());
 	GE->GetComponent<Drawable>()->SetDrawState(true);
 
 	GE->AddComponent(textTexture);
 
-	GE->AddComponent(NEW Color(glm::vec4(1,1,1,1)));
+	GE->AddComponent(NEW Color(glm::vec4(1,0,0,1)));
 
-	glActiveTexture(0);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glActiveTexture(0u);
+	glBindTexture(GL_TEXTURE_2D, 0u);
 
 	textVector.push_back(GE);
 }

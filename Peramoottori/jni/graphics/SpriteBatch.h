@@ -96,6 +96,11 @@ namespace pm
 		* \param[in] textEntity Pointer to pm::Text object.
 		*/
 		void AddText(Text* textEntity);
+
+		/** \brief Add Static game entity object that does not change e.g. backround.
+		* \param[in] gameEntity Pointer to pm::GameEntity object.
+		*/
+		void AddStaticGameEntity(GameEntity* gameEntity);
 		///@}
 
 	private:

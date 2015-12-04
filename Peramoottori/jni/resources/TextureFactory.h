@@ -9,6 +9,7 @@
 namespace pm
 {
 	/** \cond HIDDEN_SYMBOLS */
+	/// \brief used to save textures that can be recreated
 	struct SavedTextureStruct
 	{
 		GLuint ti; // GL textureIndex
