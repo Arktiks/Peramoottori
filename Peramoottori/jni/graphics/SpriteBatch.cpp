@@ -399,7 +399,7 @@ void SpriteBatch::BatchAllLayers()
 		// Batch TextGO
 		BatchLayerComponents(i, TEXT);
 	}
-	for (int i = 0;i < Layers.size(); i++)
+	for (int i = 0;i < Layers.size() - 1; i++)//huom! (Layers.size() - 1) may cause problems
 	{
 		// Clear layers created in CreateLayers();
 		Layers[i].opaqueGO.clear();

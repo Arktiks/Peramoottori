@@ -69,6 +69,8 @@ namespace pm
 
 		static bool initialized;
 
+		glm::mat4 projectionMatrix;
+
 		~RenderSystem();
 	};
 }
