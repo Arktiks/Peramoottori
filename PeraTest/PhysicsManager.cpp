@@ -33,7 +33,8 @@ void PhysicsManager::AddPhysics(pm::GameEntity* target)
 		target->AddComponent(physics);
 		physicsVector.push_back(physics);
 	}
-	physicsVector.push_back(target->GetComponent<Physics>());
+	else
+		physicsVector.push_back(target->GetComponent<Physics>());
 }
 
 
@@ -61,7 +62,16 @@ void PhysicsManager::UpdatePhysics(Physics* physics)
 	{
 		TargetCenter(physics);
 		SetPosition(physics);
-		RepeatMovement(physics);
+		KeepInsideScreen(physics);
+	}
+}
+
+void PhysicsManager::AddForceToHeroes(glm::vec2 force)
+{
+	for (int i = 0; i < physicsVector.size(); i++)
+	{
+		if (physicsVector[i]->GetParent()->GetComponent<pm::Name>()->GetName() == "hero")
+			physicsVector[i]->force = force;
 	}
 }
 
@@ -97,13 +107,13 @@ void PhysicsManager::KeepInsideScreen(Physics* physics)
 	{
 		if (respond.x == 1)
 		{
-			physics->speed.x = physics->speed.x * -1;
+			physics->speed.x = physics->speed.x * -0.95;
 			currentPosition.x = worldLimits.x;
 		}
 		// UNDER LIMITS
 		else if (respond.x == -1)
 		{
-			physics->speed.x = physics->speed.x * -1;
+			physics->speed.x = physics->speed.x * -0.95;
 			currentPosition.x = 0;
 		}
 	}
@@ -113,14 +123,14 @@ void PhysicsManager::KeepInsideScreen(Physics* physics)
 		// OVER LIMITS
 		if (respond.y == 1)
 		{
-			physics->speed.y = physics->speed.y * -1;
+			physics->speed.y = physics->speed.y * -0.95;
 			currentPosition.y = worldLimits.y;
 		}
 		// UNDER LIMITS
 		else if (respond.y == -1)
 		{
-			physics->speed.y = physics->speed.y * -1;
-			currentPosition.y = worldLimits.y;
+			physics->speed.y = physics->speed.y * -0.95;
+			currentPosition.y = 0;
 		}
 	}
 	transformable->SetPosition(currentPosition);
@@ -132,7 +142,6 @@ void PhysicsManager::RepeatMovement(Physics* physics)
 	pm::Transformable* transformable = physics->GetParent()->GetComponent<pm::Transformable>();
 	pm::Rectangle* rectangle = physics->GetParent()->GetComponent<pm::Rectangle>();
 	glm::vec2 respond = CheckLimits(transformable->GetPosition());
-
 	glm::vec2 currentPosition = transformable->GetPosition();
 
 	if (respond.x != 0)
@@ -143,7 +152,7 @@ void PhysicsManager::RepeatMovement(Physics* physics)
 			// IF OBJECT'S DIRECTION IS AWAY FROM LIMITS
 			if (physics->speed.x > 0)
 			{
-				physics->speed.x = 0;
+				//physics->speed.x = physics->speed.x * 0.9;
 				currentPosition.x = -rectangle->GetSize().x;
 			}
 		}
@@ -153,7 +162,7 @@ void PhysicsManager::RepeatMovement(Physics* physics)
 			// IF OBJECT'S DIRECTION IS AWAY FROM LIMITS
 			if (physics->speed.x < 0)
 			{
-				physics->speed.x = 0;
+				//physics->speed.x = physics->speed.x * 0.9;
 				currentPosition.x = worldLimits.x + rectangle->GetSize().x;
 			}
 		}
@@ -167,7 +176,7 @@ void PhysicsManager::RepeatMovement(Physics* physics)
 			// IF OBJECT'S DIRECTION IS AWAY FROM LIMITS
 			if (physics->speed.y > 0)
 			{
-				physics->speed.y = 0;
+				//physics->speed.y * 0.9;
 				currentPosition.y = -rectangle->GetSize().y;
 			}
 		}
@@ -177,7 +186,7 @@ void PhysicsManager::RepeatMovement(Physics* physics)
 			// IF OBJECT'S DIRECTION IS AWAY FROM LIMITS
 			if (physics->speed.y < 0)
 			{
-				physics->speed.y = 0;
+				//physics->speed.y * 0.9;
 				currentPosition.y = worldLimits.y + rectangle->GetSize().y;		
 			}
 		}
@@ -189,16 +198,27 @@ void PhysicsManager::RepeatMovement(Physics* physics)
 void PhysicsManager::TargetCenter(Physics* physics)
 {
 	pm::Transformable* transformable = physics->GetParent()->GetComponent<pm::Transformable>();
-	pm::Transformable* targetTransformable = physicsVector[3]->GetParent()->GetComponent<pm::Transformable>();
+	pm::Transformable* targetTransformable = physicsVector[1]->GetParent()->GetComponent<pm::Transformable>();
 	glm::vec2 target = glm::vec2(targetTransformable->GetPosition());
+	//target = glm::vec2(worldLimits.x / 2, worldLimits.y / 2);
 	glm::vec2 position = transformable->GetPosition();
-
-	glm::vec2 forceDir = target - position;
 	
-	glm::vec2 normalizedForce = glm::vec2(forceDir.x / (sqrt(pow(forceDir.x, 2) + pow(forceDir.y, 2))),
-		forceDir.y / (sqrt(pow(forceDir.x, 2) + pow(forceDir.y, 2))));
+	float distance;
+	
+	glm::vec2 forceDir = target - position;
+	distance = sqrt(pow(forceDir.x, 2) + pow(forceDir.y, 2));
+	float gravity;
+	
+	if (distance > 1)
+		gravity = 10 / distance;
+	else
+		gravity = 1;
+	
+	// Use normalizedForce for direction
+	glm::vec2 normalizedForce = glm::vec2(forceDir.x / distance, forceDir.y / distance);
+	
+	physics->force = physics->force + normalizedForce * glm::vec2(gravity, gravity);
 
-	physics->force = physics->force + normalizedForce * glm::vec2(0.01,0.01);
 }
 
 glm::vec2 PhysicsManager::CheckLimits(glm::vec2 position)

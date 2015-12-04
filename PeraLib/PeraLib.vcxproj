@@ -42,6 +42,7 @@
     <ClCompile Include="..\Peramoottori\jni\scene\CameraSystem.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Component.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\GameEntity.cpp" />
+    <ClCompile Include="..\Peramoottori\jni\scene\Hitbox.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Name.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\Physics.cpp" />
     <ClCompile Include="..\Peramoottori\jni\scene\PhysicsSystem.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="..\Peramoottori\jni\scene\CameraSystem.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Component.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\GameEntity.h" />
+    <ClInclude Include="..\Peramoottori\jni\scene\Hitbox.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Name.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\Physics.h" />
     <ClInclude Include="..\Peramoottori\jni\scene\PhysicsSystem.h" />

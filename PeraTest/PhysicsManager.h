@@ -20,7 +20,7 @@ public:
 	void UpdatePhysics(Physics* physics);
 
 	// Peri ja anna käyttäjän tehdä nämä itse.
-
+	void AddForceToHeroes(glm::vec2 force);
 	
 	
 	glm::vec2 SetPosition(Physics* physics);

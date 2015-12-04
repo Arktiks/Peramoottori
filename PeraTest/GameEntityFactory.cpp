@@ -42,14 +42,23 @@ pm::GameEntity* GameEntityFactory::CreateRospot(glm::vec2 position, int depth, g
 	pm::GameEntity* rospotGameEntity = NEW pm::GameEntity();
 	rospotGameEntity->AddComponent(NEW pm::Name("rospot"));
 	
-	AddSpriteComponents(rospotGameEntity, "space/rospot.png", position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 1, 1, 0.5));
+	AddSpriteComponents(rospotGameEntity, "space/rospot.png", position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 1, 1, 1));
 
 	// Add physics to GameEntity.
 	scene->physicsManager.AddPhysics(rospotGameEntity);
 	scene->AddGameEntity(rospotGameEntity, TRANSLUCENT);
 	return rospotGameEntity;
 }
+pm::GameEntity* GameEntityFactory::CreateButton(glm::vec2 position, int depth, glm::vec2 size)
+{
+	pm::GameEntity* buttonGameEntity = NEW pm::GameEntity();
+	AddSpriteComponents(buttonGameEntity, "space/galaxy.png", position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 0.5, 0.5, 1));
+	buttonGameEntity->AddComponent(NEW pm::Name("button"));
 
+	AddInputComponents(buttonGameEntity);
+
+	scene->AddGameEntity(buttonGameEntity, TRANSLUCENT);
+}
 void GameEntityFactory::AddSpriteComponents(pm::GameEntity* gameEntity, std::string textureFilePath, glm::vec2 position, glm::vec2 scale, 
 	float rotation, int depth, glm::vec2 size, glm::vec4 color)
 {
@@ -70,4 +79,9 @@ void GameEntityFactory::AddAnimationComponents(pm::GameEntity* gameEntity, glm::
 	gameEntity->AddComponent(NEW Animation(animationFrameTime));
 	gameEntity->GetComponent<Animation>()->SetValues(frameSize.x, frameSize.y, startFrame, frameAmount, frameAmounts.x, frameAmounts.y);
 	gameEntity->GetComponent<Animation>()->GenerateCoords();
+}
+
+void GameEntityFactory::AddInputComponents(pm::GameEntity* gameEntity)
+{
+	gameEntity->AddComponent(NEW pm::Hitbox());
 }

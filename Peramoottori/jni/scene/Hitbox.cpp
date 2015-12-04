@@ -11,8 +11,9 @@ bool pm::Hitbox::CheckCollision(glm::vec2 touchCoordinates)
 	right = tempVertices[6];
 	bot = tempVertices[7];
 	
-	glm::mat4 tempCamMat = CameraSystem::GetInstance()->GetActiveCamera()->GetCameraMatrix();
+	glm::mat4 tempCamMat = CameraSystem::GetInstance()->GetActiveCamera()->GetInverseCameraMatrix();
 	tempTouch = tempCamMat * tempTouch;
+	
 
 	Transformable* tempTrans = parent->GetComponent<Transformable>();
 	if (tempTrans != nullptr)
@@ -20,6 +21,7 @@ bool pm::Hitbox::CheckCollision(glm::vec2 touchCoordinates)
 		glm::mat4 tempTransformMat = tempTrans->GetInverseMatrix();
 		tempTouch = tempTransformMat * tempTouch;
 	}
+
 
 	if ((tempTouch.x > left) && (tempTouch.x < right) && (tempTouch.y > top) && (tempTouch.y < bot))
 		return true;

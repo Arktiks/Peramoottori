@@ -22,7 +22,12 @@ pmScene::pmScene()
 	pm::Audio* audio = NEW pm::Audio("space/AvaruusMusiikki.ogg");
 	audio->SetLooping(true);
 	audio->Play();
-
+	
+	heroTime = 0;
+	cameraZoom = 1;
+	pm::CameraSystem::GetInstance()->SetActiveCamera(&camera);
+	direction = 1;
+	
 }
 
 pmScene::~pmScene()
@@ -41,6 +46,7 @@ void pmScene::InitializeGameEntities()
 {
 	pm::GameEntity* ge = NEW pm::GameEntity();
 	ge->AddComponent(GetTexture("space/background.png"));
+	ge->AddComponent(NEW pm::Name("background"));
 	ge->AddComponent(NEW pm::Transformable(glm::vec2(0, 0), glm::vec2(1,1),0));
 	ge->AddComponent(NEW pm::Rectangle(1280,720));
 	ge->AddComponent(NEW pm::Drawable);
@@ -51,18 +57,37 @@ void pmScene::InitializeGameEntities()
 	gameEntityFactory->CreateHero(glm::vec2(300, 300), 2, glm::vec2(200, 400), glm::vec2(100, 30), 0.1);
 	gameEntityFactory->CreateHero(glm::vec2(600, 500), 3, glm::vec2(150, 300), glm::vec2(205, 125), 0.05);
 	gameEntityFactory->CreateHero(glm::vec2(100, 200), 4, glm::vec2(100, 200), glm::vec2(50, 50), 0.01);
-	gameEntityFactory->CreateRospot(glm::vec2(300, 200), 5, glm::vec2(200, 200), glm::vec2(60, 00));
+	gameEntityFactory->CreateRospot(glm::vec2(300, 200), 5, glm::vec2(200, 200), glm::vec2(60, 0));
+	gameEntityFactory->CreateButton(glm::vec2(500, 500), 5, glm::vec2(200, 200));
 }
 void pmScene::Update()
 {
 	float frameTime = time.Restart(pm::Time::FRACTION::SECONDS);
 	UpdateGameEntities(frameTime);
+	
+	if (direction == 1)
+	{
+		if (cameraZoom > 0.2)
+			cameraZoom -= 0.001;
+		else
+			direction = -1;
+	}
+	else
+	{
+		if (cameraZoom < 1.2)
+			cameraZoom += 0.001;
+		else
+			direction = 1;
+	}
+	
+		
+	camera.SetCameraZoom(cameraZoom);
 	Draw();
 }
 void pmScene::UpdateGameEntities(float time)
 {
 	pm::GameEntity* gameEntity;
-
+	heroTime += time;
 	for (int i = 0; i < animGEVector.size(); i++)
 	{
 		gameEntity = animGEVector[i];
@@ -76,8 +101,50 @@ void pmScene::UpdateGameEntities(float time)
 			updateRate->time = 0;
 		}
 	}
-	
+	if (heroTime > 1)
+	{
+		physicsManager.AddForceToHeroes(glm::vec2(2, 2));
+		heroTime = 0;
+	}
 	physicsManager.Update(time);
+	for (int i = 0; i < translucentGameEntityVector.size(); i++)
+	{
+		if (translucentGameEntityVector[i]->GetComponent<pm::Name>() != nullptr)
+		{
+			if (translucentGameEntityVector[i]->GetComponent<pm::Name>()->GetName() == "rospot")
+			{
+				camera.SetCameraPosition(glm::vec2(translucentGameEntityVector[i]->GetComponent<pm::Transformable>()->GetPosition().x -
+					limits.x/2,
+					translucentGameEntityVector[i]->GetComponent<pm::Transformable>()->GetPosition().y - limits.y/2));
+			}
+			if (translucentGameEntityVector[i]->GetComponent<pm::Name>()->GetName() == "button")
+			{
+			
+				if (input[0].IsTouching())
+				{
+					if (translucentGameEntityVector[i]->GetComponent<pm::Hitbox>()->CheckCollision(input[0].GetPos()))
+						ButtonPress(translucentGameEntityVector[i]);
+				}
+						
+			}
+
+		}
+	}
+}
+
+void pmScene::ButtonPress(pm::GameEntity* gameEntity)
+{
+	pm::Color* color = gameEntity->GetComponent <pm::Color>();
+
+	if (color->GetColor() == glm::vec4(1, 0.5, 1, 1))
+	{
+		color->SetColor(glm::vec4(0.5, 1, 1, 1));
+	}
+	else
+	{
+		color->SetColor(glm::vec4(1, 0.5, 1, 1));
+	}
+	
 }
 
 void pmScene::UpdateAnimation(pm::GameEntity* gameEntity)
@@ -96,6 +163,7 @@ void pmScene::UpdateAnimation(pm::GameEntity* gameEntity)
 
 	anime->animationFrame += anime->frameDir;
 	texC->SetTextureCoordinates(anime->animationCoordinates[anime->animationFrame]);
+	
 	
 }
 
