@@ -20,7 +20,7 @@
 using namespace std;
 
 void altMain(android_app *application);
-int sceneSelection = 1;
+int sceneSelection = 0;
 
 void android_main(android_app* application)
 {
@@ -38,7 +38,7 @@ void android_main(android_app* application)
 	manager.AddScene(NEW Texts());
 	manager.AddScene(NEW Drawables());
 	manager.AddScene(NEW Input());
-	manager.AddScene(NEW Audio());
+	//manager.AddScene(NEW Audio());
 
 	while (app->Update())
 	{
@@ -48,20 +48,32 @@ void android_main(android_app* application)
 			app->window.Clear();
 			app->Draw();
 
+			auto p = (Input*)manager.GetScene("Input");
+
+			if (p->boxes.size() == 0)
+			{
+				manager.DeleteScene("Input");
+				manager.AddScene(NEW Input());
+			}
+
 			if (clock.GetElapsedTime(pm::Time::FRACTION::SECONDS) >= 10.f)
 			{
-				Audio* audio = (Audio*)manager.GetScene("Audio");
+				//Audio* audio = (Audio*)manager.GetScene("Audio");
 
-				if (audio->pause)
+				/*if (audio->pause)
 					audio->Resume();
 				else
-					audio->Pause();
+					audio->Pause();*/
 
-				if(manager.GetScene("Texts") != nullptr)
-					manager.DeleteScene("Texts");
+				//if(manager.GetScene("Texts") != nullptr)
+					//manager.DeleteScene("Texts");
 
 				//manager.AddScene(new Texts());
-				
+				//manager.ChangeScene(NEW Drawables());
+
+				//manager.DeleteScene("Drawables");
+				//manager.AddScene(NEW Drawables);
+
 				clock.Restart();
 			}
 		}

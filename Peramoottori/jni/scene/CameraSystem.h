@@ -2,6 +2,7 @@
 #define CAMERASYSTEM_H
 
 #include <scene\Camera.h>
+#include <core\Log.h>
 
 /** \internal Work in progress. */
 
@@ -43,7 +44,7 @@ namespace pm
 	private:
 		static CameraSystem* instance;
 		CameraSystem();
-		~CameraSystem(){};
+		~CameraSystem() {};
 
 		Camera* activeCamera;
 		bool defaultCamera;

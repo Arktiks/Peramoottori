@@ -1,6 +1,7 @@
 #include "Input.h"
 #include <core\Application.h>
 #include <core\Profiler.h>
+#include <scene\Hitbox.h>
 
 using namespace std;
 #define APP pm::Application::GetInstance()
@@ -20,6 +21,7 @@ Input::Input() : Scene("Input")
 	{
 		Box* box = new Box();
 		box->Transform()->SetPosition(pos_x, pos_y);
+		box->entity->AddComponent(new pm::Hitbox());
 		boxes.push_back(box);
 
 		pos_x += SPACE;
@@ -48,7 +50,8 @@ void Input::Update()
 		{
 			for (auto it = boxes.begin(); it != boxes.end(); )
 			{
-				if ((*it)->Contains(input[i].GetPos()))
+				if ((*it)->entity->GetComponent<pm::Hitbox>()->CheckCollision(input[i].GetPos()))
+					/*(*it)->Contains(input[i].GetPos()))*/
 				{
 					delete (*it);
 					it = boxes.erase(it);
