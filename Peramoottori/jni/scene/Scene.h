@@ -8,6 +8,7 @@
 #include <scene\SceneManager.h>
 
 #include <scene\Scene.h>
+#include <graphics\SpriteBatch.h>
 
 #include <map>
 #include <string>
@@ -47,6 +48,12 @@ namespace pm
 		*/
 		virtual ~Scene();
 
+		/** \brief Draws all GameEntities
+		*
+		* Draws all GameEntities with drawable-component set as true
+		*/
+		void Draw();
+
 		/** \brief Adds new Audio object.
 		*
 		* Audio is stored in a vector.
@@ -71,10 +78,12 @@ namespace pm
 		*/
 		void AddTexture(std::string filepath);
 
+		
 		/** \brief Adds new GameEntity object.
 		*
 		* GameEntity is stored in a vector.
 		*/
+
 		void AddGameEntity(pm::GameEntity*);
 
 		/** \brief Removes GameEntity object.
@@ -134,7 +143,6 @@ T* pm::Scene::Create()
 {
 	if (&typeid(T) == &typeid(Audio))
 	{
-
 
 	}
 	else

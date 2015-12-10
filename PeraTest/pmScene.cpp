@@ -44,21 +44,26 @@ void pmScene::InitializeResources()
 
 void pmScene::InitializeGameEntities()
 {
-	pm::GameEntity* ge = NEW pm::GameEntity();
-	ge->AddComponent(GetTexture("space/background.png"));
-	ge->AddComponent(NEW pm::Name("background"));
-	ge->AddComponent(NEW pm::Transformable(glm::vec2(0, 0), glm::vec2(1,1),0));
-	ge->AddComponent(NEW pm::Rectangle(1280,720));
-	ge->AddComponent(NEW pm::Drawable);
-	ge->AddComponent(NEW pm::Color(glm::vec4(1,1,1,1)));
-	ge->GetComponent<pm::Transformable>()->SetDepth(1);
-	AddGameEntity(ge, OPAQUE);
+	pm::GameEntity* background = NEW pm::GameEntity();
+	background->AddComponent(GetTexture("space/background.png"));
+	background->AddComponent(NEW pm::Name("background"));
+	background->AddComponent(NEW pm::Transformable(glm::vec2(0, 0), glm::vec2(1, 1), 0));
+	background->AddComponent(NEW pm::Rectangle(1280, 720));
+	background->AddComponent(NEW pm::Drawable);
+	background->AddComponent(NEW pm::Color(glm::vec4(1, 1, 1, 1)));
+	background->GetComponent<pm::Transformable>()->SetDepth(1);
+	AddGameEntity(background);
 
 	gameEntityFactory->CreateHero(glm::vec2(300, 300), 2, glm::vec2(200, 400), glm::vec2(100, 30), 0.1);
 	gameEntityFactory->CreateHero(glm::vec2(600, 500), 3, glm::vec2(150, 300), glm::vec2(205, 125), 0.05);
 	gameEntityFactory->CreateHero(glm::vec2(100, 200), 4, glm::vec2(100, 200), glm::vec2(50, 50), 0.01);
 	gameEntityFactory->CreateRospot(glm::vec2(300, 200), 5, glm::vec2(200, 200), glm::vec2(60, 0));
 	gameEntityFactory->CreateButton(glm::vec2(500, 500), 5, glm::vec2(200, 200));
+	gameEntityFactory->CreateMovingOpaque("space/opaqueTest.png", glm::vec2(500, 500), 4, glm::vec2(200, 200), glm::vec2(0.5, 0.2));
+	gameEntityFactory->CreateMovingOpaque("space/opaqueTest.png", glm::vec2(333, 500), 2, glm::vec2(220, 200), glm::vec2(0.2, 0.5));
+	gameEntityFactory->CreateMovingOpaque("space/opaqueTest2.png", glm::vec2(500, 333), 6, glm::vec2(200, 220), glm::vec2(0.0, 0.2));
+	gameEntityFactory->CreateMovingOpaque("space/opaqueTest3.png", glm::vec2(200, 100), 1, glm::vec2(200, 300), glm::vec2(0.2, 0.5));
+
 }
 void pmScene::Update()
 {
@@ -107,23 +112,25 @@ void pmScene::UpdateGameEntities(float time)
 		heroTime = 0;
 	}
 	physicsManager.Update(time);
-	for (int i = 0; i < translucentGameEntityVector.size(); i++)
+
+	
+	for (int i = 0; i < gameEntityVector.size(); i++)
 	{
-		if (translucentGameEntityVector[i]->GetComponent<pm::Name>() != nullptr)
+		if (gameEntityVector[i]->GetComponent<pm::Name>() != nullptr)
 		{
-			if (translucentGameEntityVector[i]->GetComponent<pm::Name>()->GetName() == "rospot")
+			if (gameEntityVector[i]->GetComponent<pm::Name>()->GetName() == "rospot")
 			{
-				camera.SetCameraPosition(glm::vec2(translucentGameEntityVector[i]->GetComponent<pm::Transformable>()->GetPosition().x -
+				camera.SetCameraPosition(glm::vec2(gameEntityVector[i]->GetComponent<pm::Transformable>()->GetPosition().x -
 					limits.x/2,
-					translucentGameEntityVector[i]->GetComponent<pm::Transformable>()->GetPosition().y - limits.y/2));
+					gameEntityVector[i]->GetComponent<pm::Transformable>()->GetPosition().y - limits.y / 2));
 			}
-			if (translucentGameEntityVector[i]->GetComponent<pm::Name>()->GetName() == "button")
+			if (gameEntityVector[i]->GetComponent<pm::Name>()->GetName() == "button")
 			{
 			
 				if (input[0].IsTouching())
 				{
-					if (translucentGameEntityVector[i]->GetComponent<pm::Hitbox>()->CheckCollision(input[0].GetPos()))
-						ButtonPress(translucentGameEntityVector[i]);
+					if (gameEntityVector[i]->GetComponent<pm::Hitbox>()->CheckCollision(input[0].GetPos()))
+						ButtonPress(gameEntityVector[i]);
 				}
 						
 			}
@@ -182,85 +189,18 @@ void pmScene::UpdateScaleRotation(pm::GameEntity* gameEntity)
 	transformable->SetScale(glm::vec2(transformable->GetScale().x + anime->scaleDir,
 		transformable->GetScale().y + anime->scaleDir));
 }
-void pmScene::Draw()
-{
-
-	for (int translucentIndex = 0; translucentIndex < translucentGameEntityVector.size(); translucentIndex++)
-	{
-		spriteBatch->AddTranslucentGameEntity(translucentGameEntityVector[translucentIndex]);
-	}
-	for (int opaqueIndex = 0; opaqueIndex < opaqueGameEntityVector.size(); opaqueIndex++)
-	{
-		spriteBatch->AddOpaqueGameEntity(opaqueGameEntityVector[opaqueIndex]);
-	}
-	
-}
-
-void pmScene::AddGameEntity(pm::GameEntity* drawableGameEntity, TRANSLUCENCY type)
-{
-	Scene::AddGameEntity(drawableGameEntity);
-	if (type == TRANSLUCENT)
-	{
-		translucentGameEntityVector.push_back(drawableGameEntity);
-	}
-	else if (type == OPAQUE)
-	{
-		opaqueGameEntityVector.push_back(drawableGameEntity);
-	}
-	else
-	{
-		DEBUG_INFO(("Added unknown drawable type of GameEntity, it wont be drawn."));
-	}
-}
 
 
-void pmScene::AddAnimationGameEntity(pm::GameEntity* gameEntity, TRANSLUCENCY type)
+
+void pmScene::AddAnimationGameEntity(pm::GameEntity* gameEntity)
 {
 	Scene::AddGameEntity(gameEntity);
-	if (type == TRANSLUCENT)
-	{
-		translucentGameEntityVector.push_back(gameEntity);
-	}
-	else if (type == OPAQUE)
-	{
-		opaqueGameEntityVector.push_back(gameEntity);
-	}
-	else
-	{
-		DEBUG_INFO(("Added unknown drawable type of GameEntity, it wont be drawn."));
-	}
+	
 	animGEVector.push_back(gameEntity);
 
 
 }
 void pmScene::RemoveDrawableGameEntity(pm::GameEntity* gameEntity)
 {
-	std::vector<pm::GameEntity*>::iterator it;
-	bool skipOpaque = false;
-
-	for (it = translucentGameEntityVector.begin(); it != translucentGameEntityVector.end();)
-	{
-		if (*it == gameEntity)
-		{
-			it = translucentGameEntityVector.erase(it);
-			skipOpaque = true;
-			break;
-		}
-		else
-			it++;
-	}
-	if (skipOpaque == false)
-	{ 
-		for (it = opaqueGameEntityVector.begin(); it != opaqueGameEntityVector.end();)
-		{
-			if (*it == gameEntity)
-			{
-				it = opaqueGameEntityVector.erase(it);
-				break;
-			}
-			else
-				it++;
-		}
-	}
 	RemoveGameEntity(gameEntity);
 }

@@ -14,6 +14,8 @@ public:
 		glm::vec2 force, float animationFrameTime);
 	pm::GameEntity* CreateRospot(glm::vec2 position, int depth, glm::vec2 size,
 		glm::vec2 force);
+	pm::GameEntity* CreateMovingOpaque(std::string filename, glm::vec2 position, int depth, glm::vec2 size,
+		glm::vec2 force);
 	pm::GameEntity* CreateButton(glm::vec2 position, int depth, glm::vec2 size);
 	
 private:
