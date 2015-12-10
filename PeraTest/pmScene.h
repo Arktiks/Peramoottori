@@ -39,9 +39,7 @@ public:
 	~pmScene();
 
 	void Update();
-	void Draw();
-	void AddGameEntity(pm::GameEntity* gameEntity, TRANSLUCENCY type);
-	void AddAnimationGameEntity(pm::GameEntity* gameEntity, TRANSLUCENCY type);
+	void AddAnimationGameEntity(pm::GameEntity* gameEntity);
 	void RemoveDrawableGameEntity(pm::GameEntity* gameEntity);
 	void MoveCamera(glm::vec2 position);
 	PhysicsManager physicsManager;
@@ -59,8 +57,6 @@ private:
 	
 	pm::SpriteBatch* spriteBatch;
 	pm::Application* app;
-	std::vector<pm::GameEntity*> translucentGameEntityVector;
-	std::vector<pm::GameEntity*> opaqueGameEntityVector;
 	std::vector<pm::GameEntity*> animGEVector;
 
 	pm::Time time;

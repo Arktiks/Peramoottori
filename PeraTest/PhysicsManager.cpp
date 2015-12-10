@@ -64,13 +64,19 @@ void PhysicsManager::UpdatePhysics(Physics* physics)
 		SetPosition(physics);
 		KeepInsideScreen(physics);
 	}
+	else if (physics->GetParent()->GetComponent<pm::Name>()->GetName() == "mOpaque")
+	{
+		SetPosition(physics);
+		KeepInsideScreen(physics);
+	}
 }
 
 void PhysicsManager::AddForceToHeroes(glm::vec2 force)
 {
 	for (int i = 0; i < physicsVector.size(); i++)
 	{
-		if (physicsVector[i]->GetParent()->GetComponent<pm::Name>()->GetName() == "hero")
+		if (physicsVector[i]->GetParent()->GetComponent<pm::Name>()->GetName() == "hero"
+			|| physicsVector[i]->GetParent()->GetComponent<pm::Name>()->GetName() == "mOpaque")
 			physicsVector[i]->force = force;
 	}
 }

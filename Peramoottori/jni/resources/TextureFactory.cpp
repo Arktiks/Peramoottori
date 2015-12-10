@@ -77,7 +77,7 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 		if (xpo2 != sizex)
 		{
 			powerOfTwo = false;
-			bool translucent = true;
+			translucent = true;
 		}
 
 		unsigned int ypo2 = 2;
@@ -87,7 +87,7 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 		if (xpo2 != sizey)
 		{
 			powerOfTwo = false;
-			bool translucent = true;
+			translucent = true;
 		}
 
 
@@ -150,7 +150,10 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 		pointer->SetTextureSize(glm::uvec2(xpo2, ypo2));
 		pointer->SetTrueSize(glm::uvec2(sizex, sizey));
 		pointer->SetId(textureIndex);
-		pointer->SetTranslucency(translucent == true ? Texture::TRANSLUCENT : Texture::OPAQUE);
+		if (translucent)
+			pointer->SetTranslucency(pm::Texture::TRANSLUCENT);
+		else 
+			pointer->SetTranslucency(pm::Texture::OPAQUE);
 	}
 }
 

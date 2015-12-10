@@ -19,6 +19,14 @@ Scene::~Scene()
 	}
 }
 
+void Scene::Draw()
+{
+	for (unsigned int i = 0; i < gameEntityVector.size(); i++)
+	{
+		pm::SpriteBatch::GetInstance()->AddGameEntity(gameEntityVector[i]);
+	}
+}
+
 void Scene::AddAudio(pm::Audio* audio)
 {
 	SceneManager::GetInstance()->AddAudio(audio, sceneNumber);

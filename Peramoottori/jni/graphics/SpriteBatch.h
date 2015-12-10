@@ -51,16 +51,6 @@ namespace pm
 		*/
 		void Draw(Shader* customShader);
 
-
-		/** \brief Old Draw()-function
-		*
-		*  Included in case of bugs in new Draw();
-		*
-		*/
-		void DrawOld();
-
-		void DrawText();
-
 		/** @name Batching Functions
 		* \brief Store GameEntity objects to be drawn.
 		*/
@@ -118,10 +108,6 @@ namespace pm
 		void BatchLayerComponents(int layer, LAYERTYPE type); // Batches one layer, type selects if opaque or translucent vector is used.
 
 		void BatchAllLayers(); // Calls CreateLayers() and calls BatchLayerComponents() for every layer.
-
-		void BatchOpaqueComponents(); ///< Makes final translucent batch.
-
-		void BatchTranslucentComponents(); ///< Makes final translucent batch.
 
 		void ParseData(GameEntity* gameEntity, // GameEntity is gutted to form data matrises that can be assimilated into Batch.
 			std::vector<GLfloat>* vertexData, 

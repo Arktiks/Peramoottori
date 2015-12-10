@@ -20,7 +20,7 @@
 using namespace std;
 
 void altMain(android_app *application);
-int sceneSelection = 0;
+int sceneSelection = 1;
 
 void android_main(android_app* application)
 {
