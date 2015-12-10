@@ -425,7 +425,10 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	}
 	else
 	{
-		*textureIndex = gameEntity->GetComponent<Texture>()->GetId();
+		// CHANGE ON TEXTURE ID TO POINTER: MAKE SURE THIS IS ALLRIGHT AND TEXTUREINDEX IS NOT DELETED SOMEWHERE
+		// FIX IS TO COPY DATA FROM COMPONENT TO TEXTUREINDEX
+		GLuint tempID = *gameEntity->GetComponent<Texture>()->GetId();
+		*textureIndex = tempID;
 
 		if (gameEntity->GetComponent<TextureCoordinates>() == nullptr)
 		{

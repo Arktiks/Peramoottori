@@ -59,10 +59,12 @@ void pmScene::InitializeGameEntities()
 	gameEntityFactory->CreateHero(glm::vec2(100, 200), 4, glm::vec2(100, 200), glm::vec2(50, 50), 0.01);
 	gameEntityFactory->CreateRospot(glm::vec2(300, 200), 5, glm::vec2(200, 200), glm::vec2(60, 0));
 	gameEntityFactory->CreateButton(glm::vec2(500, 500), 5, glm::vec2(200, 200));
-	gameEntityFactory->CreateMovingOpaque("space/opaqueTest.png", glm::vec2(500, 500), 4, glm::vec2(200, 200), glm::vec2(0.5, 0.2));
-	gameEntityFactory->CreateMovingOpaque("space/opaqueTest.png", glm::vec2(333, 500), 2, glm::vec2(220, 200), glm::vec2(0.2, 0.5));
+
 	gameEntityFactory->CreateMovingOpaque("space/opaqueTest2.png", glm::vec2(500, 333), 6, glm::vec2(200, 220), glm::vec2(0.0, 0.2));
 	gameEntityFactory->CreateMovingOpaque("space/opaqueTest3.png", glm::vec2(200, 100), 1, glm::vec2(200, 300), glm::vec2(0.2, 0.5));
+	gameEntityFactory->CreateMovingOpaque("space/opaqueTest.png", glm::vec2(500, 500), 4, glm::vec2(200, 200), glm::vec2(0.5, 0.2));
+	gameEntityFactory->CreateMovingOpaque("space/opaqueTest.png", glm::vec2(333, 500), 4, glm::vec2(220, 200), glm::vec2(0.2, 0.5));
+	
 
 }
 void pmScene::Update()

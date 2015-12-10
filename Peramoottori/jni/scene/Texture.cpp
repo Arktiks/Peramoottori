@@ -29,12 +29,12 @@ void pm::Texture::SetTrueSize(glm::uvec2 textureSize)
 	(this->trueSize.y) = textureSize.y;
 }
 
-void pm::Texture::SetId(GLuint textureId)
+void pm::Texture::SetId(GLuint* textureId)
 {
 	textureIndex = textureId;
 }
 
-GLuint pm::Texture::GetId()
+GLuint* pm::Texture::GetId()
 {
 	return textureIndex;
 }

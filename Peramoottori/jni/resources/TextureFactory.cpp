@@ -21,144 +21,31 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 	{
 		if (it->first == fileName)
 		{
-			tempTexture->SetId(it->second.ti);
-			tempTexture->SetTextureSize(glm::uvec2((it->second.sx), (it->second.sy)));
-			tempTexture->SetTrueSize(glm::uvec2((it->second.tsx), (it->second.tsy)));
+			tempTexture->SetId(&it->second.textureIndex);
+			tempTexture->SetTextureSize(glm::uvec2((it->second.sizeX), (it->second.sizeY)));
+			tempTexture->SetTrueSize(glm::uvec2((it->second.trueSizeX), (it->second.trueSizeY)));
 			return tempTexture;
 		}
 	}
 
+	pm::SavedTextureStruct tempSavedTextureStruct;
 
-	CreateOGLTexture(fileName, tempTexture);
+	CreateOGLTexture(fileName, &tempSavedTextureStruct);
+	generatedTextures[fileName] = tempSavedTextureStruct;
 
-	pm::SavedTextureStruct tempTS;// = (pm::TextureStruct*)malloc(sizeof(*tempTS));
-
-	tempTS.ti = tempTexture->GetId();
-	tempTS.sx = (uint)tempTexture->GetTextureSize().x;
-	tempTS.sy = (uint)tempTexture->GetTextureSize().y;
-	tempTS.tsx = (uint)tempTexture->GetTrueSize().x;
-	tempTS.tsy = (uint)tempTexture->GetTrueSize().y;
-
-	generatedTextures[fileName] = tempTS;
-
+	tempTexture->SetId(&tempSavedTextureStruct.textureIndex);
+	tempTexture->SetTextureSize(glm::vec2(tempSavedTextureStruct.sizeX, tempSavedTextureStruct.sizeY));
+	tempTexture->SetTrueSize(glm::vec2(tempSavedTextureStruct.trueSizeX, tempSavedTextureStruct.trueSizeY));
+	
+	if (tempSavedTextureStruct.translucent)
+		tempTexture->SetTranslucency(pm::Texture::TRANSLUCENT);
+	else
+		tempTexture->SetTranslucency(pm::Texture::OPAQUE);
+	
 	return tempTexture;
 }
 
-void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer)
-{
-	if (fileName.empty() || pointer == nullptr)
-	{
-		DEBUG_WARNING(("TextureFactory failed to create texture (%s).", fileName.c_str()));
-		return;
-	}
-
-	DEBUG_GL_ERROR_CLEAR();
-	pm::ImageResource* decodedImage = (pm::ImageResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
-
-	std::vector<unsigned char> image;
-	unsigned int sizex = 0;
-	unsigned int sizey = 0;
-
-	unsigned error = lodepng::decode(image, sizex, sizey, decodedImage->GetImageData().data(), decodedImage->GetImageData().size());
-
-	if (error) // display error to debugger
-	{
-		DEBUG_WARNING(("Texture Creation failed lodepng error #%u", error));
-		return;
-	}
-	else
-	{
-		bool powerOfTwo = true;
-		bool translucent = true;	// CHANGE TO FALSE !
-
-		unsigned int xPowerOfTwo = 2;
-		while (xPowerOfTwo < sizex)
-			xPowerOfTwo *= 2;
-
-		if (xPowerOfTwo != sizex)
-		{
-			powerOfTwo = false;
-			translucent = true;
-		}
-
-		unsigned int yPowerOfTwo = 2;
-		while (yPowerOfTwo < sizey)
-			yPowerOfTwo *= 2;
-
-		if (yPowerOfTwo != sizey)
-		{
-			powerOfTwo = false;
-			translucent = true;
-		}
-
-
-		std::vector<unsigned char>::iterator it;
-
-		for (int y = 0; y < yPowerOfTwo; y++)
-		{
-			if (y < sizey)
-			{
-				it = image.begin() + (sizex + (y * xPowerOfTwo)) * 4;
-
-				std::vector<unsigned char> fillerVec((xPowerOfTwo - sizex) * 4, 0);
-				
-				image.insert(it, fillerVec.begin(), fillerVec.end());
-			}
-			else
-			{
-				it = image.end();
-
-				std::vector<unsigned char> fillerVec(xPowerOfTwo * 4, 0);
-
-				image.insert(it, fillerVec.begin(), fillerVec.end());
-			}
-		}
-
-		if (powerOfTwo)
-		{
-			for (int i = 0; i < image.size() / 4; i++)
-			{
-				if (image[i * 4 + 3] < 255)
-				{
-					translucent = true;
-					break;
-				}
-			}
-		}
-		
-		GLuint textureIndex;
-		glGenTextures(1, &textureIndex);
-		DEBUG_GL_ERROR();
-
-		glBindTexture(GL_TEXTURE_2D, textureIndex);
-		DEBUG_GL_ERROR();
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		DEBUG_GL_ERROR();
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		DEBUG_GL_ERROR();
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-			xPowerOfTwo, yPowerOfTwo,
-			0, GL_RGBA, GL_UNSIGNED_BYTE,
-			image.data());
-		DEBUG_GL_ERROR();
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-		DEBUG_GL_ERROR();
-
-		pointer->SetTextureSize(glm::uvec2(xPowerOfTwo, yPowerOfTwo));
-		pointer->SetTrueSize(glm::uvec2(sizex, sizey));
-		pointer->SetId(textureIndex);
-		if (translucent)
-			pointer->SetTranslucency(pm::Texture::TRANSLUCENT);
-		else 
-			pointer->SetTranslucency(pm::Texture::OPAQUE);
-	}
-}
-
-void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTextureStruct tempTS)
+void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTextureStruct* TextureStruct)
 {
 	if (fileName.empty() || fileName == "MapInit")
 	{
@@ -166,113 +53,191 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTexture
 		return;
 	}
 
+	// LOADFILE AND CREATE IMAGE
+
 	DEBUG_GL_ERROR_CLEAR();
 	pm::ImageResource* decodedImage = (pm::ImageResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
 
 	std::vector<unsigned char> image;
-	unsigned int sizex = 0;
-	unsigned int sizey = 0;
+	unsigned int sizeX = 0;
+	unsigned int sizeY = 0;
 
-	unsigned error = lodepng::decode(image, sizex, sizey, decodedImage->GetImageData().data(), decodedImage->GetImageData().size());
+	unsigned error = lodepng::decode(image, sizeX, sizeY, decodedImage->GetImageData().data(), decodedImage->GetImageData().size());
 
 	if (error) // display error to debugger
 	{
 		DEBUG_WARNING(("Texture Creation failed lodepng error #%u", error));
 		return;
 	}
-	else
+	
+	// LOADFILE AND CREATE IMAGE
+
+	// Create storage for parameters
+	bool translucent;
+
+	unsigned int xPowerOfTwo;
+	unsigned int yPowerOfTwo;
+	
+	// Check if the texture needs padding to reach next power of two.
+	DoPowerOfTwoStuff(&image, &xPowerOfTwo, &yPowerOfTwo, &translucent, sizeX, sizeY);
+
+	// Create opengl texture, and return textureIndex of the texture
+	GLuint textureIndex = CreateOpenGLTexture(xPowerOfTwo, yPowerOfTwo, &image);
+
+	TextureStruct->sizeX = xPowerOfTwo;
+	TextureStruct->sizeY = yPowerOfTwo;
+	TextureStruct->trueSizeX = sizeX;
+	TextureStruct->trueSizeY = sizeY;
+	TextureStruct->textureIndex = textureIndex;
+	TextureStruct->translucent = translucent;
+}
+
+void pm::TextureFactory::ReCreateOGLTexture(std::string fileName, pm::SavedTextureStruct* tempTS)
+{
+	if (fileName.empty() || fileName == "MapInit")
 	{
-		bool powerOfTwo = true;// if this is false the texture is translucent
-		bool translucent = true;	// CHANGE TO FALSE !
-		unsigned int xPowerOfTwo = 2;
-		while (xPowerOfTwo < sizex)
-			xPowerOfTwo *= 2;
-
-		if (xPowerOfTwo != sizex)// is the size x in power of two
-		{
-			powerOfTwo = false;
-			translucent = true;
-		}
-
-		unsigned int yPowerOfTwo = 2;
-		while (yPowerOfTwo < sizey)
-			yPowerOfTwo *= 2;
-
-		if (yPowerOfTwo != sizey)// is the size x in power of two
-		{
-			powerOfTwo = false;
-			translucent = true;
-		}
-
-		std::vector<unsigned char>::iterator it;
-
-		for (int y = 0; y < yPowerOfTwo; y++)
-		{
-			if (y < sizey)
-			{
-				it = image.begin() + (sizex + (y * xPowerOfTwo)) * 4;
-
-				std::vector<unsigned char> fillerVec((xPowerOfTwo - sizex) * 4, 0);
-
-				image.insert(it, fillerVec.begin(), fillerVec.end());
-			}
-			else
-			{
-				it = image.end();
-
-				std::vector<unsigned char> fillerVec(xPowerOfTwo * 4, 0);
-
-				image.insert(it, fillerVec.begin(), fillerVec.end());
-			}
-		}
-
-		if (!powerOfTwo)
-		{
-			for (int i = 0; i < image.size()/4; i++)
-			{
-				if (image[i * 4 + 3] < 255)
-				{
-					translucent = true;
-					break;
-				}
-			}
-		}
-
-		GLuint textureIndex;
-		glGenTextures(1, &textureIndex);
-		DEBUG_GL_ERROR();
-
-		glBindTexture(GL_TEXTURE_2D, textureIndex);
-		DEBUG_GL_ERROR();
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		DEBUG_GL_ERROR();
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		DEBUG_GL_ERROR();
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-			xPowerOfTwo, yPowerOfTwo,
-			0, GL_RGBA, GL_UNSIGNED_BYTE,
-			image.data());
-		DEBUG_GL_ERROR();
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-		DEBUG_GL_ERROR();
-
-		tempTS.sx = xPowerOfTwo;
-		tempTS.sy = yPowerOfTwo;
-		tempTS.tsx = sizex;
-		tempTS.tsy = sizey;
-		tempTS.ti = textureIndex;
+		DEBUG_WARNING(("TextureFactory failed to create texture (%s).", fileName.c_str()));
+		return;
 	}
+
+	// LOADFILE AND CREATE IMAGE
+
+	DEBUG_GL_ERROR_CLEAR();
+	pm::ImageResource* decodedImage = (pm::ImageResource*)pm::ResourceManager::GetInstance()->LoadAsset(fileName);
+
+	std::vector<unsigned char> image;
+	unsigned int sizeX = 0;
+	unsigned int sizeY = 0;
+
+	unsigned error = lodepng::decode(image, sizeX, sizeY, decodedImage->GetImageData().data(), decodedImage->GetImageData().size());
+
+	if (error) // display error to debugger
+	{
+		DEBUG_WARNING(("Texture Creation failed lodepng error #%u", error));
+		return;
+	}
+
+	// LOADFILE AND CREATE IMAGE
+
+	// Create storage for parameters
+	unsigned int xPowerOfTwo, yPowerOfTwo;
+	bool translucent;
+
+	// Check if the texture needs padding to reach next power of two.
+	DoPowerOfTwoStuff(&image, &xPowerOfTwo, &yPowerOfTwo, &translucent, sizeX, sizeY);
+	
+	// Create opengl texture, and return textureIndex of the texture
+	GLuint textureIndex = CreateOpenGLTexture(xPowerOfTwo, yPowerOfTwo, &image);
+
+	tempTS->textureIndex = textureIndex;
+	tempTS->sizeX = xPowerOfTwo;
+	tempTS->sizeY = yPowerOfTwo;
+	tempTS->trueSizeX = sizeX;
+	tempTS->trueSizeY = sizeY;
+		
+}
+
+void pm::TextureFactory::DoPowerOfTwoStuff(std::vector<unsigned char>* imagePointer, unsigned int* xPowerOfTwo, unsigned int* yPowerOfTwo,
+	bool* translucent, uint sizeX, uint sizeY)
+{
+	bool tempPowerOfTwo = true;
+	bool tempTranslucent = false;
+
+	unsigned int tempXPowerOfTwo = 2, tempYPowerOfTwo = 2;
+	while (tempXPowerOfTwo < sizeX)
+		tempXPowerOfTwo *= 2;
+
+	if (tempXPowerOfTwo != sizeX)
+	{
+		tempPowerOfTwo = false;
+		tempTranslucent = true;
+	}
+
+	while (tempYPowerOfTwo < sizeY)
+		tempYPowerOfTwo *= 2;
+
+	if (tempYPowerOfTwo != sizeY)
+	{
+		tempPowerOfTwo = false;
+		tempTranslucent = true;
+	}
+
+
+	std::vector<unsigned char>::iterator it;
+
+	for (int y = 0; y < tempYPowerOfTwo; y++)
+	{
+		if (y < sizeY)
+		{
+			it = imagePointer->begin() + (sizeX + (y * tempXPowerOfTwo)) * 4;
+
+			std::vector<unsigned char> fillerVec((tempXPowerOfTwo - sizeX) * 4, 0);
+
+			imagePointer->insert(it, fillerVec.begin(), fillerVec.end());
+		}
+		else
+		{
+			it = imagePointer->end();
+
+			std::vector<unsigned char> fillerVec(tempXPowerOfTwo * 4, 0);
+
+			imagePointer->insert(it, fillerVec.begin(), fillerVec.end());
+		}
+	}
+
+	if (tempPowerOfTwo)
+	{
+		for (int i = 0; i < imagePointer->size() / 4; i++)
+		{
+			if ((*imagePointer)[i * 4 + 3] < 255)
+			{
+				tempTranslucent = true;
+				break;
+			}
+		}
+	}
+	*xPowerOfTwo = tempXPowerOfTwo;
+	*yPowerOfTwo = tempYPowerOfTwo;
+	*translucent = tempTranslucent;
+
+}
+
+GLuint pm::TextureFactory::CreateOpenGLTexture(unsigned int xPowerOfTwo,
+	unsigned int yPowerOfTwo, std::vector<unsigned char>* imagePointer)
+{
+
+	GLuint tempTextureIndex;
+	glGenTextures(1, &tempTextureIndex);
+	DEBUG_GL_ERROR();
+
+	glBindTexture(GL_TEXTURE_2D, tempTextureIndex);
+	DEBUG_GL_ERROR();
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	DEBUG_GL_ERROR();
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	DEBUG_GL_ERROR();
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		xPowerOfTwo, yPowerOfTwo,
+		0, GL_RGBA, GL_UNSIGNED_BYTE,
+		imagePointer->data());
+
+	DEBUG_GL_ERROR();
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	DEBUG_GL_ERROR();
+
+	return tempTextureIndex;
+
 }
 
 void pm::TextureFactory::RemoveTextureGroup(uint textureGroupToRemove)
 {
 	for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
-		if (it->second.tg == textureGroupToRemove)
+		if (it->second.textureGroup == textureGroupToRemove)
 		{
 			ResourceManager::GetInstance()->DeleteResource(it->first);
 			it = generatedTextures.erase(it);
@@ -294,8 +259,11 @@ void pm::TextureFactory::RecreateOGLTextures()
 {
 	if (!generatedTextures.empty())
 	{
-		for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
-			CreateOGLTexture(it->first, it->second);
+		std::map<std::string, pm::SavedTextureStruct>::iterator it;
+		for (it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+		{
+			ReCreateOGLTexture(it->first, &it->second);
+		}
 	}
 }
 
@@ -328,7 +296,7 @@ pm::TextureFactory::~TextureFactory()
 	DEBUG_GL_ERROR_CLEAR();
 	for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
-		GLuint reference = it->second.ti;
+		GLuint reference = it->second.textureIndex;
 		glDeleteTextures(1, &reference);
 		DEBUG_GL_ERROR();
 		//delete it->second;

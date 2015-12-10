@@ -58,7 +58,7 @@ namespace pm
 		*
 		* \return 0 if ID has not been assigned.
 		*/
-		GLuint GetId();
+		GLuint* GetId();
 
 		/** \brief Return size of texture.
 		*
@@ -83,7 +83,7 @@ namespace pm
 		*
 		* \param[in] textureId new texture index assigned by OpenGL.
 		*/
-		void SetId(GLuint textureId);
+		void SetId(GLuint* textureId);
 
 		/** \brief Return Texturegroup.
 		*
@@ -123,7 +123,7 @@ namespace pm
 
 	private:
 
-		GLuint textureIndex;
+		GLuint *textureIndex;
 
 		glm::uvec2 textureSize;
 		glm::uvec2 trueSize;
