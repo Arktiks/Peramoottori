@@ -105,7 +105,7 @@ namespace pm
 		*
 		* \param[in] translucency new translucency assigned.
 		*/
-		void SetTranslucency(TRANSLUCENCY translucency){ this->translucency = translucency; };
+		void SetTranslucency(TRANSLUCENCY translucency);
 
 		/** \brief Get translucency.
 		*
@@ -113,7 +113,7 @@ namespace pm
 		*
 		* \return translucency assigned.
 		*/
-		TRANSLUCENCY GetTranslucency(){ return translucency; };
+		TRANSLUCENCY GetTranslucency();
 		
 		/** \brief Get the file path this Texture was created from
 		* \return File path of the file

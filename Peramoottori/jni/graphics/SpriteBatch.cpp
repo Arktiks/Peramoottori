@@ -151,6 +151,7 @@ void SpriteBatch::Draw(Shader* customShader)
 	for (unsigned int i = 0; i < 10; i++)
 	{
 		// Disable blend and set depthMask true for opaqueGameEntities.
+		// Alpha blending?
 		glDisable(GL_BLEND);
 		glDepthMask(GL_TRUE);
 
@@ -205,10 +206,11 @@ void SpriteBatch::AddStaticGameEntity(GameEntity* entity)
 
 void SpriteBatch::AddGameEntity(GameEntity* entity)
 {
-	Texture::TRANSLUCENCY test = entity->GetComponent<Texture>()->GetTranslucency();
-	if (test == Texture::TRANSLUCENT)
+	int test = entity->GetComponent<Texture>()->GetTranslucency();
+	ASSERT_NEQUAL(entity->GetComponent<Texture>(),  nullptr);
+	if (entity->GetComponent<Texture>()->GetTranslucency() == Texture::TRANSLUCENT)
 		AddTranslucentGameEntity(entity);
-	else
+	else if (entity->GetComponent<Texture>()->GetTranslucency() == Texture::OPAQUE)
 		AddOpaqueGameEntity(entity);
 }
 

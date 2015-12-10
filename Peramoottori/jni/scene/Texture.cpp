@@ -13,6 +13,7 @@ pm::Texture::Texture(std::string path) : Component()
 	this->SetId(tempTexture->GetId());
 	this->SetTextureSize(tempTexture->GetTextureSize());
 	this->SetTrueSize(tempTexture->GetTrueSize());
+	this->translucency = TRANSLUCENT;
 	delete tempTexture;
 }
 
@@ -57,3 +58,13 @@ void pm::Texture::SetTextureGroup(uint inTextureGroup)
 {
 	textureGroup = inTextureGroup;
 }
+
+void pm::Texture::SetTranslucency(pm::Texture::TRANSLUCENCY translucency)
+{
+	this->translucency = translucency; 
+};
+
+pm::Texture::TRANSLUCENCY pm::Texture::GetTranslucency()
+{
+	return translucency;
+};
