@@ -32,6 +32,8 @@ Drawables::Drawables() : Scene("Drawables"), rotation(0.0f), camera_direction(1)
 	float size_x = MAX_WIDTH;
 	float size_y = MAX_HEIGHT;
 
+	DEBUG_INFO(("Setting Drawables camera."));
+
 	camera = NEW Camera();
 	CameraSystem::GetInstance()->SetActiveCamera(camera);
 

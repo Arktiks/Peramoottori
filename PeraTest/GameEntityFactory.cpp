@@ -31,7 +31,7 @@ pm::GameEntity* GameEntityFactory::CreateHero(glm::vec2 position, int depth, glm
 	// Add default physics to GameEntity.
 	scene->physicsManager.AddPhysics(heroGameEntity);
 	// Add gameEntity on pmScene's animGEVector, and in drawVector, Translucent because we know hero.png is translucent image.
-	scene->AddAnimationGameEntity(heroGameEntity, TRANSLUCENT);
+	scene->AddAnimationGameEntity(heroGameEntity);
 
 	return heroGameEntity;
 }
@@ -46,9 +46,23 @@ pm::GameEntity* GameEntityFactory::CreateRospot(glm::vec2 position, int depth, g
 
 	// Add physics to GameEntity.
 	scene->physicsManager.AddPhysics(rospotGameEntity);
-	scene->AddGameEntity(rospotGameEntity, TRANSLUCENT);
+	scene->AddGameEntity(rospotGameEntity);
 	return rospotGameEntity;
 }
+
+pm::GameEntity* GameEntityFactory::CreateMovingOpaque(std::string filename, glm::vec2 position, int depth, glm::vec2 size,
+	glm::vec2 force)
+{
+	pm::GameEntity* opaqueGameEntity = NEW pm::GameEntity();
+	opaqueGameEntity->AddComponent(NEW pm::Name("mOpaque"));
+
+	AddSpriteComponents(opaqueGameEntity, filename, position, glm::vec2(1, 1), 30, depth, size, glm::vec4(1, 1, 1, 1));
+
+	scene->physicsManager.AddPhysics(opaqueGameEntity);
+	scene->AddGameEntity(opaqueGameEntity);
+	return opaqueGameEntity;
+}
+
 pm::GameEntity* GameEntityFactory::CreateButton(glm::vec2 position, int depth, glm::vec2 size)
 {
 	pm::GameEntity* buttonGameEntity = NEW pm::GameEntity();
@@ -57,7 +71,7 @@ pm::GameEntity* GameEntityFactory::CreateButton(glm::vec2 position, int depth, g
 
 	AddInputComponents(buttonGameEntity);
 
-	scene->AddGameEntity(buttonGameEntity, TRANSLUCENT);
+	scene->AddGameEntity(buttonGameEntity);
 }
 void GameEntityFactory::AddSpriteComponents(pm::GameEntity* gameEntity, std::string textureFilePath, glm::vec2 position, glm::vec2 scale, 
 	float rotation, int depth, glm::vec2 size, glm::vec4 color)

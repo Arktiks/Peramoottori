@@ -69,37 +69,38 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 	else
 	{
 		bool powerOfTwo = true;
-		bool translucent = false;
-		unsigned int xpo2 = 2;
-		while (xpo2 < sizex)
-			xpo2 *= 2;
+		bool translucent = true;	// CHANGE TO FALSE !
 
-		if (xpo2 != sizex)
+		unsigned int xPowerOfTwo = 2;
+		while (xPowerOfTwo < sizex)
+			xPowerOfTwo *= 2;
+
+		if (xPowerOfTwo != sizex)
 		{
 			powerOfTwo = false;
-			bool translucent = true;
+			translucent = true;
 		}
 
-		unsigned int ypo2 = 2;
-		while (ypo2 < sizey)
-			ypo2 *= 2;
+		unsigned int yPowerOfTwo = 2;
+		while (yPowerOfTwo < sizey)
+			yPowerOfTwo *= 2;
 
-		if (xpo2 != sizey)
+		if (yPowerOfTwo != sizey)
 		{
 			powerOfTwo = false;
-			bool translucent = true;
+			translucent = true;
 		}
 
 
 		std::vector<unsigned char>::iterator it;
 
-		for (int y = 0; y < ypo2; y++)
+		for (int y = 0; y < yPowerOfTwo; y++)
 		{
 			if (y < sizey)
 			{
-				it = image.begin() + (sizex + (y * xpo2)) * 4;
+				it = image.begin() + (sizex + (y * xPowerOfTwo)) * 4;
 
-				std::vector<unsigned char> fillerVec((xpo2 - sizex) * 4, 0);
+				std::vector<unsigned char> fillerVec((xPowerOfTwo - sizex) * 4, 0);
 				
 				image.insert(it, fillerVec.begin(), fillerVec.end());
 			}
@@ -107,13 +108,13 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 			{
 				it = image.end();
 
-				std::vector<unsigned char> fillerVec(xpo2 * 4, 0);
+				std::vector<unsigned char> fillerVec(xPowerOfTwo * 4, 0);
 
 				image.insert(it, fillerVec.begin(), fillerVec.end());
 			}
 		}
 
-		if (!powerOfTwo)
+		if (powerOfTwo)
 		{
 			for (int i = 0; i < image.size() / 4; i++)
 			{
@@ -139,7 +140,7 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 		DEBUG_GL_ERROR();
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-			xpo2, ypo2,
+			xPowerOfTwo, yPowerOfTwo,
 			0, GL_RGBA, GL_UNSIGNED_BYTE,
 			image.data());
 		DEBUG_GL_ERROR();
@@ -147,10 +148,13 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, Texture* pointer
 		glBindTexture(GL_TEXTURE_2D, 0);
 		DEBUG_GL_ERROR();
 
-		pointer->SetTextureSize(glm::uvec2(xpo2, ypo2));
+		pointer->SetTextureSize(glm::uvec2(xPowerOfTwo, yPowerOfTwo));
 		pointer->SetTrueSize(glm::uvec2(sizex, sizey));
 		pointer->SetId(textureIndex);
-		pointer->SetTranslucency(translucent == true ? Texture::TRANSLUCENT : Texture::OPAQUE);
+		if (translucent)
+			pointer->SetTranslucency(pm::Texture::TRANSLUCENT);
+		else 
+			pointer->SetTranslucency(pm::Texture::OPAQUE);
 	}
 }
 
@@ -179,22 +183,22 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTexture
 	else
 	{
 		bool powerOfTwo = true;// if this is false the texture is translucent
-		bool translucent = false;
-		unsigned int xpo2 = 2;
-		while (xpo2 < sizex)
-			xpo2 *= 2;
+		bool translucent = true;	// CHANGE TO FALSE !
+		unsigned int xPowerOfTwo = 2;
+		while (xPowerOfTwo < sizex)
+			xPowerOfTwo *= 2;
 
-		if (xpo2 != sizex)// is the size x in power of two
+		if (xPowerOfTwo != sizex)// is the size x in power of two
 		{
 			powerOfTwo = false;
 			translucent = true;
 		}
 
-		unsigned int ypo2 = 2;
-		while (ypo2 < sizey)
-			ypo2 *= 2;
+		unsigned int yPowerOfTwo = 2;
+		while (yPowerOfTwo < sizey)
+			yPowerOfTwo *= 2;
 
-		if (ypo2 != sizey)// is the size x in power of two
+		if (yPowerOfTwo != sizey)// is the size x in power of two
 		{
 			powerOfTwo = false;
 			translucent = true;
@@ -202,13 +206,13 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTexture
 
 		std::vector<unsigned char>::iterator it;
 
-		for (int y = 0; y < ypo2; y++)
+		for (int y = 0; y < yPowerOfTwo; y++)
 		{
 			if (y < sizey)
 			{
-				it = image.begin() + (sizex + (y * xpo2)) * 4;
+				it = image.begin() + (sizex + (y * xPowerOfTwo)) * 4;
 
-				std::vector<unsigned char> fillerVec((xpo2 - sizex) * 4, 0);
+				std::vector<unsigned char> fillerVec((xPowerOfTwo - sizex) * 4, 0);
 
 				image.insert(it, fillerVec.begin(), fillerVec.end());
 			}
@@ -216,7 +220,7 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTexture
 			{
 				it = image.end();
 
-				std::vector<unsigned char> fillerVec(xpo2 * 4, 0);
+				std::vector<unsigned char> fillerVec(xPowerOfTwo * 4, 0);
 
 				image.insert(it, fillerVec.begin(), fillerVec.end());
 			}
@@ -248,7 +252,7 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTexture
 		DEBUG_GL_ERROR();
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-			xpo2, ypo2,
+			xPowerOfTwo, yPowerOfTwo,
 			0, GL_RGBA, GL_UNSIGNED_BYTE,
 			image.data());
 		DEBUG_GL_ERROR();
@@ -256,8 +260,8 @@ void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTexture
 		glBindTexture(GL_TEXTURE_2D, 0);
 		DEBUG_GL_ERROR();
 
-		tempTS.sx = xpo2;
-		tempTS.sy = ypo2;
+		tempTS.sx = xPowerOfTwo;
+		tempTS.sy = yPowerOfTwo;
 		tempTS.tsx = sizex;
 		tempTS.tsy = sizey;
 		tempTS.ti = textureIndex;
