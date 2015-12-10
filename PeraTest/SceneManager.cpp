@@ -41,6 +41,7 @@ void SceneManager::DeleteScene(std::string name)
 			delete *it;
 			scenes.erase(it);
 			sceneChanged = true;
+			return;
 		}
 	}
 }
@@ -54,6 +55,7 @@ void SceneManager::ChangeScene(Scene* scene)
 		delete (*it);
 		DEBUG_INFO(("Deleted scene: (%s)", scene.c_str()));
 	}
+
 	scenes.clear();
 	AddScene(scene);
 	sceneChanged = true;

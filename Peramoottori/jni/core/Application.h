@@ -6,7 +6,7 @@
 
 namespace pm
 {
-	//Defining function pointers
+	// Defining function pointers.
 	typedef void(*StartFunction)();
 	typedef void(*ResumeFunction)();
 	typedef void(*PauseFunction)(); 
@@ -22,7 +22,6 @@ namespace pm
 
 		friend class EventHandler; // Required for static android_native_app_glue functions.
 		
-
 	public:
 
 		/** \brief Return instance of Application. 
@@ -60,7 +59,6 @@ namespace pm
 		*/
 		bool Update(); 
 
-
 		/** \brief Check if Application is done initializing.
 		* 
 		* When initializing the application it will take some time to get device context
@@ -93,57 +91,53 @@ namespace pm
 		*/
 		void Draw();
 
-		// function pointer setup
-
-		/** \brief User generated pause function setter
+		/** \brief User generated Start function setter.
 		*
 		* Users can create their own start fuctions in main and pass it as a pointer to the engine.
 		*/
 		void setStartFunction(void(*StartFunction)()) { startFunction = StartFunction; };
 
-		/** \brief User generated pause function getter
+		/** \brief User generated Start function getter.
 		*
-		* Start function getter
+		* Start function getter.
 		*/
 		StartFunction getStartFunction() { return startFunction; };
 
-		/** \brief User generated pause function setter
+		/** \brief User generated Resume function setter.
 		*
 		* Users can create their own resume fuctions in main and pass it as a pointer to the engine.
 		*/
 		void setResumeFunction(void(*ResumeFunction)()) { resumeFunction = ResumeFunction; };
 
-		/** \brief User generated pause function getter
+		/** \brief User generated Resume function getter.
 		*
-		* Resume function getter
+		* Resume function getter.
 		*/
 		ResumeFunction getResumeFunction() { return resumeFunction; };
 
-		/** \brief User generated pause function setter
+		/** \brief User generated Pause function setter.
 		*
 		* Users can create their own pause fuctions in main and pass it as a pointer to the engine.
 		*/
 		void setPauseFunction(void(*PauseFunction)()) { pauseFunction = PauseFunction; };
 
-		/** \brief User generated pause function getter
+		/** \brief User generated Pause function getter.
 		*
-		* Pause function getter
+		* Pause function getter.
 		*/
 		PauseFunction getPauseFunction() { return pauseFunction; };
 
-		/** \brief User generated pause function setter
+		/** \brief User generated Stop function setter.
 		*
-		* Users can create their own stop fuctions in main and pass it as a pointer to the engine.
+		* Users can create their own Stop fuctions in main and pass it as a pointer to the engine.
 		*/
 		void setStopFunction(void(*StopFunction)()) { stopFunction = StopFunction; };
 
-		/** \brief User generated pause function getter
+		/** \brief User generated Stop function getter.
 		*
-		* Stop function getter
+		* Stop function getter.
 		*/
 		StopFunction getStopFunction() { return stopFunction; };
-
-
 
 	private:
 
