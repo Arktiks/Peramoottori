@@ -37,6 +37,8 @@ void SpriteBatch::CreateTextShader()
 {
 	DEBUG_GL_ERROR_CLEAR();
 
+	GetInstance()->textShader = Shader();
+
 	bool tempCheck = GetInstance()->textShader.AddShader("DEF_VERTEX_SHADER.txt", GL_VERTEX_SHADER); // Create default vertex shader.
 	DEBUG_GL_ERROR();
 	//ASSERT(tempCheck);
