@@ -147,37 +147,37 @@ void SpriteBatch::Draw(Shader* customShader)
 	}
 	//end static laýer nro 10
 
-	// Draw all gameEntities on every ten layers. (0-9)
-	for (unsigned int i = 0; i < 10; i++)
+	// Draw all gameEntities on every layer. (0-9)
+	for (unsigned int currentLayer = 0; currentLayer < 10; currentLayer++)
 	{
 		// Disable blend and set depthMask true for opaqueGameEntities.
 		// Alpha blending?
 		glDisable(GL_BLEND);
 		glDepthMask(GL_TRUE);
 
-		for (unsigned int j = 0; j < opaqueLayerBatchVector[i].size(); j++)
+		for (unsigned int currentBatch = 0; currentBatch < opaqueLayerBatchVector[currentLayer].size(); currentBatch++)
 		{
-			RenderSystem::GetInstance()->Draw(&opaqueLayerBatchVector[i].at(j), customShader);
+			RenderSystem::GetInstance()->Draw(&opaqueLayerBatchVector[currentLayer].at(currentBatch), customShader);
 		}
 
 		// Enable blend and set depthMask false for translucentGameEntities.
 		glEnable(GL_BLEND);
 		glDepthMask(GL_FALSE);
 
-		for (unsigned int j = 0; j < translucentLayerBatchVector[i].size(); j++)
+		for (unsigned int currentBatch = 0; currentBatch < translucentLayerBatchVector[currentLayer].size(); currentBatch++)
 		{
-			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j), customShader);
+			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[currentLayer].at(currentBatch), customShader);
 		}
 
-		for (unsigned int j = 0; j < textLayerBatchVector[i].size(); j++)
+		for (unsigned int currentBatch = 0; currentBatch < textLayerBatchVector[currentLayer].size(); currentBatch++)
 		{
-			RenderSystem::GetInstance()->Draw(&textLayerBatchVector[i].at(j), &textShader);
+			RenderSystem::GetInstance()->Draw(&textLayerBatchVector[currentLayer].at(currentBatch), &textShader);
 		}
 
 		// Clear gameEntities from current layer.
-		opaqueLayerBatchVector[i].clear();
-		translucentLayerBatchVector[i].clear();
-		textLayerBatchVector[i].clear();
+		opaqueLayerBatchVector[currentLayer].clear();
+		translucentLayerBatchVector[currentLayer].clear();
+		textLayerBatchVector[currentLayer].clear();
 	}
 	// Clear vectors for gameEntities added during draw cycle.
 	opaqueGameEntityVector.clear();
@@ -224,7 +224,7 @@ void SpriteBatch::AddOpaqueGameEntity(GameEntity* gameEntity)
 	opaqueGameEntityVector.push_back(gameEntity);
 }
 
-void SpriteBatch::AddOpaqueGameEntity(std::vector<GameEntity*> entityVector)
+void SpriteBatch::AddOpaqueGameEntityVector(std::vector<GameEntity*> entityVector)
 {
 	for (unsigned int i = 0; i < entityVector.size(); i++)
 		opaqueGameEntityVector.push_back(entityVector.at(i));
@@ -318,8 +318,8 @@ void SpriteBatch::BatchLayerComponents(int layer, LAYERTYPE type)
 	std::vector<GameEntity*>& gameEntityVector = *gameEntityVectorPointer;
 	std::vector<Batch>& batchVector = *batchVectorPointer;
 
-	// Go throught all layers to find data to be used on current batch.
-	for (unsigned int i = 0; i < gameEntityVector.size(); i++)
+	// Go throught all gameEntitites to find data to be used on current batch.
+	for (unsigned int currentGEIndex = 0; currentGEIndex < gameEntityVector.size(); currentGEIndex++)
 	{
 		// Create temporary storages for data gathered from current gameEntity.
 		std::vector<GLfloat> tempVertexData;
@@ -327,21 +327,20 @@ void SpriteBatch::BatchLayerComponents(int layer, LAYERTYPE type)
 		glm::mat4 tempTransformMatrix = glm::mat4();
 		GLuint tempTextureIndex;
 
-		// Creates new batch if there is no batch created yet for the texture.
-		bool newBatch = true;
-
-		if (IsDrawable(gameEntityVector[i]))
+		if (IsDrawable(gameEntityVector[currentGEIndex]))
 		{
 			// Gather data to from current gameEntity to other parameters.
-			ParseData(gameEntityVector[i], &tempVertexData, &tempIndexData, &tempTransformMatrix, &tempTextureIndex);
-
-			for (unsigned k = 0; k < batchVector.size(); k++)
+			ParseData(gameEntityVector[currentGEIndex], &tempVertexData, &tempIndexData, &tempTransformMatrix, &tempTextureIndex);
+			
+			// Creates new batch if there is no batch created yet for the texture.
+			bool newBatch = true;
+			for (unsigned int currentBatchIndex = 0; currentBatchIndex < batchVector.size(); currentBatchIndex++)
 			{
-				// If there is texture with same index as new one, add data to batch.
-				if (batchVector[k].textureIndex == tempTextureIndex)
+				// If there is texture with same index as current gameEntity, add data to batch.
+				if (batchVector[currentBatchIndex].textureIndex == tempTextureIndex)
 				{
 					// Add found data to batch with same texture.
-					batchVector[k].AddData(tempVertexData, tempIndexData, tempTransformMatrix);
+					batchVector[currentBatchIndex].AddData(tempVertexData, tempIndexData, tempTransformMatrix);
 					newBatch = false;
 					break;
 				}
@@ -425,11 +424,10 @@ void SpriteBatch::ParseData(GameEntity* gameEntity,
 	}
 	else
 	{
-		// CHANGE ON TEXTURE ID TO POINTER: MAKE SURE THIS IS ALLRIGHT AND TEXTUREINDEX IS NOT DELETED SOMEWHERE
-		// FIX IS TO COPY DATA FROM COMPONENT TO TEXTUREINDEX
-		GLuint tempID = *gameEntity->GetComponent<Texture>()->GetId();
-		*textureIndex = tempID;
+		
+		*textureIndex = gameEntity->GetComponent<Texture>()->GetId();
 
+		//textureIndex = gameEntity->GetComponent<Texture>()->GetId();
 		if (gameEntity->GetComponent<TextureCoordinates>() == nullptr)
 		{
 			glm::fvec2 tempTextureSize = gameEntity->GetComponent<Texture>()->GetTextureSize();

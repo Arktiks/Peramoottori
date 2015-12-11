@@ -56,9 +56,10 @@ pm::GameEntity* GameEntityFactory::CreateMovingOpaque(std::string filename, glm:
 	pm::GameEntity* opaqueGameEntity = NEW pm::GameEntity();
 	opaqueGameEntity->AddComponent(NEW pm::Name("mOpaque"));
 
-	AddSpriteComponents(opaqueGameEntity, filename, position, glm::vec2(1, 1), 30, depth, size, glm::vec4(1, 1, 1, 1));
+	AddSpriteComponents(opaqueGameEntity, filename, position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 1, 1, 1));
 
 	scene->physicsManager.AddPhysics(opaqueGameEntity);
+
 	scene->AddGameEntity(opaqueGameEntity);
 	return opaqueGameEntity;
 }
@@ -66,12 +67,14 @@ pm::GameEntity* GameEntityFactory::CreateMovingOpaque(std::string filename, glm:
 pm::GameEntity* GameEntityFactory::CreateButton(glm::vec2 position, int depth, glm::vec2 size)
 {
 	pm::GameEntity* buttonGameEntity = NEW pm::GameEntity();
-	AddSpriteComponents(buttonGameEntity, "space/galaxy.png", position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 0.5, 0.5, 1));
 	buttonGameEntity->AddComponent(NEW pm::Name("button"));
+
+	AddSpriteComponents(buttonGameEntity, "space/galaxy.png", position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 0.5, 0.5, 1));
 
 	AddInputComponents(buttonGameEntity);
 
 	scene->AddGameEntity(buttonGameEntity);
+	return buttonGameEntity;
 }
 void GameEntityFactory::AddSpriteComponents(pm::GameEntity* gameEntity, std::string textureFilePath, glm::vec2 position, glm::vec2 scale, 
 	float rotation, int depth, glm::vec2 size, glm::vec4 color)

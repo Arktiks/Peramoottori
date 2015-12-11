@@ -222,7 +222,8 @@ namespace pm
 				float uh = slot->bitmap.rows;
 
 				Texture *textTexture = NEW Texture();
-				// Need to create new because Texture id is now a pointer, otherwise it will be lost.
+				// Need to create new because Texture id is now a pointer, otherwise it will be lost. 
+				//This pointer needs to be saved somewhere.
 				GLuint* id = NEW GLuint(textId);
 				textTexture->SetId(id);
 				textTexture->SetTextureSize(glm::vec2(slot->bitmap.width, slot->bitmap.rows));

@@ -9,11 +9,12 @@ pm::Texture::Texture() : Component()
 pm::Texture::Texture(std::string path) : Component()
 {
 	file = path;
+	// !! CREATE A COPY CONSTRUCTOR OR SOMETHING; THIS IS PRONE TO ERRORS
 	Texture* tempTexture = TextureFactory::CreateTexture(path);
-	this->SetId(tempTexture->GetId());
+	this->SetId(tempTexture->GetIdHandle());
 	this->SetTextureSize(tempTexture->GetTextureSize());
 	this->SetTrueSize(tempTexture->GetTrueSize());
-	this->translucency = TRANSLUCENT;
+	this->SetTranslucency(tempTexture->GetTranslucency());
 	delete tempTexture;
 }
 
@@ -34,9 +35,9 @@ void pm::Texture::SetId(GLuint* textureId)
 	textureIndex = textureId;
 }
 
-GLuint* pm::Texture::GetId()
+GLuint pm::Texture::GetId()
 {
-	return textureIndex;
+	return *textureIndex;
 }
 
 glm::uvec2 pm::Texture::GetTextureSize()

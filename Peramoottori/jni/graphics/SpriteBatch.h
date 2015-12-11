@@ -80,7 +80,7 @@ namespace pm
 		/** \brief Add std::vector of GameEntity objects that contains transparency.
 		* \param[in] entityVector Pointer to std::vector<GameEntity*>.
 		*/
-		void AddOpaqueGameEntity(std::vector<GameEntity*> entityVector);
+		void AddOpaqueGameEntityVector(std::vector<GameEntity*> entityVector);
 		
 		/** \brief Add Text object that contains transparency.
 		* \param[in] textEntity Pointer to pm::Text object.

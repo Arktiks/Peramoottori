@@ -39,7 +39,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
   </PropertyGroup>
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <FastDeploy>false</FastDeploy>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>

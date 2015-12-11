@@ -54,6 +54,8 @@ namespace pm
 
 		static void ReCreateOGLTexture(std::string fileName, pm::SavedTextureStruct* tempTS);
 
+		static bool FindTextureAndAddData(std::string fileName, pm::Texture* Texture);
+
 		static GLuint CreateOpenGLTexture(unsigned int xPowerOfTwo,
 			unsigned int yPowerOfTwo, std::vector<unsigned char>* imagePointer);
 
@@ -70,7 +72,7 @@ namespace pm
 
 		~TextureFactory();
 
-		static std::map<std::string, pm::SavedTextureStruct> generatedTextures;
+		static std::map<std::string, pm::SavedTextureStruct*> generatedTextures;
 	};
 }
 #endif

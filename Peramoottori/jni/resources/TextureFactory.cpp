@@ -10,34 +10,33 @@
 #include <lodepng.h>
 #include <graphics\Text.h>
 
-pm::SavedTextureStruct TS;
-std::map<std::string, pm::SavedTextureStruct> pm::TextureFactory::generatedTextures = { { "MapInit", TS } };
+//pm::SavedTextureStruct TS;
+std::map<std::string, pm::SavedTextureStruct*> pm::TextureFactory::generatedTextures; //= { { "MapInit", TS } };
 
 pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 {
 	pm::Texture* tempTexture = NEW pm::Texture;
 
-	for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
-	{
-		if (it->first == fileName)
-		{
-			tempTexture->SetId(&it->second.textureIndex);
-			tempTexture->SetTextureSize(glm::uvec2((it->second.sizeX), (it->second.sizeY)));
-			tempTexture->SetTrueSize(glm::uvec2((it->second.trueSizeX), (it->second.trueSizeY)));
-			return tempTexture;
-		}
-	}
+	 //If texture allready exists as savedTextureStruct, create Texture as component and return it.
+	if (FindTextureAndAddData(fileName, tempTexture))
+		return tempTexture;
 
-	pm::SavedTextureStruct tempSavedTextureStruct;
+	// Otherwise create a savedTextureStruct, and add it's info to the tempTexture, then return tempTexture.
+	pm::SavedTextureStruct* tempSavedTextureStruct = NEW pm::SavedTextureStruct;
 
-	CreateOGLTexture(fileName, &tempSavedTextureStruct);
+	// Add data to tempSavedTextureStruct and create opengl Texture.
+	CreateOGLTexture(fileName, tempSavedTextureStruct);
+
+	// Add tempSavedTecture to generatedTextures map
 	generatedTextures[fileName] = tempSavedTextureStruct;
 
-	tempTexture->SetId(&tempSavedTextureStruct.textureIndex);
-	tempTexture->SetTextureSize(glm::vec2(tempSavedTextureStruct.sizeX, tempSavedTextureStruct.sizeY));
-	tempTexture->SetTrueSize(glm::vec2(tempSavedTextureStruct.trueSizeX, tempSavedTextureStruct.trueSizeY));
+	// Add data to texture
+	tempTexture->SetId(&generatedTextures[fileName]->textureIndex);
+	tempTexture->SetTextureSize(glm::vec2(tempSavedTextureStruct->sizeX, tempSavedTextureStruct->sizeY));
+	tempTexture->SetTrueSize(glm::vec2(tempSavedTextureStruct->trueSizeX, tempSavedTextureStruct->trueSizeY));
 	
-	if (tempSavedTextureStruct.translucent)
+	// Need these checks because struct is using bool, and texture is using enum, maybe struct should use enum too?
+	if (tempSavedTextureStruct->translucent)
 		tempTexture->SetTranslucency(pm::Texture::TRANSLUCENT);
 	else
 		tempTexture->SetTranslucency(pm::Texture::OPAQUE);
@@ -45,6 +44,31 @@ pm::Texture* pm::TextureFactory::CreateTexture(std::string fileName)
 	return tempTexture;
 }
 
+bool pm::TextureFactory::FindTextureAndAddData(std::string fileName, pm::Texture* Texture)
+{
+	//Check saved textures, and try to find texture with same filename. If found, add data to Texture-pointer and return true, else return false.
+	for (std::map<std::string, pm::SavedTextureStruct*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	{
+		if (it->first == fileName)
+		{
+			Texture->SetId(&it->second->textureIndex);
+			Texture->SetTextureSize(glm::uvec2((it->second->sizeX), (it->second->sizeY)));
+			Texture->SetTrueSize(glm::uvec2((it->second->trueSizeX), (it->second->trueSizeY)));
+
+			if (it->second->translucent)
+			{
+				Texture->SetTranslucency(pm::Texture::TRANSLUCENT);
+			}
+			else
+			{
+				Texture->SetTranslucency(pm::Texture::OPAQUE);
+			}
+
+			return true;
+		}
+	}
+	return false;
+}
 void pm::TextureFactory::CreateOGLTexture(std::string fileName, pm::SavedTextureStruct* TextureStruct)
 {
 	if (fileName.empty() || fileName == "MapInit")
@@ -235,9 +259,9 @@ GLuint pm::TextureFactory::CreateOpenGLTexture(unsigned int xPowerOfTwo,
 
 void pm::TextureFactory::RemoveTextureGroup(uint textureGroupToRemove)
 {
-	for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, pm::SavedTextureStruct*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
-		if (it->second.textureGroup == textureGroupToRemove)
+		if (it->second->textureGroup == textureGroupToRemove)
 		{
 			ResourceManager::GetInstance()->DeleteResource(it->first);
 			it = generatedTextures.erase(it);
@@ -247,7 +271,7 @@ void pm::TextureFactory::RemoveTextureGroup(uint textureGroupToRemove)
 
 void pm::TextureFactory::RemoveTexture(std::string path)
 {
-	std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.find(path);
+	std::map<std::string, pm::SavedTextureStruct*>::iterator it = generatedTextures.find(path);
 	if (it != generatedTextures.end())
 	{
 		ResourceManager::GetInstance()->DeleteResource(it->first);
@@ -259,10 +283,10 @@ void pm::TextureFactory::RecreateOGLTextures()
 {
 	if (!generatedTextures.empty())
 	{
-		std::map<std::string, pm::SavedTextureStruct>::iterator it;
+		std::map<std::string, pm::SavedTextureStruct*>::iterator it;
 		for (it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 		{
-			ReCreateOGLTexture(it->first, &it->second);
+			ReCreateOGLTexture(it->first, it->second);
 		}
 	}
 }
@@ -294,9 +318,9 @@ void pm::TextureFactory::DestroyOGLTextures()
 pm::TextureFactory::~TextureFactory()
 {
 	DEBUG_GL_ERROR_CLEAR();
-	for (std::map<std::string, pm::SavedTextureStruct>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
+	for (std::map<std::string, pm::SavedTextureStruct*>::iterator it = generatedTextures.begin(); it != generatedTextures.end(); it++)
 	{
-		GLuint reference = it->second.textureIndex;
+		GLuint reference = it->second->textureIndex;
 		glDeleteTextures(1, &reference);
 		DEBUG_GL_ERROR();
 		//delete it->second;

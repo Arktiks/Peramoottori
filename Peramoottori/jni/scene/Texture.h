@@ -58,8 +58,8 @@ namespace pm
 		*
 		* \return 0 if ID has not been assigned.
 		*/
-		GLuint* GetId();
-
+		GLuint GetId();
+		GLuint* GetIdHandle(){ return textureIndex; }
 		/** \brief Return size of texture.
 		*
 		* This is the size of the openGL texture in memory.
