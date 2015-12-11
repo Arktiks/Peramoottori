@@ -93,6 +93,9 @@ namespace pm
 		void AddStaticGameEntity(GameEntity* gameEntity);
 		///@}
 
+
+		static void CreateTextShader();
+
 	private:
 
 		SpriteBatch(); ///< Neccessary for singleton.
@@ -100,8 +103,6 @@ namespace pm
 		~SpriteBatch() {}; ///< Can't be deleted without calling DestroyInstance.
 
 		bool IsDrawable(GameEntity* gameEntity); ///< Check if GameEntity is drawable.
-		
-		static void CreateTextShader();
 
 		void CreateLayers(); // Sorts gameEntityVectors on different layers.
 		
