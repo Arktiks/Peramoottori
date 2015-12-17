@@ -23,7 +23,6 @@ SpriteBatch* SpriteBatch::GetInstance()
 	if (instance == nullptr)
 	{
 		instance = NEW SpriteBatch();
-		CreateTextShader();
 	}
 	return instance;
 }
@@ -37,6 +36,8 @@ void SpriteBatch::DestroyInstance()
 void SpriteBatch::CreateTextShader()
 {
 	DEBUG_GL_ERROR_CLEAR();
+
+	GetInstance()->textShader = Shader();
 
 	bool tempCheck = GetInstance()->textShader.AddShader("DEF_VERTEX_SHADER.txt", GL_VERTEX_SHADER); // Create default vertex shader.
 	DEBUG_GL_ERROR();
@@ -98,10 +99,7 @@ void SpriteBatch::Draw()
 		glDisable(GL_BLEND);
 		glDepthMask(GL_TRUE);
 
-		for (unsigned int j = 0; j < textLayerBatchVector[i].size(); j++)
-		{
-			RenderSystem::GetInstance()->Draw(&textLayerBatchVector[i].at(j), &textShader);
-		}
+
 
 		for (unsigned int j = 0; j < opaqueLayerBatchVector[i].size(); j++)
 		{
@@ -117,6 +115,10 @@ void SpriteBatch::Draw()
 			RenderSystem::GetInstance()->Draw(&translucentLayerBatchVector[i].at(j));
 		}
 
+		for (unsigned int j = 0; j < textLayerBatchVector[i].size(); j++)
+		{
+			RenderSystem::GetInstance()->Draw(&textLayerBatchVector[i].at(j), &textShader);
+		}
 		// Clear gameEntities from current layer.
 		opaqueLayerBatchVector[i].clear();
 		translucentLayerBatchVector[i].clear();

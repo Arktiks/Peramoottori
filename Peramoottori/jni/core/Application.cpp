@@ -67,8 +67,11 @@ void Application::Initialize(android_app* application)
 	DEBUG_INFO(("Starting RenderSystem initialization."));
 	RenderSystem::GetInstance()->Initialize();
 	DEBUG_INFO(("RenderSystem done."));
-	DEBUG_INFO(("Application has been initialized."));
+	
+	SpriteBatch::GetInstance()->CreateTextShader();
+	DEBUG_INFO(("SpriteBatch done."));
 
+	DEBUG_INFO(("Application has been initialized."));
 
 	window.SetClearColor(0, 1, 0);
 
@@ -76,7 +79,6 @@ void Application::Initialize(android_app* application)
 
 bool Application::Update()
 {
-	window.SwapBuffers();
 	int tempIdent = 0; // See what looper is calling.
 	android_poll_source* tempEventSource = nullptr; // Contains reference to executable command.
 
@@ -91,6 +93,7 @@ bool Application::Update()
 			return false;
 	}
 
+	window.SwapBuffers();
 	return true;
 }
 

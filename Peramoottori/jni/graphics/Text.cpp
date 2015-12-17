@@ -166,13 +166,10 @@ void Text::Character(FontResource* font, char c, float x, float y, float w, floa
 
 	GE->AddComponent(NEW Drawable());
 	GE->GetComponent<Drawable>()->SetDrawState(true);
-
+	//GE->GetComponent<Texture>()->SetTranslucency(Texture::TRANSLUCENT);
 	GE->AddComponent(textTexture);
 
 	GE->AddComponent(NEW Color(glm::vec4(1,0,0,1)));
-
-	glActiveTexture(0u);
-	glBindTexture(GL_TEXTURE_2D, 0u);
 
 	textVector.push_back(GE);
 }
