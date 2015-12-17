@@ -18,6 +18,17 @@ GameEntityFactory::~GameEntityFactory()
 {
 }
 
+pm::GameEntity* GameEntityFactory::CreateWaves(glm::vec2 position, int depth, int id)
+{
+	pm::GameEntity* gameEntity = NEW pm::GameEntity();
+	gameEntity->AddComponent(NEW pm::Name("Wave"));
+
+	AddSpriteComponents(gameEntity, "waves.png", position, glm::vec2(1, 1), 0, depth, glm::vec2(1280, 300), glm::vec4(1, 1, 1, 1));
+	gameEntity->AddComponent(NEW pm::TextureCoordinates(0,id*77, 600, (1+id)*77));
+	scene->physicsManager.AddPhysics(gameEntity);
+
+}
+
 pm::GameEntity* GameEntityFactory::CreateHero(glm::vec2 position, int depth, glm::vec2 size, glm::vec2 force, float animationFrameTime)
 {
 	pm::GameEntity* heroGameEntity = NEW pm::GameEntity();

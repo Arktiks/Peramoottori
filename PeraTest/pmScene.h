@@ -38,18 +38,18 @@ public:
 	pmScene();
 	~pmScene();
 
-	void Update();
+	virtual void Update();
 	void AddAnimationGameEntity(pm::GameEntity* gameEntity);
 	void RemoveDrawableGameEntity(pm::GameEntity* gameEntity);
 	void MoveCamera(glm::vec2 position);
 	PhysicsManager physicsManager;
 private:
-	void InitializeResources();
-	void InitializeGameEntities();
+	virtual void InitializeResources();
+	virtual void InitializeGameEntities();
 
 	void UpdateAnimation(pm::GameEntity* gameEntity);
 	void UpdateScaleRotation(pm::GameEntity* gameEntity);
-	void UpdateGameEntities(float time);
+	virtual void UpdateGameEntities(float time);
 
 	void ButtonPress(pm::GameEntity* gameEntity);
 	

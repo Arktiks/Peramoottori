@@ -10,6 +10,7 @@ class GameEntityFactory
 public:
 	GameEntityFactory(pmScene* scene);
 	~GameEntityFactory();
+	pm::GameEntity* CreateWaves(glm::vec2 position, int depth, int id);
 	pm::GameEntity* CreateHero(glm::vec2 position, int depth, glm::vec2 size,
 		glm::vec2 force, float animationFrameTime);
 	pm::GameEntity* CreateRospot(glm::vec2 position, int depth, glm::vec2 size,

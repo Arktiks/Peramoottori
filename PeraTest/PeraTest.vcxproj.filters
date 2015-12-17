@@ -78,6 +78,7 @@
     <ClCompile Include="Box.cpp">
       <Filter>jni</Filter>
     </ClCompile>
+    <ClCompile Include="IceScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\android_native_app_glue.h">
@@ -125,6 +126,7 @@
     <ClInclude Include="Box.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="IceScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\DEF_FRAGMENT_SHADER.txt">
