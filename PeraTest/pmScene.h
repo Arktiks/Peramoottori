@@ -15,6 +15,8 @@
 #include "Physics.h"
 #include "UpdateRate.h"
 #include "Animation.h"
+#include "GameEntityFactory.h"
+
 
 #include "PhysicsManager.h"
 #include <resources\ResourceManager.h>
@@ -29,12 +31,11 @@ enum TRANSLUCENCY
 	OPAQUE
 };
 
-
-class GameEntityFactory;
 class pmScene : public pm::Scene
 {
 	
 public:
+	
 	pmScene();
 	~pmScene();
 
@@ -43,7 +44,7 @@ public:
 	void RemoveDrawableGameEntity(pm::GameEntity* gameEntity);
 	void MoveCamera(glm::vec2 position);
 	PhysicsManager physicsManager;
-private:
+protected:
 	virtual void InitializeResources();
 	virtual void InitializeGameEntities();
 

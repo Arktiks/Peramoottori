@@ -8,9 +8,9 @@
 #include "Physics.h"
 #include "UpdateRate.h"
 #include "Animation.h"
-GameEntityFactory::GameEntityFactory(pmScene* scene)
+GameEntityFactory::GameEntityFactory(int sceneId)
 {
-	this->scene = scene;
+
 }
 
 
@@ -25,7 +25,6 @@ pm::GameEntity* GameEntityFactory::CreateWaves(glm::vec2 position, int depth, in
 
 	AddSpriteComponents(gameEntity, "waves.png", position, glm::vec2(1, 1), 0, depth, glm::vec2(1280, 300), glm::vec4(1, 1, 1, 1));
 	gameEntity->AddComponent(NEW pm::TextureCoordinates(0,id*77, 600, (1+id)*77));
-	scene->physicsManager.AddPhysics(gameEntity);
 
 }
 
@@ -38,12 +37,6 @@ pm::GameEntity* GameEntityFactory::CreateHero(glm::vec2 position, int depth, glm
 	AddAnimationComponents(heroGameEntity, glm::vec4(0, 0, 140, 230), animationFrameTime, glm::vec2(140, 230),
 		glm::vec2(7, 2), 14, 0);
 
-
-	// Add default physics to GameEntity.
-	scene->physicsManager.AddPhysics(heroGameEntity);
-	// Add gameEntity on pmScene's animGEVector, and in drawVector, Translucent because we know hero.png is translucent image.
-	scene->AddAnimationGameEntity(heroGameEntity);
-
 	return heroGameEntity;
 }
 
@@ -55,9 +48,6 @@ pm::GameEntity* GameEntityFactory::CreateRospot(glm::vec2 position, int depth, g
 	
 	AddSpriteComponents(rospotGameEntity, "space/rospot.png", position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 1, 1, 1));
 
-	// Add physics to GameEntity.
-	scene->physicsManager.AddPhysics(rospotGameEntity);
-	scene->AddGameEntity(rospotGameEntity);
 	return rospotGameEntity;
 }
 
@@ -69,9 +59,6 @@ pm::GameEntity* GameEntityFactory::CreateMovingOpaque(std::string filename, glm:
 
 	AddSpriteComponents(opaqueGameEntity, filename, position, glm::vec2(1, 1), 0, depth, size, glm::vec4(1, 1, 1, 1));
 
-	scene->physicsManager.AddPhysics(opaqueGameEntity);
-
-	scene->AddGameEntity(opaqueGameEntity);
 	return opaqueGameEntity;
 }
 
@@ -84,13 +71,16 @@ pm::GameEntity* GameEntityFactory::CreateButton(glm::vec2 position, int depth, g
 
 	AddInputComponents(buttonGameEntity);
 
-	scene->AddGameEntity(buttonGameEntity);
+
 	return buttonGameEntity;
 }
 void GameEntityFactory::AddSpriteComponents(pm::GameEntity* gameEntity, std::string textureFilePath, glm::vec2 position, glm::vec2 scale, 
 	float rotation, int depth, glm::vec2 size, glm::vec4 color)
 {
-	gameEntity->AddComponent(scene->GetTexture(textureFilePath));
+	pm::Texture* texture = NEW pm::Texture(textureFilePath);
+	pm::SceneManager::GetInstance()->AddTexture(texture, sceneId);
+	gameEntity->AddComponent(texture);
+
 	gameEntity->AddComponent(NEW pm::Transformable(position, scale, rotation));
 	gameEntity->GetComponent<pm::Transformable>()->SetDepth(depth);
 	gameEntity->AddComponent(NEW pm::Rectangle(size));

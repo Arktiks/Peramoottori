@@ -69,7 +69,15 @@ void PhysicsManager::UpdatePhysics(Physics* physics)
 		SetPosition(physics);
 		KeepInsideScreen(physics);
 	}
+	else if (physics->GetParent()->GetComponent<pm::Name>()->GetName() == "Wave")
+	{
+		UpdateWave(physics);
+	}
 }
+void PhysicsManager::UpdateWave(Physics* physics)
+{
+	pm::Transformable* transformable = physics->GetParent()->GetComponent<pm::Transformable>();
+}	
 
 void PhysicsManager::AddForceToHeroes(glm::vec2 force)
 {

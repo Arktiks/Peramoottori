@@ -2,7 +2,7 @@
 #include <audio\Audio.h>
 #include <core\Time.h>
 #include <core\Vector2.h>
-#include "GameEntityFactory.h"
+
 pmScene::pmScene()
 {
 	pm::Application* app = pm::Application::GetInstance();
@@ -14,7 +14,7 @@ pmScene::pmScene()
 	limits.y = asd.y;
 
 	physicsManager = PhysicsManager(limits, 0.01);
-	gameEntityFactory = NEW GameEntityFactory(this);
+	gameEntityFactory = NEW GameEntityFactory(GetSceneNumber());
 
 	InitializeResources();
 	InitializeGameEntities();
